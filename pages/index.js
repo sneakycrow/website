@@ -22,6 +22,10 @@ const StyledHero = styled.div`
     text-align: center;
     font-weight: 400;
   }
+`;
+
+const StyledPostWrapper = styled.div`
+  grid-column: 2 / span 5;
 `
 
 const Home = () => {
@@ -45,7 +49,9 @@ const Home = () => {
         <StyledHero>
           <h1>Hi, I'm <s>Zachary Sohovich</s>, a.k.a <b onClick={handleSetAKA}>{akaList[activeAKAIndex]}</b></h1>
         </StyledHero>
-        <PostList />
+        <StyledPostWrapper>
+          <PostList />
+        </StyledPostWrapper>
       </StyledWrapper>
     </Fragment>
   );

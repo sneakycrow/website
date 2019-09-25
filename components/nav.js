@@ -3,6 +3,9 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 const StyledNav = styled.nav`
+  position: fixed;
+  top: 0;
+  background-color: ${props => props.theme.palette.white};
   width: 100%;
   display: grid;
   grid-template-columns: ${props => props.theme.layout.desktop.gridTemplateColumns};
@@ -19,6 +22,7 @@ const StyledNav = styled.nav`
 
 const StyledNavLink = styled.li`
   padding: 8px 16px;
+  display: block;
   a {
     text-transform: uppercase;
     font-size: 0.8em;

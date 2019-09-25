@@ -1,7 +1,8 @@
 const palette = {
   light: {
     black: '#000000',
-    white: '#FFFFFF'
+    white: '#FFFFFF',
+    lightGray: '#E3E3E3'
   },
   dark: {
     white: '#000000',
