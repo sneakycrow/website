@@ -3,6 +3,7 @@ import Head from 'next/head';
 import styled from 'styled-components';
 
 import Nav from '../components/nav';
+import PostList from '../components/postList';
 
 const StyledWrapper = styled.div`
   display: grid;
@@ -44,6 +45,7 @@ const Home = () => {
         <StyledHero>
           <h1>Hi, I'm <s>Zachary Sohovich</s>, a.k.a <b onClick={handleSetAKA}>{akaList[activeAKAIndex]}</b></h1>
         </StyledHero>
+        <PostList />
       </StyledWrapper>
     </Fragment>
   );
