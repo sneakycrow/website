@@ -1,87 +1,52 @@
-import React from 'react'
-import Head from 'next/head'
-import Nav from '../components/nav'
+import React, { Fragment, useState } from 'react';
+import Head from 'next/head';
+import styled from 'styled-components';
 
-const Home = () => (
-  <div>
-    <Head>
-      <title>Home</title>
-    </Head>
+import Nav from '../components/nav';
 
-    <Nav />
+const StyledWrapper = styled.div`
+  display: grid;
+  grid-template-columns: ${props => props.theme.layout.desktop.gridTemplateColumns};
+  column-gap: ${props => props.theme.layout.desktop.gridColumnGap};
+`;
 
-    <div className='hero'>
-      <h1 className='title'>Welcome to Next.js!</h1>
-      <p className='description'>
-        To get started, edit <code>pages/index.js</code> and save to reload.
-      </p>
+const StyledHero = styled.div`
+  grid-column: 2 / span 10;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  h1 {
+    font-size: 6em;
+    text-align: center;
+    font-weight: 400;
+  }
+`
 
-      <div className='row'>
-        <a href='https://nextjs.org/docs' className='card'>
-          <h3>Documentation &rarr;</h3>
-          <p>Learn more about Next.js in the documentation.</p>
-        </a>
-        <a href='https://nextjs.org/learn' className='card'>
-          <h3>Next.js Learn &rarr;</h3>
-          <p>Learn about Next.js by following an interactive tutorial!</p>
-        </a>
-        <a
-          href='https://github.com/zeit/next.js/tree/master/examples'
-          className='card'
-        >
-          <h3>Examples &rarr;</h3>
-          <p>Find other example boilerplates on the Next.js GitHub.</p>
-        </a>
-      </div>
-    </div>
+const Home = () => {
+  const [activeAKAIndex, setActiveAKAIndex] = useState(0);
+  const akaList = ['Sneaky Crow', 'Boophis']
+  const handleSetAKA = () => {
+    if (akaList[activeAKAIndex + 1] === undefined) {
+      return setActiveAKAIndex(0);
+    }
+    return setActiveAKAIndex(activeAKAIndex + 1);
+  }
+  return (
+    <Fragment>
+      <Head>
+        <title>Sneaky Crow</title>
+      </Head>
+  
+      <Nav />
+  
+      <StyledWrapper>
+        <StyledHero>
+          <h1>Hi, I'm <s>Zachary Sohovich</s>, a.k.a <b onClick={handleSetAKA}>{akaList[activeAKAIndex]}</b></h1>
+        </StyledHero>
+      </StyledWrapper>
+    </Fragment>
+  );
+}
 
-    <style jsx>{`
-      .hero {
-        width: 100%;
-        color: #333;
-      }
-      .title {
-        margin: 0;
-        width: 100%;
-        padding-top: 80px;
-        line-height: 1.15;
-        font-size: 48px;
-      }
-      .title,
-      .description {
-        text-align: center;
-      }
-      .row {
-        max-width: 880px;
-        margin: 80px auto 40px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-      }
-      .card {
-        padding: 18px 18px 24px;
-        width: 220px;
-        text-align: left;
-        text-decoration: none;
-        color: #434343;
-        border: 1px solid #9b9b9b;
-      }
-      .card:hover {
-        border-color: #067df7;
-      }
-      .card h3 {
-        margin: 0;
-        color: #067df7;
-        font-size: 18px;
-      }
-      .card p {
-        margin: 0;
-        padding: 12px 0 0;
-        font-size: 13px;
-        color: #333;
-      }
-    `}</style>
-  </div>
-)
-
-export default Home
+export default Home;
