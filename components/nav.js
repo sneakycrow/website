@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import styled from 'styled-components';
 
 const StyledNavContainer = styled.nav`
@@ -85,7 +86,11 @@ const Nav = () => {
     <StyledNavContainer>
       <StyledNav>
         <StyledBrand>
-          <img src="/static/logo.png" />
+          <Link href="/">
+            <a>
+              <img src="/static/logo.png" />
+            </a>
+          </Link>
         </StyledBrand>
         <ul>
           {links.map(({ key, href, label }) => (
