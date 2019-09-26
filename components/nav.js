@@ -1,22 +1,33 @@
 import React from 'react';
-import Link from 'next/link';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-const StyledNav = styled.nav`
+const StyledNavContainer = styled.nav`
   position: fixed;
+  z-index: 999;
   top: 0;
   background-color: ${props => props.theme.palette.white};
   width: 100%;
-  display: grid;
-  grid-template-columns: ${props => props.theme.layout.desktop.gridTemplateColumns};
-  column-gap: ${props => props.theme.layout.desktop.gridColumnGap};
+  max-height: 100px;
+  display: flex;
+  justify-content: center;
+`;
+
+const StyledNav = styled.nav`
+  display: flex;
+  width: 100%;
+  max-width: ${props => props.theme.layout.contentMaxWidth};
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
   ul {
-    grid-column: 2 / span 10;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     list-style-type: none;
     justify-content: flex-end;
+    @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
+      grid-column: 1 / span 12;
+    }
   }
 `;
 
@@ -33,33 +44,37 @@ const StyledNavLink = styled.li`
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    transition: color 0.25s ease-in-out;
     &:visited {
       color: ${props => props.theme.palette.black};
+    }
+    &:hover {
+      color: ${props => props.theme.palette.green};
     }
   }
 `;
 
-const StyledCTA = styled(StyledNavLink)`
-  justify-content: center;
+const StyledBrand = styled.div`
+  height: 100%;
+  display: flex;
   align-items: center;
-  padding: 8px 16px;
-  background-color: ${props => props.theme.palette.black};
-  border-radius: 2px;
-  color: ${props => props.theme.palette.white};
-  a {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    color: ${props => props.theme.palette.white};
-    &:visited {
-      color: ${props => props.theme.palette.white};
-    }
+  transition: transform 0.25s ease-in-out;
+  img {
+    max-height: 45px;
+    width: auto;
+    border-radius: 50%;
+  }
+  &:hover {
+    transform: scale(1.1);
   }
 `;
 
 const links = [
+  { href: 'https://write.as/sneakycrow', label: 'Blog' },
   { href: 'https://github.com/sneakycrow', label: 'GitHub' },
-  { href: 'https://dribbble.com/sneakycrow', label: 'Dribbble' }
+  { href: 'https://dribbble.com/sneakycrow', label: 'Dribbble' },
+  { href: 'https://mastodon.technology/@sneakycrow', label: 'Mastodon' },
+  { href: 'https://twitter.com/sneakycr0w', label: 'Twitter' }
 ].map(link => {
   link.key = `nav-link-${link.href}-${link.label}`;
   return link;
@@ -67,30 +82,20 @@ const links = [
 
 const Nav = () => {
   return (
-    <StyledNav>
-      <ul>
-        <StyledNavLink>
-          <Link href="/">
-            <a>Home</a>
-          </Link>
-        </StyledNavLink>
-        <StyledNavLink>
-          <Link href="/blog">
-            <a>Blog</a>
-          </Link>
-        </StyledNavLink>
-        {links.map(({ key, href, label }) => (
-          <StyledNavLink key={key}>
-            <a href={href}>{label}</a>
-          </StyledNavLink>
-        ))}
-        <StyledCTA>
-          <Link href="/contact">
-            <a>Contact</a>
-          </Link>
-        </StyledCTA>
-      </ul>
-    </StyledNav>
+    <StyledNavContainer>
+      <StyledNav>
+        <StyledBrand>
+          <img src="/static/logo.png" />
+        </StyledBrand>
+        <ul>
+          {links.map(({ key, href, label }) => (
+            <StyledNavLink key={key}>
+              <a href={href}>{label}</a>
+            </StyledNavLink>
+          ))}
+        </ul>
+      </StyledNav>
+    </StyledNavContainer>
   );
 };
 

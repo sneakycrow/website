@@ -2,7 +2,8 @@ const palette = {
   light: {
     black: '#000000',
     white: '#FFFFFF',
-    lightGray: '#E3E3E3'
+    lightGray: '#E3E3E3',
+    green: '#28B155'
   },
   dark: {
     white: '#000000',
@@ -16,10 +17,10 @@ const typography = {
 };
 
 const layout = {
-  desktop: {
-    gridTemplateColumns: 'repeat(12, 1fr)',
-    gridColumnGap: '24px'
-  }
+  gridTemplateColumns: 'repeat(12, 1fr)',
+  gridColumnGap: '24px',
+  mobileMaxWidth: '780px',
+  contentMaxWidth: '1200px'
 };
 
 const baseTheme = {
