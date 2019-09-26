@@ -45,6 +45,9 @@ const StyledList = styled.ul`
     }
     span {
       font-size: 1em;
+      @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
+        font-size: 0.8em;
+      }
     }
     a {
       display: block;
@@ -53,6 +56,9 @@ const StyledList = styled.ul`
       color: ${props => props.theme.palette.black};
       text-decoration: none;
       font-size: 2em;
+      @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
+        font-size: 2em;
+      }
     }
   }
 `;

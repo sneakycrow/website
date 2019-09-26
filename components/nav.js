@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 
+import Hamburger from './hamburger';
+
 const StyledNavContainer = styled.nav`
   position: fixed;
-  z-index: 999;
+  z-index: 9;
   top: 0;
   background-color: ${props => props.theme.palette.white};
   width: 100%;
   max-height: 100px;
   display: flex;
   justify-content: center;
+  @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
+    background-color: rgba(0, 0, 0, 0.01);
+    pointer-events: none;
+  }
 `;
 
 const StyledNav = styled.nav`
@@ -26,8 +32,27 @@ const StyledNav = styled.nav`
     flex-wrap: nowrap;
     list-style-type: none;
     justify-content: flex-end;
-    @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
-      grid-column: 1 / span 12;
+    transition: transform 0.25s ease-in-out;
+  }
+  span {
+    position: relative;
+    z-index: 10;
+  }
+  @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
+    overflow: hidden;
+    ul {
+      position: absolute;
+      z-index: 8;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: ${props => props.theme.palette.white};
+      ${props => (props.isOpen ? 'transform: translateX(0)' : 'transform: translateX(-100vw)')};
     }
   }
 `;
@@ -52,6 +77,10 @@ const StyledNavLink = styled.li`
     &:hover {
       color: ${props => props.theme.palette.green};
     }
+    @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
+      font-size: 1.6em;
+      padding: 16px;
+    }
   }
 `;
 
@@ -68,6 +97,9 @@ const StyledBrand = styled.div`
   &:hover {
     transform: scale(1.1);
   }
+  @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
+    opacity: 0;
+  }
 `;
 
 const links = [
@@ -82,9 +114,10 @@ const links = [
 });
 
 const Nav = () => {
+  const [isNavOpen, setNavOpen] = useState(false);
   return (
     <StyledNavContainer>
-      <StyledNav>
+      <StyledNav isOpen={isNavOpen}>
         <StyledBrand>
           <Link href="/">
             <a>
@@ -99,6 +132,9 @@ const Nav = () => {
             </StyledNavLink>
           ))}
         </ul>
+        <span onClick={() => setNavOpen(!isNavOpen)}>
+          <Hamburger />
+        </span>
       </StyledNav>
     </StyledNavContainer>
   );

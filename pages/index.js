@@ -21,8 +21,6 @@ const StyledHero = styled.header`
   }
   @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
     padding: 16px;
-    height: calc(100vh - 100px);
-    margin-top: 100px;
   }
 `;
 
