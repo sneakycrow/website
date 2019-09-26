@@ -14,8 +14,9 @@ const StyledNavContainer = styled.nav`
   display: flex;
   justify-content: center;
   @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
+    display: block;
     background-color: rgba(0, 0, 0, 0.01);
-    pointer-events: none;
+    pointer-events: ${props => props.isOpen ? 'all' : 'none'};
   }
 `;
 
@@ -35,8 +36,12 @@ const StyledNav = styled.nav`
     transition: transform 0.25s ease-in-out;
   }
   span {
+    display: none;
     position: relative;
     z-index: 10;
+    @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
+      display: block;
+    }
   }
   @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
     overflow: hidden;
@@ -116,7 +121,7 @@ const links = [
 const Nav = () => {
   const [isNavOpen, setNavOpen] = useState(false);
   return (
-    <StyledNavContainer>
+    <StyledNavContainer isOpen={isNavOpen}>
       <StyledNav isOpen={isNavOpen}>
         <StyledBrand>
           <Link href="/">
