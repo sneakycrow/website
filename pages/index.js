@@ -20,7 +20,7 @@ const StyledHero = styled.header`
     margin: 0;
   }
   @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
-    padding: 8px;
+    padding: 16px;
     height: calc(100vh - 100px);
     margin-top: 100px;
   }
@@ -31,12 +31,18 @@ const StyledSection = styled.section`
   margin: auto;
   margin-bottom: 64px;
   min-height: 60vh;
+  @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
+    padding: 16px;
+  }
 `;
 
 const StyledFooter = styled.footer`
   margin-top: 25vh;
   border-top: 1px solid ${props => props.theme.palette.lightGray};
   padding: 24px;
+  @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
+    padding: 16px;
+  }
   > * {
     max-width: ${props => props.theme.layout.contentMaxWidth};
     margin: auto;
