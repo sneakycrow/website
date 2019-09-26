@@ -102,7 +102,7 @@ const Home = () => {
             textVariants={[
               'Senior Developer',
               'Dungeon Master',
-              'Guitar Beginner',
+              'Guitar Player',
               'Gamer',
               'Hiker',
               'Illustrator'
