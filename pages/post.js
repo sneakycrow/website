@@ -1,18 +1,37 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactMarkdown from 'react-markdown';
+import styled from 'styled-components';
+import fetch from 'isomorphic-unfetch';
+
+import Nav from '../components/nav';
+import CodeBlock from '../components/codeBlock';
+
+const StyledPost = styled.div`
+  width: ${props => props.theme.layout.contentMaxWidth};
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+`
 
 const Post = ({ post }) => {
-  console.log(post);
   return (
-    <ReactMarkdown source={post.body} />
+    <Fragment>
+      <Nav />
+      <StyledPost>
+        <h1>{post.title}</h1>
+        <ReactMarkdown
+          source={post.body}
+          renders={{ code: CodeBlock }}
+        />
+      </StyledPost>
+    </Fragment>
   )
 }
 
 Post.getInitialProps = async ({ query }) => {
   const res = await fetch(`https://write.as/api/collections/sneakycrow/posts/${query.slug}`);
   const data = await res.json();
-
-  console.log(`Show data fetched. Count: ${data.length}`);
 
   return {
     post: data.data
