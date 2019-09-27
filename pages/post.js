@@ -22,7 +22,7 @@ const Post = ({ post }) => {
         <h1>{post.title}</h1>
         <ReactMarkdown
           source={post.body}
-          renders={{ code: CodeBlock }}
+          renderers={{ code: CodeBlock }}
         />
       </StyledPost>
     </Fragment>

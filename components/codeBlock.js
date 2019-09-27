@@ -1,14 +1,13 @@
 import React, { Fragment } from 'react';
-import Prism from 'prismjs';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { dracula } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 const CodeBlock = props => {
-  const html = Prism.highlight(props.literal, Prism.languages[props.language]);
-  const cls = 'language-' + props.language;
-
+  console.log(props);
   return (
-    <pre className={cls}>
-      <code dangerouslySetInnerHTML={{ __html: html }} className={cls} />
-    </pre>
+    <SyntaxHighlighter language={props.language}>
+      {props.value}
+    </SyntaxHighlighter>
   );
 };
 
