@@ -118,7 +118,7 @@ const Home = () => {
         <h2>Thoughts</h2>
         <LinkedList
           list={posts.slice(0, 10).map(post => ({
-            url: `https://write.as/sneakycrow/${post.slug}`,
+            url: `/post?slug=${post.slug}`,
             label: moment.utc(post.created).format('MMMM DD, YYYY'),
             text: post.title
           }))}
