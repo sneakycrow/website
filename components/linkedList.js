@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Link from 'next/link';
 
 const StyledList = styled.ul`
   width: 100%;
@@ -69,7 +70,9 @@ const LinkedList = ({ list = [] }) => {
       {list.map((listItem, index) => (
         <li key={index}>
           <span>{listItem.label}</span>
-          <a href={listItem.url}>{listItem.text}</a>
+          <Link href={listItem.url}>
+            <a>{listItem.text}</a>
+          </Link>
         </li>
       ))}
     </StyledList>
