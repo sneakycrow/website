@@ -1,4 +1,10 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
+
+const StyledText = styled.span`
+  display: flex;
+  width: 100%;
+`
 
 const ChangingText = ({ textVariants }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -10,7 +16,7 @@ const ChangingText = ({ textVariants }) => {
     return setCurrentIndex(0);
   };
 
-  return <span onClick={handleChangeVariant}>{textVariants[currentIndex]}</span>;
+  return <StyledText onClick={handleChangeVariant}>{textVariants[currentIndex]}</StyledText>;
 };
 
 export default ChangingText;
