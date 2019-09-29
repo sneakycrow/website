@@ -14,11 +14,9 @@ const StyledHero = styled.header`
   height: 100vh;
   max-width: ${props => props.theme.layout.contentMaxWidth};
   margin: auto;
+  padding: 16px;
   h1 {
     margin: 0;
-  }
-  @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
-    padding: 16px;
   }
 `;
 
@@ -27,18 +25,14 @@ const StyledSection = styled.section`
   margin: auto;
   margin-bottom: 64px;
   min-height: 60vh;
-  @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
-    padding: 16px;
-  }
+  padding: 16px;
 `;
 
 const StyledFooter = styled.footer`
   margin-top: 25vh;
   border-top: 1px solid ${props => props.theme.palette.lightGray};
   padding: 24px;
-  @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
-    padding: 16px;
-  }
+  padding: 16px;
   > * {
     max-width: ${props => props.theme.layout.contentMaxWidth};
     margin: auto;

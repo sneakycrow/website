@@ -9,6 +9,7 @@ const StyledBlogPostsContainer = styled.section`
   margin: 100px auto 0;
   width: 100%;
   position: relative;
+  padding: 16px;
 `;
 
 const StyledHero = styled.div`
