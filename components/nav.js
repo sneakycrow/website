@@ -45,6 +45,7 @@ const StyledNav = styled.nav`
   }
   @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
     overflow: hidden;
+    justify-content: flex-end;
     ul {
       position: absolute;
       z-index: 8;
@@ -94,6 +95,7 @@ const StyledBrand = styled.div`
   display: flex;
   align-items: center;
   transition: transform 0.25s ease-in-out;
+  padding: 16px;
   img {
     max-height: 45px;
     width: auto;
@@ -103,7 +105,15 @@ const StyledBrand = styled.div`
     transform: scale(1.1);
   }
   @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
-    opacity: 0;
+    position: absolute;
+    left: 0;
+    background-color: ${props => props.theme.palette.white};
+    padding: 4px;
+    width: 50px;
+    height: 50px;
+    border-radius: 2px;
+    pointer-events: all;
+    z-index: 10;
   }
 `;
 
@@ -123,7 +133,7 @@ const Nav = () => {
   return (
     <StyledNavContainer isOpen={isNavOpen}>
       <StyledNav isOpen={isNavOpen}>
-        <StyledBrand>
+        <StyledBrand isOpen={isNavOpen}>
           <Link href="/">
             <a>
               <img src="/static/logo.png" />
