@@ -3,8 +3,11 @@ import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
 import fetch from 'isomorphic-unfetch';
 import Router from 'next/router';
+import dynamic from 'next/dynamic';
 
 import Nav from '../components/nav';
+const Footer = dynamic(() => import('../components/footer'), { ssr: false });
+import Hero from '../components/hero';
 import CodeBlock from '../components/codeBlock';
 
 const StyledPost = styled.div`
@@ -91,6 +94,7 @@ const Post = ({ post }) => {
         <h1>{post.title}</h1>
         <ReactMarkdown source={post.body} renderers={{ code: CodeBlock }} />
       </StyledPost>
+      <Footer />
       <StyledStickyNav>
         <div>
           <StyledBackButton onClick={() => Router.back()} />

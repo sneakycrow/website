@@ -3,6 +3,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 import Hamburger from './hamburger';
+import NavLink from './navLink';
 
 const StyledNavContainer = styled.nav`
   position: fixed;
@@ -63,33 +64,6 @@ const StyledNav = styled.nav`
   }
 `;
 
-const StyledNavLink = styled.li`
-  padding: 8px 16px;
-  display: block;
-  a {
-    text-transform: uppercase;
-    font-size: 0.8em;
-    letter-spacing: -0.5px;
-    font-weight: 600;
-    text-decoration: none;
-    color: ${props => props.theme.palette.black};
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: color 0.25s ease-in-out;
-    &:visited {
-      color: ${props => props.theme.palette.black};
-    }
-    &:hover {
-      color: ${props => props.theme.palette.green};
-    }
-    @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
-      font-size: 1.6em;
-      padding: 16px;
-    }
-  }
-`;
-
 const StyledBrand = styled.div`
   height: 100%;
   display: flex;
@@ -142,9 +116,9 @@ const Nav = () => {
         </StyledBrand>
         <ul>
           {links.map(({ key, href, label }) => (
-            <StyledNavLink key={key}>
-              <a href={href}>{label}</a>
-            </StyledNavLink>
+            <li key={key}>
+              <NavLink href={href} label={label} />
+            </li>
           ))}
         </ul>
         <span onClick={() => setNavOpen(!isNavOpen)}>
