@@ -16,10 +16,9 @@ export default class MyDocument extends Document {
       <html>
         <Head>
           <link
-            href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700|Open+Sans:400,700&display=swap"
+            href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700|Open+Sans:400,700|Space+Mono&display=swap"
             rel="stylesheet"
           />
-
           {this.props.styleTags}
         </Head>
         <body>
