@@ -118,7 +118,7 @@ const StyledBrand = styled.div`
 `;
 
 const links = [
-  { href: 'https://write.as/sneakycrow', label: 'Blog' },
+  { href: '/blog', label: 'Blog' },
   { href: 'https://github.com/sneakycrow', label: 'GitHub' },
   { href: 'https://dribbble.com/sneakycrow', label: 'Dribbble' },
   { href: 'https://mastodon.technology/@sneakycrow', label: 'Mastodon' },

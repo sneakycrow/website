@@ -64,10 +64,10 @@ const StyledList = styled.ul`
   }
 `;
 
-const LinkedList = ({ list = [] }) => {
+const LinkedList = ({ list = [], limit = 5 }) => {
   return (
     <StyledList>
-      {list.map((listItem, index) => (
+      {list.slice(0, limit).map((listItem, index) => (
         <li key={index}>
           <span>{listItem.label}</span>
           <Link href={listItem.url}>
