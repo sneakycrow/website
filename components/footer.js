@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import NavLink from './navLink';
 
 const StyledFooter = styled.footer`
-  margin-top: 25vh;
+  margin-top: 5vh;
   border-top: 1px solid ${props => props.theme.palette.lightGray};
   padding: 24px;
   padding: 16px;
