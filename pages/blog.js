@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
 
 import Nav from '../components/nav';
+const Footer = dynamic(() => import('../components/footer'), { ssr: false });
 import BlogPosts from '../components/blogPosts';
 
 const StyledBlogPostsContainer = styled.section`
@@ -30,6 +32,7 @@ const Blog = () => {
         </StyledHero>
         <BlogPosts limit={10} />
       </StyledBlogPostsContainer>
+      <Footer />
     </Fragment>
   );
 };
