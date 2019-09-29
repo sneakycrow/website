@@ -7,6 +7,7 @@ import fetch from 'isomorphic-unfetch';
 import Nav from '../components/nav';
 import LinkedList from '../components/linkedList';
 import ChangingText from '../components/changingText';
+import Throbber from '../components/throbber';
 
 const StyledHero = styled.header`
   display: flex;
@@ -68,6 +69,7 @@ const StyledFooter = styled.footer`
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     const blogPostsController = new AbortController();
@@ -79,7 +81,9 @@ const Home = () => {
       }
     })
       .then(res => res.json())
-      .then(data => setPosts(data.data.posts));
+      .then(data => setPosts(data.data.posts))
+      .then(() => setLoading(false))
+      .catch(() => setLoading(false));
 
     return () => {
       blogPostsController.abort();
@@ -116,13 +120,17 @@ const Home = () => {
       </StyledHero>
       <StyledSection>
         <h2>Thoughts</h2>
-        <LinkedList
-          list={posts.slice(0, 10).map(post => ({
-            url: `/post?slug=${post.slug}`,
-            label: moment.utc(post.created).format('MMMM DD, YYYY'),
-            text: post.title
-          }))}
-        />
+        {isLoading ? (
+          <Throbber />
+        ) : (
+          <LinkedList
+            list={posts.slice(0, 10).map(post => ({
+              url: `/post?slug=${post.slug}`,
+              label: moment.utc(post.created).format('MMMM DD, YYYY'),
+              text: post.title
+            }))}
+          />
+        )}
       </StyledSection>
       <StyledFooter>
         <ul>
