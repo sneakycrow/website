@@ -1,17 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 import Highlight, { defaultProps } from 'prism-react-renderer'
-import theme from 'prism-react-renderer/themes/nightOwl'
+import theme from 'prism-react-renderer/themes/dracula'
 import Prism from './prism';
 
 const Pre = styled.pre`
   text-align: left;
   margin: 1em 0;
   padding: 0.5em;
-
-  & .token-line {
+  overflow: scroll;
+  &.token-line {
     line-height: 1.3em;
     height: 1.3em;
+  }
+  .token {
+    font-family: 'Space Mono', monospace;
   }
 `
 
@@ -23,7 +26,6 @@ const LineNo = styled.span`
 `
 
 const CodeBlock = props => {
-  console.log(props.language);
   return (
     <Highlight {...defaultProps} Prism={Prism} theme={theme} code={props.value} language={props.language}>
     {({ className, style, tokens, getLineProps, getTokenProps }) => (
