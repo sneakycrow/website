@@ -30,7 +30,7 @@ const Post = ({ post }) => {
 }
 
 Post.getInitialProps = async ({ query }) => {
-  const res = await fetch(`https://write.as/api/collections/sneakycrow/posts/${query.slug}`);
+  const res = await fetch(`https://cors-anywhere.herokuapp.com/https://write.as/api/collections/sneakycrow/posts/${query.slug}`);
   const data = await res.json();
 
   return {

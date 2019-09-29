@@ -138,7 +138,7 @@ const Home = () => {
             <a href="mailto:zach@sneakycrow.dev">Email</a>
           </li>
           <li>
-            <a href="https://cors-anywhere.herokuapp.com/https://write.as/sneakycrow/resume">Resume</a>
+            <a href="https://write.as/sneakycrow/resume">Resume</a>
           </li>
         </ul>
       </StyledFooter>
