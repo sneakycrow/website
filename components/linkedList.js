@@ -26,6 +26,11 @@ const StyledList = styled.ul`
         background-color: ${props => props.theme.palette.green};
       }
     }
+    &:active {
+      &::before {
+        background-color: ${props => props.theme.palette.black};
+      }
+    }
     &::before {
       content: '';
       display: block;
@@ -48,6 +53,11 @@ const StyledList = styled.ul`
       font-size: 1em;
       @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
         font-size: 0.8em;
+      }
+    }
+    @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
+      &:hover {
+        background-color: ${props => props.theme.palette.lightGray};
       }
     }
     a {
