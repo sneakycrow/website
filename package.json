@@ -11,12 +11,12 @@
     "isomorphic-unfetch": "^3.0.0",
     "moment": "^2.24.0",
     "next": "^9.0.7-canary.7",
+    "prism-react-renderer": "0.2.0",
     "prismjs": "^1.17.1",
     "prop-types": "^15.7.2",
     "react": "16.9.0",
     "react-dom": "16.9.0",
     "react-markdown": "^4.2.2",
-    "react-syntax-highlighter": "^11.0.2",
     "styled-components": "^4.4.0"
   },
   "devDependencies": {
