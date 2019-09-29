@@ -13,9 +13,16 @@ import ChangingText from '../components/changingText';
 const StyledSection = styled.section`
   max-width: ${props => props.theme.layout.contentMaxWidth};
   margin: auto;
-  margin-bottom: 64px;
   min-height: 60vh;
   padding: 16px;
+  &::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: ${props => props.theme.palette.lightGray};
+    margin-bottom: 25vh;
+  }
 `;
 
 const Home = () => {
