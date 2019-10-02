@@ -47,7 +47,6 @@ const TwitchLink = () => {
     })
       .then(res => res.json())
       .then(twitchData => {
-        console.log(twitchData);
         if (twitchData.data.length > 0 && twitchData.data[0].viewer_count !== null) {
           setLive(true);
         }
