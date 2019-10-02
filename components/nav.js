@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import Hamburger from './hamburger';
 import NavLink from './navLink';
+import TwitchLink from './twitchLink';
 
 const StyledNavContainer = styled.nav`
   position: fixed;
@@ -17,7 +18,7 @@ const StyledNavContainer = styled.nav`
   @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
     display: block;
     background-color: rgba(0, 0, 0, 0.01);
-    pointer-events: ${props => props.isOpen ? 'all' : 'none'};
+    pointer-events: ${props => (props.isOpen ? 'all' : 'none')};
   }
 `;
 
@@ -120,6 +121,9 @@ const Nav = () => {
               <NavLink href={href} label={label} />
             </li>
           ))}
+          <li>
+            <TwitchLink />
+          </li>
         </ul>
         <span onClick={() => setNavOpen(!isNavOpen)}>
           <Hamburger />

@@ -4,7 +4,9 @@ const palette = {
     white: '#FFFFFF',
     lightGray: '#E3E3E3',
     lighterGray: '#FAFAFA',
-    green: '#28B155'
+    green: '#28B155',
+    twitch: '#9146FF',
+    red: '#FF0000'
   },
   dark: {
     white: '#000000',

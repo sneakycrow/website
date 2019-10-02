@@ -7,7 +7,6 @@ import dynamic from 'next/dynamic';
 
 import Nav from '../components/nav';
 const Footer = dynamic(() => import('../components/footer'), { ssr: false });
-import Hero from '../components/hero';
 import CodeBlock from '../components/codeBlock';
 
 const StyledPost = styled.div`
