@@ -14,7 +14,8 @@ const StyledSection = styled.section`
   max-width: ${props => props.theme.layout.contentMaxWidth};
   margin: auto;
   min-height: 100vh;
-  padding: 16px;
+  height: 100%;
+  padding: 5vh 16px;
   h2 {
     margin-bottom: 5vh;
   }
@@ -24,10 +25,10 @@ const StyledSection = styled.section`
     width: 100%;
     height: 1px;
     background-color: ${props => props.theme.palette.lightGray};
-    margin-bottom: 25vh;
+    margin-bottom: 15vh;
   }
   &:last-of-type {
-    margin-bottom: 25vh;
+    margin-bottom: 20vh;
   }
 `;
 
@@ -53,6 +54,11 @@ const BrandList = styled.ul`
     & + li {
       margin-left: 5vw;
     }
+  }
+  @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
   }
 `
 
