@@ -38,6 +38,10 @@ const StyledStickyNav = styled.div`
   right: 0;
   pointer-events: none;
   width: 100%;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   div {
     max-width: ${props => props.theme.layout.contentMaxWidth};
     width: 100%;
