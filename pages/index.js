@@ -13,8 +13,11 @@ import ChangingText from '../components/changingText';
 const StyledSection = styled.section`
   max-width: ${props => props.theme.layout.contentMaxWidth};
   margin: auto;
-  height: 100vh;
+  min-height: 100vh;
   padding: 16px;
+  h2 {
+    margin-bottom: 5vh;
+  }
   &::before {
     content: '';
     display: block;
@@ -23,7 +26,35 @@ const StyledSection = styled.section`
     background-color: ${props => props.theme.palette.lightGray};
     margin-bottom: 25vh;
   }
+  &:last-of-type {
+    margin-bottom: 25vh;
+  }
 `;
+
+const BrandList = styled.ul`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  list-style-type: none;
+  li {
+    img {
+      width: 250px;
+      height: auto;
+      max-width: 100%;
+      filter: grayscale(100%);
+      transition: filter 0.25s ease-in-out;
+    }
+    &:hover {
+      img {
+        filter: grayscale(0);
+      }
+    }
+    & + li {
+      margin-left: 5vw;
+    }
+  }
+`
 
 const Home = () => {
   return (
@@ -55,7 +86,21 @@ const Home = () => {
         </h3>
       </Hero>
       <StyledSection>
-        <h3>Thoughts</h3>
+        <h2>Who I've worked with</h2>
+        <BrandList>
+          <li>
+            <img src="/static/spotify.png" alt="Spotify Company Logo" />
+          </li>
+          <li>
+            <img src="/static/google.png" alt="Google Company Logo" />
+          </li>
+          <li>
+            <img src="/static/twitch.png" alt="Twitch Company Logo" />
+          </li>
+        </BrandList>
+      </StyledSection>
+      <StyledSection>
+        <h2>Thoughts</h2>
         <BlogPosts />
       </StyledSection>
       <Footer />
