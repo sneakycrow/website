@@ -13,7 +13,7 @@ import ChangingText from '../components/changingText';
 const StyledSection = styled.section`
   max-width: ${props => props.theme.layout.contentMaxWidth};
   margin: auto;
-  min-height: 60vh;
+  height: 100vh;
   padding: 16px;
   &::before {
     content: '';
