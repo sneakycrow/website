@@ -14,7 +14,7 @@ const StyledBlogPosts = styled.div`
   justify-content: center;
 `
 
-const BlogPosts = ({ limit = 5 }) => {
+const BlogPosts = ({ limit = 10 }) => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
