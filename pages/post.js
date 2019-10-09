@@ -30,6 +30,27 @@ const StyledPost = styled.div`
     font-size: 0.9em;
     font-style: italic;
   }
+  blockquote {
+    color: ${props => props.theme.palette.gray};
+    font-style: italic;
+    position: relative;
+    margin: 0.8em 0;
+    padding: 2em;
+    display: flex;
+    align-items: center;
+    > * {
+      margin: 0;
+    }
+    &::before {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 60%;
+      background-color: ${props => props.theme.palette.gray};
+      position: absolute;
+      left: 0;
+    }
+  }
 `;
 
 const StyledStickyNav = styled.div`
