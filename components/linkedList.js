@@ -57,7 +57,9 @@ const StyledList = styled.ul`
     }
     @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
       &:hover {
-        background-color: ${props => props.theme.palette.lightGray};
+        &:before {
+          background-color: ${props => props.theme.palette.lightGray};
+        }
       }
     }
     a {
