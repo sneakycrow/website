@@ -11,7 +11,7 @@ const StyledTwitchLink = styled.a`
   letter-spacing: -0.5px;
   font-weight: 700;
   text-decoration: none;
-  display: inline-flex;
+  display: ${props => props.isLive ? 'inline-flex' : 'none'};
   align-items: center;
   justify-content: center;
   transition: color 0.25s ease-in-out;
