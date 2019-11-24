@@ -1,13 +1,56 @@
 import React, { Fragment } from 'react';
 import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
-import fetch from 'isomorphic-unfetch';
+import gql from 'graphql-tag';
 import Router from 'next/router';
 import dynamic from 'next/dynamic';
+import { useQuery } from '@apollo/react-hooks';
 
 import Nav from '../components/nav';
 const Footer = dynamic(() => import('../components/footer'), { ssr: false });
 import CodeBlock from '../components/codeBlock';
+import Throbber from '../components/throbber';
+
+const Post = ({ slug }) => {
+  const POST_QUERY = gql`
+    query Posts {
+      sneakycrow_blog(where: { slug: { _eq: "${slug}" } }) {
+        body
+        slug
+        id
+        created
+        title
+      }
+    }
+  `;
+  const { data, loading: isLoading } = useQuery(POST_QUERY);
+
+  return (
+    <Fragment>
+      <Nav />
+      {isLoading ? (
+        <Throbber />
+      ) : (
+        <StyledPost className="markdown-body">
+          <h1>{data.sneakycrow_blog[0].title}</h1>
+          <ReactMarkdown source={data.sneakycrow_blog[0].body} renderers={{ code: CodeBlock }} />
+        </StyledPost>
+      )}
+      <Footer />
+      <StyledStickyNav>
+        <div>
+          <StyledBackButton onClick={() => Router.back()} />
+        </div>
+      </StyledStickyNav>
+    </Fragment>
+  );
+};
+
+Post.getInitialProps = ({ query }) => {
+  return {
+    slug: query.slug
+  };
+};
 
 const StyledPost = styled.div`
   max-width: ${props => props.theme.layout.contentMaxWidth};
@@ -109,40 +152,5 @@ const StyledBackButton = styled.button`
     }
   }
 `;
-
-const Post = ({ post }) => {
-  return (
-    <Fragment>
-      <Nav />
-      <StyledPost className="markdown-body">
-        <h1>{post.title}</h1>
-        <ReactMarkdown source={post.body} renderers={{ code: CodeBlock }} />
-      </StyledPost>
-      <Footer />
-      <StyledStickyNav>
-        <div>
-          <StyledBackButton onClick={() => Router.back()} />
-        </div>
-      </StyledStickyNav>
-    </Fragment>
-  );
-};
-
-Post.getInitialProps = async ({ query }) => {
-  const res = await fetch(
-    `https://cors-anywhere.herokuapp.com/https://write.as/api/collections/sneakycrow/posts/${query.slug}`,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        Origin: 'https://sneakycrow.dev'
-      }
-    }
-  );
-  const data = await res.json();
-
-  return {
-    post: data.data
-  };
-};
 
 export default Post;

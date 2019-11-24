@@ -1,48 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import fetch from 'isomorphic-unfetch';
 import moment from 'moment';
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 
 import Throbber from '../components/throbber';
 import LinkedList from '../components/linkedList';
 
-const StyledBlogPosts = styled.div`
-  width: 100%;
-  min-height: 25vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
-
 const BlogPosts = ({ limit = 10 }) => {
-  const [posts, setPosts] = useState([]);
-  const [isLoading, setLoading] = useState(true);
+  const { data, loading } = useQuery(POSTS_QUERY);
 
-  useEffect(() => {
-    const blogPostsController = new AbortController();
-    fetch('https://cors-anywhere.herokuapp.com/https://write.as/api/collections/sneakycrow/posts', {
-      signal: blogPostsController.signal,
-      headers: {
-        'Content-Type': 'application/json',
-        Origin: 'https://sneakycrow.dev'
-      }
-    })
-      .then(res => res.json())
-      .then(data => setPosts(data.data.posts))
-      .then(() => setLoading(false))
-      .catch(() => setLoading(false));
-
-    return () => {
-      blogPostsController.abort();
-    };
-  }, []);
   return (
     <StyledBlogPosts>
-      {isLoading ? (
+      {loading ? (
         <Throbber />
       ) : (
         <LinkedList
-          list={posts.map(post => ({
+          list={data.sneakycrow_blog.map(post => ({
             url: `/post?slug=${post.slug}`,
             label: moment.utc(post.created).format('MMMM DD, YYYY'),
             text: post.title
@@ -53,5 +27,22 @@ const BlogPosts = ({ limit = 10 }) => {
     </StyledBlogPosts>
   );
 };
+
+const POSTS_QUERY = gql`
+  query Posts {
+    sneakycrow_blog {
+      slug
+      title
+    }
+  }
+`;
+
+const StyledBlogPosts = styled.div`
+  width: 100%;
+  min-height: 25vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 export default BlogPosts;
