@@ -95,8 +95,6 @@ const StyledBrand = styled.div`
 const links = [
   { href: '/blog', label: 'Blog' },
   { href: 'https://github.com/sneakycrow', label: 'GitHub' },
-  { href: 'https://dribbble.com/sneakycrow', label: 'Dribbble' },
-  { href: 'https://mastodon.technology/@sneakycrow', label: 'Mastodon' },
   { href: 'https://twitter.com/sneakycr0w', label: 'Twitter' }
 ].map(link => {
   link.key = `nav-link-${link.href}-${link.label}`;
