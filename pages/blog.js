@@ -1,10 +1,12 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import dynamic from 'next/dynamic';
+import { useQuery } from '@apollo/react-hooks';
 
 import Nav from '../components/nav';
 const Footer = dynamic(() => import('../components/footer'), { ssr: false });
 import BlogPosts from '../components/blogPosts';
+import POSTS_QUERY from './queries/posts.query';
 
 const StyledBlogPostsContainer = styled.section`
   max-width: ${props => props.theme.layout.contentMaxWidth};
@@ -23,6 +25,7 @@ const StyledHero = styled.div`
 `;
 
 const Blog = () => {
+  const { data, loading, error } = useQuery(POSTS_QUERY);
   return (
     <Fragment>
       <Nav />
