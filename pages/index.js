@@ -42,6 +42,9 @@ const BrandList = styled.ul`
     width: calc(25% - 5vw);
     margin-right: 5vw;
     margin-top: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     img {
       width: 250px;
       height: auto;
@@ -56,9 +59,9 @@ const BrandList = styled.ul`
     }
   }
   @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: flex-start;
+    li {
+      width: calc(50% - 5vw);
+    }
   }
 `;
 
