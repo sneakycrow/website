@@ -1,8 +1,10 @@
 import App from 'next/app';
 import React, { Fragment } from 'react';
 import { createGlobalStyle } from 'styled-components';
+import { ApolloProvider } from '@apollo/react-hooks';
 
 import ThemeToggler from '../components/themeToggler';
+import withData from '../utils/apollo-client';
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -78,16 +80,16 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, apollo } = this.props;
     return (
-      <Fragment>
+      <ApolloProvider client={apollo}>
         <ThemeToggler>
           <GlobalStyle />
           <Component {...pageProps} />
         </ThemeToggler>
-      </Fragment>
+      </ApolloProvider>
     );
   }
 }
 
-export default MyApp;
+export default withData(MyApp);
