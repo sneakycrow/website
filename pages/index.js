@@ -35,9 +35,13 @@ const BrandList = styled.ul`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  flex-wrap: wrap;
   align-items: center;
   list-style-type: none;
   li {
+    width: calc(25% - 5vw);
+    margin-right: 5vw;
+    margin-top: 5vh;
     img {
       width: 250px;
       height: auto;
@@ -49,9 +53,6 @@ const BrandList = styled.ul`
       img {
         filter: grayscale(0);
       }
-    }
-    & + li {
-      margin-left: 5vw;
     }
   }
   @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
@@ -110,6 +111,9 @@ const Home = () => {
               src="/static/tezos.svg"
               alt="Tezos Company Logo"
             />
+          </li>
+          <li>
+            <img src="/static/amazon.png" alt="Amazon Company Logo" />
           </li>
         </BrandList>
       </StyledSection>
