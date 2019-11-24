@@ -1,7 +1,7 @@
 require('dotenv').config()
 exports.default = {
   env: {
-    GRAPHQL_API: process.env.graphql_api,
-    GRAPHQL_KEY: process.env.graphql_key
+    graphql_api: process.env.graphql_api,
+    graphql_key: process.env.graphql_key
   }
 }
