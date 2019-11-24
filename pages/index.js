@@ -3,7 +3,6 @@ import Head from 'next/head';
 import styled from 'styled-components';
 import dynamic from 'next/dynamic';
 
-
 import Nav from '../components/nav';
 const Footer = dynamic(() => import('../components/footer'), { ssr: false });
 import Hero from '../components/hero';
@@ -60,7 +59,7 @@ const BrandList = styled.ul`
     justify-content: space-evenly;
     align-items: flex-start;
   }
-`
+`;
 
 const Home = () => {
   return (
@@ -102,6 +101,15 @@ const Home = () => {
           </li>
           <li>
             <img src="/static/twitch.png" alt="Twitch Company Logo" />
+          </li>
+          <li>
+            <img
+              style={{
+                maxWidth: '100px'
+              }}
+              src="/static/tezos.svg"
+              alt="Tezos Company Logo"
+            />
           </li>
         </BrandList>
       </StyledSection>
