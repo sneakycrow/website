@@ -43,7 +43,7 @@ const Footer = () => {
 
   const links = [
     { href: emailLink, label: 'Email' },
-    { href: '/static/resume.pdf', label: 'Resume' }
+    { href: '/static/Resume.pdf', label: 'Resume' }
   ].map(link => {
     link.key = `nav-link-${link.href}-${link.label}`;
     return link;
