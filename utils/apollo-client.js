@@ -7,14 +7,14 @@ import fetch from 'isomorphic-unfetch';
 
 const httpLink = createHttpLink({ 
   fetch, 
-  uri: process.env.graphql_api
+  uri: process.env.react_app_graphql_api
 });
 
 const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      'x-hasura-admin-secret': process.env.graphql_key
+      'x-hasura-admin-secret': process.env.react_app_graphql_key
     }
   };
 });

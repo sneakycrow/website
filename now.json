@@ -1,0 +1,12 @@
+{
+  "env": {
+    "react_app_graphql_key": "@react_app_graphql_key",
+    "react_app_graphql_api": "@react_app_graphql_api"
+  },
+  "build": {
+    "env": {
+      "react_app_graphql_key": "@react_app_graphql_key",
+      "react_app_graphql_api": "@react_app_graphql_api"
+    }
+  }
+}
