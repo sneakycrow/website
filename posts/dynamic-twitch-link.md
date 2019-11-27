@@ -47,9 +47,9 @@ const StyledTwitchLink = styled.a`
 const TwitchLink = () => {
   const [isLive, setLive] = useState(false);
   useEffect(() => {
-    fetch('https://api.twitch.tv/helix/streams?user_login=sneakycr0w', {
+    fetch('https://api.twitch.tv/helix/streams?user_login=TWITCH_USERNAME', {
       headers: {
-        'Client-ID': '0bhs4en3k15l4wjq278c28h0r3d3u2'
+        'Client-ID': 'YOUR CLIENT ID
       }
     })
       .then(res => res.json())
@@ -61,7 +61,7 @@ const TwitchLink = () => {
   }, []);
 
   return (
-    <StyledTwitchLink href="https://twitch.tv/sneakycr0w" isLive={isLive}>
+    <StyledTwitchLink href="https://twitch.tv/TWITCH_USERNAME" isLive={isLive}>
       Twitch
     </StyledTwitchLink>
   );
