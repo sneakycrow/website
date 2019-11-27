@@ -1,12 +1,14 @@
 {
   "env": {
     "react_app_graphql_key": "@react_app_graphql_key",
-    "react_app_graphql_api": "@react_app_graphql_api"
+    "react_app_graphql_api": "@react_app_graphql_api",
+    "react_app_twitch_client_id": "@react_app_twitch_client_id"
   },
   "build": {
     "env": {
       "react_app_graphql_key": "@react_app_graphql_key",
-      "react_app_graphql_api": "@react_app_graphql_api"
+      "react_app_graphql_api": "@react_app_graphql_api",
+      "react_app_twitch_client_id": "@react_app_twitch_client_id"
     }
   }
 }
