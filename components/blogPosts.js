@@ -18,7 +18,7 @@ const BlogPosts = ({ limit = 10 }) => {
         <LinkedList
           list={data.sneakycrow_blog.map(post => ({
             url: `/post?slug=${post.slug}`,
-            label: moment.utc(post.created).format('MMMM DD, YYYY'),
+            label: moment.utc(post.published_on).format('MMMM DD, YYYY'),
             text: post.title
           }))}
           limit={limit}
@@ -33,6 +33,7 @@ const POSTS_QUERY = gql`
     sneakycrow_blog {
       slug
       title
+      published_on
     }
   }
 `;

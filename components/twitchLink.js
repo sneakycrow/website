@@ -42,7 +42,7 @@ const TwitchLink = () => {
   useEffect(() => {
     fetch('https://api.twitch.tv/helix/streams?user_login=sneakycr0w', {
       headers: {
-        'Client-ID': '0bhs4en3k15l4wjq278c28h0r3d3u2'
+        'Client-ID': process.env.react_app_twitch_client_id
       }
     })
       .then(res => res.json())
