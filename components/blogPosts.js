@@ -33,6 +33,7 @@ const POSTS_QUERY = gql`
     sneakycrow_blog {
       slug
       title
+      published_on
     }
   }
 `;
