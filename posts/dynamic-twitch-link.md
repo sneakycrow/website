@@ -69,6 +69,3 @@ const TwitchLink = () => {
 
 export default TwitchLink;
 ```
-
-Note: Yes, I know, I probably shouldn't commit the ClientID. I'm not too worried about it for right now.
-I'll fix it up if it becomes an issue later.
