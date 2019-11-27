@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 import Router from 'next/router';
 import dynamic from 'next/dynamic';
 import { useQuery } from '@apollo/react-hooks';
+import moment from 'moment';
 
 import Nav from '../components/nav';
 const Footer = dynamic(() => import('../components/footer'), { ssr: false });
@@ -18,13 +19,13 @@ const Post = ({ slug }) => {
         body
         slug
         id
-        created
+        published_on
         title
+        updated_on
       }
     }
   `;
   const { data, loading: isLoading } = useQuery(POST_QUERY);
-
   return (
     <Fragment>
       <Nav />
@@ -33,7 +34,15 @@ const Post = ({ slug }) => {
       ) : (
         <StyledPost className="markdown-body">
           <h1>{data.sneakycrow_blog[0].title}</h1>
+          <h5>
+            Posted on <strong>{moment.utc(data.sneakycrow_blog[0].published_on).format('MMMM DD, YYYY')}</strong>
+          </h5>
           <ReactMarkdown source={data.sneakycrow_blog[0].body} renderers={{ code: CodeBlock }} />
+          {data.sneakycrow_blog[0].published_on !== data.sneakycrow_blog[0].updated_on && (
+            <h5 style={{ marginTop: '2em' }}>
+              Updated on <strong>{moment.utc(data.sneakycrow_blog[0].updated_on).format('MMMM DD, YYYY')}</strong>
+            </h5>
+          )}
         </StyledPost>
       )}
       <Footer />
@@ -60,6 +69,13 @@ const StyledPost = styled.div`
   flex-direction: column;
   margin-top: 100px;
   padding: 0 16px;
+  h1 {
+    margin-bottom: 0;
+  }
+  h5 {
+    font-weight: normal;
+    margin-bottom: 2em;
+  }
   p {
     font-size: 1.7em;
     line-height: 1.4em;
