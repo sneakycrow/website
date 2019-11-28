@@ -1,3 +1,10 @@
+# New dynamic Twitch link added to site
+
+I added a new dynamic twitch link to the website. When I'm not live on Twitch, it's just a normal link. When I go live it turns purple and gets a red "recording dot" next to it. 
+
+It's a pretty simple component, I'm super happy about it. Here's the [source](https://github.com/sneakycrow/website/blob/master/components/twitchLink.js): 
+
+```javascript
 import React, { useEffect, useState } from 'react';
 import fetch from 'isomorphic-unfetch';
 import styled from 'styled-components';
@@ -11,7 +18,7 @@ const StyledTwitchLink = styled.a`
   letter-spacing: -0.5px;
   font-weight: 700;
   text-decoration: none;
-  display: ${props => props.isLive ? 'inline-flex' : 'none'};
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   transition: color 0.25s ease-in-out;
@@ -40,9 +47,9 @@ const StyledTwitchLink = styled.a`
 const TwitchLink = () => {
   const [isLive, setLive] = useState(false);
   useEffect(() => {
-    fetch('https://api.twitch.tv/helix/streams?user_login=sneakycr0w', {
+    fetch('https://api.twitch.tv/helix/streams?user_login=TWITCH_USERNAME', {
       headers: {
-        'Client-ID': process.env.react_app_twitch_client_id
+        'Client-ID': 'YOUR CLIENT ID
       }
     })
       .then(res => res.json())
@@ -54,10 +61,11 @@ const TwitchLink = () => {
   }, []);
 
   return (
-    <StyledTwitchLink href="https://twitch.tv/sneakycr0w" isLive={isLive}>
+    <StyledTwitchLink href="https://twitch.tv/TWITCH_USERNAME" isLive={isLive}>
       Twitch
     </StyledTwitchLink>
   );
 };
 
 export default TwitchLink;
+```

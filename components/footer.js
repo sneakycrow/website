@@ -42,6 +42,7 @@ const Footer = () => {
   }
 
   const links = [
+    { href: 'https://tinyletter.com/sneakycrow', label: 'Newsletter' },
     { href: emailLink, label: 'Email' },
     { href: '/static/Resume.pdf', label: 'Resume' }
   ].map(link => {
