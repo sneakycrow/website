@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - License
 - Changelog
 - Posts folder containing all published posts
+- Newsletter link to footer
 
 ### CHANGED
 
