@@ -30,7 +30,7 @@ const BlogPosts = ({ limit = 10 }) => {
 
 const POSTS_QUERY = gql`
   query Posts {
-    sneakycrow_blog {
+    sneakycrow_blog(order_by: {published_on: desc}) {
       slug
       title
       published_on
