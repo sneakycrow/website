@@ -29,7 +29,7 @@ placeholder-example
 
 Next we're going to want to configure the now.json file to serve our serverless function. The primary piece we're going to need is telling now what builder to use. Make your `now.json` file look like this
 
-```
+```json
 {
   "functions": {
     "api/**/*.rs": {
@@ -47,7 +47,7 @@ Next let's move on to configuring the serverless function itself
 
 We're going to want to add our dependencies first. Open `api/Cargo.toml` and add these dependencies to it. 
 
-```
+```toml
 ...
 
 [dependencies]
@@ -80,7 +80,7 @@ placeholder-example
 
 Open `api/placeholder.rs` and add our dependencies to the top of the file
 
-```
+```rust
 use http::{StatusCode};
 use now_lambda::{error::NowError, IntoResponse, Request, Response};
 use image::{DynamicImage};
@@ -94,7 +94,7 @@ Once we have our width and height we can generate a new image, convert it into a
 
 That's going to look like this in your `api/placeholder.rs` file
 
-```
+```rust
 use http::{StatusCode};
 use now_lambda::{error::NowError, IntoResponse, Request, Response};
 use image::{DynamicImage};
@@ -127,7 +127,7 @@ Now we have our function! Yay! The last thing we need to do is configure our `no
 
 So open your `now.json` file and add these lines:
 
-```
+```json
 {
   "functions": {
     "api/**/*.rs": {
