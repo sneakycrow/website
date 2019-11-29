@@ -16,18 +16,20 @@ Next we'll want to create a `now.json` file in the root directory.
 
 Your folder structure should now look like this
 
+```
 placeholder-example
  - now.json
  - api
   - Cargo.toml
   - src
     - main.rs
+```
 
 ## configuring now.sh
 
 Next we're going to want to configure the now.json file to serve our serverless function. The primary piece we're going to need is telling now what builder to use. Make your `now.json` file look like this
 
-```json
+```
 {
   "functions": {
     "api/**/*.rs": {
@@ -45,7 +47,7 @@ Next let's move on to configuring the serverless function itself
 
 We're going to want to add our dependencies first. Open `api/Cargo.toml` and add these dependencies to it. 
 
-```toml
+```
 ...
 
 [dependencies]
@@ -68,15 +70,17 @@ For this part, we're actually going to delete our src folder. We don't really ne
  
 Your folder structure should now look like this
 
+```
 placeholder-example
 - now.json
 - api
   - Cargo.toml
   - placeholder.rs
+```
 
 Open `api/placeholder.rs` and add our dependencies to the top of the file
 
-```rust
+```
 use http::{StatusCode};
 use now_lambda::{error::NowError, IntoResponse, Request, Response};
 use image::{DynamicImage};
@@ -90,7 +94,7 @@ Once we have our width and height we can generate a new image, convert it into a
 
 That's going to look like this in your `api/placeholder.rs` file
 
-```rust
+```
 use http::{StatusCode};
 use now_lambda::{error::NowError, IntoResponse, Request, Response};
 use image::{DynamicImage};
@@ -123,7 +127,7 @@ Now we have our function! Yay! The last thing we need to do is configure our `no
 
 So open your `now.json` file and add these lines:
 
-```json
+```
 {
   "functions": {
     "api/**/*.rs": {
@@ -141,6 +145,3 @@ This just tells now.json that when the user requests http://example.com/[digit]/
 Last but not least, deploy our new serverless function via the now cli by running `now` in your terminal
 
 Once now deploys your serverless function you should have a working placeholder image generator!
-
-
-If you have any optimizations or questions, feel free to email me zach@sneakycrow.dev
