@@ -81,6 +81,18 @@ const StyledPost = styled.div`
     line-height: 1.4em;
     margin-bottom: 0.8em;
   }
+  ul {
+    list-style: unset;
+    padding-left: 1.7em;
+    margin-bottom: 1em;
+  }
+  li {
+    font-size: 1.7em;
+    margin-bottom: 0.5rem;
+  }
+  li::marker {
+    color: ${props => props.theme.palette.green};
+  }
   code {
     background-color: ${props => props.theme.palette.lightGray};
     border-radius: 2px;
