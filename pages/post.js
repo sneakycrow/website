@@ -100,6 +100,7 @@ const StyledPost = styled.div`
     padding-right: 4px;
     font-size: 0.9em;
     font-style: italic;
+    white-space: nowrap;
   }
   blockquote {
     color: ${props => props.theme.palette.gray};
