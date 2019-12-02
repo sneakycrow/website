@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.4.0] - UNRELEASED
 
+### ADDED
+
+- `white-space: nowrap` added to `<code>` tags on posts
+
 ### CHANGED
 
 - "Thoughts" title changed to "Blog" on index page
