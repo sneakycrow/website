@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import Head from 'next/head';
 import styled from 'styled-components';
 import dynamic from 'next/dynamic';
 
@@ -25,6 +26,9 @@ const StyledHero = styled.div`
 const Blog = () => {
   return (
     <Fragment>
+      <Head>
+        <title>blog - Sneaky Crow</title>
+      </Head>
       <Nav />
       <StyledBlogPostsContainer>
         <StyledHero>

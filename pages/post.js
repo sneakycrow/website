@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import Head from 'next/head';
 import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
 import gql from 'graphql-tag';
@@ -30,20 +31,30 @@ const Post = ({ slug }) => {
     <Fragment>
       <Nav />
       {isLoading ? (
-        <Throbber />
+        <Fragment>
+          <Head>
+            <title>Loading Post - Sneaky Crow blog</title>
+          </Head>
+          <Throbber />
+        </Fragment>
       ) : (
-        <StyledPost className="markdown-body">
-          <h1>{data.sneakycrow_blog[0].title}</h1>
-          <h5>
-            Posted on <strong>{moment.utc(data.sneakycrow_blog[0].published_on).format('MMMM DD, YYYY')}</strong>
-          </h5>
-          <ReactMarkdown source={data.sneakycrow_blog[0].body} renderers={{ code: CodeBlock }} />
-          {data.sneakycrow_blog[0].published_on !== data.sneakycrow_blog[0].updated_on && (
-            <h5 style={{ marginTop: '2em' }}>
-              Updated on <strong>{moment.utc(data.sneakycrow_blog[0].updated_on).format('MMMM DD, YYYY')}</strong>
+        <Fragment>
+          <Head>
+            <title>{data.sneakycrow_blog[0].title} - Sneaky Crow blog</title>
+          </Head>
+          <StyledPost className="markdown-body">
+            <h1>{data.sneakycrow_blog[0].title}</h1>
+            <h5>
+              Posted on <strong>{moment.utc(data.sneakycrow_blog[0].published_on).format('MMMM DD, YYYY')}</strong>
             </h5>
-          )}
-        </StyledPost>
+            <ReactMarkdown source={data.sneakycrow_blog[0].body} renderers={{ code: CodeBlock }} />
+            {data.sneakycrow_blog[0].published_on !== data.sneakycrow_blog[0].updated_on && (
+              <h5 style={{ marginTop: '2em' }}>
+                Updated on <strong>{moment.utc(data.sneakycrow_blog[0].updated_on).format('MMMM DD, YYYY')}</strong>
+              </h5>
+            )}
+          </StyledPost>
+        </Fragment>
       )}
       <Footer />
       <StyledStickyNav>
