@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### CHANGED
 
 - "Thoughts" title changed to "Blog" on index page
+- Font size for links in the footer on mobile
 
 ## [1.3.2] - 12/01/2019
 
