@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### ADDED
 
 - `white-space: nowrap` added to `<code>` tags on posts
+- Proper title to Blog page
+- Proper title to Posts pages
 
 ### CHANGED
 
