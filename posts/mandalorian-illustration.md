@@ -6,5 +6,5 @@ I have also been watching some art fundamentals videos, and I'm hoping to incorp
 
 Here's some concepts and the first rough draft I made:
 
-![mandalorian illustration concepts](/static/posts/mandalorian_concept.png)
-![mandalorian illustration rough](/static/mandalorian_rough.png)
+![mandalorian illustration concepts](/posts/mandalorian_concept.png)
+![mandalorian illustration rough](/posts/mandalorian_rough.png)
