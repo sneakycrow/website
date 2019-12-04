@@ -121,7 +121,7 @@ const Home = () => {
         </BrandList>
       </StyledSection>
       <StyledSection>
-        <h2>Thoughts</h2>
+        <h2>Blog</h2>
         <BlogPosts />
       </StyledSection>
       <Footer />
