@@ -7,7 +7,7 @@ const palette = {
     lighterGray: '#FAFAFA',
     green: '#28B155',
     twitch: '#9146FF',
-    red: '#FF0000'
+    red: '#FF0500'
   },
   dark: {
     white: '#000000',
