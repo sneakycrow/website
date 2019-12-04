@@ -1,5 +1,3 @@
-## Website v1.4.0 has been released!
-
 ![](https://media.giphy.com/media/s2qXK8wAvkHTO/giphy.gif)
 
 I released version 1.4.0 of the website today! I wasn't originally plannig to release it until later this week, but yesterday I missed my #30ThingsInDecember (I was watching a Star Wars marathon, I'm sorry), so I thought I could kick off today by releasing some new updates to my site.
