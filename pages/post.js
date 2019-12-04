@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect } from 'react';
 import Head from 'next/head';
 import ReactMarkdown from 'react-markdown';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import gql from 'graphql-tag';
 import Router from 'next/router';
 import dynamic from 'next/dynamic';
-import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import moment from 'moment';
 
 import Nav from '../components/nav';
@@ -25,6 +25,17 @@ const Post = ({ slug }) => {
       }
     ]
   });
+
+  const likePostHandler = () => {
+    if (!likeCalled) {
+      likePost({
+        variables: {
+          postID: data.sneakycrow_blog[0].id,
+          newLikes: data.sneakycrow_blog[0].likes + 1
+        }
+      });
+    }
+  };
   return (
     <Fragment>
       <Nav />
@@ -49,6 +60,7 @@ const Post = ({ slug }) => {
               </strong>
             </h5>
             <ReactMarkdown source={data.sneakycrow_blog[0].body} renderers={{ code: CodeBlock }} />
+            <hr />
             {data.sneakycrow_blog[0].published_on !== data.sneakycrow_blog[0].updated_on && (
               <h5 style={{ marginTop: '2em' }}>
                 Updated on{' '}
@@ -57,21 +69,10 @@ const Post = ({ slug }) => {
                 </strong>
               </h5>
             )}
-            <p>Likes: {data.sneakycrow_blog[0].likes}</p>
-            {!likeCalled && (
-              <button
-                onClick={() =>
-                  likePost({
-                    variables: {
-                      postID: data.sneakycrow_blog[0].id,
-                      newLikes: data.sneakycrow_blog[0].likes + 1
-                    }
-                  })
-                }
-              >
-                Like Post
-              </button>
-            )}
+            <StyledLikes onClick={likePostHandler} isPostLiked={likeCalled}>
+              <img src="/static/heart_svg.svg" />
+              Like
+            </StyledLikes>
           </StyledPost>
         </Fragment>
       )}
@@ -153,6 +154,13 @@ const StyledPost = styled.div`
       left: 0;
     }
   }
+  hr {
+    width: 100%;
+    height: 1px;
+    background-color: ${props => props.theme.palette.lightGray};
+    border: none;
+    margin-bottom: 32px;
+  }
 `;
 
 const StyledStickyNav = styled.div`
@@ -209,6 +217,43 @@ const StyledBackButton = styled.button`
       content: '\\2190';
       line-height: 1.5em;
     }
+  }
+`;
+
+const jumpAnimation = keyframes`
+  50% {
+    transform: scale(2);
+  }
+  75% {
+    transform: scale(0.75);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
+
+const StyledLikes = styled.button`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid
+    ${props => (props.isPostLiked ? props.theme.palette.red : props.theme.palette.lightGray)};
+  font-size: 0.75em;
+  color: ${props => props.theme.palette.black};
+  border-radius: 2px;
+  max-width: 100px;
+  padding: 8px 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  &:hover {
+    cursor: pointer;
+  }
+  img {
+    height: 1em;
+    width: auto;
+    margin-right: 8px;
+    animation: ${props => (props.isPostLiked ? jumpAnimation : 'unset')} 0.25s linear;
   }
 `;
 
