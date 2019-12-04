@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import Head from 'next/head';
 import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
 import gql from 'graphql-tag';
 import Router from 'next/router';
 import dynamic from 'next/dynamic';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
 import moment from 'moment';
 
 import Nav from '../components/nav';
@@ -14,19 +14,17 @@ import CodeBlock from '../components/codeBlock';
 import Throbber from '../components/throbber';
 
 const Post = ({ slug }) => {
-  const POST_QUERY = gql`
-    query Posts {
-      sneakycrow_blog(where: { slug: { _eq: "${slug}" } }) {
-        body
-        slug
-        id
-        published_on
-        title
-        updated_on
+  const { data, loading: isLoading } = useQuery(POST_QUERY, { variables: { slug } });
+  const [likePost, { called: likeCalled }] = useMutation(LIKE_POST_MUTATION, {
+    refetchQueries: [
+      {
+        query: POST_QUERY,
+        variables: {
+          slug
+        }
       }
-    }
-  `;
-  const { data, loading: isLoading } = useQuery(POST_QUERY);
+    ]
+  });
   return (
     <Fragment>
       <Nav />
@@ -45,13 +43,34 @@ const Post = ({ slug }) => {
           <StyledPost className="markdown-body">
             <h1>{data.sneakycrow_blog[0].title}</h1>
             <h5>
-              Posted on <strong>{moment.utc(data.sneakycrow_blog[0].published_on).format('MMMM DD, YYYY')}</strong>
+              Posted on{' '}
+              <strong>
+                {moment.utc(data.sneakycrow_blog[0].published_on).format('MMMM DD, YYYY')}
+              </strong>
             </h5>
             <ReactMarkdown source={data.sneakycrow_blog[0].body} renderers={{ code: CodeBlock }} />
             {data.sneakycrow_blog[0].published_on !== data.sneakycrow_blog[0].updated_on && (
               <h5 style={{ marginTop: '2em' }}>
-                Updated on <strong>{moment.utc(data.sneakycrow_blog[0].updated_on).format('MMMM DD, YYYY')}</strong>
+                Updated on{' '}
+                <strong>
+                  {moment.utc(data.sneakycrow_blog[0].updated_on).format('MMMM DD, YYYY')}
+                </strong>
               </h5>
+            )}
+            <p>Likes: {data.sneakycrow_blog[0].likes}</p>
+            {!likeCalled && (
+              <button
+                onClick={() =>
+                  likePost({
+                    variables: {
+                      postID: data.sneakycrow_blog[0].id,
+                      newLikes: data.sneakycrow_blog[0].likes + 1
+                    }
+                  })
+                }
+              >
+                Like Post
+              </button>
             )}
           </StyledPost>
         </Fragment>
@@ -189,6 +208,30 @@ const StyledBackButton = styled.button`
     &::before {
       content: '\\2190';
       line-height: 1.5em;
+    }
+  }
+`;
+
+const POST_QUERY = gql`
+  query Posts($slug: String!) {
+    sneakycrow_blog(where: { slug: { _eq: $slug } }) {
+      body
+      slug
+      id
+      published_on
+      title
+      updated_on
+      likes
+    }
+  }
+`;
+
+const LIKE_POST_MUTATION = gql`
+  mutation UpdateLikesOnPost($postID: uuid!, $newLikes: Int!) {
+    update_sneakycrow_blog(where: { id: { _eq: $postID } }, _set: { likes: $newLikes }) {
+      returning {
+        likes
+      }
     }
   }
 `;
