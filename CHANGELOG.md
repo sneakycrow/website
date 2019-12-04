@@ -8,7 +8,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### ADDED
 
-- `white-space: nowrap` added to `<code>` tags on posts
 - Proper title to Blog page
 - Proper title to Posts pages
 - Like Button on post single pages
@@ -17,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - "Thoughts" title changed to "Blog" on index page
 - Font size for links in the footer on mobile
+- `white-space: nowrap` added to `<code>` tags on posts
 
 ## [1.3.2] - 12/01/2019
 
