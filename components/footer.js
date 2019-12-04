@@ -33,6 +33,11 @@ const StyledFooter = styled.footer`
       }
     }
   }
+  @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
+    a {
+      font-size: 1.2em !important;
+    }
+  }
 `;
 
 const Footer = () => {
