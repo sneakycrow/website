@@ -2,13 +2,15 @@
   "env": {
     "react_app_graphql_key": "@react_app_graphql_key",
     "react_app_graphql_api": "@react_app_graphql_api",
-    "react_app_twitch_client_id": "@react_app_twitch_client_id"
+    "react_app_twitch_client_id": "@react_app_twitch_client_id",
+    "google_tracking_code": "@google_tracking_code"
   },
   "build": {
     "env": {
       "react_app_graphql_key": "@react_app_graphql_key",
       "react_app_graphql_api": "@react_app_graphql_api",
-      "react_app_twitch_client_id": "@react_app_twitch_client_id"
+      "react_app_twitch_client_id": "@react_app_twitch_client_id",
+      "google_tracking_code": "@google_tracking_code"
     }
   }
 }

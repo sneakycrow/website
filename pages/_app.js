@@ -1,5 +1,7 @@
 import App from 'next/app';
-import React, { Fragment } from 'react';
+import Router from 'next/router';
+import withGA from 'next-ga';
+import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import { ApolloProvider } from '@apollo/react-hooks';
 
@@ -92,4 +94,4 @@ class MyApp extends App {
   }
 }
 
-export default withData(MyApp);
+export default withGA(process.env.google_tracking_code, Router)(withData(MyApp));
