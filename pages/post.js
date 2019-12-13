@@ -161,6 +161,9 @@ const StyledPost = styled.div`
     border: none;
     margin-bottom: 32px;
   }
+  a {
+    border-bottom: 2px solid ${props => props.theme.palette.green};
+  }
 `;
 
 const StyledStickyNav = styled.div`
