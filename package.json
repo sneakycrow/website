@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test": "jest --config --coverage"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",

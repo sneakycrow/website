@@ -1,12 +1,23 @@
-name: Code Coverage
+name: Example workflow for Codecov
 on: [push]
 
 jobs:
-  build:
-    name: Run Code Coverage
-    runs-on: ubuntu-latest
+  run:
     steps:
-      - uses: actions/checkout@master
-      - uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '13.x'
+    - run: yarn install
+    - run: yarn test
+    - name: Upload coverage to Codecov  
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+        yml: ./codecov.yml 
+        fail_ci_if_error: true
+
+        
