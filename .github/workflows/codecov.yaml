@@ -1,8 +1,9 @@
-name: Example workflow for Codecov
+name: Test and Report
 on: [push]
 
 jobs:
   run:
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
     - uses: actions/setup-node@v1
@@ -14,10 +15,5 @@ jobs:
       uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        file: ./coverage.xml
-        flags: unittests
-        name: codecov-umbrella
-        yml: ./codecov.yml 
-        fail_ci_if_error: true
 
         
