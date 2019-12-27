@@ -78,20 +78,11 @@ const Home = () => {
         <h1>
           Hi, I'm <s>Zachary Sohovich</s> a.k.a{' '}
           <strong>
-            <ChangingText textVariants={['Sneaky Crow', 'Boophis', 'Artis', 'Gigax']} />
+            Sneaky Crow
           </strong>
         </h1>
         <h3>
-          <ChangingText
-            textVariants={[
-              'Senior Developer',
-              'Dungeon Master',
-              'Guitar Player',
-              'Gamer',
-              'Hiker',
-              'Illustrator'
-            ]}
-          />
+          <ChangingText textVariants={['Software Developer', 'Illustrator', 'Dungeon Master']} />
         </h3>
       </Hero>
       <StyledSection>
