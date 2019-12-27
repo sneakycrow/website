@@ -63,10 +63,6 @@ const GlobalStyle = createGlobalStyle`
   a {
     color: ${props => props.theme.palette.black};
     text-decoration: none;
-    transition: color 0.25s ease-in-out;
-    &:hover {
-      color: ${props => props.theme.palette.green};
-    }
   }
 `;
 
