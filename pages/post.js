@@ -26,6 +26,20 @@ const Post = ({ slug }) => {
     ]
   });
 
+  useEffect(() => {
+    const setScrollPos = e => {
+      let scrollTop = document.body.scrollTop
+        ? document.body.scrollTop
+        : document.documentElement.scrollTop;
+      let newPos = scrollTop + 'px';
+      document.documentElement.style.setProperty('--scrollPos', newPos);
+    };
+    window.addEventListener('scroll', event => setScrollPos(event));
+    return () => {
+      window.removeEventListener('scroll', event => setScrollPos(event));
+    };
+  }, []);
+
   const likePostHandler = () => {
     if (!likeCalled) {
       likePost({
@@ -162,7 +176,11 @@ const StyledPost = styled.div`
     margin-bottom: 32px;
   }
   a {
-    border-bottom: 2px solid ${props => props.theme.palette.green};
+    background-image: url(static/spectrum.svg);
+    background-repeat: repeat-x;
+    background-size: 25rem 0.2em;
+    background-position: left bottom;
+    background-position-x: var(--scrollPos);
   }
 `;
 
