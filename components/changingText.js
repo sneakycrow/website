@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const StyledText = styled.span`
   display: flex;
-  width: 100%;
+  user-select: none;
 `
 
 const ChangingText = ({ textVariants }) => {
