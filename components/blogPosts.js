@@ -6,6 +6,7 @@ import gql from 'graphql-tag';
 
 import Throbber from '../components/throbber';
 import LinkedList from '../components/linkedList';
+import CardList from './cardList';
 
 const BlogPosts = ({ limit = 10 }) => {
   const { data, loading } = useQuery(POSTS_QUERY);
@@ -15,7 +16,7 @@ const BlogPosts = ({ limit = 10 }) => {
       {loading ? (
         <Throbber />
       ) : (
-        <LinkedList
+        <CardList
           list={data.sneakycrow_blog.map(post => ({
             url: `/post?slug=${post.slug}`,
             label: moment.utc(post.published_on).format('MMMM DD, YYYY'),
