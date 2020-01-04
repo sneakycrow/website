@@ -20,7 +20,9 @@ const BlogPosts = ({ limit = 10 }) => {
           list={data.sneakycrow_blog.map(post => ({
             url: `/post?slug=${post.slug}`,
             label: moment.utc(post.published_on).format('MMMM DD, YYYY'),
-            text: post.title
+            text: post.title,
+            imageURL: 'https://images.unsplash.com/photo-1577899563859-ef4e85d17713?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3300&q=80',
+            imageALT: 'Black square acting as a placeholder'
           }))}
           limit={limit}
         />
