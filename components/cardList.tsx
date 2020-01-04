@@ -68,7 +68,6 @@ const StyledCard = styled.div`
     min-width: 400px;
     min-height: 400px;
     border-radius: 31px;
-    filter: saturate(1.2);
     transform: scale(1.05);
     transition: filter 0.25s ease-in-out, transform 0.25s ease-in-out;
   }
@@ -76,7 +75,6 @@ const StyledCard = styled.div`
     cursor: pointer;
     box-shadow: 0 4px 50px rgba(0, 0, 0, .25);
     img {
-      filter: saturate(1);
       transform: scale(1);
     }
   }
