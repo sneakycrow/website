@@ -33,10 +33,10 @@ const GlobalStyle = createGlobalStyle`
     height: auto;
   }
   * {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Inter', sans-serif;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-weight: 800;
     text-transform: uppercase;
     margin-bottom: 0.5em;
