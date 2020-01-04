@@ -117,6 +117,8 @@ const StyledCardBody = styled.div`
       font-weight: bold;
       height: 50%;
       color: ${props => props.theme.palette.gray};
+      display: flex;
+      align-items: center;
     }
   }
 `;
