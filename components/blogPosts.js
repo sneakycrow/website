@@ -8,7 +8,7 @@ import Throbber from '../components/throbber';
 import LinkedList from '../components/linkedList';
 import CardList from './cardList';
 
-const BlogPosts = ({ limit = 10 }) => {
+const BlogPosts = ({ limit = 3 }) => {
   const { data, loading } = useQuery(POSTS_QUERY);
 
   return (
