@@ -82,7 +82,7 @@ const StyledCardBody = styled.div`
   position: absolute;
   bottom: 0;
   width: 100%;
-  background: radial-gradient(circle at 50% 0%, transparent 20px, ${props => props.theme.palette.white} 20px);
+  background: rgba(0, 0, 0, 0.25) radial-gradient(circle at 50% 0%, transparent 18px, ${props => props.theme.palette.white} 20px);
   padding: 30px 20px;
   height: 150px;
   box-shadow: 0 -4px 10px rgba(0, 0, 0, .5);
