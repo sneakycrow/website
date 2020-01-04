@@ -59,6 +59,10 @@ const StyledCard = styled.div`
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, .25);
   transition: box-shadow 0.25s ease-in-out;
+  @media screen and (max-width: ${props => props.theme.layout.mobileMaxWidth}) {
+    grid-column: span 12;
+    width: 100%;
+  }
   img {
     width: 100%;
     min-width: 400px;
