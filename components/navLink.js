@@ -7,7 +7,6 @@ const StyledNavLink = styled.a`
   display: block;
   text-transform: uppercase;
   font-size: 0.8em;
-  letter-spacing: -0.5px;
   font-weight: 700;
   text-decoration: none;
   color: ${props => props.theme.palette.black};

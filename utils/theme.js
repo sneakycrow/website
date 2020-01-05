@@ -16,15 +16,15 @@ const palette = {
 };
 
 const typography = {
-  headline: 'Open Sans',
-  body: 'Montserrat'
+  headline: 'Inter',
+  body: 'Inter'
 };
 
 const layout = {
   gridTemplateColumns: 'repeat(12, 1fr)',
   gridColumnGap: '24px',
   mobileMaxWidth: '780px',
-  contentMaxWidth: '1200px'
+  contentMaxWidth: '1300px'
 };
 
 const baseTheme = {

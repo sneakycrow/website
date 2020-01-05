@@ -4,7 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.4.4.] - 12/27/2019
+## [1.4.5] - 1/4/2020
+
+### ADDED
+
+- Created a new Card component (disabled)
+
+### CHANGED
+
+- Code Coverage now encompasses _all_ code
+- Removed Montserrat and Open Sans, replaced with Inter
+
+### REMOVED
+
+- Removed Custom letter spacing in nav link
+
+## [1.4.4] - 12/27/2019
 
 ### ADDED
 
@@ -20,7 +35,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### REMOVED
 
 - Removed Newsletter link from footer
-
 
 ## [1.4.2] - 12/12/2019
 
