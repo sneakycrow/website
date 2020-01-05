@@ -113,7 +113,7 @@ const Home = () => {
       </StyledSection>
       <StyledSection>
         <h2>Blog</h2>
-        <BlogPosts isCardStyle limit={3} />
+        <BlogPosts limit={10} />
       </StyledSection>
       <Footer />
     </Fragment>
