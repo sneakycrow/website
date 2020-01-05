@@ -2,17 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 
-interface ICardListProps {
-  list: Array<ICard>;
-  limit: number;
-}
-
 interface ICard {
   label: string;
   imageURL: string;
   imageALT: string;
   url: string;
   text: string;
+}
+
+interface ICardListProps {
+  list: Array<ICard>;
+  limit: number;
 }
 
 const CardList = (props: ICardListProps) => {
