@@ -12,6 +12,8 @@ interface IBlogPost {
   title: string;
   published_on: string;
   slug: string;
+  header_image_url: string;
+  header_image_alt: string;
 }
 interface IBlogPostProps {
   limit: number;
@@ -31,9 +33,8 @@ const BlogPosts = (props: IBlogPostProps) => {
             url: `/post?slug=${post.slug}`,
             label: moment.utc(post.published_on).format('MMMM DD, YYYY'),
             text: post.title,
-            imageURL:
-              'https://images.unsplash.com/photo-1577899563859-ef4e85d17713?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3300&q=80',
-            imageALT: 'Black square acting as a placeholder'
+            imageURL: post.header_image_url,
+            imageALT: post.header_image_alt
           }))}
           limit={limit}
         />
@@ -57,6 +58,8 @@ const POSTS_QUERY = gql`
       slug
       title
       published_on
+      header_image_url
+      header_image_alt
     }
   }
 `;
