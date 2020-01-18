@@ -1,5 +1,6 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
+import ReactGA from 'react-ga';
 
 // thank you @koodiklin
 // https://github.com/koodiklinikka/koodiklinikka.fi/commit/e27c50601d728b3b20320ffcc021a81657d8d4d6#diff-664264179f734c3055eba103c71ad479
@@ -8,7 +9,7 @@ const trackPageView = () => {
     return;
   }
   if (!window.GA_INITIALIZED) {
-    ReactGA.initialize("UA-58806132-1");
+    ReactGA.initialize(process.env.googl_tracking_code);
     window.GA_INITIALIZED = true;
   }
   ReactGA.set({ page: window.location.pathname });
