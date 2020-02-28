@@ -10,7 +10,7 @@ const Index = () => (
     </Head>
     <Layout>
       <div>
-        <img src="/images/logo.jpg" />
+        <img src="/images/logo.svg" />
         <h1>sneakycrow</h1>
         <h2>artist and engineer</h2>
         <a href="mailto:zach@sneakycrow.dev">email me</a>
@@ -25,7 +25,7 @@ const Index = () => (
       align-items: center;
     }
     img {
-      max-width: 100%;
+      max-width: 500px;
       height: auto;
     }
     h1, h2 {
