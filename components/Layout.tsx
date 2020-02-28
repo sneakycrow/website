@@ -12,8 +12,12 @@ const Layout = (props: LayoutProps) => (
     <style jsx>{`
       div {
         width: 100vw;
+        height: 100vh;
         padding: 16px;
         background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     `}</style>
   </Fragment>
