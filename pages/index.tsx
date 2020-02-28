@@ -24,6 +24,10 @@ const Index = () => (
       justify-content: center;
       align-items: center;
     }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
     h1, h2 {
       font-family: 'Inter', sans-serif;
       margin-bottom: 0.5rem;
