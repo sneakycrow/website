@@ -2,7 +2,7 @@ import React from 'react';
 
 const Photo = ({ source, caption, timestamp }) => (
     <figure className="mt-4 mb-16">
-      <img className="shadow-md " src={source} alt={caption} />
+      <img className="shadow-md max-h-screen" src={source} alt={caption} />
       <figcaption className="mt-2">
         <span className="float-left">{caption}</span>
         <span className="float-right">{timestamp}</span>

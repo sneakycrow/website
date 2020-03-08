@@ -25,7 +25,7 @@ const Navigation = () => {
       </a>
       <ul className="flex flex-initial justify-between items-center h-full">
         {menuList.map(menuItem => (
-          <li className="flex items-center mr-4">
+          <li className="flex items-center mr-4" key={menuItem.title}>
             <a className="flex items-center" href={menuItem.link} target={menuItem.blank ? "_blank" : "_self"}>
               {menuItem.title}
             </a>

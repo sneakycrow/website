@@ -36,7 +36,7 @@ const Index = () => {
           <h2>artist and engineer</h2>
           <ul className="mb-4 mt-2 list-disc">
             {menuList.map(menuItem => (
-              <li>
+              <li key={menuItem.title}>
                 <a target={menuItem.blank ? "_blank" : "_self"} className="underline" href={menuItem.link}>{menuItem.title}</a>
               </li>
             ))}
