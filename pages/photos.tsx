@@ -3,7 +3,7 @@ import useSWR from 'swr';
 import Photo from '../components/Photo';
 import Layout from '../components/Layout';
 import Navigation from '../components/Navigation';
-import { withData } from '../lib/withData';
+import withData from '../lib/withData';
 import { ALL_PHOTOS_QUERY } from '../lib/queries';
 
 const PhotosPage = props => {

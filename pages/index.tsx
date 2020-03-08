@@ -4,26 +4,33 @@ import Head from 'next/head';
 import Layout from '../components/Layout';
 
 const Index = () => {
-  const menuList = [{
-    link: "/photos",
-    title: "my photos",
-    blank: false
-  },
-  {
-    link: "https://github.com/sneakycrow",
-    title: "my github",
-    blank: true
-  },
-  {
-    link: "/illustrations",
-    title: "my illustrations",
-    blank: false
-  },
-  {
-    link: "mailto:zach@sneakycrow.dev",
-    title: "my email",
-    blank: false
-  }]
+  const menuList = [
+    {
+      link: '/blog',
+      title: 'blog',
+      blank: false
+    },
+    {
+      link: '/photos',
+      title: 'photos',
+      blank: false
+    },
+    {
+      link: 'https://github.com/sneakycrow',
+      title: 'github',
+      blank: true
+    },
+    {
+      link: '/illustrations',
+      title: 'illustrations',
+      blank: false
+    },
+    {
+      link: 'mailto:zach@sneakycrow.dev',
+      title: 'email',
+      blank: false
+    },
+  ];
   return (
     <Fragment>
       <Head>
@@ -37,7 +44,13 @@ const Index = () => {
           <ul className="mb-4 mt-2 list-disc">
             {menuList.map(menuItem => (
               <li key={menuItem.title}>
-                <a target={menuItem.blank ? "_blank" : "_self"} className="underline" href={menuItem.link}>{menuItem.title}</a>
+                <a
+                  target={menuItem.blank ? '_blank' : '_self'}
+                  className="underline"
+                  href={menuItem.link}
+                >
+                  {menuItem.title}
+                </a>
               </li>
             ))}
           </ul>
@@ -45,6 +58,6 @@ const Index = () => {
       </Layout>
     </Fragment>
   );
-}
+};
 
 export default Index;
