@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Component /> spec renders the component 1`] = `
-<div
-  class="jsx-3539679555"
+<main
+  class="container mx-auto p-4"
 >
   <h1>
     Hello World
   </h1>
-</div>
+</main>
 `;
