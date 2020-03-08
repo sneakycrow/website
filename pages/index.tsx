@@ -3,47 +3,48 @@ import Head from 'next/head';
 
 import Layout from '../components/Layout';
 
-const Index = () => (
-  <Fragment>
-    <Head>
-      <title>sneakycrow - artist and engineer</title>
-    </Head>
-    <Layout>
-      <div>
-        <img src="/images/logo.svg" />
-        <h1>sneakycrow</h1>
-        <h2>artist and engineer</h2>
-        <a href="mailto:zach@sneakycrow.dev">email me</a>
-      </div>
-    </Layout>
-    <style jsx>{`
-    div {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    img {
-      max-width: 500px;
-      height: auto;
-    }
-    h1, h2 {
-      font-family: 'Inter', sans-serif;
-      margin-bottom: 0.5rem;
-    }
-    a {
-      color: black;
-      text-decoration: underline;
-      font-family: 'Inter', sans-serif;
-      margin-top: 1rem;
-    }
-    a:hover {
-      color: #0BA750;
-    }
-    `}
-    </style>
-  </Fragment>
-);
+const Index = () => {
+  const menuList = [{
+    link: "/photos",
+    title: "my photos",
+    blank: false
+  },
+  {
+    link: "https://github.com/sneakycrow",
+    title: "my github",
+    blank: true
+  },
+  {
+    link: "/illustrations",
+    title: "my illustrations",
+    blank: false
+  },
+  {
+    link: "mailto:zach@sneakycrow.dev",
+    title: "my email",
+    blank: false
+  }]
+  return (
+    <Fragment>
+      <Head>
+        <title>sneakycrow - artist and engineer</title>
+      </Head>
+      <Layout>
+        <div className="container m-auto h-full flex flex-col content-center items-center mt-32">
+          <img className="w-1/3" src="/images/logo.svg" />
+          <h1 className="mt-10 font-bold">sneakycrow</h1>
+          <h2>artist and engineer</h2>
+          <ul className="mb-4 mt-2 list-disc">
+            {menuList.map(menuItem => (
+              <li>
+                <a target={menuItem.blank ? "_blank" : "_self"} className="underline" href={menuItem.link}>{menuItem.title}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Layout>
+    </Fragment>
+  );
+}
 
 export default Index;
