@@ -16,6 +16,11 @@ const Index = () => {
       blank: false
     },
     {
+      link: '/sounds',
+      title: 'sounds',
+      blank: false
+    },
+    {
       link: 'https://github.com/sneakycrow',
       title: 'github',
       blank: true
@@ -41,16 +46,21 @@ const Index = () => {
           <img className="w-1/3" src="/images/logo.svg" />
           <h1 className="mt-10 font-bold">sneakycrow</h1>
           <h2>artist and engineer</h2>
-          <ul className="mb-4 mt-2 list-disc">
+          <ul className="mb-4 mt-2">
             {menuList.map(menuItem => (
               <li key={menuItem.title}>
                 <a
                   target={menuItem.blank ? '_blank' : '_self'}
-                  className="underline"
                   href={menuItem.link}
+                  className="underline leading-loose"
                 >
                   {menuItem.title}
                 </a>
+                <style jsx>{`
+                  a {
+                    text-underline-offset: 0.3em;
+                  }
+                `}</style>
               </li>
             ))}
           </ul>

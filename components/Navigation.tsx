@@ -3,25 +3,15 @@ import React from 'react';
 const Navigation = () => {
   const menuList = [
     {
-      link: '/photos',
-      title: 'photos',
-      blank: false
-    },
-    {
       link: '/blog',
       title: 'blog',
       blank: false
     },
     {
-      link: "https://github.com/sneakycrow",
-      title: "github",
-      blank: true
-    },
-    {
-      link: '/illustrations',
-      title: 'illustrations',
+      link: 'mailto:zach@sneakycrow.dev',
+      title: 'contact me',
       blank: false
-    },
+    }
   ];
   return (
     <nav className="container mx-auto h-12 flex flex-initial justify-between mt-2 mb-8">
