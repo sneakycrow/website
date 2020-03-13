@@ -1,8 +1,16 @@
 import React from 'react';
 
-const Photo = ({ source, caption, timestamp }) => (
+type PhotoProps = {
+  source: string;
+  caption: string;
+  timestamp: string;
+  width?: number;
+  height?: number;
+}
+
+const Photo = ({ source, caption, timestamp, width = 2048, height = 1536 }: PhotoProps) => (
     <figure className="mt-4 mb-16 flex flex-col justify-center">
-      <img className="shadow-md min-w-full" src={source} alt={caption} />
+      <img className="shadow-md min-w-full" src={source} alt={caption} width={width} height={height} />
       <figcaption className="mt-2">
         <span className="float-left">{caption}</span>
         <span className="float-right">{timestamp}</span>
