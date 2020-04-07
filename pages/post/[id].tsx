@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import moment from 'moment';
 import ReactMarkdown from 'react-markdown';
@@ -7,9 +7,13 @@ import Layout from '../../components/Layout';
 import CodeBlock from '../../components/codeBlock';
 import Navigation from '../../components/Navigation';
 import { createSinglePostQueryBySlug } from '../../lib/queries';
+import trackView from '../../utils/trackView';
 
 const Post = props => {
   const { data } = props;
+  useEffect(() => {
+    trackView(window.location.pathname);
+  }, []);
   return (
     <Layout>
       <Head>

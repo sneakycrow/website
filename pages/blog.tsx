@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import moment from 'moment';
 import withData from '../lib/withData';
@@ -6,9 +6,13 @@ import Layout from '../components/Layout';
 import Navigation from '../components/Navigation';
 import PostPreview from '../components/PostPreview';
 import { ALL_POSTS_QUERY } from '../lib/queries';
+import trackView from '../utils/trackView';
 
 const BlogPage = props => {
   const { data } = props;
+  useEffect(() => {
+    trackView(window.location.pathname);
+  }, []);
   return (
     <Layout>
       <Navigation />

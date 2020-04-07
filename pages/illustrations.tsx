@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useSWR from 'swr';
 import Photo from '../components/Photo';
 import Layout from '../components/Layout';
 import Navigation from '../components/Navigation';
 import withData from '../lib/withData';
 import { ALL_ILLUSTRATIONS_QUERY } from '../lib/queries';
+import trackView from '../utils/trackView';
 
 const IllustrationsPage = props => {
   const initialData = props.data;
   const { data } = useSWR(ALL_ILLUSTRATIONS_QUERY, query => withData(query), { initialData });
+  useEffect(() => {
+    trackView(window.location.pathname);
+  }, []);
   return (
     <Layout>
       <Navigation />

@@ -1,12 +1,15 @@
-import React from 'react';
-import Link from 'next/link';
+import React, { useEffect } from 'react';
 import Layout from '../components/Layout';
 import Navigation from '../components/Navigation';
 import withData from '../lib/withData';
 import { ALL_SOUNDS_QUERY } from '../lib/queries';
+import trackView from '../utils/trackView';
 
 const SoundsPage = props => {
   const { data } = props;
+  useEffect(() => {
+    trackView(window.location.pathname);
+  }, []);
   return (
     <Layout>
       <Navigation />

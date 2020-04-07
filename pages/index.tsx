@@ -1,9 +1,13 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
+import trackView from '../utils/trackView';
 import Head from 'next/head';
 
 import Layout from '../components/Layout';
 
 const Index = () => {
+  useEffect(() => {
+    trackView(window.location.pathname);
+  }, []);
   const menuList = [
     {
       link: '/blog',
