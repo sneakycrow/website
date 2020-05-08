@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import Head from 'next/head';
 import moment from 'moment';
 import ReactMarkdown from 'react-markdown';
 import withData from '../../lib/withData';
@@ -15,10 +14,7 @@ const Post = props => {
     trackView(window.location.pathname);
   }, []);
   return (
-    <Layout>
-      <Head>
-        <title>{data.sneakycrow_blog[0].title} - Sneaky Crow blog</title>
-      </Head>
+    <Layout title={data.sneakycrow_blog[0].title}>
       <Navigation />
       <section className="markdown-body">
         <h1 className="text-4xl">{data.sneakycrow_blog[0].title}</h1>

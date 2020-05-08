@@ -14,7 +14,7 @@ const BlogPage = props => {
     trackView(window.location.pathname);
   }, []);
   return (
-    <Layout>
+    <Layout title="blog - sneakycrow">
       <Navigation />
       <section>
         {data ? (

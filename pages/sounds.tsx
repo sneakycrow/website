@@ -11,7 +11,7 @@ const SoundsPage = props => {
     trackView(window.location.pathname);
   }, []);
   return (
-    <Layout>
+    <Layout title="sounds - sneakycrow">
       <Navigation />
       {data ? (
         <section className="flex flex-col">

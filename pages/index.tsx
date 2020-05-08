@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
 import trackView from '../utils/trackView';
-import Head from 'next/head';
 
 import Layout from '../components/Layout';
 
@@ -42,10 +41,7 @@ const Index = () => {
   ];
   return (
     <Fragment>
-      <Head>
-        <title>sneakycrow - artist and engineer</title>
-      </Head>
-      <Layout>
+      <Layout title="sneakycrow - artist and engineer">
         <div className="container m-auto h-full flex flex-col content-center items-center mt-32">
           <img className="w-1/3" src="/images/logo.svg" />
           <h1 className="mt-10 font-bold">sneakycrow</h1>

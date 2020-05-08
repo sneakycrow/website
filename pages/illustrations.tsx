@@ -14,7 +14,7 @@ const IllustrationsPage = props => {
     trackView(window.location.pathname);
   }, []);
   return (
-    <Layout>
+    <Layout title="illustrations - sneakycrow">
       <Navigation />
       {data ? (
         <section className="mb-4">
