@@ -20,6 +20,7 @@ export default class MyDocument extends Document {
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta charSet="utf-8" />
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
           <style type="text/css">{globalStyles}</style>
         </Head>
