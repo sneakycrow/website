@@ -14,7 +14,10 @@ const IllustrationsPage = props => {
     trackView(window.location.pathname);
   }, []);
   return (
-    <Layout title="illustrations - sneakycrow">
+    <Layout 
+      title="illustrations - sneakycrow"
+      description="Illustrious illustrations of the famous Zachary E. Sohovich"
+    >
       <Navigation />
       {data ? (
         <section className="mb-4">

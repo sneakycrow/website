@@ -41,7 +41,10 @@ const Index = () => {
   ];
   return (
     <Fragment>
-      <Layout title="sneakycrow - artist and engineer">
+      <Layout
+        title="sneakycrow - artist and engineer"
+        description="Zachary E. Sohovich aka sneakycrow is an engineer and artist with passions in software, music, illustration, and more."
+      >
         <div className="container m-auto h-full flex flex-col content-center items-center mt-32">
           <img className="w-1/3" src="/images/logo.svg" />
           <h1 className="mt-10 font-bold">sneakycrow</h1>
