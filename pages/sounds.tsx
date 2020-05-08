@@ -11,7 +11,10 @@ const SoundsPage = props => {
     trackView(window.location.pathname);
   }, []);
   return (
-    <Layout>
+    <Layout 
+      title="sounds - sneakycrow"
+      description="Every recording of guitarist Zachary E. Sohovich aka sneakycrow"
+    >
       <Navigation />
       {data ? (
         <section className="flex flex-col">

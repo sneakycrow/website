@@ -14,7 +14,10 @@ const PhotosPage = props => {
     trackView(window.location.pathname);
   }, []);
   return (
-    <Layout>
+    <Layout
+      title="photos - sneakycrow"
+      description="The complete collection of photographs taken and edited by Zachary E. Sohovich aka sneakycrow"
+    >
       <Navigation />
       {data ? (
           <section className="mb-4">
