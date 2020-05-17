@@ -1,18 +1,7 @@
 import React from 'react';
+import { menuList } from '../lib/constants';
 
 const Navigation = () => {
-  const menuList = [
-    {
-      link: '/blog',
-      title: 'blog',
-      blank: false
-    },
-    {
-      link: 'mailto:zach@sneakycrow.dev',
-      title: 'contact me',
-      blank: false
-    }
-  ];
   return (
     <nav className="container mx-auto h-12 flex flex-initial justify-between mt-2 mb-8">
       <a href="/" className="block h-full">
