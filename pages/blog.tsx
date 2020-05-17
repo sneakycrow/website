@@ -23,8 +23,8 @@ const BlogPage = props => {
         {data ? (
           <ul>
             {data.sneakycrow_blog.map(post => (
-              <li>
-                <Link href={`/post/${post.slug}`} key={post.id}>
+              <li key={post.id}>
+                <Link href={`/post/${post.slug}`}>
                   <a>
                     <PostPreview
                       title={post.title}
