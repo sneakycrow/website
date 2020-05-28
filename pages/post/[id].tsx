@@ -16,7 +16,7 @@ const Post = ({ postData }) => {
   return (
     <Layout title={postData.title}>
       <Navigation />
-      {postData ? (
+      {postData !== null ? (
         <section className="markdown-body">
         <h1 className="text-4xl">{postData.title}</h1>
         <h5 className="mt-2 mb-4">
