@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import moment from 'moment';
-import withData from '../lib/withData';
 import Layout from '../components/Layout';
 import Navigation from '../components/Navigation';
 import PostPreview from '../components/PostPreview';
@@ -9,10 +8,12 @@ import { ALL_POSTS_QUERY } from '../lib/queries';
 import trackView from '../utils/trackView';
 
 const BlogPage = props => {
-  const { data } = props;
+  const { posts } = props;
+
   useEffect(() => {
     trackView(window.location.pathname);
   }, []);
+
   return (
     <Layout
       title="blog - sneakycrow"
@@ -20,9 +21,9 @@ const BlogPage = props => {
     >
       <Navigation />
       <section>
-        {data ? (
+        {posts.length > 0 ? (
           <ul>
-            {data.sneakycrow_blog.map(post => (
+            {posts.map(post => (
               <li key={post.id}>
                 <Link href={`/post/${post.slug}`}>
                   <a>
@@ -36,16 +37,29 @@ const BlogPage = props => {
             ))}
           </ul>
         ) : (
-          <p>Loading posts...</p>
+          <p>Error loading posts</p>
         )}
       </section>
     </Layout>
   );
 };
 
-BlogPage.getInitialProps = async () => {
-  const data = await withData(ALL_POSTS_QUERY);
-  return { data };
-};
+export async function getStaticProps() {
+  const res = await fetch('https://sneakycrow.dev/api/get-data', { 
+    method: 'POST',
+    body: ALL_POSTS_QUERY
+  });
+
+  try {
+    const { data: { sneakycrow_blog } } = await res.json();
+    return { props: {
+      posts: sneakycrow_blog
+    }}
+  } catch {
+    return { props: {
+      posts: []
+    }}
+  }
+}
 
 export default BlogPage;

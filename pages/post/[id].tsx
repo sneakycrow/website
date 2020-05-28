@@ -1,39 +1,68 @@
 import React, { useEffect } from 'react';
 import moment from 'moment';
 import ReactMarkdown from 'react-markdown';
-import withData from '../../lib/withData';
 import Layout from '../../components/Layout';
 import CodeBlock from '../../components/codeBlock';
 import Navigation from '../../components/Navigation';
-import { createSinglePostQueryBySlug } from '../../lib/queries';
+import { createSinglePostQueryBySlug, ALL_POSTS_QUERY } from '../../lib/queries';
 import trackView from '../../utils/trackView';
 
-const Post = props => {
-  const { data } = props;
+const Post = ({ postData }) => {
+
   useEffect(() => {
     trackView(window.location.pathname);
   }, []);
+
   return (
-    <Layout title={data.sneakycrow_blog[0].title}>
+    <Layout title={postData.title}>
       <Navigation />
       <section className="markdown-body">
-        <h1 className="text-4xl">{data.sneakycrow_blog[0].title}</h1>
+        <h1 className="text-4xl">{postData.title}</h1>
         <h5 className="mt-2 mb-4">
           Posted on{' '}
           <strong>
-            {moment.utc(data.sneakycrow_blog[0].published_on).format('MMMM DD, YYYY')}
+            {moment.utc(postData.published_on).format('MMMM DD, YYYY')}
           </strong>
         </h5>
-        <ReactMarkdown source={data.sneakycrow_blog[0].body} renderers={{ code: CodeBlock }} />
+        <ReactMarkdown source={postData.body} renderers={{ code: CodeBlock }} />
       </section>
     </Layout>
   );
 };
 
-Post.getInitialProps = async ({ query }) => {
-  const SINGLE_POST_QUERY = createSinglePostQueryBySlug(query.id);
-  const data = await withData(SINGLE_POST_QUERY);
-  return { data };
-};
+export async function getStaticPaths() {
+  // Call an external API endpoint to get posts
+  const res = await fetch('https://sneakycrow.dev/api/get-data', { 
+    method: 'POST',
+    body: ALL_POSTS_QUERY
+  });
+
+  const { data: { sneakycrow_blog: posts } } = await res.json();
+
+  const paths = posts.map((post) => ({
+    params: { id: post.slug },
+  }))
+
+  return { paths, fallback: false }
+}
+
+export async function getStaticProps(context) {
+  const SINGLE_POST_QUERY = createSinglePostQueryBySlug(context.params.id);
+  const res = await fetch('https://sneakycrow.dev/api/get-data', { 
+    method: 'POST',
+    body: SINGLE_POST_QUERY
+  });
+
+  try {
+    const { data: { sneakycrow_blog } } = await res.json();
+    return { props: {
+      postData: sneakycrow_blog[0]
+    }}
+  } catch {
+    return { props: {
+      postData: null
+    }}
+  }
+}
 
 export default Post;
