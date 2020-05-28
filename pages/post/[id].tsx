@@ -16,7 +16,8 @@ const Post = ({ postData }) => {
   return (
     <Layout title={postData.title}>
       <Navigation />
-      <section className="markdown-body">
+      {postData ? (
+        <section className="markdown-body">
         <h1 className="text-4xl">{postData.title}</h1>
         <h5 className="mt-2 mb-4">
           Posted on{' '}
@@ -26,6 +27,9 @@ const Post = ({ postData }) => {
         </h5>
         <ReactMarkdown source={postData.body} renderers={{ code: CodeBlock }} />
       </section>
+      ) : (
+        <p>Error Loading Post</p>
+      )}
     </Layout>
   );
 };
