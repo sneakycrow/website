@@ -8,7 +8,7 @@ import { ALL_POSTS_QUERY } from '../lib/queries';
 import trackView from '../utils/trackView';
 
 const BlogPage = props => {
-  const { posts } = props;
+  const { posts = [] } = props;
 
   useEffect(() => {
     trackView(window.location.pathname);
