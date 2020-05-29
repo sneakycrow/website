@@ -48,14 +48,23 @@ export async function getStaticProps() {
   const res = await fetch('https://sneakycrow.dev/api/get-data', { 
     method: 'POST',
     body: ALL_POSTS_QUERY
+  }).catch(error => {
+    console.error(error);
+    return null;
   });
 
-  try {
-    const { data: { sneakycrow_blog } } = await res.json();
-    return { props: {
-      posts: sneakycrow_blog
-    }}
-  } catch {
+  if (res?.status === 200) {
+    try {
+      const postData = await res.json().catch(() => null);
+      return { props: {
+        posts: postData?.data?.sneakycrow_blog || []
+      }}
+    } catch {
+      return { props: {
+        posts: []
+      }}
+    }
+  } else {
     return { props: {
       posts: []
     }}
