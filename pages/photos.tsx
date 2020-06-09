@@ -8,18 +8,19 @@ import { ALL_PHOTOS_QUERY } from '../lib/queries';
 import trackView from '../utils/trackView';
 
 const PhotosPage = props => {
-  const initialData = props.data;
-  const { data } = useSWR(ALL_PHOTOS_QUERY, query => withData(query), { initialData });
-  useEffect(() => {
-    trackView(window.location.pathname);
-  }, []);
+  // const initialData = props.data;
+  // const { data } = useSWR(ALL_PHOTOS_QUERY, query => withData(query), { initialData });
+  // useEffect(() => {
+  //   trackView(window.location.pathname);
+  // }, []);
+  const data = null;
   return (
     <Layout
       title="photos - sneakycrow"
       description="The complete collection of photographs taken and edited by Zachary E. Sohovich aka sneakycrow"
     >
       <Navigation />
-      {data ? (
+      {data !== null ? (
           <section className="mb-4">
           {data.sneaky_photos.map(photo => (
             <Photo
@@ -37,9 +38,9 @@ const PhotosPage = props => {
   );
 };
 
-PhotosPage.getInitialProps = async () => {
-  const data = await withData(ALL_PHOTOS_QUERY);
-  return { data };
-};
+// PhotosPage.getInitialProps = async () => {
+//   const data = await withData(ALL_PHOTOS_QUERY);
+//   return { data };
+// };
 
 export default PhotosPage;

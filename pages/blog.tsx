@@ -10,9 +10,9 @@ import trackView from '../utils/trackView';
 const BlogPage = props => {
   const { posts = [] } = props;
 
-  useEffect(() => {
-    trackView(window.location.pathname);
-  }, []);
+  // useEffect(() => {
+  //   trackView(window.location.pathname);
+  // }, []);
 
   return (
     <Layout
@@ -44,31 +44,31 @@ const BlogPage = props => {
   );
 };
 
-export async function getStaticProps() {
-  const res = await fetch('https://sneakycrow.dev/api/get-data', { 
-    method: 'POST',
-    body: ALL_POSTS_QUERY
-  }).catch(error => {
-    console.error(error);
-    return null;
-  });
+// export async function getStaticProps() {
+//   const res = await fetch('https://sneakycrow.dev/api/get-data', { 
+//     method: 'POST',
+//     body: ALL_POSTS_QUERY
+//   }).catch(error => {
+//     console.error(error);
+//     return null;
+//   });
 
-  if (res?.status === 200) {
-    try {
-      const postData = await res.json().catch(() => null);
-      return { props: {
-        posts: postData?.data?.sneakycrow_blog || []
-      }}
-    } catch {
-      return { props: {
-        posts: []
-      }}
-    }
-  } else {
-    return { props: {
-      posts: []
-    }}
-  }
-}
+//   if (res?.status === 200) {
+//     try {
+//       const postData = await res.json().catch(() => null);
+//       return { props: {
+//         posts: postData?.data?.sneakycrow_blog || []
+//       }}
+//     } catch {
+//       return { props: {
+//         posts: []
+//       }}
+//     }
+//   } else {
+//     return { props: {
+//       posts: []
+//     }}
+//   }
+// }
 
 export default BlogPage;
