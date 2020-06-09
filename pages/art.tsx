@@ -7,7 +7,7 @@ import withData from '../lib/withData';
 import { ALL_PHOTOS_QUERY } from '../lib/queries';
 import trackView from '../utils/trackView';
 
-const PhotosPage = props => {
+const ArtPage = props => {
   const { photos = [] } = props;
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const PhotosPage = props => {
           <section className="mb-4">
           {photos.map(photo => (
             <Photo
-              key={photo.date}
+              key={photo.uuid}
               source={photo.url}
               caption={photo.caption}
               timestamp={photo.date}
@@ -39,33 +39,13 @@ const PhotosPage = props => {
 };
 
 export async function getStaticProps() {
-  const res = await fetch('https://sneakycrow.dev/api/get-data', { 
-    method: 'POST',
-    body: ALL_PHOTOS_QUERY,
-    headers: {
-      api_token: process.env.GET_DATA_TOKEN
-    }
-  }).catch(error => {
-    console.error(error);
-    return null;
-  });
+  const res = await withData(ALL_PHOTOS_QUERY);
 
-  if (res?.status === 200) {
-    try {
-      const postData = await res.json().catch(() => null);
-      return { props: {
-        photos: postData?.data?.sneaky_photos || []
-      }}
-    } catch {
-      return { props: {
-        photos: []
-      }}
+  return {
+    props: {
+      photos: res?.sneaky_photos || []
     }
-  } else {
-    return { props: {
-      photos: []
-    }}
   }
 }
 
-export default PhotosPage;
+export default ArtPage;

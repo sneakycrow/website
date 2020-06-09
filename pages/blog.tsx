@@ -6,6 +6,7 @@ import Navigation from '../components/Navigation';
 import PostPreview from '../components/PostPreview';
 import { ALL_POSTS_QUERY } from '../lib/queries';
 import trackView from '../utils/trackView';
+import withData from '../lib/withData';
 
 const BlogPage = props => {
   const { posts = [] } = props;
@@ -45,32 +46,12 @@ const BlogPage = props => {
 };
 
 export async function getStaticProps() {
-  const res = await fetch('https://sneakycrow.dev/api/get-data', { 
-    method: 'POST',
-    body: ALL_POSTS_QUERY,
-    headers: {
-      api_token: process.env.GET_DATA_TOKEN
-    }
-  }).catch(error => {
-    console.error(error);
-    return null;
-  });
+  const res = await withData(ALL_POSTS_QUERY);
 
-  if (res?.status === 200) {
-    try {
-      const postData = await res.json().catch(() => null);
-      return { props: {
-        posts: postData?.data?.sneakycrow_blog || []
-      }}
-    } catch {
-      return { props: {
-        posts: []
-      }}
+  return {
+    props: {
+      posts: res?.sneakycrow_blog || []
     }
-  } else {
-    return { props: {
-      posts: []
-    }}
   }
 }
 
