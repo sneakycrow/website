@@ -43,7 +43,7 @@ export async function getStaticProps() {
     method: 'POST',
     body: ALL_PHOTOS_QUERY,
     headers: {
-      api_token: process.env.get_data_token
+      api_token: process.env.GET_DATA_TOKEN
     }
   }).catch(error => {
     console.error(error);

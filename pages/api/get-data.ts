@@ -1,7 +1,7 @@
 import withData from '../../lib/withData';
 
 export default async (request, response) => {
-  const isRequestAllowed = request.headers.api_token = process.env.get_data_token;
+  const isRequestAllowed = request.headers.api_token === process.env.GET_DATA_TOKEN;
 
   const internalErrorResponse = (error = null) => {
     console.error(error);

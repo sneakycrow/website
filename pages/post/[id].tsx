@@ -36,7 +36,7 @@ export async function getStaticPaths() {
     method: 'POST',
     body: ALL_POSTS_QUERY,
     headers: {
-      api_token: process.env.get_data_token
+      api_token: process.env.GET_DATA_TOKEN
     }
   }).catch(error => {
     console.error(error);
