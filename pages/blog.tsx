@@ -11,10 +11,6 @@ import withData from '../lib/withData';
 const BlogPage = props => {
   const { posts = [] } = props;
 
-  useEffect(() => {
-    trackView(window.location.pathname);
-  }, []);
-
   return (
     <Layout
       title="blog - sneakycrow"

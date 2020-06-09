@@ -10,10 +10,6 @@ import withData from '../../lib/withData';
 
 const Post = ({ postData = null }) => {
 
-  useEffect(() => {
-    trackView(window.location.pathname);
-  }, []);
-
   return (
     <Layout title={postData?.title ?? 'Error Loading Post'}>
       <Navigation />

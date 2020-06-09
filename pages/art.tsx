@@ -10,10 +10,6 @@ import trackView from '../utils/trackView';
 const ArtPage = props => {
   const { photos = [] } = props;
 
-  useEffect(() => {
-    trackView(window.location.pathname);
-  }, []);
-
   return (
     <Layout
       title="photos - sneakycrow"
