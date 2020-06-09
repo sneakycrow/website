@@ -1,8 +1,7 @@
-import { hostWhitelist } from '../../lib/constants';
 import withData from '../../lib/withData';
 
 export default async (request, response) => {
-  const isRequestAllowed = hostWhitelist.includes(request.headers.host);
+  const isRequestAllowed = request.headers.api_token = process.env.get_data_token;
 
   const internalErrorResponse = (error = null) => {
     console.error(error);

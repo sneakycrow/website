@@ -41,7 +41,10 @@ const PhotosPage = props => {
 export async function getStaticProps() {
   const res = await fetch('https://sneakycrow.dev/api/get-data', { 
     method: 'POST',
-    body: ALL_PHOTOS_QUERY
+    body: ALL_PHOTOS_QUERY,
+    headers: {
+      api_token: process.env.get_data_token
+    }
   }).catch(error => {
     console.error(error);
     return null;

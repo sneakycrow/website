@@ -35,6 +35,9 @@ export async function getStaticPaths() {
   const res = await fetch('https://sneakycrow.dev/api/get-data', {
     method: 'POST',
     body: ALL_POSTS_QUERY,
+    headers: {
+      api_token: process.env.get_data_token
+    }
   }).catch(error => {
     console.error(error);
     return null;
