@@ -8,9 +8,9 @@ import { createSinglePostQueryBySlug, ALL_POSTS_QUERY } from '../../lib/queries'
 import trackView from '../../utils/trackView';
 
 const Post = ({ postData = null }) => {
-  // useEffect(() => {
-  //   trackView(window.location.pathname);
-  // }, []);
+  useEffect(() => {
+    trackView(window.location.pathname);
+  }, []);
 
   return (
     <Layout title={postData?.title ?? 'Error Loading Post'}>
@@ -30,67 +30,67 @@ const Post = ({ postData = null }) => {
   );
 };
 
-// export async function getStaticPaths() {
-//   // Call an external API endpoint to get posts
-//   const res = await fetch('https://sneakycrow.dev/api/get-data', {
-//     method: 'POST',
-//     body: ALL_POSTS_QUERY,
-//   }).catch(error => {
-//     console.error(error);
-//     return null;
-//   });
+export async function getStaticPaths() {
+  // Call an external API endpoint to get posts
+  const res = await fetch('https://sneakycrow.dev/api/get-data', {
+    method: 'POST',
+    body: ALL_POSTS_QUERY,
+  }).catch(error => {
+    console.error(error);
+    return null;
+  });
 
-//   if (res?.status === 200) {
-//     const jsonResponse = await res.json().catch((error) => {
-//       console.error(error);
-//       return null;
-//     });
+  if (res?.status === 200) {
+    const jsonResponse = await res.json().catch((error) => {
+      console.error(error);
+      return null;
+    });
   
-//     const paths =
-//       jsonResponse?.data?.sneakycrow_blog?.map((post) => ({
-//         params: { id: post.slug },
-//       })) ?? [];
-//       return { paths, fallback: false };
-//   }
-//   return { paths: [], fallback: false };
-// }
+    const paths =
+      jsonResponse?.data?.sneakycrow_blog?.map((post) => ({
+        params: { id: post.slug },
+      })) ?? [];
+      return { paths, fallback: false };
+  }
+  return { paths: [], fallback: false };
+}
 
-// export async function getStaticProps(context) {
-//   const SINGLE_POST_QUERY = createSinglePostQueryBySlug(context.params.id);
-//   const res = await fetch('https://sneakycrow.dev/api/get-data', {
-//     method: 'POST',
-//     body: SINGLE_POST_QUERY,
-//   }).catch(error => {
-//     console.error(error);
-//     return null;
-//   })
+export async function getStaticProps(context) {
+  const SINGLE_POST_QUERY = createSinglePostQueryBySlug(context.params.id);
+  const res = await fetch('https://sneakycrow.dev/api/get-data', {
+    method: 'POST',
+    body: SINGLE_POST_QUERY,
+  }).catch(error => {
+    console.error(error);
+    return null;
+  })
 
-//   if (res?.status === 2000) {
-//     try {
-//       const jsonResponse = await res.json().catch(error => {
-//         console.error(error);
-//         return null;
-//       });
-//       return {
-//         props: {
-//           postData: jsonResponse?.data?.sneakycrow_blog[0] ?? null,
-//         },
-//       };
-//     } catch (error) {
-//       return {
-//         props: {
-//           postData: null,
-//           error,
-//         },
-//       };
-//     }
-//   } else {
-//     return {
-//       props: {
-//         postData: null
-//       },
-//     };
-//   }
-// }
+  if (res?.status === 2000) {
+    try {
+      const jsonResponse = await res.json().catch(error => {
+        console.error(error);
+        return null;
+      });
+      return {
+        props: {
+          postData: jsonResponse?.data?.sneakycrow_blog[0] ?? null,
+        },
+      };
+    } catch (error) {
+      return {
+        props: {
+          postData: null,
+          error,
+        },
+      };
+    }
+  } else {
+    return {
+      props: {
+        postData: null
+      },
+    };
+  }
+}
 
 export default Post;
