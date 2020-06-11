@@ -7,23 +7,20 @@ import withData from '../lib/withData';
 import { ALL_PHOTOS_QUERY } from '../lib/queries';
 import trackView from '../utils/trackView';
 
-const PhotosPage = props => {
-  const initialData = props.data;
-  const { data } = useSWR(ALL_PHOTOS_QUERY, query => withData(query), { initialData });
-  useEffect(() => {
-    trackView(window.location.pathname);
-  }, []);
+const ArtPage = props => {
+  const { photos = [] } = props;
+
   return (
     <Layout
       title="photos - sneakycrow"
       description="The complete collection of photographs taken and edited by Zachary E. Sohovich aka sneakycrow"
     >
       <Navigation />
-      {data ? (
+      {photos.length > 0 ? (
           <section className="mb-4">
-          {data.sneaky_photos.map(photo => (
+          {photos.map(photo => (
             <Photo
-              key={photo.date}
+              key={photo.uuid}
               source={photo.url}
               caption={photo.caption}
               timestamp={photo.date}
@@ -31,15 +28,20 @@ const PhotosPage = props => {
           ))}
         </section>
       ) : (
-        <p>Loading photos...</p>
+        <p>No photos to see here</p>
       )}
     </Layout>
   );
 };
 
-PhotosPage.getInitialProps = async () => {
-  const data = await withData(ALL_PHOTOS_QUERY);
-  return { data };
-};
+export async function getStaticProps() {
+  const res = await withData(ALL_PHOTOS_QUERY);
 
-export default PhotosPage;
+  return {
+    props: {
+      photos: res?.sneaky_photos || []
+    }
+  }
+}
+
+export default ArtPage;

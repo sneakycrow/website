@@ -1,18 +1,16 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import moment from 'moment';
-import withData from '../lib/withData';
 import Layout from '../components/Layout';
 import Navigation from '../components/Navigation';
 import PostPreview from '../components/PostPreview';
 import { ALL_POSTS_QUERY } from '../lib/queries';
 import trackView from '../utils/trackView';
+import withData from '../lib/withData';
 
 const BlogPage = props => {
-  const { data } = props;
-  useEffect(() => {
-    trackView(window.location.pathname);
-  }, []);
+  const { posts = [] } = props;
+
   return (
     <Layout
       title="blog - sneakycrow"
@@ -20,11 +18,11 @@ const BlogPage = props => {
     >
       <Navigation />
       <section>
-        {data ? (
+        {posts.length > 0 ? (
           <ul>
-            {data.sneakycrow_blog.map(post => (
-              <li>
-                <Link href={`/post/${post.slug}`} key={post.id}>
+            {posts.map(post => (
+              <li key={post.id}>
+                <Link href={`/post/${post.slug}`}>
                   <a>
                     <PostPreview
                       title={post.title}
@@ -36,16 +34,21 @@ const BlogPage = props => {
             ))}
           </ul>
         ) : (
-          <p>Loading posts...</p>
+          <p>Error loading posts</p>
         )}
       </section>
     </Layout>
   );
 };
 
-BlogPage.getInitialProps = async () => {
-  const data = await withData(ALL_POSTS_QUERY);
-  return { data };
-};
+export async function getStaticProps() {
+  const res = await withData(ALL_POSTS_QUERY);
+
+  return {
+    props: {
+      posts: res?.sneakycrow_blog || []
+    }
+  }
+}
 
 export default BlogPage;

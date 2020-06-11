@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import trackView from '../utils/trackView';
+import { menuList } from '../lib/constants';
 
 import Layout from '../components/Layout';
 
@@ -7,38 +8,6 @@ const Index = () => {
   useEffect(() => {
     trackView(window.location.pathname);
   }, []);
-  const menuList = [
-    {
-      link: '/blog',
-      title: 'blog',
-      blank: false
-    },
-    {
-      link: '/photos',
-      title: 'photos',
-      blank: false
-    },
-    {
-      link: '/sounds',
-      title: 'sounds',
-      blank: false
-    },
-    {
-      link: 'https://github.com/sneakycrow',
-      title: 'github',
-      blank: true
-    },
-    {
-      link: '/illustrations',
-      title: 'illustrations',
-      blank: false
-    },
-    {
-      link: 'mailto:zach@sneakycrow.dev',
-      title: 'email',
-      blank: false
-    },
-  ];
   return (
     <Fragment>
       <Layout
