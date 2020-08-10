@@ -15,9 +15,9 @@ const Index = () => {
         description="Zachary E. Sohovich aka sneakycrow is an engineer and artist with passions in software, music, illustration, and more."
       >
         <div className="container m-auto h-full flex flex-col content-center items-center mt-32">
-          <img className="w-1/3" src="/images/logo.svg" />
-          <h1 className="mt-10 font-bold">sneakycrow</h1>
-          <h2>artist and engineer</h2>
+          <img className="w-1/5" src="/images/logo.svg" />
+          <h1 className="mt-10 font-bold text-6xl">sneakycrow</h1>
+          <h2 className="text-3xl">artist and engineer</h2>
           <ul className="mb-4 mt-2">
             {menuList.map(menuItem => (
               <li key={menuItem.title}>
