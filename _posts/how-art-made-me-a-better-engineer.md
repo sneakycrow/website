@@ -1,10 +1,13 @@
 ---
 title: 'How art made me a better Engineer'
 excerpt: 'Being successful is having perspective. I wanted to not just be successful in my job, but successful in life. I realized that for the longest time, the only perspective I had was that of an engineer.'
+coverImage: '/assets/blog/hello-world/cover.jpg'
 date: '2020-03-12T05:35:07.322Z'
 author:
     name: Zachary Sohovich
     picture: '/assets/images/logo.svg'
+ogImage:
+    url: '/assets/blog/hello-world/cover.jpg'
 ---
 
 # 
