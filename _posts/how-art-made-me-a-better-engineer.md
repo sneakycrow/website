@@ -10,10 +10,6 @@ ogImage:
     url: '/assets/blog/hello-world/cover.jpg'
 ---
 
-# 
-
-Created: Mar 12, 2020 10:05 PM
-
 Being successful is having perspective. I wanted to not just be successful in my job, but successful in life. I realized that for the longest time, the only perspective I had was that of an engineer.
 
 Perspective is knowledge. And understanding that perspective translates to empathy. The best way to understand and learn a perspective is to experience it. There's a lot of situations where this isn't feasible, but there's quite a lot where it is.
