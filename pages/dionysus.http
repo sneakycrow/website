@@ -1,0 +1,4 @@
+GET https://yf537ok2eb.execute-api.us-east-1.amazonaws.com/default/dionysus-consume
+Accept: application/json
+X-Api-Key: J3ORQvoTHZ9iuPDAaPxAua7qgwPfd6yD7MIez6vk
+###
