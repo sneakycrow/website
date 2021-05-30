@@ -15,8 +15,8 @@ const Videos = ({HLSURLList = []}) => {
             <Intro subtitle={"videos and clips"}/>
 
             {HLSURLList.map((url, index) => (
-                <div className="w-1/2 my-20">
-                    <Player url={url} key={`hls-${index}`}/>
+                <div className="w-1/2 my-20" key={`hls-${index}`}>
+                    <Player url={url}/>
                 </div>
             ))}
         </div>
@@ -25,7 +25,7 @@ const Videos = ({HLSURLList = []}) => {
 
 
 export async function getServerSideProps(context) {
-    const res = await fetch("https://yf537ok2eb.execute-api.us-east-1.amazonaws.com/default/dionysus-consume", {
+    const res = await fetch("https://qln1awnny3.execute-api.us-east-1.amazonaws.com/default/dionysus-consume", {
         headers: {
             "X-Api-Key": "J3ORQvoTHZ9iuPDAaPxAua7qgwPfd6yD7MIez6vk"
         }
