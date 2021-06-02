@@ -8,7 +8,7 @@ const Index = () => {
     <>
       <Layout>
         <Head>
-          <title>sneakycrow.dev | artist and engineer</title>
+          <title>sneakycrow engineering</title>
         </Head>
         <Container>
             <Intro />
