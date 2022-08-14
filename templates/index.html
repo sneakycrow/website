@@ -5,9 +5,8 @@
 <link href="home.css" rel="stylesheet">
 {% endblock head %}
 {% block content %}
-<main>
-    <h1><img alt="A line art graphic of a crow with a green baseball cap on" class="logo" src="/logo.svg">
-        sneakycrow</h1>
+    <img alt="A line art graphic of a crow with a green baseball cap on" class="logo" src="/logo.svg">
+    <h1>sneaky crow</h1>
     <h2>data and web developer</h2>
     <h3>about me</h3>
     <p>My name is Zach and I love problem-solving with software. With over a decade of experience, I've worked
@@ -15,5 +14,10 @@
         individuals.</p>
     <p>If you have an interesting project idea or would like to work with me, <a href="mailto:zach@sneakycrow.dev">contact
         me via email</a></p>
-</main>
 {% endblock content %}
+{% block footer %}
+{{ super() }}
+<script type="text/javascript" src="{{ get_url(path="elasticlunr.min.js") }}"></script>
+<script type="text/javascript" src="{{ get_url(path="search_index.en.js") }}"></script>
+<script type="text/javascript" src="{{ get_url(path="search.js") }}"></script>
+{% endblock footer %}
