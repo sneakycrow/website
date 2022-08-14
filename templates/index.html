@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}data and web developer{% endblock title %}
+{% block head %}
+{{ super() }}
+<link href="home.css" rel="stylesheet">
+{% endblock head %}
+{% block content %}
+<main>
+    <h1><img alt="A line art graphic of a crow with a green baseball cap on" class="logo" src="/logo.svg">
+        sneakycrow</h1>
+    <h2>data and web developer</h2>
+    <h3>about me</h3>
+    <p>My name is Zach and I love problem-solving with software. I have over 10 years of experience and passion working
+        with many partners including Twitch, Nike, and local Portland businesses. I work with both businesses and
+        individuals.</p>
+    <p>If you have an interesting project idea or would like to work with me, <a href="mailto:zach@sneakycrow.dev">contact
+        me via email</a></p>
+</main>
+{% endblock content %}
