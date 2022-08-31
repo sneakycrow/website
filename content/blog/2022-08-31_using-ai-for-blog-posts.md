@@ -1,5 +1,6 @@
 ---
 title: Using AI to augment blog posts
+template: post.html
 ---
 Blog posts are better with pictures, but a lot of the time tech articles are tough to visualize
 (and also I'm lazy and don't want to think about visualizing a specific part of a post I'm writing). With all the
@@ -24,4 +25,4 @@ BUT! There are other ideas I have for augmenting some of these blog posts with A
 
 Like, what if I could use OpenAI to generate the blog
 excerpts. [OpenAI has an interesting Text Completion API](https://beta.openai.com/docs/guides/completion) that looks
-promising. 
+promising.
