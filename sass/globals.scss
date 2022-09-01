@@ -56,9 +56,16 @@ p {
 }
 
 a {
-  color: white;
-  background-color: var(--primary);
+  color: black;
+  font-weight: 800;
+  border-bottom: 8px solid var(--primary);
   text-decoration: none;
+  margin: 2px;
+  opacity: 1;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 blockquote p {
@@ -86,10 +93,10 @@ header {
     a {
       background-color: transparent;
       color: black;
-      font-weight: 800;
       font-size: 2rem;
       display: inline-block;
       padding: 8px 4px;
+      border-bottom: none;
     }
 
     a::before {
