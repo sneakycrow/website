@@ -1,4 +1,4 @@
 ---
-title: blog posts
+title: blog
 template: "posts.html"
 ---
