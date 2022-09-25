@@ -34,8 +34,9 @@ const Home: NextPage = () => {
                     and
                     individuals.</p>
 
-                <p>Some of my favorite technologies to work with are: **Rust, Go, React, AI, CI/CD, Data Analysis, Data
-                    Pipelining...**</p>
+                <p>Some of my favorite technologies to work with are: <strong>Rust, Go, React, AI, CI/CD, Data Analysis,
+                    Data
+                    Pipelining...</strong></p>
 
                 <p>If you have an interesting project idea or would like to work with me
                     then <a href="mailto:zach@sneakycrow.dev">[contact me vial email]</a></p>
