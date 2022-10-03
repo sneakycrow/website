@@ -7,6 +7,7 @@ export default function App(props: AppProps) {
     const {
         Component,
         pageProps: {
+            // @ts-ignore-line
             session, ...pageProps
         },
     } = props;
@@ -20,6 +21,7 @@ export default function App(props: AppProps) {
                     content="minimum-scale=1, initial-scale=1, width=device-width"
                 />
             </Head>
+            {/* @ts-ignore-line */}
             <SessionProvider session={pageProps.session} refetchInterval={0}>
                 <MantineProvider
                     withGlobalStyles
