@@ -1,11 +1,10 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Button, Container, Image, Text } from "@mantine/core";
-import { signIn, useSession } from "next-auth/react";
+import { Anchor, Container, Stack, Text, Title } from "@mantine/core";
+import Link from "next/link";
+import Logo from "../components/Logo";
 
 const Home: NextPage = () => {
-  const { data: session } = useSession();
-
   return (
     <Container fluid>
       <Head>
@@ -14,46 +13,40 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        {!session && <Button onClick={() => signIn("github")}>Sign in</Button>}
-        <Image
-          src="/logo.png"
-          fit="contain"
-          width={400}
-          alt="A line art graphic of a crow with a green baseball cap on"
-          placeholder={
+      <Container size="md">
+        <Logo />
+        <Container fluid sx={{ textAlign: "center" }}>
+          <Title order={1}>sneaky crow</Title>
+          <Title order={2}>data and web developer</Title>
+        </Container>
+        <Container fluid>
+          <Title order={3}>about me</Title>
+
+          <Stack>
             <Text>
-              A line art graphic of a crow with a green baseball cap on
+              My name is <strong>Zach</strong> and I love problem-solving with
+              software. With over a decade of experience, &apos; worked with
+              many partners including
+              <strong>Twitch, Nike, and local PNW businesses</strong>. I work
+              with both businesses and individuals.
             </Text>
-          }
-        />
 
-        <h1>sneaky crow</h1>
-
-        <h2>data and web developer</h2>
-
-        <h3>about me</h3>
-
-        <p>
-          My name is <strong>Zach</strong> and I love problem-solving with
-          software. With over a decade of experience, &apos; worked with many
-          partners including{" "}
-          <strong>Twitch, Nike, and local PNW businesses</strong>. I work with
-          both businesses and individuals.
-        </p>
-
-        <p>
-          Some of my favorite technologies to work with are:{" "}
-          <strong>
-            Rust, Go, React, AI, CI/CD, Data Analysis, Data Pipelining...
-          </strong>
-        </p>
-
-        <p>
-          If you have an interesting project idea or would like to work with me
-          then <a href="mailto:zach@sneakycrow.dev">[contact me vial email]</a>
-        </p>
-      </main>
+            <Text>
+              Some of my favorite technologies to work with are:{" "}
+              <strong>
+                Rust, Go, React, AI, CI/CD, Data Analysis, Data Pipelining...
+              </strong>
+            </Text>
+            <Text>
+              If you have an interesting project idea or would like to work with
+              me then please{" "}
+              <Link href="mailto:zach@sneakycrow.dev" passHref>
+                <Anchor component="a">contact me via email</Anchor>
+              </Link>
+            </Text>
+          </Stack>
+        </Container>
+      </Container>
     </Container>
   );
 };
