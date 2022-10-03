@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Box, Button, Container, Image, Text } from "@mantine/core";
+import { Button, Container, Image, Text } from "@mantine/core";
 import { signIn, useSession } from "next-auth/react";
 
 const Home: NextPage = () => {
@@ -16,19 +16,17 @@ const Home: NextPage = () => {
 
       <main>
         {!session && <Button onClick={() => signIn("github")}>Sign in</Button>}
-        <Box sx={{ width: 400 }}>
-          <Image
-            src="/logo.svg"
-            fit="contain"
-            alt="A line art graphic of a crow with a green baseball cap on"
-            withPlaceholder
-            placeholder={
-              <Text>
-                A line art graphic of a crow with a green baseball cap on
-              </Text>
-            }
-          />
-        </Box>
+        <Image
+          src="/logo.png"
+          fit="contain"
+          width={400}
+          alt="A line art graphic of a crow with a green baseball cap on"
+          placeholder={
+            <Text>
+              A line art graphic of a crow with a green baseball cap on
+            </Text>
+          }
+        />
 
         <h1>sneaky crow</h1>
 
