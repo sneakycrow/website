@@ -7,6 +7,7 @@ const withMDX = require("@next/mdx")({
     // If you use `MDXProvider`, uncomment the following line.
     providerImportSource: "@mdx-js/react",
   },
+  output: "standalone",
   reactStrictMode: true,
   swcMinify: true,
 });
