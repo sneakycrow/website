@@ -15,36 +15,30 @@ pub(crate) struct Website {
 }
 
 impl Website {
-    // Creates a website with a single index page
-    pub(crate) fn default() -> Result<Self, std::io::Error> {
+    // Generates all assets for deployment
+    pub(crate) fn generate(registry: &Handlebars, output_path: &str) -> Result<(), std::io::Error> {
+        // Compile Stylesheets
+        let css_text = Self::compile_sass("templates/assets/css/_index.scss");
+        let css_path = format!("{}/{}", output_path, "main.css");
+        println!("CSS COMPILED {:?}", css_text);
+        let mut css_file = File::create(&css_path)?;
+        css_file.write_all(css_text.as_bytes())?;
+
+        // Compile HTML from Pages
         let index_page = Page::Index(IndexData {
             title: "Zachary Sohovich | sneaky crow".to_string(),
         });
 
-        Ok(Website {
-            pages: vec![index_page],
-        })
-    }
-
-    // Generates all assets for deployment
-    pub(crate) fn generate(
-        self,
-        registry: &Handlebars,
-        output_path: &str,
-    ) -> Result<(), std::io::Error> {
+        let pages: Vec<Page> = vec![index_page];
         let mut parsed_pages: Vec<(String, String)> = vec![];
-        for page in self.pages {
+        for page in pages {
             let parsed_page = Page::generate_html(page, registry);
             parsed_pages.push(parsed_page);
         }
 
-        let css_text = Self::compile_sass("templates/assets/css/_index.scss");
-        println!("CSS COMPILED {:?}", css_text);
-        let mut css_file = File::create(format!("{}/{}", output_path, "main.css"))?;
-        css_file.write_all(css_text.as_bytes())?;
-
-        for (title, html) in parsed_pages {
-            let mut index_file = File::create(format!("{}/{}", output_path, title))?;
+        // Compile HTML
+        for (file_name, html) in parsed_pages {
+            let mut index_file = File::create(format!("{}/{}", output_path, file_name))?;
             index_file.write_all(html.as_bytes())?;
         }
         Ok(())

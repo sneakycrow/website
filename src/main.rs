@@ -19,8 +19,7 @@ fn main() -> Result<(), std::io::Error> {
 
     // Initialize by making sure all output directories are ready
     fs::create_dir_all(OUTPUT_DIR)?;
-    let website = Website::default()?;
-    website.generate(&handlebars, OUTPUT_DIR)?;
+    Website::generate(&handlebars, OUTPUT_DIR)?;
 
     Ok(())
 }
