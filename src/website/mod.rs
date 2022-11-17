@@ -1,4 +1,5 @@
 use std::ffi::OsStr;
+use std::fs;
 use std::fs::File;
 use std::io::Write;
 
@@ -41,10 +42,23 @@ impl Website {
             let mut index_file = File::create(format!("{}/{}", output_path, file_name))?;
             index_file.write_all(html.as_bytes())?;
         }
+
+        // Copy static assets
+        // Create asset directory
+        let asset_path = format!("{}/{}", output_path, "assets");
+        fs::create_dir_all(&asset_path)?;
+        // Copy fonts
+        let fonts_path = format!("{}/{}", &asset_path, "fonts");
+        fs::create_dir_all(&fonts_path)?;
+        Self::copy_assets("templates/assets/fonts", &fonts_path)?;
+        // Copy images
+        let images_path = format!("{}/{}", &asset_path, "images");
+        fs::create_dir_all(&images_path)?;
+        Self::copy_assets("templates/assets/images", &images_path)?;
         Ok(())
     }
 
-    // Compile SASS for all scss files within the path
+    // Compile SASS for all scss files within the path and return the compiled CSS
     fn compile_sass(path: &str) -> String {
         grass::from_path(path, &grass::Options::default()).expect(
             format!(
@@ -53,5 +67,22 @@ impl Website {
             )
             .as_str(),
         )
+    }
+
+    // Copies static assets (such as images, and fonts) to the output path
+    fn copy_assets(input_path: &str, output_path: &str) -> Result<(), std::io::Error> {
+        for entry in WalkDir::new(input_path) {
+            let unwrapped_entry = entry.unwrap();
+            if unwrapped_entry.path().is_file() {
+                let file_name = unwrapped_entry.path().file_name().unwrap().to_str();
+                if let Some(name) = file_name {
+                    let full_output_path = format!("{}/{}", output_path, name);
+                    let input_file = fs::read(unwrapped_entry.path())?;
+                    let mut output_file = File::create(full_output_path)?;
+                    output_file.write_all(&input_file)?;
+                }
+            }
+        }
+        Ok(())
     }
 }
