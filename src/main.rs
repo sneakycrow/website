@@ -1,8 +1,10 @@
-use crate::website::Website;
-use handlebars::Handlebars;
 use std::fs;
 use std::fs::File;
 use std::io::Write;
+
+use handlebars::Handlebars;
+
+use crate::website::Website;
 
 mod website;
 
@@ -18,11 +20,7 @@ fn main() -> Result<(), std::io::Error> {
     // Initialize by making sure all output directories are ready
     fs::create_dir_all(OUTPUT_DIR)?;
     let website = Website::default()?;
-    let html: Vec<(String, String)> = website.generate_html(&handlebars);
-    for (title, html) in html {
-        let mut index_file = File::create(format!("{}/{}", OUTPUT_DIR, title))?;
-        index_file.write_all(html.as_bytes())?;
-    }
+    website.generate(&handlebars, OUTPUT_DIR)?;
 
     Ok(())
 }
