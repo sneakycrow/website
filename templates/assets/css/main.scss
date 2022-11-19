@@ -1,0 +1,18 @@
+main {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  .branding {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    .logo {
+      max-height: 200px;
+    }
+  }
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
+}

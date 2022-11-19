@@ -1,4 +1,3 @@
-use std::ffi::OsStr;
 use std::fs;
 use std::fs::File;
 use std::io::Write;
@@ -6,28 +5,33 @@ use std::io::Write;
 use handlebars::Handlebars;
 use walkdir::WalkDir;
 
+use crate::website::config::Config;
 use crate::website::page::{IndexData, Page};
 
+pub(crate) mod config;
 mod css;
 mod page;
 
 pub(crate) struct Website {
-    pub(crate) pages: Vec<Page>,
+    pub(crate) config: Config,
 }
 
 impl Website {
     // Generates all assets for deployment
-    pub(crate) fn generate(registry: &Handlebars, output_path: &str) -> Result<(), std::io::Error> {
+    pub(crate) fn generate(registry: &Handlebars, config: Config) -> Result<(), std::io::Error> {
+        // Initialize by making sure all output directories are ready
+        fs::create_dir_all(&config.output_directory)?;
         // Compile Stylesheets
         let css_text = Self::compile_sass("templates/assets/css/_index.scss");
-        let css_path = format!("{}/{}", output_path, "main.css");
+        let css_path = format!("{}/{}", config.output_directory, "main.css");
         println!("CSS COMPILED {:?}", css_text);
         let mut css_file = File::create(&css_path)?;
         css_file.write_all(css_text.as_bytes())?;
 
         // Compile HTML from Pages
         let index_page = Page::Index(IndexData {
-            title: "Zachary Sohovich | sneaky crow".to_string(),
+            title: "Zachary Sohovich".to_string(),
+            subtitle: "software wizard".to_string(),
         });
 
         let pages: Vec<Page> = vec![index_page];
@@ -37,15 +41,16 @@ impl Website {
             parsed_pages.push(parsed_page);
         }
 
-        // Compile HTML
+        // Save HTML to output directory
         for (file_name, html) in parsed_pages {
-            let mut index_file = File::create(format!("{}/{}", output_path, file_name))?;
+            let mut index_file =
+                File::create(format!("{}/{}", config.output_directory, file_name))?;
             index_file.write_all(html.as_bytes())?;
         }
 
         // Copy static assets
         // Create asset directory
-        let asset_path = format!("{}/{}", output_path, "assets");
+        let asset_path = format!("{}/{}", config.output_directory, "assets");
         fs::create_dir_all(&asset_path)?;
         // Copy fonts
         let fonts_path = format!("{}/{}", &asset_path, "fonts");

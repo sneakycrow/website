@@ -9,6 +9,7 @@ pub(crate) enum Page {
 #[derive(Serialize)]
 pub(crate) struct IndexData {
     pub(crate) title: String,
+    pub(crate) subtitle: String,
 }
 
 impl Page {
