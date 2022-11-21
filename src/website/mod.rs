@@ -60,6 +60,10 @@ impl Website {
         let images_path = format!("{}/{}", &asset_path, "images");
         fs::create_dir_all(&images_path)?;
         Self::copy_assets("templates/assets/images", &images_path)?;
+        // Copy js
+        let js_path = format!("{}/{}", &asset_path, "js");
+        fs::create_dir_all(&js_path)?;
+        Self::copy_assets("templates/assets/js", &js_path)?;
         Ok(())
     }
 
