@@ -14,6 +14,9 @@ fn main() -> Result<(), std::io::Error> {
         .register_templates_directory(".hbs", "templates")
         .expect("[HANDLEBARS ERROR] Could not register templates directory");
 
+    handlebars
+        .register_templates_directory(".hbs", "templates/pages")
+        .expect("[HANDLEBARS ERROR] Could not register templates/pages directory");
     Website::generate(&handlebars, Config::default())?;
 
     Ok(())

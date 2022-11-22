@@ -1,6 +1,14 @@
+body {
+  margin: 0;
+}
+
 main {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 8px;
+  height: 100%;
+  min-height: 50vh;
+
 
   .branding {
     display: flex;
@@ -13,7 +21,27 @@ main {
     }
   }
 
+  .navigation {
+    position: sticky;
+    top: 0;
+    background: white;
+    width: 100%;
+  }
+
+  .slider {
+    position: fixed;
+  }
+
+  article {
+    padding: 8px;
+  }
+
   @media (max-width: 800px) {
     grid-template-columns: 1fr;
   }
+}
+
+.border-right {
+  border-top: none;
+  border-right: 1px solid lightgray;
 }

@@ -5,6 +5,9 @@
     <title>{{title}}</title>
     <link rel="stylesheet" href="./main.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
 <body>
 <main>
@@ -15,29 +18,46 @@
             <h2>{{subtitle}}</h2>
         </div>
     </div>
-    <div>
+    <div class="navigation">
         <ul>
             <li>
-                <a href="">Example Link</a>
+                <a href="./about.html">who the **** am I</a>
             </li>
             <li>
-                <a href="">Example Link</a>
+                <a href="./blog.html">award-winning blog</a>
             </li>
         </ul>
     </div>
     <article>
-        <h3>hello world</h3>
-        <p>My name is Zach and I love problem-solving with software. With over a decade of experience, I've worked
-            with many partners including Twitch, Nike, and local PNW businesses. I work with both businesses
-            and
-            individuals.</p>
+        <h3>oh shit waddup</h3>
+        <p>My name is Zach (aka sneakycrow or ctrlsquid), I really enjoy programming. Like a lot. Like honestly it's
+            probably unhealthy, but thats for my therapist to solve. I'm a weird guy, but I got a big head (that's not
+            completely full of air) and a big heart, who gives a shit about people as much as software.
+
+            I'm a very versatile software developer. I have an unquenchable thirst for knowledge and experience, which
+            has brought me to many "specialized sectors" of programming.</p>
+        <h3>my 1337 skills</h3>
+        <ul>
+            <li>front-end in several different capacities (like static websites, full SPAs, MEAN, MAMP, LAMP, DAMP,
+                RAMP,
+                w.e. it is I can do it). I know React, Vue, I've touched Angular once (puke), I even know Wordpress
+                (tombstone emote).
+            </li>
+            <li>back-ends, Rust (mi amor), Go (my mistress), Node (my ball and chain), PHP (yucky ew).</li>
+            <li>data analysis and pipelining using all kinds of Apache bull-shit, Docker, k8s-stuff.</li>
+            <li>database "stuff" idk man pick a word I've probably done it</li>
+            <li>pretty much all web-related AWS services, EKS, ECS, Digital Ocean stuff.</li>
+            <li>near-real time data-streaming, pipelining, and event-driven systems</li>
+            <li>if-else statements that marketers advertised as AI</li>
+        </ul>
+
+
         <p>My preference is short term projects that are interesting (to me). I'm particularly interested to
             projects in
-            relation to my hobbies, like gaming and music, and I'm flexible with budgets, so please don't hesitate to
+            relation to my hobbies, like gaming, coffee, music, nature, animals, and I'm flexible with budgets, so
+            please don't hesitate to
             contact me if you fit some of that description.</p>
-        <p>I specialize in web development and data engineering, with expertise in front-end, back-end, data pipelining,
-            data analysis, and scalable services.</p>
-        <p>Some of the Software I've developed, and that I'm particularly proud of:
+        <label>Some of the Software I've developed, and that I'm particularly proud of:</label>
         <ul>
             <li>
                 Fulcrum, a near real-time chat analysis and event system. This tool allows post-processing analytics,
@@ -49,12 +69,11 @@
                 </ul>
             </li>
         </ul>
-        </p>
         <p>Some of my favorite technologies to work with are: Rust, Go, and React. You can visit some of my projects on
             my <a href="">github</a>.</p>
     </article>
     <div>
-        <div class="slider"></div>
+        <div class="slider" data-slides='[{"name": "slide 3"}, {"name": "slide 4"}]'></div>
         <div class="slider"></div>
     </div>
 </main>

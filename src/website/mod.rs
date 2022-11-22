@@ -6,7 +6,7 @@ use handlebars::Handlebars;
 use walkdir::WalkDir;
 
 use crate::website::config::Config;
-use crate::website::page::{IndexData, Page};
+use crate::website::page::{Page, PageData};
 
 pub(crate) mod config;
 mod css;
@@ -24,17 +24,17 @@ impl Website {
         // Compile Stylesheets
         let css_text = Self::compile_sass("templates/assets/css/_index.scss");
         let css_path = format!("{}/{}", config.output_directory, "main.css");
-        println!("CSS COMPILED {:?}", css_text);
         let mut css_file = File::create(&css_path)?;
         css_file.write_all(css_text.as_bytes())?;
 
+        let mut pages: Vec<Page> = Self::generate_pages()?;
         // Compile HTML from Pages
-        let index_page = Page::Index(IndexData {
+        let index_page = Page::Index(PageData {
+            name: "index".to_string(),
             title: "Zachary Sohovich".to_string(),
             subtitle: "software wizard".to_string(),
         });
-
-        let pages: Vec<Page> = vec![index_page];
+        pages.push(index_page);
         let mut parsed_pages: Vec<(String, String)> = vec![];
         for page in pages {
             let parsed_page = Page::generate_html(page, registry);
@@ -43,9 +43,8 @@ impl Website {
 
         // Save HTML to output directory
         for (file_name, html) in parsed_pages {
-            let mut index_file =
-                File::create(format!("{}/{}", config.output_directory, file_name))?;
-            index_file.write_all(html.as_bytes())?;
+            let mut html_file = File::create(format!("{}/{}", config.output_directory, file_name))?;
+            html_file.write_all(html.as_bytes())?;
         }
 
         // Copy static assets
@@ -93,5 +92,26 @@ impl Website {
             }
         }
         Ok(())
+    }
+
+    /// Generates pages based on files in the templates directory, excluding the index page
+    fn generate_pages() -> Result<Vec<Page>, std::io::Error> {
+        let mut pages: Vec<Page> = vec![];
+        for entry in WalkDir::new("templates/pages") {
+            let file = entry?;
+            if file.path().is_file() {
+                if let Some(name_without_extension) = file.path().file_stem() {
+                    let name = name_without_extension.to_str().unwrap().to_string();
+                    let page = Page::Standard(PageData {
+                        name: name.clone(),
+                        title: "page".to_string(),
+                        subtitle: format!("page - {}", &name),
+                    });
+
+                    pages.push(page)
+                }
+            }
+        }
+        Ok(pages)
     }
 }

@@ -3,23 +3,38 @@ use serde::Serialize;
 
 #[derive(Serialize)]
 pub(crate) enum Page {
-    Index(IndexData),
+    Index(PageData),
+    Standard(PageData),
+    BlogPage(PageData),
 }
 
 #[derive(Serialize)]
-pub(crate) struct IndexData {
+pub(crate) struct PageData {
     pub(crate) title: String,
     pub(crate) subtitle: String,
+    pub(crate) name: String,
 }
 
 impl Page {
     pub(crate) fn generate_html(page: Page, registry: &Handlebars) -> (String, String) {
         match page {
             Page::Index(data) => (
-                "index.html".to_string(),
+                format!("{}.html", data.name),
                 registry
-                    .render("index", &data)
-                    .expect("[HANDLEBARS ERROR] Could not render index page"),
+                    .render(&data.name, &data)
+                    .expect("[HANDLEBARS ERROR] Could not render page"),
+            ),
+            Page::Standard(data) => (
+                format!("{}.html", data.name),
+                registry
+                    .render(&data.name, &data)
+                    .expect("[HANDLEBARS ERROR] Could not render page"),
+            ),
+            Page::BlogPage(data) => (
+                format!("{}.html", data.name),
+                registry
+                    .render(&data.name, &data)
+                    .expect("[HANDLEBARS ERROR] Could not render page"),
             ),
         }
     }
