@@ -4,7 +4,15 @@ body {
 
 main {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+
+  &.page {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &.post {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
   grid-column-gap: 8px;
   height: 100%;
   min-height: 50vh;

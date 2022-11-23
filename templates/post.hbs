@@ -6,17 +6,15 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{title}}</title>
-    <link rel="stylesheet" href="./main.css"/>
+    <link rel="stylesheet" href="/main.css"/>
 </head>
 <body>
-<main class="page">
+<main class="post">
     <h1>{{title}}</h1>
-    <h2>{{subtitle}}</h2>
-    <div>
-        {{#each posts as post}}
-            <li><a href="{{url}}">{{title}}</a></li>
-        {{/each}}
-    </div>
+    <h2>{{month_name month}} {{day}}, {{year}}</h2>
+    <article>
+        {{{markdown}}}
+    </article>
 </main>
 </body>
 </html>
