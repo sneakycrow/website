@@ -27,25 +27,15 @@ impl Website {
         let mut css_file = File::create(&css_path)?;
         css_file.write_all(css_text.as_bytes())?;
 
-        let mut pages: Vec<Page> = Self::generate_pages()?;
-        // Compile HTML from Pages
-        let index_page = Page::Index(PageData {
-            name: "index".to_string(),
-            title: "Zachary Sohovich".to_string(),
-            subtitle: "software wizard".to_string(),
+        Self::generate_pages(&config)?.iter().for_each(|p| {
+            let (file_name, html) = Page::generate_html(p, registry);
+            let path = format!("{}/{}", config.output_directory, file_name);
+            let mut html_file = File::create(&path)
+                .expect(format!("[PAGE CREATION ERROR] Could not create {}", &path).as_str());
+            html_file
+                .write_all(html.as_bytes())
+                .expect(format!("[PAGE WRITE ERROR] Could not write {}", &path).as_str())
         });
-        pages.push(index_page);
-        let mut parsed_pages: Vec<(String, String)> = vec![];
-        for page in pages {
-            let parsed_page = Page::generate_html(page, registry);
-            parsed_pages.push(parsed_page);
-        }
-
-        // Save HTML to output directory
-        for (file_name, html) in parsed_pages {
-            let mut html_file = File::create(format!("{}/{}", config.output_directory, file_name))?;
-            html_file.write_all(html.as_bytes())?;
-        }
 
         // Copy static assets
         // Create asset directory
@@ -95,18 +85,35 @@ impl Website {
     }
 
     /// Generates pages based on files in the templates directory, excluding the index page
-    fn generate_pages() -> Result<Vec<Page>, std::io::Error> {
+    fn generate_pages(config: &Config) -> Result<Vec<Page>, std::io::Error> {
         let mut pages: Vec<Page> = vec![];
         for entry in WalkDir::new("templates/pages") {
             let file = entry?;
             if file.path().is_file() {
                 if let Some(name_without_extension) = file.path().file_stem() {
-                    let name = name_without_extension.to_str().unwrap().to_string();
-                    let page = Page::Standard(PageData {
-                        name: name.clone(),
-                        title: "page".to_string(),
-                        subtitle: format!("page - {}", &name),
-                    });
+                    let name = name_without_extension.to_str().unwrap();
+
+                    let page: Page = match name {
+                        "index" => Page::Home(PageData {
+                            name: "index".to_string(),
+                            title: config.title.to_string(),
+                            subtitle: config.subtitle.to_string(),
+                        }),
+                        "blog" => Page::BlogIndex(PageData {
+                            name: "blog".to_string(),
+                            title: "sneaky crow blog".to_string(),
+                            subtitle: "a bunch of ramblings".to_string(),
+                        }),
+                        _ => {
+                            let page = Page::Standard(PageData {
+                                name: name.to_string(),
+                                title: "unknown".to_string(),
+                                subtitle: format!("unknown page type - {}", &name),
+                            });
+
+                            page
+                        }
+                    };
 
                     pages.push(page)
                 }

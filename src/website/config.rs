@@ -5,6 +5,8 @@ use serde::Deserialize;
 #[derive(Deserialize)]
 pub(crate) struct Config {
     pub(crate) output_directory: String,
+    pub(crate) title: String,
+    pub(crate) subtitle: String,
 }
 
 impl Config {
@@ -16,6 +18,8 @@ impl Config {
             toml::from_str(&config_file).expect("[CONFIG ERROR] Could not parse config from file");
         Config {
             output_directory: config.output_directory,
+            title: config.title,
+            subtitle: config.subtitle,
         }
     }
 }
