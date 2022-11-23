@@ -7,10 +7,13 @@ main {
 
   &.page {
     grid-template-columns: repeat(2, 1fr);
+    @media (max-width: 800px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   &.post {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: 1fr;
   }
 
   grid-column-gap: 8px;
@@ -44,9 +47,6 @@ main {
     padding: 8px;
   }
 
-  @media (max-width: 800px) {
-    grid-template-columns: 1fr;
-  }
 }
 
 .border-right {
