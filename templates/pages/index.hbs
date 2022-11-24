@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="./main.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+<main class="page">
+    <div class="branding">
+        <img class="logo" alt="" src="./assets/images/logo_v2.svg"/>
+        <div>
+            <h1>{{title}}</h1>
+            <h2>{{subtitle}}</h2>
+        </div>
+    </div>
+    <div class="navigation">
+        <ul>
+            <li>
+                <a href="./about.html">who the **** am I</a>
+            </li>
+            <li>
+                <a href="./blog.html">award-winning blog</a>
+            </li>
+            <li>
+                <a href="mailto:zach@sneakycrow.dev">email me</a>
+            </li>
+            <li>
+                <a href="https://github.com/sneakycrow">github</a>
+            </li>
+            <li>
+                <a class="mast-underline" rel="me" href="https://cybre.gg/@ctrlsquid">mastadon</a>
+            </li>
+        </ul>
+    </div>
+    <article>
+        <h3>oh shit waddup</h3>
+        <p>My name is Zach (aka sneakycrow or ctrlsquid), I really enjoy programming. Like a lot. Like honestly it's
+            probably unhealthy, but thats for my therapist to solve. I'm a weird guy, but I got a big head (that's not
+            completely full of air) and a big heart, who gives a shit about people as much as software.
+
+            I'm a very versatile software developer. I have an unquenchable thirst for knowledge and experience, which
+            has brought me to many "specialized sectors" of programming.</p>
+        <h3>my 1337 skills</h3>
+        <ul>
+            <li>front-end in several different capacities, from static websites to full SPA's</li>
+            <li>I know React quite well, and I am also a big fan of Vue.</li>
+            <li>back-ends, Rust (mi amor), Go (my mistress), and Node (my ball and chain).</li>
+            <li>near-real time data-streaming, pipelining, and event-driven systems using all kinds of Apache software,
+                Docker, k8s, cloud infrastructure,
+                cumulonimbus.
+            </li>
+            <li>pretty much all web-related AWS services, elastic container service, elastic file storage, elastic
+                underwear, etc...
+            </li>
+            <li>if-else statements that marketers advertised as AI</li>
+        </ul>
+
+
+        <p>My preference is short term projects that are interesting (to me). I'm particularly interested to
+            projects in
+            relation to my hobbies, like gaming, coffee, music, nature, animals, and I'm flexible with budgets, so
+            please don't hesitate to
+            <a href="mailto:zach@sneakycrow.dev">contact me</a> if you fit some of that description.</p>
+    </article>
+    <div>
+        <div class="slider"
+             data-slides='[
+             {"name": "fulcrum","description": "a near real-time chat analysis and event system. This tool allows post-processing analytics, including a UI for analyzing. It also has an event system with thresholds, and a tool we call our sentiment analyzer. With these events the user declares, they can react to such events in near real-time."},
+             {"name": "Cobrashare", "description": "a file distribution platform for artists to distribute among authorized supporters, including a UI for uploading and managing files, as well as automated tracking via Patreon of campaign backers"}
+             ]'></div>
+        <div class="slider"></div>
+    </div>
+</main>
+
+<script type="module" src="./assets/js/slider.js"></script>
+</body>
+</html>

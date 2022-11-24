@@ -10,9 +10,10 @@ augment these posts.
 
 First off, the easy and probably most fun, using DALL-E to add images. Like this prompt I did:
 
-![3d render of a cute yellow squid playing an arcade game on a dark green background, digital art](/images/articles/dalle_squid.png)
+![3d render of a cute yellow squid playing an arcade game on a dark green background, digital art](/assets/images/dalle_squid.png)
 
-> 3d render of a cute yellow squid playing an arcade game on a dark green background, digital art[full image on openai](https://labs.openai.com/s/OfkbO0pmBsLtfVtrIlYGMnfs)
+> 3d render of a cute yellow squid playing an arcade game on a dark green background, digital
+> art[full image on openai](https://labs.openai.com/s/OfkbO0pmBsLtfVtrIlYGMnfs)
 
 Super cool, I know. Thanks Billy, but DALL-E did all the work.
 

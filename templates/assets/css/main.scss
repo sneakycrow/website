@@ -1,6 +1,31 @@
+body {
+  margin: 0;
+  background-color: #efefef;
+}
+
+a {
+  text-decoration: none;
+  position: relative;
+  color: #0ba750;
+  opacity: 1;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
 main {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
+
+  &.post {
+    grid-template-columns: 1fr;
+  }
+
+  grid-column-gap: 8px;
+  height: 100%;
+  min-height: 50vh;
+
 
   .branding {
     display: flex;
@@ -11,9 +36,91 @@ main {
     .logo {
       max-height: 200px;
     }
+
+    h1 {
+      position: relative;
+
+      &::after {
+        content: "";
+        background-color: #0ba750;
+        width: 25%;
+        height: 4px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        transition: width 250ms ease-in-out;
+      }
+
+      &:hover {
+        &::after {
+          width: 100%;
+        }
+      }
+    }
   }
 
-  @media (max-width: 800px) {
-    grid-template-columns: 1fr;
+  .navigation {
+    position: sticky;
+    top: 0;
+    background: #efefef;
+    width: 100%;
+
+    a {
+      display: inline-block;
+      margin: 10px 0;
+      padding: 8px 16px;
+      border: 4px solid #1f1f1f;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: -10px;
+        width: 5px;
+        height: 100%;
+        background-color: #0ba750;
+        z-index: -1;
+        transition: width 100ms ease-in;
+      }
+
+      &:hover {
+        opacity: 1;
+        color: #38dc7c;
+
+        &::after {
+          width: calc(100% + 15px);
+          background-color: #0ba750;
+        }
+      }
+    }
+
+
+    ul {
+      list-style-type: none;
+
+      li {
+        display: block;
+      }
+    }
+  }
+
+  .slider {
+    position: fixed;
+  }
+
+  article {
+    padding: 8px;
+  }
+
+  @include for-tablet-landscape-up {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
+
+.border-right {
+  border-top: none;
+  border-right: 1px solid lightgray;
+}
+
+// components
+@import "project_card";
