@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  background-color: #efefef;
 }
 
 a {
@@ -40,7 +41,7 @@ main {
   .navigation {
     position: sticky;
     top: 0;
-    background: white;
+    background: #efefef;
     width: 100%;
 
     a {
@@ -57,7 +58,7 @@ main {
         height: 100%;
         background-color: #0ba750;
         z-index: -1;
-        transition: width 100ms ease-in-out;
+        transition: width 100ms ease-in;
       }
 
       &:hover {
@@ -98,3 +99,6 @@ main {
   border-top: none;
   border-right: 1px solid lightgray;
 }
+
+// components
+@import "project_card";

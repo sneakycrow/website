@@ -25,15 +25,16 @@ const Slider = ({slides = []}) => {
     }
 
     return html`
-        <div>
-            ${slides[currentSlideIndex].name}
-        </div>
-        <div>
+        <div class="project-card">
             <button onClick=${() => prevSlide()}>
-                left
+                prev
             </button>
+            <div>
+                <h4>Project: ${slides[currentSlideIndex].name}</h4>
+                <p>${slides[currentSlideIndex].description}</p>
+            </div>
             <button onClick=${() => nextSlide()}>
-                right
+                next
             </button>
         </div>
     `
