@@ -24,12 +24,16 @@ jobs:
             ~/.cargo/git/db/
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-      - name: build website
+      - name: build binary
         uses: actions-rs/cargo@v1
         with:
           command: build
           args: --release --all-features
 
+      - name: build website
+        uses: actions-rs/cargo@v1
+        with:
+          command: run
       - name: upload
         uses: reggionick/s3-deploy@v3
         with:
