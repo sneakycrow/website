@@ -30,6 +30,4 @@ jobs:
           dist-id: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
           invalidation: /*
           delete-removed: true
-          no-cache: true
-          private: true
           filesToInclude: ".*/*,*/*,**"
