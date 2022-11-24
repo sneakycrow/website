@@ -22,6 +22,9 @@ pub(crate) struct PageData {
 pub(crate) struct PostMetaData {
     pub(crate) url: String,
     pub(crate) title: String,
+    pub(crate) month: u32,
+    pub(crate) year: i32,
+    pub(crate) day: u32,
 }
 
 #[derive(Serialize)]

@@ -131,6 +131,9 @@ impl Website {
                                 .map(|p| PostMetaData {
                                     url: p.url.to_string(),
                                     title: p.title.to_string(),
+                                    month: p.month,
+                                    year: p.year,
+                                    day: p.day,
                                 })
                                 .collect();
                             Page::BlogIndex(BlogIndexData {
