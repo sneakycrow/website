@@ -12,10 +12,12 @@
 <main class="page">
     <h1>{{title}}</h1>
     <h2>{{subtitle}}</h2>
-    <div>
-        {{#each posts as post}}
-            <li><a href="{{url}}">{{title}}</a></li>
-        {{/each}}
+    <div class="blog-list">
+        <ul>
+            {{#each posts as post}}
+                <li><a href="{{url}}">{{title}}</a></li>
+            {{/each}}
+        </ul>
     </div>
 </main>
 </body>
