@@ -1,6 +1,5 @@
 ---
 title: "Novel ai helped me write this"
-published: "2022-09-01"
 ---
 
 a magical squid is floating through space, just chillin'  

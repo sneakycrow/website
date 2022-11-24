@@ -1,6 +1,5 @@
 ---
 title: "Using AI to augment blog posts"
-published: "2022-08-31"
 ---
 
 Blog posts are better with pictures, but a lot of the time tech articles are tough to visualize
