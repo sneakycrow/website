@@ -36,6 +36,27 @@ main {
     .logo {
       max-height: 200px;
     }
+
+    h1 {
+      position: relative;
+
+      &::after {
+        content: "";
+        background-color: #0ba750;
+        width: 25%;
+        height: 4px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        transition: width 250ms ease-in-out;
+      }
+
+      &:hover {
+        &::after {
+          width: 100%;
+        }
+      }
+    }
   }
 
   .navigation {
@@ -48,6 +69,7 @@ main {
       display: inline-block;
       margin: 10px 0;
       padding: 8px 16px;
+      border: 4px solid #1f1f1f;
 
       &::after {
         content: "";
