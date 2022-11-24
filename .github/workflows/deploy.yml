@@ -1,8 +1,9 @@
 name: build and upload website
 on:
-  push:
-    branches:
-      - main
+  release:
+    types:
+      - released
+      - prereleased
 jobs:
   run:
     runs-on: ubuntu-latest
