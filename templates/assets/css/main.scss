@@ -2,15 +2,20 @@ body {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+  position: relative;
+  color: #0ba750;
+  opacity: 1;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
 main {
   display: grid;
-
-  &.page {
-    grid-template-columns: repeat(2, 1fr);
-    @media (max-width: 800px) {
-      grid-template-columns: 1fr;
-    }
-  }
+  grid-template-columns: 1fr;
 
   &.post {
     grid-template-columns: 1fr;
@@ -37,6 +42,43 @@ main {
     top: 0;
     background: white;
     width: 100%;
+
+    a {
+      display: inline-block;
+      margin: 10px 0;
+      padding: 8px 16px;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: -10px;
+        width: 5px;
+        height: 100%;
+        background-color: #0ba750;
+        z-index: -1;
+        transition: width 100ms ease-in-out;
+      }
+
+      &:hover {
+        opacity: 1;
+        color: #38dc7c;
+
+        &::after {
+          width: calc(100% + 15px);
+          background-color: #0ba750;
+        }
+      }
+    }
+
+
+    ul {
+      list-style-type: none;
+
+      li {
+        display: block;
+      }
+    }
   }
 
   .slider {
@@ -47,6 +89,9 @@ main {
     padding: 8px;
   }
 
+  @include for-tablet-landscape-up {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .border-right {

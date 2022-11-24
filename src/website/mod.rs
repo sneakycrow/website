@@ -10,7 +10,6 @@ use crate::website::page::{BlogIndexData, Page, PageData, PostMetaData};
 use crate::website::post::Post;
 
 pub(crate) mod config;
-mod css;
 mod page;
 mod post;
 
