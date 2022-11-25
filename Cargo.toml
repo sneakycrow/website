@@ -4,3 +4,5 @@ members = [
     "cli",
     "server"
 ]
+
+default-members = ["cli"]
