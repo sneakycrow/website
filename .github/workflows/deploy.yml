@@ -4,6 +4,8 @@ on:
     types:
       - released
       - prereleased
+  workflow_dispatch:
+    
 jobs:
   run:
     runs-on: ubuntu-latest
