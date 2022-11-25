@@ -27,7 +27,7 @@ jobs:
       - name: build website
         uses: actions-rs/cargo@v1
         with:
-          command: run
+          command: run --package cli
       - name: upload
         uses: reggionick/s3-deploy@v3
         with:
