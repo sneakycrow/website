@@ -4,6 +4,8 @@ on:
     types:
       - released
       - prereleased
+  workflow_dispatch:
+    
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -15,7 +17,7 @@ jobs:
       - name: install rust
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: stable
+          toolchain: nightly
       - uses: actions/cache@v3
         with:
           path: |
