@@ -1,8 +1,9 @@
 name: build and upload website
 on:
-  push:
-    branches:
-      - main
+  release:
+    types:
+      - released
+      - prereleased
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -27,7 +28,7 @@ jobs:
       - name: build website
         uses: actions-rs/cargo@v1
         with:
-          command: run
+          command: run --package cli
       - name: upload
         uses: reggionick/s3-deploy@v3
         with:
