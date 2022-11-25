@@ -5,7 +5,7 @@ on:
       - released
       - prereleased
   workflow_dispatch:
-    
+
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -30,7 +30,8 @@ jobs:
       - name: build website
         uses: actions-rs/cargo@v1
         with:
-          command: run --package cli
+          command: run
+          args: --package cli
       - name: upload
         uses: reggionick/s3-deploy@v3
         with:
