@@ -1,0 +1,27 @@
+.post {
+  .branding {
+    grid-column: span 2;
+    justify-self: center;
+  }
+
+  article {
+    max-width: 800px;
+    width: 100%;
+    grid-column: span 2;
+    justify-self: center;
+    padding: 16px;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  hr {
+    background-color: #b9b9b9;
+    opacity: 0.5;
+    border: none;
+    height: 1px;
+    width: 100%;
+  }
+}

@@ -10,8 +10,15 @@
 </head>
 <body>
 <main class="post">
-    <h1>{{title}}</h1>
-    <h2>{{month_name month}} {{day}}, {{year}}</h2>
+    <div class="branding">
+        <a href="/" class="logo">
+            <img alt="" src="./assets/images/logo_v2.svg"/>
+        </a>
+        <div>
+            <h1>{{title}}</h1>
+            <h2>{{month_name month}} {{day}}, {{year}}</h2>
+        </div>
+    </div>
     <article>
         {{{markdown}}}
     </article>

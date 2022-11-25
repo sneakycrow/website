@@ -17,11 +17,6 @@ a {
 main {
   display: grid;
   grid-template-columns: 1fr;
-
-  &.post {
-    grid-template-columns: 1fr;
-  }
-
   grid-column-gap: 8px;
   height: 100%;
   min-height: 50vh;
@@ -86,18 +81,9 @@ main {
     position: fixed;
   }
 
-  article {
-    padding: 8px;
-  }
-
   @include for-tablet-landscape-up {
     grid-template-columns: repeat(2, 1fr);
   }
-}
-
-.border-right {
-  border-top: none;
-  border-right: 1px solid lightgray;
 }
 
 a.block-link {
@@ -132,3 +118,6 @@ a.block-link {
 // components
 @import "project_card";
 @import "post_list";
+
+// pages
+@import "post";
