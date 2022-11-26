@@ -23,9 +23,14 @@ main {
   padding: 16px;
 
   .branding {
-    display: flex;
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: 1fr;
     align-items: center;
+    position: relative;
+
+    @include for-desktop-up {
+      grid-template-columns: 200px 1fr;
+    }
 
     .logo {
       display: block;
@@ -63,8 +68,6 @@ main {
   }
 
   .navigation {
-    position: sticky;
-    top: 0;
     background: #efefef;
     width: 100%;
 
@@ -81,16 +84,18 @@ main {
     position: fixed;
   }
 
-  @include for-tablet-landscape-up {
+  @include for-desktop-up {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 a.block-link {
+  position: relative;
   display: inline-block;
   margin: 10px 0;
   padding: 8px 16px;
   border: 4px solid #1f1f1f;
+  z-index: 1;
 
   &::after {
     content: "";
