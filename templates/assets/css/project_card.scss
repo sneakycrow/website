@@ -38,8 +38,10 @@
     &:hover {
       cursor: pointer;
 
-      &::after {
-        width: calc(100% - 4px);
+      @include for-desktop-up {
+        &::after {
+          width: calc(100% - 4px);
+        }
       }
     }
   }
