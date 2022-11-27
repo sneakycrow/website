@@ -1,4 +1,6 @@
+use env_logger::init;
 use handlebars::{handlebars_helper, Handlebars};
+use log::debug;
 
 use crate::website::config::Config;
 use crate::website::Website;
@@ -22,6 +24,9 @@ handlebars_helper!(hb_month_name_helper: |month_num: u64| match month_num {
 });
 
 fn main() -> Result<(), std::io::Error> {
+    init();
+
+    debug!("[HANDLEBARS] {}", "initializing registration");
     // Generate HTML
     let mut handlebars = Handlebars::new();
     handlebars.register_helper("month_name", Box::new(hb_month_name_helper));
@@ -33,6 +38,9 @@ fn main() -> Result<(), std::io::Error> {
     handlebars
         .register_templates_directory(".hbs", "templates/pages")
         .expect("[HANDLEBARS ERROR] Could not register templates/pages directory");
+
+    debug!("[WEBSITE] {}", "generating");
+
     Website::generate(&handlebars, Config::default())?;
 
     Ok(())
