@@ -156,5 +156,64 @@ fn main() {
 }
 ```
 
-- next setup aws s3 + cloudfront (supply terraform config maybe?)
-- next i setup github actions deployment
+## CI/CD using GitHub Actions
+
+For this next part, I'm using [GitHub Actions](https://docs.github.com/en/actions) to compile the binary, run it, and
+upload the output files to my S3 bucket that I'm using as a static file.
+
+Because there's a million and one different ways to approach this part, I'm not going to go too much into depth. My
+action is configured to do all the above, as well as a cache directory to save some times on non-binary related runs.
+
+```yaml
+name: build and upload website
+on:
+  release:
+    types:
+      - released
+      - prereleased
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: install rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+      - name: build website
+        uses: actions-rs/cargo@v1
+        with:
+          command: run
+          args: --package cli
+      - name: upload
+        uses: reggionick/s3-deploy@v3
+        with:
+          folder: _out
+          bucket: ${{ secrets.AWS_S3_BUCKET }}
+          bucket-region: ${{ secrets.AWS_REGION }}
+          dist-id: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
+          invalidation: /*
+          delete-removed: true
+          private: true
+          filesToInclude: ".*/*,*/*,**"
+```
+
+And that's it! Now, every time we do a (pre)release it will compile our binary and deploy it. That's useful for pinning
+the binary itself, but this yaml also enables manual deployments for when you just have content updates. This way, you
+don't need to create a new version for content updates.
+
+That's it for this part. In the next part we'll run through adding handlebars and SASS to get prettier pages. 
