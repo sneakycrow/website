@@ -21,6 +21,13 @@ pre {
   padding: 16px;
 }
 
+code {
+  background-color: #1f1f1f;
+  color: #b9b9b9;
+  padding: 4px;
+  font-size: 1.6rem;
+}
+
 main {
   display: grid;
   grid-template-columns: 1fr;
