@@ -1,3 +1,5 @@
 output_directory = "_out"
 title = "Zachary Sohovich"
 subtitle = "software wizard"
+
+github-projects = ["sneakycrow/fulcrum", "sneakycrow/cobrashare"]
