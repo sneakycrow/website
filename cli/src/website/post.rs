@@ -56,12 +56,14 @@ impl Post {
 
         // Setup for syntect to highlight (specifically) Rust code
         let mut syntax_builder = SyntaxSet::load_defaults_newlines().into_builder();
-        syntax_builder.add_from_folder("_themes", true).unwrap();
+        syntax_builder
+            .add_from_folder("assets/langs", true)
+            .expect("[LANGS LOAD ERROR] Could not load langs from the assets/langs folder");
         syntax_builder.add_plain_text_syntax();
         let ss = syntax_builder.build();
 
-        let ts = ThemeSet::load_from_folder("_themes")
-            .expect("[THEME LOAD ERROR] Cannot load _themes folder");
+        let ts = ThemeSet::load_from_folder("assets/themes")
+            .expect("[THEME LOAD ERROR] Cannot load assets/themes folder");
         let theme = &ts.themes["dracula"];
 
         // And track a little bit of state
