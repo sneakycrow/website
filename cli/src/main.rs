@@ -1,4 +1,3 @@
-use env_logger::init;
 use handlebars::{handlebars_helper, Handlebars};
 use log::debug;
 
@@ -24,7 +23,7 @@ handlebars_helper!(hb_month_name_helper: |month_num: u64| match month_num {
 });
 
 fn main() -> Result<(), std::io::Error> {
-    init();
+    env_logger::init();
 
     debug!("[HANDLEBARS] {}", "initializing registration");
     // Generate HTML
