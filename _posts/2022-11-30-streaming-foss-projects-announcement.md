@@ -1,5 +1,5 @@
 ---
-title: "announcing a semi-regular foss building stream"
+title: "Announcing a semi-regular foss building stream"
 ---
 I really like building software. And when I'm not working on a client project, I love experimenting with different
 technologies and platforms.
