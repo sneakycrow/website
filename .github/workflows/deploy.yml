@@ -34,7 +34,7 @@ jobs:
           args: --package cli
         env:
           RUST_LOG: cli
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.WEBSITE_GH_TOKEN }}
       - name: upload
         uses: reggionick/s3-deploy@v3
         with:
