@@ -10,3 +10,5 @@ tokio = { version = "1", features = ["full"] }
 warp = "0.3"
 serde = "1.0.147"
 handlebars = { version = "4.3.5", features = ["dir_source"] }
+log = "0.4.17"
+env_logger = "0.10.0"
