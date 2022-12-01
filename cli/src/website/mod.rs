@@ -1,6 +1,7 @@
 use std::fs;
 use std::fs::File;
 use std::io::Write;
+use std::process::{ExitCode, Termination};
 
 use handlebars::Handlebars;
 use walkdir::WalkDir;
@@ -12,6 +13,7 @@ use crate::website::post::Post;
 pub(crate) mod config;
 mod page;
 mod post;
+mod project;
 
 pub(crate) struct Website {
     pub(crate) config: Config,
@@ -123,6 +125,7 @@ impl Website {
                             name: "index".to_string(),
                             title: self.config.title.to_string(),
                             subtitle: self.config.subtitle.to_string(),
+                            projects: self.config.projects.clone(),
                         }),
                         "blog" => {
                             let posts: Vec<Post> = self.generate_posts()?;
@@ -148,6 +151,7 @@ impl Website {
                                 name: name.to_string(),
                                 title: "unknown".to_string(),
                                 subtitle: format!("unknown page type - {}", &name),
+                                projects: self.config.projects.clone(),
                             });
 
                             page
@@ -172,5 +176,11 @@ impl Website {
             }
         }
         Ok(posts)
+    }
+}
+
+impl Termination for Website {
+    fn report(self) -> ExitCode {
+        ExitCode::SUCCESS
     }
 }

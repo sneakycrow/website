@@ -1,3 +1,5 @@
+use std::io::Error;
+
 use handlebars::{handlebars_helper, Handlebars};
 use log::debug;
 
@@ -22,25 +24,25 @@ handlebars_helper!(hb_month_name_helper: |month_num: u64| match month_num {
     _ => "Error!",
 });
 
-fn main() -> Result<(), std::io::Error> {
+#[tokio::main]
+async fn main() -> Result<Website, Error> {
     env_logger::init();
 
     debug!("[HANDLEBARS] {}", "initializing registration");
-    // Generate HTML
+    // Generate Handlebars Registry
     let mut handlebars = Handlebars::new();
+    // Include helper for parsing readable month
     handlebars.register_helper("month_name", Box::new(hb_month_name_helper));
-
+    // Add templates in top-level templates directory, mostly just for the top index page
     handlebars
         .register_templates_directory(".hbs", "templates")
         .expect("[HANDLEBARS ERROR] Could not register templates directory");
-
+    // Add templates in pages directory for page-level index pages
     handlebars
         .register_templates_directory(".hbs", "templates/pages")
         .expect("[HANDLEBARS ERROR] Could not register templates/pages directory");
-
     debug!("[WEBSITE] {}", "generating");
 
-    Website::generate(&handlebars, Config::default())?;
-
-    Ok(())
+    // Finally, generate our website which should output our files into the respective output directory
+    Website::generate(&handlebars, Config::default().await)
 }

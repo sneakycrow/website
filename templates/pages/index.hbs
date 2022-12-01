@@ -81,10 +81,8 @@
     </article>
     <div>
         <div class="slider"
-             data-slides='[
-             {"name": "fulcrum","description": "a near real-time chat analysis and event system. This tool allows post-processing analytics, including a UI for analyzing. It also has an event system with thresholds, and a tool we call our sentiment analyzer. With these events the user declares, they can react to such events in near real-time."},
-             {"name": "Cobrashare", "description": "a file distribution platform for artists to distribute among authorized supporters, including a UI for uploading and managing files, as well as automated tracking via Patreon of campaign backers"}
-             ]'></div>
+             data-slides='{{#each projects as
+                                  project}}{"name": "{{name}}", "description": "{{description}}"},{{/each}}'></div>
         <div class="slider"></div>
     </div>
 </main>

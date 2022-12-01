@@ -8,14 +8,6 @@ const html = htm.bind(h);
 const Slider = ({slides = []}) => {
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
-    const nextSlide = () => {
-        if (currentSlideIndex === slides.length - 1) {
-            setCurrentSlideIndex(0);
-        } else {
-            setCurrentSlideIndex(currentSlideIndex + 1);
-        }
-    }
-
     const prevSlide = () => {
         if (currentSlideIndex === 0) {
             setCurrentSlideIndex(slides.length - 1);
@@ -41,7 +33,10 @@ const target = document.querySelectorAll
 (".slider")
 
 target.forEach(node => {
-    const slides = node.dataset.slides ? JSON.parse(node.dataset.slides) : [];
+    // This is a semi-valid JSON string. It'll have an extra comma at the end, and is an array without brackets []
+    let raw_data = node.dataset.slides;
+    let trimmed_raw_data = raw_data.substring(0, raw_data.length - 1);
+    const slides = node.dataset.slides ? JSON.parse(`[${trimmed_raw_data}]`) : [];
     if (slides.length > 0) {
         return render(html`
             <${Slider} slides=${slides}/>`, node)
