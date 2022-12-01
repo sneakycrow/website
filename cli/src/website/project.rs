@@ -50,7 +50,7 @@ impl Project {
     }
 
     async fn get_repository(repo: &str) -> Result<Repository, std::io::Error> {
-        debug!("[GETTING REPOSITORY] Getting {} data from GitHub", repo);
+        debug!("[DOWNLOADING REPOSITORY] Getting {} data from GitHub", repo);
         let url = format!("https://api.github.com/repos/{}", repo);
         let client = Self::get_github_client()?;
         let repository = client
@@ -76,6 +76,7 @@ impl Project {
                 .map_err(|err| std::io::Error::new(ErrorKind::InvalidData, err))?,
         );
 
+        debug!("[DOWNLOAD COMPLETE] All data retrieved for {}", repo);
         Ok(Repository {
             name: repository.name,
             description: repository.description,
