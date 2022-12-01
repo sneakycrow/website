@@ -1,3 +1,6 @@
 output_directory = "_out"
 title = "Zachary Sohovich"
 subtitle = "software wizard"
+
+# Requires GitHub personal access token for private projects
+github_projects = ["sneakycrow/fulcrum", "sneakycrow/cobrashare"]

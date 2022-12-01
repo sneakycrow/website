@@ -1,8 +1,10 @@
 use std::fs;
 use std::fs::File;
 use std::io::Write;
+use std::process::{ExitCode, Termination};
 
 use handlebars::Handlebars;
+use log::debug;
 use walkdir::WalkDir;
 
 use crate::website::config::Config;
@@ -12,6 +14,7 @@ use crate::website::post::Post;
 pub(crate) mod config;
 mod page;
 mod post;
+mod project;
 
 pub(crate) struct Website {
     pub(crate) config: Config,
@@ -20,6 +23,7 @@ pub(crate) struct Website {
 impl Website {
     // Generates all assets for deployment
     pub(crate) fn generate(registry: &Handlebars, config: Config) -> Result<Self, std::io::Error> {
+        debug!("[GENERATION STARTED] Starting website generation");
         let website = Website { config };
         // Initialize by making sure all output directories are ready
         fs::create_dir_all(&website.config.output_directory)?;
@@ -78,6 +82,7 @@ impl Website {
         let js_path = format!("{}/{}", &asset_path, "js");
         fs::create_dir_all(&js_path)?;
         Self::copy_assets("templates/assets/js", &js_path)?;
+        debug!("[GENERATION COMPLETE] Website generated");
         Ok(website)
     }
 
@@ -123,6 +128,7 @@ impl Website {
                             name: "index".to_string(),
                             title: self.config.title.to_string(),
                             subtitle: self.config.subtitle.to_string(),
+                            projects: self.config.projects.clone(),
                         }),
                         "blog" => {
                             let posts: Vec<Post> = self.generate_posts()?;
@@ -148,6 +154,7 @@ impl Website {
                                 name: name.to_string(),
                                 title: "unknown".to_string(),
                                 subtitle: format!("unknown page type - {}", &name),
+                                projects: self.config.projects.clone(),
                             });
 
                             page
@@ -172,5 +179,11 @@ impl Website {
             }
         }
         Ok(posts)
+    }
+}
+
+impl Termination for Website {
+    fn report(self) -> ExitCode {
+        ExitCode::SUCCESS
     }
 }

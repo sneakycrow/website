@@ -2,6 +2,7 @@ use handlebars::Handlebars;
 use serde::Serialize;
 
 use crate::website::post::Post;
+use crate::website::project::Project;
 
 #[derive(Serialize)]
 pub(crate) enum Page {
@@ -16,6 +17,7 @@ pub(crate) struct PageData {
     pub(crate) title: String,
     pub(crate) subtitle: String,
     pub(crate) name: String,
+    pub(crate) projects: Vec<Project>,
 }
 
 #[derive(Serialize)]
