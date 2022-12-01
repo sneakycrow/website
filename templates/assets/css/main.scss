@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-color: #efefef;
+  background-color: #1f1f1f;
 }
 
 a {
@@ -31,10 +31,20 @@ code {
 main {
   display: grid;
   grid-template-columns: 1fr;
-  grid-column-gap: 16px;
+  grid-gap: 8px;
   height: 100%;
   min-height: 50vh;
-  padding: 16px;
+  margin: 8px;
+  background-color: transparent;
+
+  > * {
+    background-color: #efefef;
+    padding: 16px;
+  }
+
+  .post-list {
+    grid-row: span 1;
+  }
 
   .branding {
     display: grid;
@@ -83,7 +93,8 @@ main {
 
   .navigation {
     background: #efefef;
-    width: 100%;
+    border-bottom: 8px solid #1f1f1f;
+    margin-bottom: -8px;
 
     ul {
       list-style-type: none;
@@ -100,6 +111,7 @@ main {
     .navigation {
       position: sticky;
       top: 0;
+      z-index: 1;
     }
   }
 }
@@ -135,6 +147,10 @@ a.block-link {
       background-color: #0ba750;
     }
   }
+}
+
+article.intro {
+  grid-row: span 2;
 }
 
 // components

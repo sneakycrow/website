@@ -8,7 +8,7 @@ use log::debug;
 use walkdir::WalkDir;
 
 use crate::website::config::Config;
-use crate::website::page::{BlogIndexData, Page, PageData, PostMetaData};
+use crate::website::page::{Page, PageData, PostMetaData};
 use crate::website::post::Post;
 
 pub(crate) mod config;
@@ -122,39 +122,39 @@ impl Website {
             if file.path().is_file() {
                 if let Some(name_without_extension) = file.path().file_stem() {
                     let name = name_without_extension.to_str().unwrap();
-
+                    let posts: Vec<Post> = self.generate_posts()?;
+                    let post_meta: Vec<PostMetaData> = posts
+                        .iter()
+                        .map(|p| PostMetaData {
+                            url: p.url.to_string(),
+                            title: p.title.to_string(),
+                            month: p.month,
+                            year: p.year,
+                            day: p.day,
+                        })
+                        .collect();
                     let page: Page = match name {
                         "index" => Page::Home(PageData {
                             name: "index".to_string(),
                             title: self.config.title.to_string(),
                             subtitle: self.config.subtitle.to_string(),
                             projects: self.config.projects.clone(),
+                            posts: Vec::from(&post_meta[..3]),
                         }),
-                        "blog" => {
-                            let posts: Vec<Post> = self.generate_posts()?;
-                            let post_meta: Vec<PostMetaData> = posts
-                                .iter()
-                                .map(|p| PostMetaData {
-                                    url: p.url.to_string(),
-                                    title: p.title.to_string(),
-                                    month: p.month,
-                                    year: p.year,
-                                    day: p.day,
-                                })
-                                .collect();
-                            Page::BlogIndex(BlogIndexData {
-                                name: "blog".to_string(),
-                                title: "sneaky crow blog".to_string(),
-                                subtitle: "self*-awarded :)".to_string(),
-                                posts: post_meta,
-                            })
-                        }
+                        "blog" => Page::BlogIndex(PageData {
+                            name: "blog".to_string(),
+                            title: "sneaky crow blog".to_string(),
+                            subtitle: "self*-awarded :)".to_string(),
+                            posts: post_meta,
+                            projects: self.config.projects.clone(),
+                        }),
                         _ => {
                             let page = Page::Standard(PageData {
                                 name: name.to_string(),
                                 title: "unknown".to_string(),
                                 subtitle: format!("unknown page type - {}", &name),
                                 projects: self.config.projects.clone(),
+                                posts: post_meta,
                             });
 
                             page

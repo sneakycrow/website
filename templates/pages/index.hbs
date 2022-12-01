@@ -39,7 +39,7 @@
             </li>
         </ul>
     </div>
-    <article>
+    <article class="intro">
         <h3>oh shit waddup</h3>
         <p>My name is Zach (aka sneakycrow or ctrlsquid), I really enjoy programming. Like a lot. Like honestly it's
             probably unhealthy, but thats for my therapist to solve. I'm a weird guy, but I got a big head (that's not
@@ -79,12 +79,26 @@
             please don't hesitate to
             <a href="mailto:zach@sneakycrow.dev">contact me</a> if you fit some of that description.</p>
     </article>
-    <div>
-        <div class="slider"
-             data-slides='{{#each projects as
-                                  project}}{"name": "{{name}}", "description": "{{description}}"},{{/each}}'></div>
-        <div class="slider"></div>
-    </div>
+    {{#if posts}}
+        <div class="post-list">
+            <h3>Recent posts</h3>
+            <ul>
+                {{#each posts as post}}
+                    <li>
+                        <a href="{{url}}">{{title}}</a>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    {{/if}}
+    {{#if projects}}
+        <div>
+            <div class="slider"
+                 data-slides='{{#each projects as
+                                      project}}{"name": "{{name}}", "description": "{{description}}"},{{/each}}'></div>
+            <div class="slider"></div>
+        </div>
+    {{/if}}
 </main>
 
 <script type="module" src="./assets/js/slider.js"></script>

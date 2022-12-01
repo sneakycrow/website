@@ -8,7 +8,7 @@ use crate::website::project::Project;
 pub(crate) enum Page {
     Home(PageData),
     Standard(PageData),
-    BlogIndex(BlogIndexData),
+    BlogIndex(PageData),
     BlogPost(Post),
 }
 
@@ -17,24 +17,17 @@ pub(crate) struct PageData {
     pub(crate) title: String,
     pub(crate) subtitle: String,
     pub(crate) name: String,
+    pub(crate) posts: Vec<PostMetaData>,
     pub(crate) projects: Vec<Project>,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Clone)]
 pub(crate) struct PostMetaData {
     pub(crate) url: String,
     pub(crate) title: String,
     pub(crate) month: u32,
     pub(crate) year: i32,
     pub(crate) day: u32,
-}
-
-#[derive(Serialize)]
-pub(crate) struct BlogIndexData {
-    pub(crate) title: String,
-    pub(crate) subtitle: String,
-    pub(crate) name: String,
-    pub(crate) posts: Vec<PostMetaData>,
 }
 
 impl Page {
