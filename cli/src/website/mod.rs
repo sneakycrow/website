@@ -1,8 +1,9 @@
 use std::fs;
 use std::fs::File;
-use std::io::Write;
+use std::io::{ErrorKind, Write};
 use std::process::{ExitCode, Termination};
 
+use chrono::{DateTime, Utc};
 use handlebars::Handlebars;
 use log::debug;
 use walkdir::WalkDir;
@@ -178,6 +179,22 @@ impl Website {
                 posts.push(post);
             }
         }
+
+        // Lastly, sort the posts
+        posts.sort_by(|a, b| {
+            let a_time: DateTime<Utc> = DateTime::from(
+                DateTime::parse_from_rfc3339(&a.published)
+                    .map_err(|err| std::io::Error::new(ErrorKind::InvalidData, err))
+                    .expect("[TIME ERROR] Cannot parse post a time"),
+            );
+            let b_time: DateTime<Utc> = DateTime::from(
+                DateTime::parse_from_rfc3339(&b.published)
+                    .map_err(|err| std::io::Error::new(ErrorKind::InvalidData, err))
+                    .expect("[TIME ERROR] Cannot parse post b time"),
+            );
+
+            a_time.cmp(&b_time).reverse()
+        });
         Ok(posts)
     }
 }
