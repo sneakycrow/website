@@ -4,6 +4,7 @@ use std::io::Write;
 use std::process::{ExitCode, Termination};
 
 use handlebars::Handlebars;
+use log::debug;
 use walkdir::WalkDir;
 
 use crate::website::config::Config;
@@ -22,6 +23,7 @@ pub(crate) struct Website {
 impl Website {
     // Generates all assets for deployment
     pub(crate) fn generate(registry: &Handlebars, config: Config) -> Result<Self, std::io::Error> {
+        debug!("[GENERATION STARTED] Starting website generation");
         let website = Website { config };
         // Initialize by making sure all output directories are ready
         fs::create_dir_all(&website.config.output_directory)?;
@@ -80,6 +82,7 @@ impl Website {
         let js_path = format!("{}/{}", &asset_path, "js");
         fs::create_dir_all(&js_path)?;
         Self::copy_assets("templates/assets/js", &js_path)?;
+        debug!("[GENERATION COMPLETE] Website generated");
         Ok(website)
     }
 

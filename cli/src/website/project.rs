@@ -1,6 +1,7 @@
 use std::io::ErrorKind;
 
 use chrono::{DateTime, Utc};
+use log::debug;
 use reqwest::{header, Client, ClientBuilder};
 use serde::{Deserialize, Serialize};
 use serde_json::{Map, Value};
@@ -49,6 +50,7 @@ impl Project {
     }
 
     async fn get_repository(repo: &str) -> Result<Repository, std::io::Error> {
+        debug!("[GETTING REPOSITORY] Getting {} data from GitHub", repo);
         let url = format!("https://api.github.com/repos/{}", repo);
         let client = Self::get_github_client()?;
         let repository = client

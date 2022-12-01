@@ -41,7 +41,6 @@ async fn main() -> Result<Website, Error> {
     handlebars
         .register_templates_directory(".hbs", "templates/pages")
         .expect("[HANDLEBARS ERROR] Could not register templates/pages directory");
-    debug!("[WEBSITE] {}", "generating");
 
     // Finally, generate our website which should output our files into the respective output directory
     Website::generate(&handlebars, Config::default().await)

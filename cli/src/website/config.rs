@@ -1,5 +1,6 @@
 use std::fs;
 
+use log::debug;
 use serde::Deserialize;
 
 use crate::website::project::Project;
@@ -30,6 +31,7 @@ impl Config {
 
         let mut projects: Vec<Project> = vec![];
         if let Some(repositories) = toml_config.github_projects {
+            debug!("[PROJECTS DETECTED] Projects listed in config, grabbing metadata...");
             for repo in repositories {
                 let project = Project::from_github(&repo).await;
                 projects.push(project)
