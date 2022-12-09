@@ -11,11 +11,13 @@ use walkdir::WalkDir;
 use crate::website::config::Config;
 use crate::website::page::{Page, PageData, PostMetaData};
 use crate::website::post::Post;
+use crate::website::series::Series;
 
 pub(crate) mod config;
 mod page;
 mod post;
 mod project;
+mod series;
 
 pub(crate) struct Website {
     pub(crate) config: Config,
@@ -179,6 +181,29 @@ impl Website {
                 posts.push(post);
             }
         }
+        // Create our series from the posts yaml
+        let _series: Vec<Series> = posts.clone().iter_mut().fold(vec![], |mut series, post| {
+            // Check if post has a series
+            if post.series_key.is_some() {
+                let post_key = &post.clone().series_key.unwrap();
+                // Check if we've already generated the Series
+                let found_series = series
+                    .iter_mut()
+                    .find(|s| s.key.to_string() == post_key.to_string());
+
+                match found_series {
+                    Some(mut s) => s.posts.push(post.clone()),
+                    None => {
+                        series.push(Series {
+                            key: post.series_key.as_ref().unwrap().to_string(),
+                            posts: vec![post.clone()],
+                        });
+                    }
+                };
+            }
+
+            return series;
+        });
 
         // Lastly, sort the posts
         posts.sort_by(|a, b| {
@@ -193,7 +218,7 @@ impl Website {
                     .expect("[TIME ERROR] Cannot parse post b time"),
             );
 
-            a_time.cmp(&b_time).reverse()
+            b_time.cmp(&a_time)
         });
         Ok(posts)
     }

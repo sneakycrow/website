@@ -6,9 +6,13 @@ use syntect::highlighting::ThemeSet;
 use syntect::html::highlighted_html_for_string;
 use syntect::parsing::SyntaxSet;
 
+use crate::website::series::Series;
+
 #[derive(Debug, PartialEq, Deserialize)]
 struct YamlHeader {
     title: String,
+    series_pos: Option<i32>,
+    series_key: Option<String>,
 }
 
 #[derive(Serialize, Clone)]
@@ -24,6 +28,8 @@ pub(crate) struct Post {
     pub(crate) published: String,
     pub(crate) updated: String,
     pub(crate) markdown: String,
+    pub(crate) series_key: Option<String>,
+    pub(crate) series_pos: Option<i32>,
 }
 
 impl Post {
@@ -41,8 +47,11 @@ impl Post {
         // so we need to find the end. we need the fours to adjust for those first bytes
         let end_of_yaml = contents[4..].find("---").unwrap() + 4;
         let yaml = &contents[..end_of_yaml];
-        let YamlHeader { title } =
-            serde_yaml::from_str(yaml).expect("[YAML ERROR] Could not parse yaml header");
+        let YamlHeader {
+            title,
+            series_key,
+            series_pos,
+        } = serde_yaml::from_str(yaml).expect("[YAML ERROR] Could not parse yaml header");
 
         // parse markdown
         let markdown_content = &contents[end_of_yaml..];
@@ -138,6 +147,8 @@ impl Post {
             published,
             updated,
             markdown,
+            series_pos,
+            series_key,
         })
     }
 
