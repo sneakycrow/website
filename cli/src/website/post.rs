@@ -9,6 +9,7 @@ use syntect::parsing::SyntaxSet;
 #[derive(Debug, PartialEq, Deserialize)]
 struct YamlHeader {
     title: String,
+    draft: Option<bool>,
 }
 
 #[derive(Serialize, Clone)]
@@ -24,6 +25,7 @@ pub(crate) struct Post {
     pub(crate) published: String,
     pub(crate) updated: String,
     pub(crate) markdown: String,
+    pub(crate) is_draft: bool,
 }
 
 impl Post {
@@ -41,7 +43,7 @@ impl Post {
         // so we need to find the end. we need the fours to adjust for those first bytes
         let end_of_yaml = contents[4..].find("---").unwrap() + 4;
         let yaml = &contents[..end_of_yaml];
-        let YamlHeader { title } =
+        let YamlHeader { title, draft } =
             serde_yaml::from_str(yaml).expect("[YAML ERROR] Could not parse yaml header");
 
         // parse markdown
@@ -138,6 +140,7 @@ impl Post {
             published,
             updated,
             markdown,
+            is_draft: draft.unwrap_or(false),
         })
     }
 

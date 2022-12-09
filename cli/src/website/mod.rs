@@ -29,7 +29,7 @@ impl Website {
         // Initialize by making sure all output directories are ready
         fs::create_dir_all(&website.config.output_directory)?;
         // Compile Stylesheets
-        let css_text = Self::compile_sass("templates/assets/css/_index.scss");
+        let css_text = Self::compile_sass("assets/scss/_index.scss");
         let css_path = format!("{}/{}", &website.config.output_directory, "main.css");
         let mut css_file = File::create(&css_path)?;
         css_file.write_all(css_text.as_bytes())?;
@@ -74,15 +74,15 @@ impl Website {
         // Copy fonts
         let fonts_path = format!("{}/{}", &asset_path, "fonts");
         fs::create_dir_all(&fonts_path)?;
-        Self::copy_assets("templates/assets/fonts", &fonts_path)?;
+        Self::copy_assets("assets/fonts", &fonts_path)?;
         // Copy images
         let images_path = format!("{}/{}", &asset_path, "images");
         fs::create_dir_all(&images_path)?;
-        Self::copy_assets("templates/assets/images", &images_path)?;
+        Self::copy_assets("assets/images", &images_path)?;
         // Copy js
         let js_path = format!("{}/{}", &asset_path, "js");
         fs::create_dir_all(&js_path)?;
-        Self::copy_assets("templates/assets/js", &js_path)?;
+        Self::copy_assets("assets/js", &js_path)?;
         debug!("[GENERATION COMPLETE] Website generated");
         Ok(website)
     }
@@ -118,7 +118,7 @@ impl Website {
     /// Generates pages based on files in the templates directory, excluding the index page
     fn generate_pages(&self) -> Result<Vec<Page>, std::io::Error> {
         let mut pages: Vec<Page> = vec![];
-        for entry in WalkDir::new("templates/pages") {
+        for entry in WalkDir::new("assets/templates/pages") {
             let file = entry?;
             if file.path().is_file() {
                 if let Some(name_without_extension) = file.path().file_stem() {
@@ -149,17 +149,13 @@ impl Website {
                             posts: post_meta,
                             projects: self.config.projects.clone(),
                         }),
-                        _ => {
-                            let page = Page::Standard(PageData {
-                                name: name.to_string(),
-                                title: "unknown".to_string(),
-                                subtitle: format!("unknown page type - {}", &name),
-                                projects: self.config.projects.clone(),
-                                posts: post_meta,
-                            });
-
-                            page
-                        }
+                        _ => Page::Standard(PageData {
+                            name: name.to_string(),
+                            title: "unknown".to_string(),
+                            subtitle: format!("unknown page type - {}", &name),
+                            projects: self.config.projects.clone(),
+                            posts: post_meta,
+                        }),
                     };
 
                     pages.push(page)
@@ -176,7 +172,9 @@ impl Website {
             let unwrapped_entry = entry.unwrap();
             if unwrapped_entry.path().is_file() {
                 let post = Post::from_markdown(unwrapped_entry.path())?;
-                posts.push(post);
+                if !post.is_draft {
+                    posts.push(post);
+                }
             }
         }
 

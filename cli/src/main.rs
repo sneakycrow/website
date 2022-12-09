@@ -35,11 +35,11 @@ async fn main() -> Result<Website, Error> {
     handlebars.register_helper("month_name", Box::new(hb_month_name_helper));
     // Add templates in top-level templates directory, mostly just for the top index page
     handlebars
-        .register_templates_directory(".hbs", "templates")
+        .register_templates_directory(".hbs", "assets/templates")
         .expect("[HANDLEBARS ERROR] Could not register templates directory");
     // Add templates in pages directory for page-level index pages
     handlebars
-        .register_templates_directory(".hbs", "templates/pages")
+        .register_templates_directory(".hbs", "assets/templates/pages")
         .expect("[HANDLEBARS ERROR] Could not register templates/pages directory");
 
     // Finally, generate our website which should output our files into the respective output directory
