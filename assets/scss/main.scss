@@ -46,11 +46,21 @@ main {
     grid-row: span 1;
   }
 
+  .branding-wrapper {
+    width: calc(100% - 32px);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #efefef;
+  }
+
   .branding {
     display: grid;
     grid-template-columns: 1fr;
     align-items: center;
     position: relative;
+    max-width: 1600px;
 
     @include for-desktop-up {
       grid-template-columns: 200px 1fr;
