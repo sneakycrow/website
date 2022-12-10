@@ -58,13 +58,33 @@ Next, we need to update our Rust code and introduce handlebars. For handlebars, 
 into that registry, and then use that registry to compile your html. Let's add this logic into our `cli/src/main.rs`.
 
 ```rust
-use env_logger::init;
-use log::debug;
-use std::fs;
-use std::fs::File;
-use std::io::Write;
-use handlebars::Handlebars;
+fn main() {
+    env_logger::init();
+    // Create handlebars registry
+    let mut hbs_registry = Handlebars::new();
+    // Load page templates directory
+    hbs_registry
+        .register_template_directory(".hbs", "assets/templates/pages")
+        .expect("[HANDLEBARS ERROR] Could not register templates in assets/templates/pages");
+    let output_dir = "_out";
+    let html_path = format!("{}/index.html", &output_dir);
 
+    debug!("[CREATING FILES] {}", html_path);
+    fs::create_dir_all(output_dir)
+        .expect("[DIRECTORY CREATE ERROR] Could not create output directory");
+
+    let mut file =
+        File::create(html_path).expect("[FILE CREATION ERROR] Could not create html file");
+    file.write_all(&html.as_bytes())
+        .expect("[FILE WRITE ERROR] Could not write html to file");
+}
+```
+
+Great...except it isn't actually using our template yet! Let's fix that. Let's update our template to use a
+dynamic `<title>`, so we can validate that the template isn't just spitting itself out. Then we'll render the template
+with a dynamic title we pass via `Serialize` struct.
+
+```rust
 fn main() {
     env_logger::init();
     // Create handlebars registry
