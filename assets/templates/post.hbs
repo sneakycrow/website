@@ -21,7 +21,24 @@
             </div>
         </div>
     </div>
+    {{#if series.posts}}
+        <div class="series-wrapper">
+            <div class="post-series">
+                <h3>Series</h3>
+                <ol>
+                    {{#each series.posts as post}}
+                        <li>
+                            <a href="/{{url}}">{{title}}</a>
+                        </li>
+                    {{/each}}
+                </ol>
+            </div>
+        </div>
+    {{/if}}
     <div class="article-wrapper">
+        {{#if is_draft}}
+            <p class="note">This article is a draft and may be incomplete</p>
+        {{/if}}
         <article>
             {{{markdown}}}
         </article>
