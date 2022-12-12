@@ -10,9 +10,10 @@ Honestly? I like writing software so when it comes to my own personal projects t
 entities but myself, I just like to have fun and write my own stuff.
 
 But a secondary reason that I wanted to do it is I kept finding that my other solutions were wanting. When I used
-Next.JS, I got the benefits of utilizing React for fancy components, but uses markdown for basic blog posts was kinda
-pita. And I didn't really like having to run a full back-end. Even with static site generation, setting that up in
-NextJS isn't exactly "friendly" when utilizing markdown. It just felt messy.
+Next.JS, I got the benefits of utilizing React for fancy components, but trying to use static markdown files for basic blog posts was kind of a 
+pain to setup. And I didn't really like having to run a full back-end. Even with static site generation, setting that up in
+NextJS isn't exactly "friendly" when utilizing markdown. It just felt messy. Plus, I feel like I lost a lot of benefits by 
+self-hosting instead of using Vercel, which I don't like.
 
 I don't really like Gatsby, honestly. Just personal preference. I tried Jekyll, Hugo, and more and just didn't vibe with
 the limitations of the front-end I lost from not having React. I probably could've configured Preact there too, but
