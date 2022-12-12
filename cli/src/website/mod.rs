@@ -144,14 +144,20 @@ impl Website {
                         })
                         .collect();
                     let page: Page = match name {
-                        "index" => Page::Home(PageData {
-                            name: "index".to_string(),
-                            title: self.config.title.to_string(),
-                            subtitle: self.config.subtitle.to_string(),
-                            projects: Some(self.config.projects.clone()),
-                            projects_json: Some(json!(self.config.projects.clone()).to_string()),
-                            posts: Some(Vec::from(&post_meta[..3])),
-                        }),
+                        "index" => {
+                            let mut trimmed_post_meta: Vec<PostMetaData> = post_meta;
+                            trimmed_post_meta.truncate(5);
+                            Page::Home(PageData {
+                                name: "index".to_string(),
+                                title: self.config.title.to_string(),
+                                subtitle: self.config.subtitle.to_string(),
+                                projects: Some(self.config.projects.clone()),
+                                projects_json: Some(
+                                    json!(self.config.projects.clone()).to_string(),
+                                ),
+                                posts: Some(trimmed_post_meta),
+                            })
+                        }
                         "blog" => Page::BlogIndex(PageData {
                             name: "blog".to_string(),
                             title: "sneaky crow blog".to_string(),
