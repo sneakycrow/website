@@ -1,6 +1,8 @@
 ---
 title: "Setting up my own static site generator, part 2 - handlebars & SASS"
 draft: true
+series_key: "website-generator-tutorial"
+series_pos: 1
 ---
 [In the first part of this series][part 1] we did some basic initial research, and then a "kinda-mvp" of a html file
 generator. We also added a Github Actions config for auto-deployment.
