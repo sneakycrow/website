@@ -6,6 +6,7 @@ use std::process::{ExitCode, Termination};
 use chrono::{DateTime, Utc};
 use handlebars::Handlebars;
 use log::debug;
+use serde_json::json;
 use walkdir::WalkDir;
 
 use crate::website::config::Config;
@@ -147,22 +148,25 @@ impl Website {
                             name: "index".to_string(),
                             title: self.config.title.to_string(),
                             subtitle: self.config.subtitle.to_string(),
-                            projects: self.config.projects.clone(),
-                            posts: Vec::from(&post_meta[..3]),
+                            projects: Some(self.config.projects.clone()),
+                            projects_json: Some(json!(self.config.projects.clone()).to_string()),
+                            posts: Some(Vec::from(&post_meta[..3])),
                         }),
                         "blog" => Page::BlogIndex(PageData {
                             name: "blog".to_string(),
                             title: "sneaky crow blog".to_string(),
                             subtitle: "self*-awarded :)".to_string(),
-                            posts: post_meta,
-                            projects: self.config.projects.clone(),
+                            posts: Some(post_meta),
+                            projects: None,
+                            projects_json: None,
                         }),
                         _ => Page::Standard(PageData {
                             name: name.to_string(),
                             title: "unknown".to_string(),
                             subtitle: format!("unknown page type - {}", &name),
-                            projects: self.config.projects.clone(),
-                            posts: post_meta,
+                            projects: None,
+                            posts: None,
+                            projects_json: None,
                         }),
                     };
 

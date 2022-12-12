@@ -17,8 +17,9 @@ pub(crate) struct PageData {
     pub(crate) title: String,
     pub(crate) subtitle: String,
     pub(crate) name: String,
-    pub(crate) posts: Vec<PostMetaData>,
-    pub(crate) projects: Vec<Project>,
+    pub(crate) posts: Option<Vec<PostMetaData>>,
+    pub(crate) projects: Option<Vec<Project>>,
+    pub(crate) projects_json: Option<String>,
 }
 
 #[derive(Serialize, Clone)]
