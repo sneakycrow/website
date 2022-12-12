@@ -10,7 +10,13 @@ use serde_json::{Map, Value};
 pub(crate) struct Project {
     name: String,
     description: String,
-    languages: Map<String, Value>,
+    languages: Vec<ProjectLanguage>,
+}
+
+#[derive(Serialize, Deserialize, Clone)]
+pub(crate) struct ProjectLanguage {
+    name: String,
+    bytes: i32,
 }
 
 impl Project {
@@ -18,10 +24,19 @@ impl Project {
         let repository = Self::get_repository(repository)
             .await
             .expect("[GITHUB ERROR] Could not get repository");
+        let languages = repository
+            .languages
+            .iter()
+            .map(|(key, value)| ProjectLanguage {
+                name: key.to_owned(),
+                bytes: value.to_string().parse::<i32>().unwrap(),
+            })
+            .collect();
+
         Project {
             name: repository.name,
             description: repository.description,
-            languages: repository.languages,
+            languages,
         }
     }
 

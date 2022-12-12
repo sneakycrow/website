@@ -23,6 +23,11 @@ const Slider = ({slides = []}) => {
             </button>
             <div>
                 <h4>Project: ${slides[currentSlideIndex].name}</h4>
+                <ul class="language-list">
+                    ${slides[currentSlideIndex].languages?.map(lang => html`
+                        <li>${lang.name}</li>
+                    `)}
+                </ul>
                 <p>${slides[currentSlideIndex].description}</p>
             </div>
         </div>
@@ -33,12 +38,9 @@ const target = document.querySelectorAll
 (".slider")
 
 target.forEach(node => {
-    // This is a semi-valid JSON string. It'll have an extra comma at the end, and is an array without brackets []
-    let raw_data = node.dataset.slides;
-    let trimmed_raw_data = raw_data.substring(0, raw_data.length - 1);
-    const slides = node.dataset.slides ? JSON.parse(`[${trimmed_raw_data}]`) : [];
-    if (slides.length > 0) {
+    let parsed_slides = JSON.parse(node.dataset.slides);
+    if (parsed_slides.length > 0) {
         return render(html`
-            <${Slider} slides=${slides}/>`, node)
+            <${Slider} slides=${parsed_slides}/>`, node)
     }
 })
