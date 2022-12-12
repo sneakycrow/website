@@ -190,7 +190,9 @@ impl Website {
             let unwrapped_entry = entry.unwrap();
             if unwrapped_entry.path().is_file() {
                 let post = Post::from_markdown(unwrapped_entry.path())?;
-                posts.push(post);
+                if !post.is_draft {
+                    posts.push(post);
+                }
             }
         }
         // Create our series from the posts yaml
