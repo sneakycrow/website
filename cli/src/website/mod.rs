@@ -11,14 +11,22 @@ use walkdir::WalkDir;
 use crate::website::config::Config;
 use crate::website::page::{Page, PageData, PostMetaData};
 use crate::website::post::Post;
+use crate::website::series::Series;
 
 pub(crate) mod config;
 mod page;
 mod post;
 mod project;
+mod series;
 
 pub(crate) struct Website {
     pub(crate) config: Config,
+}
+
+impl Termination for Website {
+    fn report(self) -> ExitCode {
+        ExitCode::SUCCESS
+    }
 }
 
 impl Website {
@@ -172,33 +180,46 @@ impl Website {
             let unwrapped_entry = entry.unwrap();
             if unwrapped_entry.path().is_file() {
                 let post = Post::from_markdown(unwrapped_entry.path())?;
-                if !post.is_draft {
-                    posts.push(post);
-                }
+                posts.push(post);
             }
+        }
+        // Create our series from the posts yaml
+        let series: Vec<Series> = posts.clone().iter_mut().fold(vec![], |mut series, post| {
+            // Check if post has a series
+            if post.series_key.is_some() {
+                let post_key = &post.clone().series_key.unwrap();
+                // Check if we've already generated the Series
+                let found_series = series
+                    .iter_mut()
+                    .find(|s| s.key.to_string() == post_key.to_string());
+
+                match found_series {
+                    Some(mut s) => s.posts.push(post.clone()),
+                    None => {
+                        series.push(Series {
+                            key: post.series_key.as_ref().unwrap().to_string(),
+                            posts: vec![post.clone()],
+                        });
+                    }
+                };
+            }
+
+            return series;
+        });
+
+        /** Next we need to inject each relative series into all of their relative posts,
+           so the post can parse the table in the template
+        **/
+        for s in &series {
+            posts
+                .iter_mut()
+                .filter(|p| p.series_key.is_some())
+                .filter(|p| &p.series_key.clone().unwrap() == &s.key)
+                .for_each(|mut p| p.add_series(s.clone()));
         }
 
         // Lastly, sort the posts
-        posts.sort_by(|a, b| {
-            let a_time: DateTime<Utc> = DateTime::from(
-                DateTime::parse_from_rfc3339(&a.published)
-                    .map_err(|err| std::io::Error::new(ErrorKind::InvalidData, err))
-                    .expect("[TIME ERROR] Cannot parse post a time"),
-            );
-            let b_time: DateTime<Utc> = DateTime::from(
-                DateTime::parse_from_rfc3339(&b.published)
-                    .map_err(|err| std::io::Error::new(ErrorKind::InvalidData, err))
-                    .expect("[TIME ERROR] Cannot parse post b time"),
-            );
-
-            a_time.cmp(&b_time).reverse()
-        });
+        Post::sort_posts(&mut posts, true);
         Ok(posts)
-    }
-}
-
-impl Termination for Website {
-    fn report(self) -> ExitCode {
-        ExitCode::SUCCESS
     }
 }

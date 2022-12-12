@@ -1,15 +1,21 @@
+use std::io::ErrorKind;
 use std::path::{Path, PathBuf};
 
+use chrono::{DateTime, Utc};
 use pulldown_cmark::{html, CodeBlockKind, CowStr, Event, Options, Parser, Tag};
 use serde::{Deserialize, Serialize};
 use syntect::highlighting::ThemeSet;
 use syntect::html::highlighted_html_for_string;
 use syntect::parsing::SyntaxSet;
 
+use crate::website::series::Series;
+
 #[derive(Debug, PartialEq, Deserialize)]
 struct YamlHeader {
     title: String,
     draft: Option<bool>,
+    series_pos: Option<i32>,
+    series_key: Option<String>,
 }
 
 #[derive(Serialize, Clone)]
@@ -26,9 +32,39 @@ pub(crate) struct Post {
     pub(crate) updated: String,
     pub(crate) markdown: String,
     pub(crate) is_draft: bool,
+    pub(crate) series_key: Option<String>,
+    pub(crate) series_pos: Option<i32>,
+    pub(crate) series: Option<Series>,
 }
 
 impl Post {
+    pub(crate) fn sort_posts(posts: &mut Vec<Post>, reverse: bool) {
+        posts.sort_by(|a, b| {
+            let a_time: DateTime<Utc> = DateTime::from(
+                DateTime::parse_from_rfc3339(&a.published)
+                    .map_err(|err| std::io::Error::new(ErrorKind::InvalidData, err))
+                    .expect("[TIME ERROR] Cannot parse post a time"),
+            );
+            let b_time: DateTime<Utc> = DateTime::from(
+                DateTime::parse_from_rfc3339(&b.published)
+                    .map_err(|err| std::io::Error::new(ErrorKind::InvalidData, err))
+                    .expect("[TIME ERROR] Cannot parse post b time"),
+            );
+
+            if reverse {
+                b_time.cmp(&a_time)
+            } else {
+                a_time.cmp(&b_time)
+            }
+        });
+    }
+
+    pub(crate) fn add_series(&mut self, mut series: Series) {
+        // When we add a series we also sort the posts
+        Self::sort_posts(&mut series.posts, false);
+        self.series = Some(series);
+    }
+
     pub(crate) fn from_markdown(path: &Path) -> Result<Post, std::io::Error> {
         let filename = path.file_name().unwrap().to_str().unwrap();
         let mut split = filename.splitn(4, "-");
@@ -43,8 +79,12 @@ impl Post {
         // so we need to find the end. we need the fours to adjust for those first bytes
         let end_of_yaml = contents[4..].find("---").unwrap() + 4;
         let yaml = &contents[..end_of_yaml];
-        let YamlHeader { title, draft } =
-            serde_yaml::from_str(yaml).expect("[YAML ERROR] Could not parse yaml header");
+        let YamlHeader {
+            title,
+            series_key,
+            series_pos,
+            draft,
+        } = serde_yaml::from_str(yaml).expect("[YAML ERROR] Could not parse yaml header");
 
         // parse markdown
         let markdown_content = &contents[end_of_yaml..];
@@ -140,17 +180,20 @@ impl Post {
             published,
             updated,
             markdown,
+            series_pos,
+            series_key,
+            series: None, // This cant be parsed from a single post, it should be re-assigned later
             is_draft: draft.unwrap_or(false),
         })
     }
 
     fn build_post_time(year: i32, month: u32, day: u32, seconds: u32) -> String {
-        chrono::DateTime::<chrono::Utc>::from_utc(
+        DateTime::<Utc>::from_utc(
             chrono::NaiveDate::from_ymd_opt(year, month, day)
                 .unwrap()
                 .and_hms_opt(0, 0, seconds)
                 .unwrap(),
-            chrono::Utc,
+            Utc,
         )
         .to_rfc3339()
     }
