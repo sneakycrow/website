@@ -1,7 +1,7 @@
 ---
 title: "Setting up my own static site generator, part 1 - planning & initialization"
 series_key: "website-generator-tutorial"
-series_pos: -1
+series_pos: 0
 ---
 Recently, I set up this new website re-design. But beyond just a re-design, it's actually a full "re-software"?.
 As you may have guessed from the title, I wrote my
