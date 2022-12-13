@@ -238,11 +238,11 @@ impl Website {
         // Prioritize "software" category
         categorized_posts.sort_by(|a, b| {
             return if a.key == "software".to_string() {
-                Ordering::Greater
+                Ordering::Less
             } else if a.key == b.key {
                 Ordering::Equal
             } else {
-                Ordering::Less
+                Ordering::Greater
             };
         });
         Ok(categorized_posts)
