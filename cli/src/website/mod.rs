@@ -1,17 +1,17 @@
+use std::cmp::Ordering;
 use std::fs;
 use std::fs::File;
-use std::io::{ErrorKind, Write};
+use std::io::Write;
 use std::process::{ExitCode, Termination};
 
-use chrono::{DateTime, Utc};
 use handlebars::Handlebars;
 use log::debug;
 use serde_json::json;
 use walkdir::WalkDir;
 
 use crate::website::config::Config;
-use crate::website::page::{Page, PageData, PostMetaData};
-use crate::website::post::Post;
+use crate::website::page::{BlogData, Page, PageData, PostMetaData};
+use crate::website::post::{Category, Post};
 use crate::website::series::Series;
 
 pub(crate) mod config;
@@ -158,13 +158,11 @@ impl Website {
                                 posts: Some(trimmed_post_meta),
                             })
                         }
-                        "blog" => Page::BlogIndex(PageData {
+                        "blog" => Page::BlogIndex(BlogData {
                             name: "blog".to_string(),
                             title: "sneaky crow blog".to_string(),
                             subtitle: "self*-awarded :)".to_string(),
-                            posts: Some(post_meta),
-                            projects: None,
-                            projects_json: None,
+                            categories: Some(self.generate_posts_with_categories()?),
                         }),
                         _ => Page::Standard(PageData {
                             name: name.to_string(),
@@ -190,9 +188,7 @@ impl Website {
             let unwrapped_entry = entry.unwrap();
             if unwrapped_entry.path().is_file() {
                 let post = Post::from_markdown(unwrapped_entry.path())?;
-                if !post.is_draft {
-                    posts.push(post);
-                }
+                posts.push(post);
             }
         }
         // Create our series from the posts yaml
@@ -206,11 +202,11 @@ impl Website {
                     .find(|s| s.key.to_string() == post_key.to_string());
 
                 match found_series {
-                    Some(mut s) => s.posts.push(post.clone()),
+                    Some(s) => s.posts.push(post.clone()),
                     None => {
                         series.push(Series {
                             key: post.series_key.as_ref().unwrap().to_string(),
-                            posts: vec![post.clone()],
+                            posts: vec![post.to_owned()],
                         });
                     }
                 };
@@ -219,19 +215,36 @@ impl Website {
             return series;
         });
 
-        /** Next we need to inject each relative series into all of their relative posts,
-           so the post can parse the table in the template
-        **/
+        /* Next we need to inject each relative series into all of their relative posts.
+            so the post can parse the table in the template
+        */
         for s in &series {
             posts
                 .iter_mut()
                 .filter(|p| p.series_key.is_some())
                 .filter(|p| &p.series_key.clone().unwrap() == &s.key)
-                .for_each(|mut p| p.add_series(s.clone()));
+                .for_each(|p| p.add_series(s.clone()));
         }
 
         // Lastly, sort the posts
-        Post::sort_posts(&mut posts, true);
+        Post::sort_posts_by_published_data(&mut posts, true);
         Ok(posts)
+    }
+
+    /// Uses [Website::generate_posts] to get posts, and then organizes them into categories
+    pub(crate) fn generate_posts_with_categories(&self) -> Result<Vec<Category>, std::io::Error> {
+        let posts = self.generate_posts()?;
+        let mut categorized_posts = Post::fold_into_categories(posts);
+        // Prioritize "software" category
+        categorized_posts.sort_by(|a, b| {
+            return if a.key == "software".to_string() {
+                Ordering::Greater
+            } else if a.key == b.key {
+                Ordering::Equal
+            } else {
+                Ordering::Less
+            };
+        });
+        Ok(categorized_posts)
     }
 }

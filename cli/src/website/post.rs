@@ -16,6 +16,7 @@ struct YamlHeader {
     draft: Option<bool>,
     series_pos: Option<i32>,
     series_key: Option<String>,
+    category: String,
 }
 
 #[derive(Serialize, Clone)]
@@ -35,10 +36,17 @@ pub(crate) struct Post {
     pub(crate) series_key: Option<String>,
     pub(crate) series_pos: Option<i32>,
     pub(crate) series: Option<Series>,
+    pub(crate) category: String,
+}
+
+#[derive(Serialize)]
+pub(crate) struct Category {
+    pub(crate) key: String,
+    pub(crate) posts: Vec<Post>,
 }
 
 impl Post {
-    pub(crate) fn sort_posts(posts: &mut Vec<Post>, reverse: bool) {
+    pub(crate) fn sort_posts_by_published_data(posts: &mut Vec<Post>, ascending: bool) {
         posts.sort_by(|a, b| {
             let a_time: DateTime<Utc> = DateTime::from(
                 DateTime::parse_from_rfc3339(&a.published)
@@ -51,7 +59,7 @@ impl Post {
                     .expect("[TIME ERROR] Cannot parse post b time"),
             );
 
-            if reverse {
+            if ascending {
                 b_time.cmp(&a_time)
             } else {
                 a_time.cmp(&b_time)
@@ -59,9 +67,31 @@ impl Post {
         });
     }
 
+    /// Folds [Post] into groups of categories
+    pub(crate) fn fold_into_categories(all_posts: Vec<Post>) -> Vec<Category> {
+        all_posts.into_iter().fold(vec![], |mut categories, post| {
+            // Attempt to find the category
+            let found_category = categories.iter_mut().find(|c| c.key == post.category);
+
+            // If we find the category, push the post to it. If not, create the category initialized with the post
+            match found_category {
+                Some(category) => category.posts.push(post.to_owned()),
+                None => {
+                    let category = Category {
+                        key: post.category.to_string(),
+                        posts: vec![post.to_owned()],
+                    };
+                    categories.push(category);
+                }
+            }
+
+            return categories;
+        })
+    }
+
     pub(crate) fn add_series(&mut self, mut series: Series) {
         // When we add a series we also sort the posts
-        Self::sort_posts(&mut series.posts, false);
+        Self::sort_posts_by_published_data(&mut series.posts, false);
         self.series = Some(series);
     }
 
@@ -84,6 +114,7 @@ impl Post {
             series_key,
             series_pos,
             draft,
+            category,
         } = serde_yaml::from_str(yaml).expect("[YAML ERROR] Could not parse yaml header");
 
         // parse markdown
@@ -184,6 +215,7 @@ impl Post {
             series_key,
             series: None, // This cant be parsed from a single post, it should be re-assigned later
             is_draft: draft.unwrap_or(false),
+            category,
         })
     }
 
