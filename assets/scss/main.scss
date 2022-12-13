@@ -117,12 +117,6 @@ main {
 
   @include for-desktop-up {
     grid-template-columns: repeat(2, 1fr);
-    position: relative;
-    .navigation {
-      position: sticky;
-      top: 0;
-      z-index: 1;
-    }
   }
 }
 
