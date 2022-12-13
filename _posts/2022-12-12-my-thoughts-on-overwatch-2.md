@@ -1,5 +1,6 @@
 ---
 title: "My thoughts on Overwatch 2"
+category: "gaming"
 draft: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "Setting up my own static site generator, part 1 - planning & initialization"
+category: "software"
 series_key: "website-generator-tutorial"
 series_pos: 0
 ---

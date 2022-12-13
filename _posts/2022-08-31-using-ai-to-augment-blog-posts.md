@@ -1,5 +1,6 @@
 ---
 title: "Using AI to augment blog posts"
+category: "software"
 ---
 
 Blog posts are better with pictures, but a lot of the time tech articles are tough to visualize
