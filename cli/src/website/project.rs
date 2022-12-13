@@ -56,7 +56,7 @@ impl Project {
     }
 
     fn get_github_token() -> Result<String, std::io::Error> {
-        std::env::var("GITHUB_TOKEN").map_err(|err| {
+        std::env::var("GITHUB_TOKEN").map_err(|_err| {
             std::io::Error::new(
                 ErrorKind::NotFound,
                 "[ENVIRONMENT ERROR] GITHUB_TOKEN not available",
@@ -95,10 +95,10 @@ impl Project {
         Ok(Repository {
             name: repository.name,
             description: repository.description,
-            topics: repository.topics,
-            updated_at: parsed_updated_at,
+            _topics: repository.topics,
+            _updated_at: parsed_updated_at,
             languages,
-            private: repository.private,
+            _private: repository.private,
         })
     }
 }
@@ -106,10 +106,10 @@ impl Project {
 struct Repository {
     name: String,
     description: String,
-    topics: Vec<String>,
+    _topics: Vec<String>,
     languages: Map<String, Value>,
-    updated_at: DateTime<Utc>,
-    private: bool,
+    _updated_at: DateTime<Utc>,
+    _private: bool,
 }
 
 #[derive(Deserialize, Debug)]
