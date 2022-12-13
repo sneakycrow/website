@@ -21,16 +21,19 @@
             </div>
         </div>
     </div>
-    <div class="post-list">
-        <ul>
-            {{#each posts as post}}
-                <li>
-                    <a class="block-link" href="{{url}}">{{title}}</a>
-                    <span>{{month_name month}} {{day}}, {{year}}</span>
-                </li>
-            {{/each}}
-        </ul>
-    </div>
+    {{#each categories as category}}
+        <div class="post-list">
+            <h3>#{{key}}</h3>
+            <ul>
+                {{#each posts as post}}
+                    <li>
+                        <a class="block-link" href="{{url}}">{{title}}</a>
+                        <span>{{month_name month}} {{day}}, {{year}}</span>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    {{/each}}
 </main>
 </body>
 </html>
