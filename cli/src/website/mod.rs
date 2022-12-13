@@ -236,14 +236,10 @@ impl Website {
         let posts = self.generate_posts()?;
         let mut categorized_posts = Post::fold_into_categories(posts);
         // Prioritize "software" category
-        categorized_posts.sort_by(|a, b| {
-            return if a.key == "software".to_string() {
-                Ordering::Less
-            } else if a.key == b.key {
-                Ordering::Equal
-            } else {
-                Ordering::Greater
-            };
+        categorized_posts.sort_by(|a, _b| match a.key.as_ref() {
+            "software" => Ordering::Less,
+            "gaming" => Ordering::Less,
+            _ => Ordering::Greater,
         });
         Ok(categorized_posts)
     }
