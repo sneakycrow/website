@@ -1,14 +1,14 @@
 use handlebars::Handlebars;
 use serde::Serialize;
 
-use crate::website::post::Post;
+use crate::website::post::{Category, Post};
 use crate::website::project::Project;
 
 #[derive(Serialize)]
 pub(crate) enum Page {
     Home(PageData),
     Standard(PageData),
-    BlogIndex(PageData),
+    BlogIndex(BlogData),
     BlogPost(Post),
 }
 
@@ -20,6 +20,14 @@ pub(crate) struct PageData {
     pub(crate) posts: Option<Vec<PostMetaData>>,
     pub(crate) projects: Option<Vec<Project>>,
     pub(crate) projects_json: Option<String>,
+}
+
+#[derive(Serialize)]
+pub(crate) struct BlogData {
+    pub(crate) title: String,
+    pub(crate) subtitle: String,
+    pub(crate) name: String,
+    pub(crate) categories: Option<Vec<Category>>,
 }
 
 #[derive(Serialize, Clone)]

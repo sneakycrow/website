@@ -1,5 +1,6 @@
 ---
 title: "Novel ai helped me write this"
+category: "software"
 ---
 
 a magical squid is floating through space, just chillin'  
