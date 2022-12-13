@@ -1,4 +1,4 @@
 ---
-title: Review: What My Bones Know by Stephanie Foo
-category: books
+title: "Review: What My Bones Know by Stephanie Foo"
+category: "books"
 ---
