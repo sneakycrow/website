@@ -200,7 +200,7 @@ impl Post {
 
         let published = Self::build_post_time(year, month, day, 0);
         let updated = published.clone();
-        let mut commit_history: Vec<FileChange> = FileChange::from_path(path)?;
+        let mut commit_history: Vec<FileChange> = FileChange::from_path(path).unwrap_or(vec![]);
         commit_history.sort_by(|a, b| b.date.cmp(&a.date));
         Ok(Self {
             filename,
