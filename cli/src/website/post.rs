@@ -8,6 +8,7 @@ use syntect::highlighting::ThemeSet;
 use syntect::html::highlighted_html_for_string;
 use syntect::parsing::SyntaxSet;
 
+use crate::git::FileChange;
 use crate::website::series::Series;
 
 #[derive(Debug, PartialEq, Deserialize)]
@@ -37,6 +38,7 @@ pub(crate) struct Post {
     pub(crate) series_pos: Option<i32>,
     pub(crate) series: Option<Series>,
     pub(crate) category: String,
+    pub(crate) changes: Vec<FileChange>,
 }
 
 #[derive(Serialize)]
@@ -198,7 +200,8 @@ impl Post {
 
         let published = Self::build_post_time(year, month, day, 0);
         let updated = published.clone();
-
+        let mut commit_history: Vec<FileChange> = FileChange::from_path(path)?;
+        commit_history.sort_by(|a, b| b.date.cmp(&a.date));
         Ok(Self {
             filename,
             title,
@@ -216,6 +219,7 @@ impl Post {
             series: None, // This cant be parsed from a single post, it should be re-assigned later
             is_draft: draft.unwrap_or(false),
             category,
+            changes: commit_history,
         })
     }
 

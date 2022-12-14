@@ -35,4 +35,26 @@
       }
     }
   }
+
+  footer.post-changes {
+    h4 {
+      color: #b9b9b9;
+    }
+    
+    div {
+      display: grid;
+      grid-template-columns: 1fr 50% 1fr;
+      grid-column-gap: 16px;
+
+      p {
+        font-size: 0.9rem;
+        margin: 0;
+        color: #b9b9b9;
+
+        &:last-child {
+          text-align: right;
+        }
+      }
+    }
+  }
 }
