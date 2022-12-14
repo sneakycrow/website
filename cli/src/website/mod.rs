@@ -170,7 +170,7 @@ impl Website {
                             name: "blog".to_string(),
                             title: "sneaky crow blog".to_string(),
                             subtitle: "self*-awarded :)".to_string(),
-                            posts: Some(Self::sort_into_category(posts.clone()).unwrap()),
+                            categories: Some(Self::sort_into_category(posts.clone()).unwrap()),
                         }),
                         _ => Page::Standard(PageData {
                             name: name.to_string(),

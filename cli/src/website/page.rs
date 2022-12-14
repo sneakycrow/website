@@ -27,7 +27,7 @@ pub(crate) struct BlogData {
     pub(crate) title: String,
     pub(crate) subtitle: String,
     pub(crate) name: String,
-    pub(crate) posts: Option<Vec<Category>>,
+    pub(crate) categories: Option<Vec<Category>>,
 }
 
 #[derive(Serialize, Clone)]
