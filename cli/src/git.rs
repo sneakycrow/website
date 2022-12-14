@@ -1,7 +1,9 @@
+use std::io::{Error, ErrorKind};
 use std::path::Path;
 
 use chrono::{DateTime, TimeZone, Utc};
 use git2::{Commit, Oid, Repository};
+use log::{debug, error};
 use serde::Serialize;
 
 #[derive(Serialize, Clone)]
@@ -12,11 +14,12 @@ pub(crate) struct FileChange {
 }
 
 impl FileChange {
-    pub(crate) fn from_path(path: &Path) -> Result<Vec<FileChange>, std::io::Error> {
-        let repo = match Repository::discover(".") {
-            Ok(repo) => repo,
-            Err(e) => panic!("failed to open: {}", e),
-        };
+    pub(crate) fn from_path(path: &Path) -> Result<Vec<FileChange>, Error> {
+        debug!(
+            "[GIT] Attempting to get file changes for {}",
+            &path.display()
+        );
+        let repo = Repository::discover(".").unwrap();
 
         let commits: Vec<Oid> = repo
             .blame_file(path, None)
