@@ -42,18 +42,6 @@
         <article>
             {{{markdown}}}
         </article>
-        {{#if changes}}
-            <footer class="post-changes">
-                <h4>Changes</h4>
-                {{#each changes as change}}
-                    <div>
-                        <p>{{oid}}</p>
-                        <p>{{message}}</p>
-                        <p>{{date}}</p>
-                    </div>
-                {{/each}}
-            </footer>
-        {{/if}}
     </div>
 </main>
 </body>
