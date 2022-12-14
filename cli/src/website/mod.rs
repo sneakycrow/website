@@ -10,7 +10,7 @@ use serde_json::json;
 use walkdir::WalkDir;
 
 use crate::website::config::Config;
-use crate::website::page::{BlogData, Page, PageData, PostMetaData};
+use crate::website::page::{BlogData, Page, PageData, PostMetaData, SignalBoostData};
 use crate::website::post::{Category, Post};
 use crate::website::series::Series;
 
@@ -171,6 +171,12 @@ impl Website {
                             title: "sneaky crow blog".to_string(),
                             subtitle: "self*-awarded :)".to_string(),
                             categories: Some(Self::sort_into_category(posts.clone()).unwrap()),
+                        }),
+                        "boost" => Page::SignalBoost(SignalBoostData {
+                            name: "boost".to_string(),
+                            title: "signal boosts".to_string(),
+                            subtitle: "check them out!".to_string(),
+                            boosts: self.config.boosts.clone().unwrap_or(vec![]),
                         }),
                         _ => Page::Standard(PageData {
                             name: name.to_string(),

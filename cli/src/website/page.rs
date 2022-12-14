@@ -1,6 +1,7 @@
 use handlebars::Handlebars;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
+use crate::website::config::SignalBoost;
 use crate::website::post::{Category, Post};
 use crate::website::project::Project;
 
@@ -9,6 +10,7 @@ pub(crate) enum Page {
     Home(PageData),
     Standard(PageData),
     BlogIndex(BlogData),
+    SignalBoost(SignalBoostData),
     BlogPost(Post),
 }
 
@@ -28,6 +30,14 @@ pub(crate) struct BlogData {
     pub(crate) subtitle: String,
     pub(crate) name: String,
     pub(crate) categories: Option<Vec<Category>>,
+}
+
+#[derive(Deserialize, Serialize)]
+pub(crate) struct SignalBoostData {
+    pub(crate) title: String,
+    pub(crate) subtitle: String,
+    pub(crate) name: String,
+    pub(crate) boosts: Vec<SignalBoost>,
 }
 
 #[derive(Serialize, Clone)]
@@ -64,6 +74,12 @@ impl Page {
                 format!("{}.html", data.url),
                 registry
                     .render("post", &data)
+                    .expect("[HANDLEBARS ERROR] Could not render blog post page"),
+            ),
+            Page::SignalBoost(data) => (
+                format!("{}.html", data.name),
+                registry
+                    .render(&data.name, &data)
                     .expect("[HANDLEBARS ERROR] Could not render blog post page"),
             ),
         }

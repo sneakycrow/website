@@ -1,7 +1,7 @@
 use std::fs;
 
 use log::debug;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 use crate::website::project::Project;
 
@@ -11,6 +11,7 @@ pub(crate) struct Config {
     pub(crate) title: String,
     pub(crate) subtitle: String,
     pub(crate) projects: Vec<Project>,
+    pub(crate) boosts: Option<Vec<SignalBoost>>,
 }
 
 #[derive(Deserialize)]
@@ -19,6 +20,15 @@ pub(crate) struct TOMLConfig {
     title: String,
     subtitle: String,
     github_projects: Option<Vec<String>>,
+    boosts: Option<Vec<SignalBoost>>,
+}
+
+#[derive(Deserialize, Serialize, Clone)]
+pub(crate) struct SignalBoost {
+    name: String,
+    url: String,
+    email: String,
+    keywords: Vec<String>,
 }
 
 impl Config {
@@ -43,6 +53,7 @@ impl Config {
             title: toml_config.title,
             subtitle: toml_config.subtitle,
             projects,
+            boosts: toml_config.boosts,
         }
     }
 }
