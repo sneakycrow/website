@@ -43,38 +43,47 @@ impl Website {
         let mut css_file = File::create(&css_path)?;
         css_file.write_all(css_text.as_bytes())?;
 
-        website.generate_pages()?.iter().for_each(|p| {
-            let (file_name, html) = Page::generate_html(p, registry);
+        // Create posts
+        let posts: Vec<Post> = website.generate_posts()?;
+        // Create posts
+        let pages = website.generate_pages(posts.clone())?;
+
+        for post in posts {
+            let directory = format!(
+                "{}/{:04}/{:02}/{:02}",
+                &website.config.output_directory, post.year, post.month, post.day
+            );
+            fs::create_dir_all(directory).expect(
+                format!(
+                    "[POST DIRECTORY ERROR] Could not create post directory for {}",
+                    &post.url
+                )
+                .as_str(),
+            );
+            let file_path = format!("{}/{}", &website.config.output_directory, &post.url);
+            let mut html_file = File::create(file_path)
+                .expect(format!("[POST CREATION ERROR] Could not create {}", &post.url).as_str());
+
+            let (_, html) = Page::BlogPost(post.clone()).generate_html(&registry);
+            html_file.write_all(html.as_bytes()).expect(
+                format!(
+                    "[POST WRITE ERROR] Could not write contents to {}",
+                    &post.url
+                )
+                .as_str(),
+            );
+        }
+
+        // Create pages
+        for page in pages {
+            let (file_name, html) = page.generate_html(registry);
             let path = format!("{}/{}", &website.config.output_directory, file_name);
             let mut html_file = File::create(&path)
                 .expect(format!("[PAGE CREATION ERROR] Could not create {}", &path).as_str());
             html_file
                 .write_all(html.as_bytes())
-                .expect(format!("[PAGE WRITE ERROR] Could not write {}", &path).as_str())
-        });
-
-        // Create posts directory
-        website.generate_posts()?.iter().for_each(|p| {
-            let directory = format!(
-                "{}/{:04}/{:02}/{:02}",
-                &website.config.output_directory, p.year, p.month, p.day
-            );
-            fs::create_dir_all(directory).expect(
-                format!(
-                    "[POST DIRECTORY ERROR] Could not create post directory for {}",
-                    &p.url
-                )
-                .as_str(),
-            );
-            let file_path = format!("{}/{}", &website.config.output_directory, &p.url);
-            let mut html_file = File::create(file_path)
-                .expect(format!("[POST CREATION ERROR] Could not create {}", &p.url).as_str());
-
-            let (_, html) = Page::BlogPost(p.clone()).generate_html(&registry);
-            html_file.write_all(html.as_bytes()).expect(
-                format!("[POST WRITE ERROR] Could not write contents to {}", &p.url).as_str(),
-            )
-        });
+                .expect(format!("[PAGE WRITE ERROR] Could not write {}", &path).as_str());
+        }
 
         // Copy static assets
         // Create asset directory
@@ -125,27 +134,26 @@ impl Website {
     }
 
     /// Generates pages based on files in the templates directory, excluding the index page
-    fn generate_pages(&self) -> Result<Vec<Page>, std::io::Error> {
+    fn generate_pages(&self, posts: Vec<Post>) -> Result<Vec<Page>, std::io::Error> {
         let mut pages: Vec<Page> = vec![];
+        let post_meta: Vec<PostMetaData> = posts
+            .iter()
+            .map(|p| PostMetaData {
+                url: p.url.to_string(),
+                title: p.title.to_string(),
+                month: p.month,
+                year: p.year,
+                day: p.day,
+            })
+            .collect();
         for entry in WalkDir::new("assets/templates/pages") {
             let file = entry?;
             if file.path().is_file() {
                 if let Some(name_without_extension) = file.path().file_stem() {
                     let name = name_without_extension.to_str().unwrap();
-                    let posts: Vec<Post> = self.generate_posts()?;
-                    let post_meta: Vec<PostMetaData> = posts
-                        .iter()
-                        .map(|p| PostMetaData {
-                            url: p.url.to_string(),
-                            title: p.title.to_string(),
-                            month: p.month,
-                            year: p.year,
-                            day: p.day,
-                        })
-                        .collect();
                     let page: Page = match name {
                         "index" => {
-                            let mut trimmed_post_meta: Vec<PostMetaData> = post_meta;
+                            let mut trimmed_post_meta: Vec<PostMetaData> = post_meta.clone();
                             trimmed_post_meta.truncate(5);
                             Page::Home(PageData {
                                 name: "index".to_string(),
@@ -162,7 +170,7 @@ impl Website {
                             name: "blog".to_string(),
                             title: "sneaky crow blog".to_string(),
                             subtitle: "self*-awarded :)".to_string(),
-                            categories: Some(self.generate_posts_with_categories()?),
+                            posts: Some(Self::sort_into_category(posts.clone()).unwrap()),
                         }),
                         _ => Page::Standard(PageData {
                             name: name.to_string(),
@@ -232,8 +240,7 @@ impl Website {
     }
 
     /// Uses [Website::generate_posts] to get posts, and then organizes them into categories
-    pub(crate) fn generate_posts_with_categories(&self) -> Result<Vec<Category>, std::io::Error> {
-        let posts = self.generate_posts()?;
+    pub(crate) fn sort_into_category(posts: Vec<Post>) -> Result<Vec<Category>, std::io::Error> {
         let mut categorized_posts = Post::fold_into_categories(posts);
         // Prioritize "software" category
         categorized_posts.sort_by(|a, _b| match a.key.as_ref() {

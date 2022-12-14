@@ -6,7 +6,6 @@ use log::debug;
 use crate::website::config::Config;
 use crate::website::Website;
 
-mod git;
 mod website;
 
 handlebars_helper!(hb_month_name_helper: |month_num: u64| match month_num {
