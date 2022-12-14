@@ -4,3 +4,7 @@ subtitle = "software wizard"
 
 # Requires GitHub personal access token for private projects
 github_projects = ["sneakycrow/fulcrum", "sneakycrow/cobrashare"]
+
+boosts = [
+    { name = "Baz Qux", keywords = ["front-end", "back-end", "react", "node"], email = "bazqux@example.com", url = "https://example.com/bazqux" }
+]
