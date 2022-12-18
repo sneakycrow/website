@@ -22,7 +22,7 @@ const Slider = ({slides = []}) => {
                 ${`>`}
             </button>
             <div>
-                <h4>Project: ${slides[currentSlideIndex].name}</h4>
+                <h4>Project: ${slides[currentSlideIndex].short_name}</h4>
                 <ul class="language-list">
                     ${slides[currentSlideIndex].languages?.map(lang => html`
                         <li>${lang.name}</li>

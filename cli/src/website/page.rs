@@ -1,9 +1,9 @@
 use handlebars::Handlebars;
 use serde::{Deserialize, Serialize};
 
-use crate::website::config::SignalBoost;
 use crate::website::post::{Category, Post};
 use crate::website::project::Project;
+use crate::website::signal_boost::SignalBoost;
 
 #[derive(Serialize)]
 pub(crate) enum Page {

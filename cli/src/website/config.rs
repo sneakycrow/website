@@ -1,59 +1,58 @@
 use std::fs;
 
-use log::debug;
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 
 use crate::website::project::Project;
+use crate::website::signal_boost::SignalBoost;
 
-#[derive(Deserialize)]
+const DEFAULT_OUTPUT: &str = "_out";
+
 pub(crate) struct Config {
     pub(crate) output_directory: String,
     pub(crate) title: String,
     pub(crate) subtitle: String,
     pub(crate) projects: Vec<Project>,
-    pub(crate) boosts: Option<Vec<SignalBoost>>,
+    pub(crate) boosts: Vec<SignalBoost>,
 }
 
 #[derive(Deserialize)]
-pub(crate) struct TOMLConfig {
-    output_directory: String,
-    title: String,
-    subtitle: String,
-    github_projects: Option<Vec<String>>,
+struct TomlConfig {
+    pub(crate) output_directory: Option<String>,
+    pub(crate) title: String,
+    pub(crate) subtitle: String,
+    github_projects: Option<Vec<Project>>,
     boosts: Option<Vec<SignalBoost>>,
 }
 
-#[derive(Deserialize, Serialize, Clone)]
-pub(crate) struct SignalBoost {
-    name: String,
-    url: String,
-    email: String,
-    keywords: Vec<String>,
-}
-
 impl Config {
+    /// Generates data from the local config file
     pub(crate) async fn default() -> Self {
-        // Read in configuration file for various settings
-        let config_file =
-            fs::read_to_string("config.toml").expect("[CONFIG ERROR] Could not read in config");
-        let toml_config: TOMLConfig =
-            toml::from_str(&config_file).expect("[CONFIG ERROR] Could not parse config from file");
+        let local_config = Self::from_config_file();
 
-        let mut projects: Vec<Project> = vec![];
-        if let Some(repositories) = toml_config.github_projects {
-            debug!("[PROJECTS DETECTED] Projects listed in config, grabbing metadata...");
-            for repo in repositories {
-                let project = Project::from_github(&repo).await;
-                projects.push(project)
-            }
+        let github_projects: Vec<Project> = local_config.github_projects.unwrap_or(vec![]);
+        let mut projects = vec![];
+        for project in github_projects.into_iter() {
+            projects.push(Project::download(project.repository).await)
         }
 
         Config {
-            output_directory: toml_config.output_directory,
-            title: toml_config.title,
-            subtitle: toml_config.subtitle,
             projects,
-            boosts: toml_config.boosts,
+            title: local_config.title,
+            subtitle: local_config.subtitle,
+            boosts: local_config.boosts.unwrap_or(vec![]),
+            output_directory: local_config
+                .output_directory
+                .unwrap_or(DEFAULT_OUTPUT.to_string()),
         }
+    }
+
+    /// Loads the file at CONFIG_PATH or `config.toml` by default,
+    /// parses required and optional data, like page titles, work projects, and more
+    fn from_config_file() -> TomlConfig {
+        let config_path = std::env::var("CONFIG_PATH").unwrap_or("config.toml".to_string());
+        let config_file =
+            fs::read_to_string(config_path).expect("[CONFIG ERROR] Could not read in config");
+        toml::from_str::<TomlConfig>(&config_file)
+            .expect("[CONFIG ERROR] Could not parse config from file")
     }
 }
