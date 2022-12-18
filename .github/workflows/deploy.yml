@@ -31,7 +31,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: run
-          args: --package cli
+          args: -- build
         env:
           RUST_LOG: cli
           GITHUB_TOKEN: ${{ secrets.WEBSITE_GH_TOKEN }}
