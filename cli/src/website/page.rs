@@ -47,6 +47,7 @@ pub(crate) struct PostMetaData {
     pub(crate) month: u32,
     pub(crate) year: i32,
     pub(crate) day: u32,
+    pub(crate) category: String,
 }
 
 impl Page {

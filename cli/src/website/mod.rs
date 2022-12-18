@@ -182,6 +182,7 @@ impl<'config> Website<'config> {
                 month: p.month,
                 year: p.year,
                 day: p.day,
+                category: p.category.to_string(),
             })
             .collect();
         for entry in WalkDir::new("assets/templates/pages") {
@@ -191,7 +192,11 @@ impl<'config> Website<'config> {
                     let name = name_without_extension.to_str().unwrap();
                     let page: Page = match name {
                         "index" => {
-                            let mut trimmed_post_meta: Vec<PostMetaData> = post_meta.clone();
+                            let mut trimmed_post_meta: Vec<PostMetaData> = post_meta
+                                .clone()
+                                .into_iter()
+                                .filter(|post| post.category != "draft".to_string())
+                                .collect();
                             trimmed_post_meta.truncate(5);
                             Page::Home(PageData {
                                 name: "index".to_string(),
