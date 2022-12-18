@@ -1,7 +1,6 @@
 ---
 title: "Review: What My Bones Know by Stephanie Foo"
-category: "books"
-draft: true
+category: "draft"
 ---
 
 I recently started reading [What My Bones Know by Stephanie Foo][book link].

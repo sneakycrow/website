@@ -14,7 +14,6 @@ use crate::website::series::Series;
 #[derive(Debug, PartialEq, Deserialize)]
 struct YamlHeader {
     title: String,
-    draft: Option<bool>,
     series_pos: Option<i32>,
     series_key: Option<String>,
     category: String,
@@ -33,7 +32,6 @@ pub(crate) struct Post {
     pub(crate) published: String,
     pub(crate) updated: String,
     pub(crate) markdown: String,
-    pub(crate) is_draft: bool,
     pub(crate) series_key: Option<String>,
     pub(crate) series_pos: Option<i32>,
     pub(crate) series: Option<Series>,
@@ -115,7 +113,6 @@ impl Post {
             title,
             series_key,
             series_pos,
-            draft,
             category,
         } = serde_yaml::from_str(yaml).expect("[YAML ERROR] Could not parse yaml header");
 
@@ -216,7 +213,6 @@ impl Post {
             series_pos,
             series_key,
             series: None, // This cant be parsed from a single post, it should be re-assigned later
-            is_draft: draft.unwrap_or(false),
             category,
         })
     }
