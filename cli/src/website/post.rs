@@ -2,6 +2,7 @@ use std::io::ErrorKind;
 use std::path::{Path, PathBuf};
 
 use chrono::{DateTime, Utc};
+use log::debug;
 use pulldown_cmark::{html, CodeBlockKind, CowStr, Event, Options, Parser, Tag};
 use serde::{Deserialize, Serialize};
 use syntect::highlighting::ThemeSet;
@@ -96,6 +97,7 @@ impl Post {
     }
 
     pub(crate) fn from_markdown(path: &Path) -> Result<Post, std::io::Error> {
+        debug!("[BLOG] Generating post from {}", path.display());
         let filename = path.file_name().unwrap().to_str().unwrap();
         let mut split = filename.splitn(4, "-");
         let year = split.next().unwrap().parse::<i32>().unwrap();

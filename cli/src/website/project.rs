@@ -1,16 +1,19 @@
 use std::io::ErrorKind;
+use std::io::ErrorKind::InvalidData;
 
 use chrono::{DateTime, Utc};
-use log::debug;
+use log::{debug, error};
 use reqwest::{header, Client, ClientBuilder};
 use serde::{Deserialize, Serialize};
 use serde_json::{Map, Value};
 
 #[derive(Serialize, Deserialize, Clone)]
 pub(crate) struct Project {
-    name: String,
-    description: String,
-    languages: Vec<ProjectLanguage>,
+    pub(crate) repository: String,
+    pub(crate) short_name: Option<String>,
+    pub(crate) description: Option<String>,
+    pub(crate) languages: Option<Vec<ProjectLanguage>>,
+    pub(crate) updated_at: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -20,27 +23,48 @@ pub(crate) struct ProjectLanguage {
 }
 
 impl Project {
-    pub(crate) async fn from_github(repository: &str) -> Self {
-        let repository = Self::get_repository(repository)
+    /// Downloads the project from GitHub
+    pub(crate) async fn download(repository: String) -> Self {
+        let mut project = Project {
+            repository,
+            short_name: None,
+            description: None,
+            languages: None,
+            updated_at: None,
+        };
+
+        project.download_repository().await;
+
+        return project;
+    }
+
+    /// Downloads the repository from GitHub and replaces the data with GitHub's API Response
+    pub(crate) async fn download_repository(&mut self) {
+        debug!("[PROJECT] Downloading {} from GitHub", &self.repository);
+        let repository = self
+            .fetch_repository()
             .await
             .expect("[GITHUB ERROR] Could not get repository");
+
         let languages = repository
             .languages
             .iter()
-            .map(|(key, value)| ProjectLanguage {
-                name: key.to_owned(),
-                bytes: value.to_string().parse::<i32>().unwrap(),
+            .map(|(key, value)| {
+                Some(ProjectLanguage {
+                    name: key.to_owned(),
+                    bytes: value.to_string().parse::<i32>().unwrap(),
+                })
             })
             .collect();
 
-        Project {
-            name: repository.name,
-            description: repository.description,
-            languages,
-        }
+        self.languages = languages;
+        self.description = Some(repository.description);
+        self.short_name = Some(repository.name);
+        self.updated_at = Some(repository.updated_at.to_string());
     }
 
     fn get_github_client() -> Result<Client, std::io::Error> {
+        debug!("[PROJECT] Getting GitHub Client");
         let mut headers = header::HeaderMap::new();
         let token = Self::get_github_token()?;
         let formatted_token = format!("Bearer {}", token);
@@ -52,10 +76,11 @@ impl Project {
             .default_headers(headers)
             .user_agent("sneakycrow-website-generator")
             .build()
-            .map_err(|err| std::io::Error::new(ErrorKind::InvalidData, err))
+            .map_err(|err| std::io::Error::new(InvalidData, err))
     }
 
     fn get_github_token() -> Result<String, std::io::Error> {
+        debug!("[PROJECT] Getting GitHub token");
         std::env::var("GITHUB_TOKEN").map_err(|_err| {
             std::io::Error::new(
                 ErrorKind::NotFound,
@@ -64,8 +89,10 @@ impl Project {
         })
     }
 
-    async fn get_repository(repo: &str) -> Result<Repository, std::io::Error> {
-        debug!("[DOWNLOADING REPOSITORY] Getting {} data from GitHub", repo);
+    async fn fetch_repository(&mut self) -> Result<Repository, std::io::Error> {
+        debug!("[PROJECT] Fetching repository {}", &self.repository);
+        let repo = &self.repository;
+
         let url = format!("https://api.github.com/repos/{}", repo);
         let client = Self::get_github_client()?;
         let repository = client
@@ -88,17 +115,16 @@ impl Project {
 
         let parsed_updated_at = DateTime::from(
             DateTime::parse_from_rfc3339(&repository.updated_at)
-                .map_err(|err| std::io::Error::new(ErrorKind::InvalidData, err))?,
+                .map_err(|err| std::io::Error::new(InvalidData, err))?,
         );
 
-        debug!("[DOWNLOAD COMPLETE] All data retrieved for {}", repo);
         Ok(Repository {
             name: repository.name,
             description: repository.description,
             _topics: repository.topics,
-            _updated_at: parsed_updated_at,
+            updated_at: parsed_updated_at,
             languages,
-            _private: repository.private,
+            private: repository.private,
         })
     }
 }
@@ -108,8 +134,8 @@ struct Repository {
     description: String,
     _topics: Vec<String>,
     languages: Map<String, Value>,
-    _updated_at: DateTime<Utc>,
-    _private: bool,
+    updated_at: DateTime<Utc>,
+    private: bool,
 }
 
 #[derive(Deserialize, Debug)]

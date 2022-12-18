@@ -2,9 +2,8 @@ use std::cmp::Ordering;
 use std::fs;
 use std::fs::File;
 use std::io::Write;
-use std::process::{ExitCode, Termination};
 
-use handlebars::Handlebars;
+use handlebars::{handlebars_helper, Handlebars};
 use log::debug;
 use serde_json::json;
 use walkdir::WalkDir;
@@ -19,34 +18,53 @@ mod page;
 mod post;
 mod project;
 mod series;
+mod signal_boost;
 
-pub(crate) struct Website {
-    pub(crate) config: Config,
+pub(crate) struct Website<'config> {
+    pub(crate) config: &'config Config,
 }
 
-impl Termination for Website {
-    fn report(self) -> ExitCode {
-        ExitCode::SUCCESS
-    }
-}
+handlebars_helper!(hb_month_name_helper: |month_num: u64| match month_num {
+    1 => "Jan.",
+    2 => "Feb.",
+    3 => "Mar.",
+    4 => "Apr.",
+    5 => "May",
+    6 => "June",
+    7 => "July",
+    8 => "Aug.",
+    9 => "Sept.",
+    10 => "Oct.",
+    11 => "Nov.",
+    12 => "Dec.",
+    _ => "Error!",
+});
 
-impl Website {
+impl<'config> Website<'config> {
     // Generates all assets for deployment
-    pub(crate) fn generate(registry: &Handlebars, config: Config) -> Result<Self, std::io::Error> {
+    pub(crate) fn generate(config: &'config Config) -> Result<Self, std::io::Error> {
         debug!("[GENERATION STARTED] Starting website generation");
+        // Initialize handlebars registry
+        let registry = Self::get_registry();
         let website = Website { config };
         // Initialize by making sure all output directories are ready
+        debug!("[OUTPUT] Creating output directories");
         fs::create_dir_all(&website.config.output_directory)?;
         // Compile Stylesheets
         let css_text = Self::compile_sass("assets/scss/_index.scss");
+        debug!("[OUTPUT] Saving main.css");
         let css_path = format!("{}/{}", &website.config.output_directory, "main.css");
         let mut css_file = File::create(&css_path)?;
         css_file.write_all(css_text.as_bytes())?;
 
         // Create posts
-        let posts: Vec<Post> = website.generate_posts()?;
+        let posts: Vec<Post> = website
+            .generate_posts()
+            .expect("[BLOG] Could not gather posts");
         // Create posts
-        let pages = website.generate_pages(posts.clone())?;
+        let pages = website
+            .generate_pages(&posts)
+            .expect("[BLOG] Could not gather pages");
 
         for post in posts {
             let directory = format!(
@@ -76,7 +94,7 @@ impl Website {
 
         // Create pages
         for page in pages {
-            let (file_name, html) = page.generate_html(registry);
+            let (file_name, html) = page.generate_html(&registry);
             let path = format!("{}/{}", &website.config.output_directory, file_name);
             let mut html_file = File::create(&path)
                 .expect(format!("[PAGE CREATION ERROR] Could not create {}", &path).as_str());
@@ -105,8 +123,27 @@ impl Website {
         Ok(website)
     }
 
+    pub(crate) fn get_registry() -> Handlebars<'static> {
+        debug!("[HANDLEBARS] {}", "Initializing handlebars registry");
+        // Generate Handlebars Registry
+        let mut handlebars = Handlebars::new();
+        // Include helper for parsing readable month
+        handlebars.register_helper("month_name", Box::new(hb_month_name_helper));
+        // Add templates in top-level templates directory, mostly just for the top index page
+        handlebars
+            .register_templates_directory(".hbs", "assets/templates")
+            .expect("[HANDLEBARS ERROR] Could not register templates directory");
+        // Add templates in pages directory for page-level index pages
+        handlebars
+            .register_templates_directory(".hbs", "assets/templates/pages")
+            .expect("[HANDLEBARS ERROR] Could not register templates/pages directory");
+
+        return handlebars;
+    }
+
     // Compile SASS for all scss files within the path and return the compiled CSS
     fn compile_sass(path: &str) -> String {
+        debug!("[SASS] Compiling SASS at {}", path);
         grass::from_path(path, &grass::Options::default()).expect(
             format!(
                 "[SASS COMPILATION ERROR] Could not compile sass file {}",
@@ -134,7 +171,8 @@ impl Website {
     }
 
     /// Generates pages based on files in the templates directory, excluding the index page
-    fn generate_pages(&self, posts: Vec<Post>) -> Result<Vec<Page>, std::io::Error> {
+    fn generate_pages(&self, posts: &Vec<Post>) -> Result<Vec<Page>, std::io::Error> {
+        debug!("[PAGES] Generating pages with {} posts", &posts.len());
         let mut pages: Vec<Page> = vec![];
         let post_meta: Vec<PostMetaData> = posts
             .iter()
@@ -176,7 +214,7 @@ impl Website {
                             name: "boost".to_string(),
                             title: "signal boosts".to_string(),
                             subtitle: "check them out!".to_string(),
-                            boosts: self.config.boosts.clone().unwrap_or(vec![]),
+                            boosts: self.config.boosts.clone(),
                         }),
                         _ => Page::Standard(PageData {
                             name: name.to_string(),
@@ -197,6 +235,7 @@ impl Website {
 
     /// Gathers all pages based on files in the _posts directory
     fn generate_posts(&self) -> Result<Vec<Post>, std::io::Error> {
+        debug!("[BLOG] Generating posts");
         let mut posts: Vec<Post> = vec![];
         for entry in WalkDir::new("_posts") {
             let unwrapped_entry = entry.unwrap();
@@ -205,6 +244,8 @@ impl Website {
                 posts.push(post);
             }
         }
+
+        debug!("[BLOG] Parsing series from posts");
         // Create our series from the posts yaml
         let series: Vec<Series> = posts.clone().iter_mut().fold(vec![], |mut series, post| {
             // Check if post has a series
@@ -232,6 +273,7 @@ impl Website {
         /* Next we need to inject each relative series into all of their relative posts.
             so the post can parse the table in the template
         */
+        debug!("[BLOG] Injecting series back into posts");
         for s in &series {
             posts
                 .iter_mut()
@@ -241,6 +283,7 @@ impl Website {
         }
 
         // Lastly, sort the posts
+        debug!("[BLOG] Sorting posts");
         Post::sort_posts_by_published_data(&mut posts, true);
         Ok(posts)
     }
