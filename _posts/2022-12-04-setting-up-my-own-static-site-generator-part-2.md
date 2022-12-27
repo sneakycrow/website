@@ -1,7 +1,6 @@
 ---
 title: "Setting up my own static site generator, part 2 - handlebars & SASS"
-category: "software"
-draft: true
+category: "draft"
 series_key: "website-generator-tutorial"
 series_pos: 1
 ---
