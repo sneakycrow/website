@@ -26,7 +26,12 @@
         <ul>
             {{#each categories as category}}
                 <li>
-                    <a class="block-link" href="./blog.html#{{key}}">{{key}}</a>
+                    <p>
+                        <a class="block-link" href="./blog.html#{{key}}">{{key}}</a>
+                        {{#if summary}}
+                            <span>{{summary}}</span>
+                        {{/if}}
+                    </p>
                 </li>
             {{/each}}
         </ul>
