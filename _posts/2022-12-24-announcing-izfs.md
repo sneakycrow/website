@@ -1,6 +1,7 @@
 ---
 title: "Announcing izfs, an open-source self-hosted media sharing and streaming alternative"
 category: "software"
+summary: "I'm starting a new project again (echo echo echo)"
 ---
 
 My friend Ian and I are creating a software called [izfs][izfs] (Ian and Zach's file sharer), a software intended for

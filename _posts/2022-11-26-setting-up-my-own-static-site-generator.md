@@ -3,6 +3,7 @@ title: "Setting up my own static site generator, part 1 - planning & initializat
 category: "software"
 series_key: "website-generator-tutorial"
 series_pos: 0
+summary: "The initial project setup and planning phase of setting up a static site generator"
 ---
 Recently, I set up this new website re-design. But beyond just a re-design, it's actually a full "re-software"?.
 As you may have guessed from the title, I wrote my

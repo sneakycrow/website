@@ -17,6 +17,7 @@ struct YamlHeader {
     series_pos: Option<i32>,
     series_key: Option<String>,
     category: String,
+    summary: Option<String>,
 }
 
 #[derive(Serialize, Clone)]
@@ -36,6 +37,7 @@ pub(crate) struct Post {
     pub(crate) series_pos: Option<i32>,
     pub(crate) series: Option<Series>,
     pub(crate) category: String,
+    pub(crate) summary: Option<String>,
 }
 
 #[derive(Serialize)]
@@ -114,6 +116,7 @@ impl Post {
             series_key,
             series_pos,
             category,
+            summary,
         } = serde_yaml::from_str(yaml).expect("[YAML ERROR] Could not parse yaml header");
 
         // parse markdown
@@ -214,6 +217,7 @@ impl Post {
             series_key,
             series: None, // This cant be parsed from a single post, it should be re-assigned later
             category,
+            summary,
         })
     }
 

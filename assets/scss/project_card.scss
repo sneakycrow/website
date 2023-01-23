@@ -13,7 +13,7 @@
     padding: 0;
     margin: 0;
     width: 100%;
-    
+
     li {
       display: inline-flex;
       color: #676767;
@@ -42,11 +42,11 @@
       left: 0;
       top: 0;
       height: 100%;
-      background-color: #0ba750;
+      background-color: $green;
       width: 40px;
       transition: width 100ms ease-in;
       z-index: -1;
-      border: 4px solid #1f1f1f;
+      border: 4px solid $black;
 
     }
 

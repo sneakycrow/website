@@ -16,15 +16,57 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
-      margin-bottom: 8px;
+      margin: 16px 0;
+      position: relative;
+      border-left: 4px solid $black;
+      padding: 8px 16px;
+      min-height: 100px;
 
-      a {
-        margin-bottom: 0;
+      a.post-link {
+        display: inline;
       }
 
-      span {
+      span.date {
         font-size: 1rem;
         text-transform: uppercase;
+        display: inline;
+      }
+
+      span.summary {
+        line-height: 1;
+        font-size: 1rem;
+        opacity: 0.75;
+        display: block;
+        font-style: italic;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: -4px;
+        width: 4px;
+        height: 50%;
+        background-color: $green;
+        transition: height 250ms ease-in-out;
+      }
+
+      &:hover {
+        &::after {
+          height: 75%;
+        }
+      }
+
+      &:active {
+        &::after {
+          height: 100%;
+        }
+      }
+
+      &:visited {
+        &::after {
+          height: 25%;
+        }
       }
     }
   }

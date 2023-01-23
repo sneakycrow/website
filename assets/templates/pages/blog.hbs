@@ -26,7 +26,9 @@
         <ul>
             {{#each categories as category}}
                 <li>
-                    <a class="block-link" href="./blog.html#{{key}}">{{key}}</a>
+                    <p>
+                        <a class="block-link" href="./blog.html#{{key}}">{{key}}</a>
+                    </p>
                 </li>
             {{/each}}
         </ul>
@@ -37,8 +39,15 @@
             <ul>
                 {{#each posts as post}}
                     <li>
-                        <a class="block-link" href="{{url}}">{{title}}</a>
-                        <span>{{#if is_draft}}Draft{{else}}{{month_name month}} {{day}}, {{year}}{{/if}}</span>
+                        <a href="{{url}}">{{title}}</a>
+                        {{#if is_draft}}
+                            Draft
+                        {{else}}
+                            <span class="date">{{month_name month}} {{day}}, {{year}}</span>
+                        {{/if}}
+                        {{#if summary}}
+                            <span class="summary">{{summary}}</span>
+                        {{/if}}
                     </li>
                 {{/each}}
             </ul>
