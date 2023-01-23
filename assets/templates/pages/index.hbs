@@ -89,6 +89,14 @@
                 {{#each posts as post}}
                     <li>
                         <a href="{{url}}">{{title}}</a>
+                        {{#if is_draft}}
+                            Draft
+                        {{else}}
+                            <span class="date">{{month_name month}} {{day}}, {{year}}</span>
+                        {{/if}}
+                        {{#if summary}}
+                            <span class="summary">{{summary}}</span>
+                        {{/if}}
                     </li>
                 {{/each}}
             </ul>
