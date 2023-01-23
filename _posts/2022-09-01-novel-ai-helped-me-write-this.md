@@ -1,6 +1,7 @@
 ---
 title: "Novel ai helped me write this"
 category: "software"
+summary: "I have novel AI write a poem about a magical squid"
 ---
 
 a magical squid is floating through space, just chillin'  

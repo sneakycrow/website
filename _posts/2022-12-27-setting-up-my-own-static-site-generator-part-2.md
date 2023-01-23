@@ -3,6 +3,7 @@ title: "Setting up my own static site generator, part 2 - handlebars & SCSS"
 category: "software"
 series_key: "website-generator-tutorial"
 series_pos: 1
+summary: "The second part of setting up a static site generator, setting up initial templating"
 ---
 [In the first part of this series][part 1] we did some basic initial research, and then a "kinda-mvp" of a html file
 generator. We also added a Github Actions config for auto-deployment.
