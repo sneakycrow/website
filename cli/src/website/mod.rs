@@ -183,6 +183,7 @@ impl<'config> Website<'config> {
                 year: p.year,
                 day: p.day,
                 category: p.category.to_string(),
+                summary: p.summary.clone().unwrap_or("".to_string()), // This feels like it can be improved
             })
             .collect();
         for entry in WalkDir::new("assets/templates/pages") {
