@@ -24,7 +24,7 @@ pub(crate) struct ProjectLanguage {
 
 impl Project {
     /// Downloads the project from GitHub
-    pub(crate) async fn download(repository: String) -> Self {
+    pub(crate) async fn download(repository: String, client: &Client) -> Self {
         let mut project = Project {
             repository,
             short_name: None,
@@ -33,16 +33,16 @@ impl Project {
             updated_at: None,
         };
 
-        project.download_repository().await;
+        project.download_repository(client).await;
 
         return project;
     }
 
     /// Downloads the repository from GitHub and replaces the data with GitHub's API Response
-    pub(crate) async fn download_repository(&mut self) {
+    pub(crate) async fn download_repository(&mut self, client: &Client) {
         debug!("[PROJECT] Downloading {} from GitHub", &self.repository);
         let repository = self
-            .fetch_repository()
+            .fetch_repository(client)
             .await
             .expect("[GITHUB ERROR] Could not get repository");
 
@@ -63,7 +63,7 @@ impl Project {
         self.updated_at = Some(repository.updated_at.to_string());
     }
 
-    fn get_github_client() -> Result<Client, std::io::Error> {
+    pub(crate) fn get_github_client() -> Result<Client, std::io::Error> {
         debug!("[PROJECT] Getting GitHub Client");
         let mut headers = header::HeaderMap::new();
         let token = Self::get_github_token()?;
@@ -89,12 +89,11 @@ impl Project {
         })
     }
 
-    async fn fetch_repository(&mut self) -> Result<Repository, std::io::Error> {
+    async fn fetch_repository(&mut self, client: &Client) -> Result<Repository, std::io::Error> {
         debug!("[PROJECT] Fetching repository {}", &self.repository);
         let repo = &self.repository;
 
         let url = format!("https://api.github.com/repos/{}", repo);
-        let client = Self::get_github_client()?;
         let repository = client
             .get(url)
             .send()

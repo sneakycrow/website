@@ -31,8 +31,10 @@ impl Config {
 
         let github_projects: Vec<Project> = local_config.github_projects.unwrap_or(vec![]);
         let mut projects = vec![];
+        let client =
+            Project::get_github_client().expect("[GITHUB ERROR] Could not create github client");
         for project in github_projects.into_iter() {
-            projects.push(Project::download(project.repository).await)
+            projects.push(Project::download(project.repository, &client).await)
         }
 
         Config {
