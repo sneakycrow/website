@@ -24,22 +24,6 @@ pub(crate) struct Website<'config> {
     pub(crate) config: &'config Config,
 }
 
-handlebars_helper!(hb_month_name_helper: |month_num: u64| match month_num {
-    1 => "Jan.",
-    2 => "Feb.",
-    3 => "Mar.",
-    4 => "Apr.",
-    5 => "May",
-    6 => "June",
-    7 => "July",
-    8 => "Aug.",
-    9 => "Sept.",
-    10 => "Oct.",
-    11 => "Nov.",
-    12 => "Dec.",
-    _ => "Error!",
-});
-
 impl<'config> Website<'config> {
     // Generates all assets for deployment
     pub(crate) fn generate(config: &'config Config) -> Result<Self, std::io::Error> {
@@ -131,11 +115,11 @@ impl<'config> Website<'config> {
         handlebars.register_helper("month_name", Box::new(hb_month_name_helper));
         // Add templates in top-level templates directory, mostly just for the top index page
         handlebars
-            .register_templates_directory(".hbs", "assets/templates")
+            .register_templates_directory(".hbs", "./assets/templates")
             .expect("[HANDLEBARS ERROR] Could not register templates directory");
         // Add templates in pages directory for page-level index pages
         handlebars
-            .register_templates_directory(".hbs", "assets/templates/pages")
+            .register_templates_directory(".hbs", "./assets/templates/pages")
             .expect("[HANDLEBARS ERROR] Could not register templates/pages directory");
 
         return handlebars;
@@ -186,7 +170,7 @@ impl<'config> Website<'config> {
                 summary: p.summary.clone().unwrap_or("".to_string()), // This feels like it can be improved
             })
             .collect();
-        for entry in WalkDir::new("assets/templates/pages") {
+        for entry in WalkDir::new("./assets/templates/pages") {
             let file = entry?;
             if file.path().is_file() {
                 if let Some(name_without_extension) = file.path().file_stem() {
@@ -243,7 +227,7 @@ impl<'config> Website<'config> {
     fn generate_posts(&self) -> Result<Vec<Post>, std::io::Error> {
         debug!("[BLOG] Generating posts");
         let mut posts: Vec<Post> = vec![];
-        for entry in WalkDir::new("_posts") {
+        for entry in WalkDir::new("./_posts") {
             let unwrapped_entry = entry.unwrap();
             if unwrapped_entry.path().is_file() {
                 let post = Post::from_markdown(unwrapped_entry.path())?;
@@ -306,3 +290,19 @@ impl<'config> Website<'config> {
         Ok(categorized_posts)
     }
 }
+
+handlebars_helper!(hb_month_name_helper: |month_num: u64| match month_num {
+    1 => "Jan.",
+    2 => "Feb.",
+    3 => "Mar.",
+    4 => "Apr.",
+    5 => "May",
+    6 => "June",
+    7 => "July",
+    8 => "Aug.",
+    9 => "Sept.",
+    10 => "Oct.",
+    11 => "Nov.",
+    12 => "Dec.",
+    _ => "Error!",
+});
