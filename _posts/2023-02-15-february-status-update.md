@@ -9,9 +9,7 @@ series_pos: 1
 ### sad news, feel free to skip 
 
 Well, sadly, the role I was excited about that started in January didn't work out. 
-The worst part about it, is there was no issue with skill or culture. I got along more than well with everyone I met. 
-
-But, unfortunately, due to a policy that was not communicated to me regarding cannabis usage, I was terminated.
+The worst part about it is there was no issue with skill or culture. I got along more than well with everyone I met. But, unfortunately, due to a policy that was not communicated to me regarding cannabis usage, I was terminated.
 
 Next time, I need to be more intentional about getting everything in writing. Because even though I was very open about all this 
 with the employer during the interview process, the authority that told me cannabis was okay was just wrong.
@@ -23,6 +21,7 @@ they skipped over too many important steps.
 Anyways, if you're reading this, I'm still just disappointed that you couldn't be bothered to call me.
 
 ### cool shit
+
 
 #### Cobrashare 
 
