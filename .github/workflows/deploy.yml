@@ -10,6 +10,7 @@ on:
       - main
     paths:
       - _posts/**
+      - assets/**
 
 jobs:
   run:
