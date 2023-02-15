@@ -5,6 +5,11 @@ on:
       - released
       - prereleased
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - _posts/**
 
 jobs:
   run:
