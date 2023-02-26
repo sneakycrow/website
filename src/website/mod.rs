@@ -1,56 +1,77 @@
 use std::cmp::Ordering;
 use std::fs;
 use std::fs::File;
-use std::io::Write;
+use std::io::{Error, Write};
+use std::path::Path;
 
 use handlebars::{handlebars_helper, Handlebars};
-use log::{debug, error};
 use serde_json::json;
+use tracing::{debug, error, event, span, Level};
 use walkdir::WalkDir;
 
 use crate::website::config::Config;
+use crate::website::errors::WebsiteError::CriticalWebsiteError;
 use crate::website::page::{BlogData, Page, PageData, PostMetaData, SignalBoostData};
 use crate::website::post::{Category, Post};
 use crate::website::series::Series;
 
 pub(crate) mod config;
+mod errors;
 mod page;
 mod post;
 mod project;
 mod series;
 mod signal_boost;
 
-pub(crate) struct Website<'config> {
-    pub(crate) config: &'config Config,
+pub(crate) struct Website {
+    pub(crate) config: Config,
+    pub(crate) posts: Vec<Post>,
 }
 
-impl<'config> Website<'config> {
+impl Website {
+    pub(crate) fn default(config: Config) -> Self {
+        span!(Level::TRACE, "Creating default empty website");
+        Website {
+            config,
+            posts: vec![],
+        }
+    }
     // Generates all assets for deployment
-    pub(crate) fn generate(config: &'config Config) -> Result<Self, std::io::Error> {
-        debug!("[GENERATION STARTED] Starting website generation");
+    pub(crate) async fn generate(config: Config) -> Result<Self, Error> {
+        span!(Level::INFO, "Starting website generation");
         // Initialize handlebars registry
         let registry = Self::get_registry();
-        let website = Website { config };
+        let mut website = Website::default(config);
         // Initialize by making sure all output directories are ready
-        debug!("[OUTPUT] Creating output directories");
+        event!(Level::TRACE, "Creating output directories");
         fs::create_dir_all(&website.config.output_directory)?;
         // Compile Stylesheets
+        event!(Level::TRACE, "Compiling stylesheets");
         let css_text = Self::compile_sass("assets/scss/_index.scss");
-        debug!("[OUTPUT] Saving main.css");
         let css_path = format!("{}/{}", &website.config.output_directory, "main.css");
         let mut css_file = File::create(&css_path)?;
         css_file.write_all(css_text.as_bytes())?;
 
+        event!(Level::INFO, "Generating posts data");
+        match website.generate_posts_with_series().await {
+            Err(e) => {
+                event!(Level::ERROR, "Could not generate posts, Error: {:?}", e);
+                return Err(e);
+            }
+            Ok(website) => {
+                event!(Level::TRACE, "Successfully generated all posts");
+                website
+            }
+        };
+
+        event!(Level::INFO, "Generating pages data");
         // Create posts
-        let posts: Vec<Post> = website
-            .generate_posts()
-            .expect("[BLOG] Could not gather posts");
-        // Create posts
-        let pages = website
-            .generate_pages(&posts)
+        let pages = &website
+            .generate_pages(&website.posts)
             .expect("[BLOG] Could not gather pages");
 
-        for post in posts {
+        event!(Level::INFO, "Saving posts to html");
+        for post in &website.posts {
             let directory = format!(
                 "{}/{:04}/{:02}/{:02}",
                 &website.config.output_directory, post.year, post.month, post.day
@@ -76,6 +97,7 @@ impl<'config> Website<'config> {
             );
         }
 
+        event!(Level::INFO, "Saving pages to html");
         // Create pages
         for page in pages {
             let (file_name, html) = page.generate_html(&registry);
@@ -87,6 +109,7 @@ impl<'config> Website<'config> {
                 .expect(format!("[PAGE WRITE ERROR] Could not write {}", &path).as_str());
         }
 
+        event!(Level::INFO, "Copying static assets");
         // Copy static assets
         // Create asset directory
         let asset_path = format!("{}/{}", &website.config.output_directory, "assets");
@@ -103,12 +126,10 @@ impl<'config> Website<'config> {
         let js_path = format!("{}/{}", &asset_path, "js");
         fs::create_dir_all(&js_path)?;
         Self::copy_assets("assets/js", &js_path)?;
-        debug!("[GENERATION COMPLETE] Website generated");
         Ok(website)
     }
 
     pub(crate) fn get_registry() -> Handlebars<'static> {
-        debug!("[HANDLEBARS] {}", "Initializing handlebars registry");
         // Generate Handlebars Registry
         let mut handlebars = Handlebars::new();
         // Include helper for parsing readable month
@@ -127,7 +148,6 @@ impl<'config> Website<'config> {
 
     // Compile SASS for all scss files within the path and return the compiled CSS
     fn compile_sass(path: &str) -> String {
-        debug!("[SASS] Compiling SASS at {}", path);
         grass::from_path(path, &grass::Options::default()).expect(
             format!(
                 "[SASS COMPILATION ERROR] Could not compile sass file {}",
@@ -138,7 +158,7 @@ impl<'config> Website<'config> {
     }
 
     // Copies static assets (such as images, and fonts) to the output path
-    fn copy_assets(input_path: &str, output_path: &str) -> Result<(), std::io::Error> {
+    fn copy_assets(input_path: &str, output_path: &str) -> Result<(), Error> {
         for entry in WalkDir::new(input_path) {
             let unwrapped_entry = entry.unwrap();
             if unwrapped_entry.path().is_file() {
@@ -155,8 +175,8 @@ impl<'config> Website<'config> {
     }
 
     /// Generates pages based on files in the templates directory, excluding the index page
-    fn generate_pages(&self, posts: &Vec<Post>) -> Result<Vec<Page>, std::io::Error> {
-        debug!("[PAGES] Generating pages with {} posts", &posts.len());
+    fn generate_pages(&self, posts: &Vec<Post>) -> Result<Vec<Page>, Error> {
+        span!(Level::INFO, "Generating pages");
         let mut pages: Vec<Page> = vec![];
         let post_meta: Vec<PostMetaData> = posts
             .iter()
@@ -223,68 +243,106 @@ impl<'config> Website<'config> {
         Ok(pages)
     }
 
-    /// Gathers all pages based on files in the _posts directory
-    async fn generate_posts(&self) -> Result<Vec<Post>, std::io::Error> {
-        debug!("[BLOG] Generating posts");
-        let mut posts: Vec<Post> = vec![];
-        for entry in WalkDir::new("./_posts") {
-            let unwrapped_entry = entry.unwrap();
-            if unwrapped_entry.path().is_file() {
-                let post = match Post::from_markdown(unwrapped_entry.path()) {
-                    Ok(post) => post,
-                  Err(e) => {
-                      error!("Could not generate post from {:?}", unwrapped_entry.path());
-                  }
-                };
-                posts.push(post);
-            }
-        }
-
-        debug!("[BLOG] Parsing series from posts");
+    /// Function for generating Series from the posts
+    async fn parse_series(&mut self) -> Result<&mut Self, Error> {
+        span!(Level::DEBUG, "Parsing series inside of posts");
         // Create our series from the posts yaml
-        let series: Vec<Series> = posts.clone().iter_mut().fold(vec![], |mut series, post| {
-            // Check if post has a series
-            if post.series_key.is_some() {
-                let post_key = &post.clone().series_key.unwrap();
-                // Check if we've already generated the Series
-                let found_series = series
-                    .iter_mut()
-                    .find(|s| s.key.to_string() == post_key.to_string());
+        let series: Vec<Series> = self
+            .posts
+            .clone()
+            .iter_mut()
+            .fold(vec![], |mut series, post| {
+                // Check if post has a series
+                if post.series_key.is_some() {
+                    let post_key = &post.clone().series_key.unwrap();
+                    // Check if we've already generated the Series
+                    let found_series = series
+                        .iter_mut()
+                        .find(|s| s.key.to_string() == post_key.to_string());
 
-                match found_series {
-                    Some(s) => s.posts.push(post.clone()),
-                    None => {
-                        series.push(Series {
-                            key: post.series_key.as_ref().unwrap().to_string(),
-                            posts: vec![post.to_owned()],
-                        });
-                    }
-                };
-            }
+                    match found_series {
+                        Some(s) => s.posts.push(post.clone()),
+                        None => {
+                            series.push(Series {
+                                key: post.series_key.as_ref().unwrap().to_string(),
+                                posts: vec![post.to_owned()],
+                            });
+                        }
+                    };
+                }
 
-            return series;
-        });
+                return series;
+            });
 
-        /* Next we need to inject each relative series into all of their relative posts.
-            so the post can parse the table in the template
-        */
-        debug!("[BLOG] Injecting series back into posts");
+        event!(Level::TRACE, "Re-injecting series back into posts");
         for s in &series {
-            posts
+            self.posts
                 .iter_mut()
                 .filter(|p| p.series_key.is_some())
                 .filter(|p| &p.series_key.clone().unwrap() == &s.key)
                 .for_each(|p| p.add_series(s.clone()));
         }
 
-        // Lastly, sort the posts
-        debug!("[BLOG] Sorting posts");
-        Post::sort_posts_by_published_data(&mut posts, true);
-        Ok(posts)
+        Ok(self)
     }
 
-    /// Uses [Website::generate_posts] to get posts, and then organizes them into categories
-    pub(crate) fn sort_into_category(posts: Vec<Post>) -> Result<Vec<Category>, std::io::Error> {
+    /// Gathers all pages based on files in the _posts directory
+    async fn generate_posts_with_series(&mut self) -> Result<&mut Self, Error> {
+        const POSTS_DIRECTORY: &str = "./_posts";
+
+        span!(Level::INFO, "Generating posts in {}", POSTS_DIRECTORY);
+        let mut post_paths: Vec<String> = vec![];
+        for entry in WalkDir::new(POSTS_DIRECTORY) {
+            let unwrapped_entry = entry.unwrap();
+            if unwrapped_entry.path().is_file() {
+                post_paths.push(String::from(unwrapped_entry.path().to_str().unwrap()));
+            }
+        }
+        event!(Level::TRACE, "Generating posts asynchronously");
+        let mut posts: Vec<Post> = vec![];
+        let mut post_streams = Vec::with_capacity(post_paths.len());
+        for path in post_paths {
+            post_streams.push(tokio::spawn(Post::from_markdown_file(path)))
+        }
+
+        let mut results = Vec::with_capacity(post_streams.len());
+        for handle in post_streams {
+            results.push(handle.await.unwrap());
+        }
+
+        for post_result in results {
+            match post_result {
+                Ok(post) => posts.push(post),
+                Err(e) => {
+                    event!(Level::ERROR, "Could not generate post, Error: {:?}", e);
+                    return Err(e);
+                }
+            }
+        }
+
+        event!(Level::TRACE, "Adding series to their relative posts");
+        match self.parse_series().await {
+            Ok(website) => website,
+            Err(e) => {
+                event!(
+                    Level::ERROR,
+                    "Could not generate series for posts, Error: {:?}",
+                    e
+                );
+                return Err(e);
+            }
+        };
+
+        event!(Level::TRACE, "Sorting posts by publication date");
+        Post::sort_posts_by_published_date(&mut posts, true);
+
+        self.posts = posts;
+
+        Ok(self)
+    }
+
+    /// Uses [Website::generate_posts_with_series] to get posts, and then organizes them into categories
+    pub(crate) fn sort_into_category(posts: Vec<Post>) -> Result<Vec<Category>, Error> {
         let mut categorized_posts = Post::fold_into_categories(posts);
         // Prioritize "software" category
         categorized_posts.sort_by(|a, _b| match a.key.as_ref() {

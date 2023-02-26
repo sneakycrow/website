@@ -2,12 +2,12 @@ use std::io::ErrorKind;
 use std::path::{Path, PathBuf};
 
 use chrono::{DateTime, Utc};
-use log::debug;
 use pulldown_cmark::{html, CodeBlockKind, CowStr, Event, Options, Parser, Tag};
 use serde::{Deserialize, Serialize};
 use syntect::highlighting::ThemeSet;
 use syntect::html::highlighted_html_for_string;
 use syntect::parsing::SyntaxSet;
+use tracing::{debug, span, Level};
 
 use crate::website::series::Series;
 
@@ -47,7 +47,7 @@ pub(crate) struct Category {
 }
 
 impl Post {
-    pub(crate) fn sort_posts_by_published_data(posts: &mut Vec<Post>, ascending: bool) {
+    pub(crate) fn sort_posts_by_published_date(posts: &mut Vec<Post>, ascending: bool) {
         posts.sort_by(|a, b| {
             let a_time: DateTime<Utc> = DateTime::from(
                 DateTime::parse_from_rfc3339(&a.published)
@@ -92,12 +92,13 @@ impl Post {
 
     pub(crate) fn add_series(&mut self, mut series: Series) {
         // When we add a series we also sort the posts
-        Self::sort_posts_by_published_data(&mut series.posts, false);
+        Self::sort_posts_by_published_date(&mut series.posts, false);
         self.series = Some(series);
     }
 
-    pub(crate) fn from_markdown(path: &Path) -> Result<Post, std::io::Error> {
-        debug!("[BLOG] Generating post from {}", path.display());
+    pub(crate) async fn from_markdown_file(md_file: String) -> Result<Post, std::io::Error> {
+        let path = Path::new(&md_file);
+        span!(Level::TRACE, "Generating post from {}", md_file);
         let filename = path.file_name().unwrap().to_str().unwrap();
         let mut split = filename.splitn(4, "-");
         let year = split.next().unwrap().parse::<i32>().unwrap();
