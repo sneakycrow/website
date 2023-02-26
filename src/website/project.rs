@@ -103,7 +103,7 @@ impl Project {
 
     fn get_github_token() -> Result<String, std::io::Error> {
         span!(Level::TRACE, "Getting GitHub token");
-        std::env::var("WEBSITE_GH_TOKEN").map_err(|_err| {
+        std::env::var("GITHUB_TOKEN").map_err(|_err| {
             std::io::Error::new(
                 ErrorKind::NotFound,
                 "[ENVIRONMENT ERROR] GITHUB_TOKEN not available",
