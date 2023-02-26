@@ -1,6 +1,7 @@
 use std::fs;
 
 use serde::Deserialize;
+use tracing::{event, span, Level};
 
 use crate::website::project::Project;
 use crate::website::signal_boost::SignalBoost;
@@ -27,17 +28,32 @@ struct TomlConfig {
 
 impl Config {
     /// Generates data from the local config file
-    pub(crate) async fn default() -> Self {
+    pub(crate) async fn default() -> Result<Self, std::io::Error> {
+        span!(Level::DEBUG, "Generating default configuration");
         let local_config = Self::from_config_file();
         let github_projects: Vec<Project> = local_config.github_projects.unwrap_or(vec![]);
         let mut projects = vec![];
-        let client =
-            Project::get_github_client().expect("[GITHUB ERROR] Could not create github client");
-        for project in github_projects.into_iter() {
-            projects.push(Project::download(project.repository, &client).await)
-        }
 
-        Config {
+        match Project::get_github_client() {
+            Ok(client) => {
+                event!(
+                    Level::DEBUG,
+                    "Generated GitHub client. Downloading projects"
+                );
+                for project in github_projects.into_iter() {
+                    projects.push(Project::download(project.repository, &client).await)
+                }
+            }
+            Err(e) => {
+                event!(
+                    Level::ERROR,
+                    "Could not generate Github client, skipping project download. Error {:?}",
+                    e
+                );
+            }
+        };
+
+        let config = Config {
             projects,
             title: local_config.title,
             subtitle: local_config.subtitle,
@@ -45,7 +61,9 @@ impl Config {
             output_directory: local_config
                 .output_directory
                 .unwrap_or(DEFAULT_OUTPUT.to_string()),
-        }
+        };
+
+        Ok(config)
     }
 
     /// Loads the file at CONFIG_PATH or `config.toml` by default,
