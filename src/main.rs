@@ -1,5 +1,6 @@
 use std::io::Write;
 
+use tracing::{event, span, Level};
 use tracing_subscriber::EnvFilter;
 
 use crate::website::config::Config;
@@ -15,6 +16,7 @@ async fn main() {
         .compact()
         .with_env_filter(EnvFilter::from_default_env())
         .init();
+    span!(Level::INFO, "Starting up...");
     let cmd = clap::Command::new("crow")
         .bin_name("crow")
         .subcommand_required(true)
@@ -28,7 +30,12 @@ async fn main() {
     let matches = cmd.get_matches();
     match matches.subcommand() {
         Some(("build", _)) => {
-            let config = Config::default().await;
+            event!(Level::TRACE, "Generating website configuration");
+            let config = Config::default()
+                .await
+                .expect("Could not create website configuration");
+
+            event!(Level::INFO, "Starting website generation");
             Website::generate(config)
                 .await
                 .expect("[WEBSITE ERROR] Could not generate website");
