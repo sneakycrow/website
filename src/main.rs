@@ -1,5 +1,7 @@
 use std::io::Write;
 
+use tracing_subscriber::EnvFilter;
+
 use crate::website::config::Config;
 use crate::website::Website;
 
@@ -7,7 +9,12 @@ mod website;
 
 #[tokio::main]
 async fn main() {
-    env_logger::init();
+    // Initialize environment logger for all macros to use
+    tracing_subscriber::fmt()
+        .with_target(false)
+        .compact()
+        .with_env_filter(EnvFilter::from_default_env())
+        .init();
     let cmd = clap::Command::new("crow")
         .bin_name("crow")
         .subcommand_required(true)
@@ -22,7 +29,9 @@ async fn main() {
     match matches.subcommand() {
         Some(("build", _)) => {
             let config = Config::default().await;
-            Website::generate(&config).expect("[WEBSITE ERROR] Could not generate website");
+            Website::generate(config)
+                .await
+                .expect("[WEBSITE ERROR] Could not generate website");
         }
         _ => unreachable!("clap should ensure we don't get here"),
     };

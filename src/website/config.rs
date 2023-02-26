@@ -7,6 +7,7 @@ use crate::website::signal_boost::SignalBoost;
 
 const DEFAULT_OUTPUT: &str = "_out";
 
+#[derive(Debug)]
 pub(crate) struct Config {
     pub(crate) output_directory: String,
     pub(crate) title: String,
@@ -28,7 +29,6 @@ impl Config {
     /// Generates data from the local config file
     pub(crate) async fn default() -> Self {
         let local_config = Self::from_config_file();
-
         let github_projects: Vec<Project> = local_config.github_projects.unwrap_or(vec![]);
         let mut projects = vec![];
         let client =

@@ -2,12 +2,12 @@ use std::io::ErrorKind;
 use std::io::ErrorKind::InvalidData;
 
 use chrono::{DateTime, Utc};
-use log::{debug, error};
 use reqwest::{header, Client, ClientBuilder};
 use serde::{Deserialize, Serialize};
 use serde_json::{Map, Value};
+use tracing::{debug, error, event, span, Level};
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub(crate) struct Project {
     pub(crate) repository: String,
     pub(crate) short_name: Option<String>,
@@ -16,7 +16,7 @@ pub(crate) struct Project {
     pub(crate) updated_at: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub(crate) struct ProjectLanguage {
     name: String,
     bytes: i32,
@@ -40,11 +40,33 @@ impl Project {
 
     /// Downloads the repository from GitHub and replaces the data with GitHub's API Response
     pub(crate) async fn download_repository(&mut self, client: &Client) {
-        debug!("[PROJECT] Downloading {} from GitHub", &self.repository);
-        let repository = self
-            .fetch_repository(client)
-            .await
-            .expect("[GITHUB ERROR] Could not get repository");
+        let repository_name = String::from(&self.repository);
+        span!(
+            Level::TRACE,
+            "[PROJECT] Downloading {:?} from GitHub",
+            repository_name
+        );
+
+        let repository = match self.fetch_repository(client).await {
+            Ok(repo) => {
+                event!(
+                    Level::TRACE,
+                    "Successfully retrieved repository {:?}",
+                    repository_name
+                );
+
+                repo
+            }
+            Err(e) => {
+                event!(
+                    Level::ERROR,
+                    "Could not download repository {:?}, Error: {:?}",
+                    repository_name,
+                    e
+                );
+                return;
+            }
+        };
 
         let languages = repository
             .languages
@@ -64,7 +86,7 @@ impl Project {
     }
 
     pub(crate) fn get_github_client() -> Result<Client, std::io::Error> {
-        debug!("[PROJECT] Getting GitHub Client");
+        span!(Level::TRACE, "Getting GitHub Client");
         let mut headers = header::HeaderMap::new();
         let token = Self::get_github_token()?;
         let formatted_token = format!("Bearer {}", token);
@@ -80,7 +102,7 @@ impl Project {
     }
 
     fn get_github_token() -> Result<String, std::io::Error> {
-        debug!("[PROJECT] Getting GitHub token");
+        span!(Level::TRACE, "Getting GitHub token");
         std::env::var("GITHUB_TOKEN").map_err(|_err| {
             std::io::Error::new(
                 ErrorKind::NotFound,
@@ -90,7 +112,7 @@ impl Project {
     }
 
     async fn fetch_repository(&mut self, client: &Client) -> Result<Repository, std::io::Error> {
-        debug!("[PROJECT] Fetching repository {}", &self.repository);
+        span!(Level::TRACE, "Fetching repository {}", self.repository);
         let repo = &self.repository;
 
         let url = format!("https://api.github.com/repos/{}", repo);
