@@ -55,8 +55,8 @@ jobs:
           args: -- build
         env:
           RUST_LOG: debug
-          GITHUB_TOKEN: ${{ secrets.WEBSITE_GH_TOKEN }}
-          
+          GH_TOKEN: ${{ secrets.WEBSITE_GH_TOKEN }}
+
       - name: upload
         uses: reggionick/s3-deploy@v3
         with:
