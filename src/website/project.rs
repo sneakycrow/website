@@ -88,7 +88,13 @@ impl Project {
     pub(crate) fn get_github_client() -> Result<Client, std::io::Error> {
         span!(Level::TRACE, "Getting GitHub Client");
         let mut headers = header::HeaderMap::new();
-        let token = Self::get_github_token()?;
+        let token = match Self::get_github_token() {
+            Ok(token) => token,
+            Err(e) => {
+                event!(Level::ERROR, "Could not retrieve github token");
+                return Err(e);
+            }
+        };
         let formatted_token = format!("Bearer {}", token);
         let header = header::HeaderValue::from_str(&formatted_token)
             .map_err(|err| std::io::Error::new(ErrorKind::Other, err))?;
