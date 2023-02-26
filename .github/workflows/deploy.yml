@@ -48,6 +48,15 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           env: production
 
+      - name: generate website
+        uses: actions-rs/cargo@v1
+        with:
+          command: run
+          args: -- build
+        env:
+          RUST_LOG: debug
+          GITHUB_TOKEN: ${{ secrets.WEBSITE_GH_TOKEN }}
+          
       - name: upload
         uses: reggionick/s3-deploy@v3
         with:
@@ -59,15 +68,6 @@ jobs:
           delete-removed: true
           private: true
           filesToInclude: ".*/*,*/*,**"
-
-      - name: generate website
-        uses: actions-rs/cargo@v1
-        with:
-          command: run
-          args: -- build
-        env:
-          RUST_LOG: debug
-          GITHUB_TOKEN: ${{ secrets.WEBSITE_GH_TOKEN }}
 
       - name: update deployment status
         uses: bobheadxi/deployments@v1
