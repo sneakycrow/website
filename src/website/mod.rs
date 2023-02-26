@@ -4,7 +4,7 @@ use std::fs::File;
 use std::io::Write;
 
 use handlebars::{handlebars_helper, Handlebars};
-use log::debug;
+use log::{debug, error};
 use serde_json::json;
 use walkdir::WalkDir;
 
@@ -224,13 +224,18 @@ impl<'config> Website<'config> {
     }
 
     /// Gathers all pages based on files in the _posts directory
-    fn generate_posts(&self) -> Result<Vec<Post>, std::io::Error> {
+    async fn generate_posts(&self) -> Result<Vec<Post>, std::io::Error> {
         debug!("[BLOG] Generating posts");
         let mut posts: Vec<Post> = vec![];
         for entry in WalkDir::new("./_posts") {
             let unwrapped_entry = entry.unwrap();
             if unwrapped_entry.path().is_file() {
-                let post = Post::from_markdown(unwrapped_entry.path())?;
+                let post = match Post::from_markdown(unwrapped_entry.path()) {
+                    Ok(post) => post,
+                  Err(e) => {
+                      error!("Could not generate post from {:?}", unwrapped_entry.path());
+                  }
+                };
                 posts.push(post);
             }
         }
