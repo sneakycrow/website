@@ -41,6 +41,15 @@ jobs:
         env:
           RUST_LOG: cli
           GITHUB_TOKEN: ${{ secrets.WEBSITE_GH_TOKEN }}
+
+      - name: start deployment
+        uses: bobheadxi/deployments@v1
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: production
+
       - name: upload
         uses: reggionick/s3-deploy@v3
         with:
@@ -52,3 +61,13 @@ jobs:
           delete-removed: true
           private: true
           filesToInclude: ".*/*,*/*,**"
+
+      - name: update deployment status
+        uses: bobheadxi/deployments@v1
+        if: always()
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
+          env: ${{ steps.deployment.outputs.env }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
