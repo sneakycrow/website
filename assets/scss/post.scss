@@ -23,6 +23,10 @@
       justify-self: center;
       padding: 16px;
 
+      @include for-phone-only {
+        padding: 8px;
+      }
+
       hr:first-child {
         display: none;
       }
