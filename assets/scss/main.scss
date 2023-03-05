@@ -30,6 +30,10 @@ code {
   overflow-x: scroll;
 }
 
+ul {
+  padding-left: 16px;
+}
+
 main {
   display: grid;
   grid-template-columns: 1fr;
