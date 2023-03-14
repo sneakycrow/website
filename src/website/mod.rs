@@ -2,15 +2,13 @@ use std::cmp::Ordering;
 use std::fs;
 use std::fs::File;
 use std::io::{Error, Write};
-use std::path::Path;
 
 use handlebars::{handlebars_helper, Handlebars};
 use serde_json::json;
-use tracing::{debug, error, event, span, Level};
+use tracing::{event, span, Level};
 use walkdir::WalkDir;
 
 use crate::website::config::Config;
-use crate::website::errors::WebsiteError::CriticalWebsiteError;
 use crate::website::page::{BlogData, Page, PageData, PostMetaData, SignalBoostData};
 use crate::website::post::{Category, Post};
 use crate::website::series::Series;
@@ -126,6 +124,8 @@ impl Website {
         let js_path = format!("{}/{}", &asset_path, "js");
         fs::create_dir_all(&js_path)?;
         Self::copy_assets("assets/js", &js_path)?;
+        // Copy public files to root
+        Self::copy_assets("assets/public", &website.config.output_directory)?;
         Ok(website)
     }
 
