@@ -40,11 +40,11 @@ trait Consume {
     fn digest(self) -> Result<Self::SerializableResult, Error>;
 }
 
-/// Trigger is meant to imply an event is to take an action
+/// Trigger is meant to imply an event that is going to take an action, such as sending a POST to a webhook
 trait Trigger {
     /// SerializableResult is generally the data that will be serialized into the axum response body
     type SerializableResult: Serialize;
-    /// dispatch is the action to take when this event is "triggered", like sending data to an HTTP endpoint
+    /// dispatch is the action to take when this event (read action) is executed/dispatched
     fn dispatch(self) -> Result<Self::SerializableResult, Error>;
 }
 
@@ -60,6 +60,28 @@ pub(crate) async fn post_event(Json(payload): Json<Event>) -> Json<Value> {
 pub(crate) struct TextCount {
     target: String,
     patterns: Vec<String>,
+}
+
+impl Consume for TextCount {
+    type SerializableResult = TextCountResult;
+    #[instrument]
+    fn collect(&mut self) -> &mut Self {
+        debug!("Collecting data for text count");
+        self
+    }
+
+    #[instrument]
+    fn digest(self) -> Result<Self::SerializableResult, Error> {
+        // This event consumes itself and processes its associated patterns
+        let mut pattern_results: Vec<PatternResult> = vec![];
+
+        for pattern in self.patterns {
+            pattern_results.push(PatternResult::new(pattern, 0))
+        }
+
+        let result = TextCountResult::new(self.target, pattern_results);
+        Ok(result)
+    }
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -87,28 +109,6 @@ impl TextCountResult {
     /// Utility function for generating self
     fn new(target: String, patterns: Vec<PatternResult>) -> Self {
         Self { target, patterns }
-    }
-}
-
-impl Consume for TextCount {
-    type SerializableResult = TextCountResult;
-    #[instrument]
-    fn collect(&mut self) -> &mut Self {
-        debug!("Collecting data for text count");
-        self
-    }
-
-    #[instrument]
-    fn digest(self) -> Result<Self::SerializableResult, Error> {
-        // This event consumes itself and processes its associated patterns
-        let mut pattern_results: Vec<PatternResult> = vec![];
-
-        for pattern in self.patterns {
-            pattern_results.push(PatternResult::new(pattern, 0))
-        }
-
-        let result = TextCountResult::new(self.target, pattern_results);
-        Ok(result)
     }
 }
 ```
