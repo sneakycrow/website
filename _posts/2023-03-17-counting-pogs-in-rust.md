@@ -80,6 +80,11 @@ pub async fn main() {
 }
 ```
 
+## creating an axum server
+
+_Note: I am creating a second binary for this part. I use the bot as a "collector" and this http server as a "
+processor"_
+
 [axum]:https://github.com/tokio-rs/axum
 
 [polars]:https://pola.rs
