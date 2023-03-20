@@ -1,4 +1,3 @@
-use std::backtrace::Backtrace;
 use std::io;
 
 use thiserror::Error;

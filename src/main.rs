@@ -1,5 +1,3 @@
-use std::io::Write;
-
 use tracing::{event, span, Level};
 use tracing_subscriber::EnvFilter;
 
