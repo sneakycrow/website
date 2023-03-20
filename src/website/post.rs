@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 use syntect::highlighting::ThemeSet;
 use syntect::html::highlighted_html_for_string;
 use syntect::parsing::SyntaxSet;
-use tracing::{debug, span, Level};
+use tracing::{span, Level};
 
 use crate::website::series::Series;
 

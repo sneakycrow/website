@@ -5,7 +5,7 @@ use chrono::{DateTime, Utc};
 use reqwest::{header, Client, ClientBuilder};
 use serde::{Deserialize, Serialize};
 use serde_json::{Map, Value};
-use tracing::{debug, error, event, span, Level};
+use tracing::{event, span, Level};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub(crate) struct Project {
@@ -14,6 +14,8 @@ pub(crate) struct Project {
     pub(crate) description: Option<String>,
     pub(crate) languages: Option<Vec<ProjectLanguage>>,
     pub(crate) updated_at: Option<String>,
+    pub(crate) private: Option<bool>,
+    pub(crate) topics: Option<Vec<String>>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -31,6 +33,8 @@ impl Project {
             description: None,
             languages: None,
             updated_at: None,
+            private: None,
+            topics: None,
         };
 
         project.download_repository(client).await;
@@ -83,6 +87,8 @@ impl Project {
         self.description = Some(repository.description);
         self.short_name = Some(repository.name);
         self.updated_at = Some(repository.updated_at.to_string());
+        self.private = Some(repository.private);
+        self.topics = Some(repository.topics);
     }
 
     pub(crate) fn get_github_client() -> Result<Client, std::io::Error> {
@@ -148,7 +154,7 @@ impl Project {
         Ok(Repository {
             name: repository.name,
             description: repository.description,
-            _topics: repository.topics,
+            topics: repository.topics,
             updated_at: parsed_updated_at,
             languages,
             private: repository.private,
@@ -159,7 +165,7 @@ impl Project {
 struct Repository {
     name: String,
     description: String,
-    _topics: Vec<String>,
+    topics: Vec<String>,
     languages: Map<String, Value>,
     updated_at: DateTime<Utc>,
     private: bool,
