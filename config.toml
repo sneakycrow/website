@@ -6,7 +6,8 @@ subtitle = "software wizard"
 github_projects = [
     { repository = "sneakycrow/fulcrum" },
     { repository = "sneakycrow/cobrashare" },
-    { repository = "sneakycrow/izfs" }
+    { repository = "sneakycrow/chats-controller" },
+    { repository = "sneakycrow/izfs" },
 ]
 
 # Uncomment this line and modify the example to be the first one to add yourself
