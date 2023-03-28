@@ -162,3 +162,87 @@ a.block-link {
 article.intro {
   grid-row: span 2;
 }
+
+.bio {
+  grid-row: span 3;
+
+  .header {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    transform: scale(0.5);
+  }
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+
+  .bio {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .picture {
+      max-width: 150px;
+      width: 100%;
+      padding: 16px;
+
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 50%;
+        border: 8px solid black;
+      }
+    }
+
+    .copy {
+      ul {
+        margin-left: 32px;
+      }
+    }
+  }
+
+  .motd {
+    margin: auto;
+    min-width: 50%;
+    max-width: 80%;
+    padding: 8px;
+
+    > * {
+      line-height: 1.2;
+    }
+
+    h5 {
+      font-size: 0.8rem;
+      color: dimgray;
+      text-align: left;
+      font-weight: lighter;
+      margin: 0 0 8px;
+    }
+
+    .message {
+      margin: 0;
+      text-align: right;
+      font-size: 1.5rem;
+    }
+
+    .subcopy {
+      margin: 0;
+      font-size: 1rem;
+      text-align: right;
+      font-style: italic;
+    }
+
+    .link {
+      font-size: 1rem;
+      text-align: right;
+      font-style: italic;
+      display: block;
+    }
+  }
+}

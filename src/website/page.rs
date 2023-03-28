@@ -1,6 +1,7 @@
 use handlebars::Handlebars;
 use serde::{Deserialize, Serialize};
 
+use crate::website::config::MOTD;
 use crate::website::post::{Category, Post};
 use crate::website::project::Project;
 use crate::website::signal_boost::SignalBoost;
@@ -19,6 +20,7 @@ pub(crate) struct PageData {
     pub(crate) title: String,
     pub(crate) subtitle: String,
     pub(crate) name: String,
+    pub(crate) motd: MOTD,
     pub(crate) posts: Option<Vec<PostMetaData>>,
     pub(crate) projects: Option<Vec<Project>>,
     pub(crate) projects_json: Option<String>,
