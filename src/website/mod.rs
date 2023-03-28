@@ -211,6 +211,7 @@ impl Website {
                                 projects_json: Some(
                                     json!(self.config.projects.clone()).to_string(),
                                 ),
+                                motd: self.config.motd.clone(),
                                 posts: Some(trimmed_post_meta),
                             })
                         }
@@ -232,6 +233,7 @@ impl Website {
                             subtitle: format!("unknown page type - {}", &name),
                             projects: None,
                             posts: None,
+                            motd: self.config.motd.clone(),
                             projects_json: None,
                         }),
                     };

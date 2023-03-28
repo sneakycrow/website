@@ -1,6 +1,6 @@
 use std::fs;
 
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use tracing::{event, span, Level};
 
 use crate::website::project::Project;
@@ -13,8 +13,16 @@ pub(crate) struct Config {
     pub(crate) output_directory: String,
     pub(crate) title: String,
     pub(crate) subtitle: String,
+    pub(crate) motd: MOTD,
     pub(crate) projects: Vec<Project>,
     pub(crate) boosts: Vec<SignalBoost>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub(crate) struct MOTD {
+    pub(crate) message: String,
+    pub(crate) subcopy: Option<String>,
+    pub(crate) link: Option<String>,
 }
 
 #[derive(Deserialize)]
@@ -22,6 +30,9 @@ struct TomlConfig {
     pub(crate) output_directory: Option<String>,
     pub(crate) title: String,
     pub(crate) subtitle: String,
+    pub(crate) motd: String,
+    pub(crate) motd_sub: Option<String>,
+    pub(crate) motd_link: Option<String>,
     github_projects: Option<Vec<Project>>,
     boosts: Option<Vec<SignalBoost>>,
 }
@@ -53,8 +64,15 @@ impl Config {
             }
         };
 
+        let motd = MOTD {
+            message: local_config.motd,
+            subcopy: local_config.motd_sub,
+            link: local_config.motd_link,
+        };
+
         let config = Config {
             projects,
+            motd,
             title: local_config.title,
             subtitle: local_config.subtitle,
             boosts: local_config.boosts.unwrap_or(vec![]),
