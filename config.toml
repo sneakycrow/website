@@ -1,9 +1,9 @@
 output_directory = "_out"
 title = "Sneaky Crow"
 subtitle = "software wizard"
-motd = "Great fontstacks that don't require downloads"
-motd_sub = "modernfontstacks.com"
-motd_link = "https://modernfontstacks.com/"
+motd = "A super modern file system. The cli command is "weed", lol"
+motd_sub = "seaweedfs"
+motd_link = "https://github.com/seaweedfs/seaweedfs"
 
 # Requires GitHub personal access token for private projects
 github_projects = [
