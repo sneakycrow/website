@@ -1,7 +1,7 @@
 output_directory = "_out"
 title = "Sneaky Crow"
 subtitle = "software wizard"
-motd = "A super modern file system. The cli command is "weed", lol"
+motd = "A super modern file system. The cli has a funny name for the default binary"
 motd_sub = "seaweedfs"
 motd_link = "https://github.com/seaweedfs/seaweedfs"
 
