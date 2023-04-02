@@ -1,13 +1,19 @@
-import Hero from "../components/Hero";
-import Navigation from "@/components/Navigation";
+import Header from "@/app/Header";
+import AboutMe from "@/app/AboutMe";
 
-export default function Home() {
+const Home = async () => {
   return (
-    <main className="grid grid-cols-2 gap-4 grid-flow-row bg-black p-4">
-      <header className="col-span-2 w-full grid grid-flow-row lg:grid-flow-col">
-        <Hero />
-        <Navigation />
-      </header>
+    <main className="grid lg:grid-cols-2 grid-cols-1 gap-4 grid-flow-row bg-black p-4 min-h-screen">
+      <Header />
+      <div className="bg-white w-full">
+        <p>testing</p>
+      </div>
+      <div className="bg-white">
+        <AboutMe />
+      </div>
+      <div className="bg-white">this is the project section</div>
     </main>
   );
-}
+};
+
+export default Home;
