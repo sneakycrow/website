@@ -3,7 +3,7 @@ import Link from "next/link";
 const Navigation = () => {
   const links = [
     {
-      copy: "award-winning blog",
+      copy: "blog",
       url: "/blog",
     },
     {
