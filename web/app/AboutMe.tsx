@@ -3,7 +3,9 @@ import Profile from "@/components/Profile";
 const AboutMe = () => {
   return (
     <article className="p-6 space-y-8">
-      <h3 className="text-xl font-bold">About me</h3>
+      <h3 className="text-xl font-bold after:w-2 after:bg-green-550 after:h-full after:absolute relative after:-skew-x-12 after:ml-2">
+        About me
+      </h3>
       <Profile />
       <p className="text-base">
         My name is Zach (aka ctrlsquid), I really enjoy programming. Like a lot.
