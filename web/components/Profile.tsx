@@ -8,7 +8,7 @@ const Profile = () => {
         width="658"
         className="rounded-full inline-block w-1/3"
       />
-      <ul className="inline-block">
+      <ul className="inline-block m-4 text-base">
         <li>
           <span className="font-bold">Name:</span> Zachary Sohovich
         </li>
@@ -20,7 +20,7 @@ const Profile = () => {
         </li>
         <li>
           <span className="font-bold">Experience:</span> 20
-          <span className="font-light text-xs"> (years)</span>
+          <span className="font-light text-sm"> (years)</span>
         </li>
       </ul>
     </div>
