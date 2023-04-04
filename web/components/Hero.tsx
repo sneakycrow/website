@@ -29,8 +29,10 @@ const Hero = (props: HeroProps) => {
         />
       </Link>
       <div className="flex flex-col justify-center items-center font-extrabold">
-        <h1 className="w-full text-3xl text-left">{title}</h1>
-        <h2 className="w-full text-2xl leading-13 text-left">{subtitle}</h2>
+        <h1 className="w-full text-3xl text-center lg:text-left">{title}</h1>
+        <h2 className="w-full text-2xl leading-13 text-center lg:text-left">
+          {subtitle}
+        </h2>
       </div>
     </div>
   );
