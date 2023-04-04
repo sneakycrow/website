@@ -1,3 +1,6 @@
+import React from "react";
+import Hero from "@/components/Hero";
+
 interface BlogPageProps {
   params: {
     slug: string[];
@@ -7,18 +10,10 @@ interface BlogPageProps {
 const BlogPage = (props: BlogPageProps) => {
   return (
     <>
-      <div className="col-span-2 bg-white p-4">
-        <h1 className="text-3xl">This is the title of the article</h1>
-      </div>
-      <div className="bg-white p-4">
-        <p>this could be metadata?</p>
-      </div>
-      <div className="bg-white p-4">
-        <p>this could be navigation</p>
-      </div>
-      <article className="col-span-2 bg-white p-4 min-h-[60vh]">
-        This is the article itself
-      </article>
+      <header className="col-span-2">
+        <Hero title={props.params.slug.join("-")} subtitle="" />
+      </header>
+      <article className="min-h-[75vh] bg-white col-span-2"></article>
     </>
   );
 };
