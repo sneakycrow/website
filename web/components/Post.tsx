@@ -47,4 +47,11 @@ export const getPosts = async (): Promise<BlogPost[]> => {
   });
 };
 
+export const getPostByID = async (id: number): Promise<BlogPost> => {
+  const res = await fetch(
+    `https://jsonplaceholder.typicode.com/posts?id=${id}`
+  );
+  return await res.json();
+};
+
 export default LongPost;
