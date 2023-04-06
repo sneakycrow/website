@@ -12,6 +12,7 @@ interface MarkdownProps {
 const Markdown = (props: MarkdownProps) => {
   return (
     <ReactMarkdown
+      className="max-w-[800px]"
       components={{
         p: ({ ...props }) => <p {...props} className="text-lg" />,
         h2: ({ ...props }) => (

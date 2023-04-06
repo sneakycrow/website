@@ -16,7 +16,7 @@ const BlogPage = async (props: BlogPageProps) => {
       <header className="col-span-2">
         <Hero title={data.title} subtitle="" />
       </header>
-      <article className="min-h-[75vh] bg-white col-span-2 p-6 leading-loose">
+      <article className="min-h-[75vh] bg-white col-span-2 p-6 leading-loose flex justify-center">
         <Markdown>{data.body}</Markdown>
       </article>
     </>

@@ -11,7 +11,7 @@ export default function BlogLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="grid lg:grid-cols-2 grid-cols-1 gap-4 grid-flow-row bg-black p-4 min-h-screen">
+    <main className="grid gap-4 grid-flow-row bg-black p-4 min-h-screen">
       {children}
     </main>
   );
