@@ -1,7 +1,9 @@
+import Image from "next/image";
+
 const Profile = () => {
   return (
     <div className="flex flex-col md:flex-row justify-evenly items-center p-6">
-      <img
+      <Image
         src="/profile_normal.jpeg"
         alt="Picture of Zachary Sohovich, owner of Sneaky Crow"
         height="658"

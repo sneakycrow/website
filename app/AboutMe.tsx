@@ -10,18 +10,19 @@ const AboutMe = () => {
       <article className="mx-auto max-w-[800px] space-y-8 mt-16">
         <p className="text-base">
           My name is Zach (aka ctrlsquid), I really enjoy programming. Like a
-          lot. Like honestly it's probably unhealthy, but thats for my therapist
-          to solve. I'm a weird guy, but I got a big head (that's not completely
-          full of air) and a big heart, who gives a shit about people as much as
-          software. I'm a very versatile software developer. I have an
-          unquenchable thirst for knowledge and experience, which has brought me
-          to many "specialized sectors" of programming.
+          lot. Like honestly it&apos;s probably unhealthy, but thats for my
+          therapist to solve. I&apos;m a weird guy, but I got a big head
+          (that&apos;s not completely full of air) and a big heart, who gives a
+          shit about people as much as software. I&apos;m a very versatile
+          software developer. I have an unquenchable thirst for knowledge and
+          experience, which has equipped me with multitudes of tools and
+          experiences.
         </p>
         <h4 className="text-xl font-bold">my 1337 skills</h4>
         <ul className="list-disc list-inside text-base space-y-4">
           <li>
             front-end in several different capacities, from static websites to
-            full SPA's
+            full SPA&apos;s
           </li>
           <li>I know React quite well, and I am also a big fan of Vue.</li>
           <li>
