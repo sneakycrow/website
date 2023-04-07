@@ -45,7 +45,6 @@ const processLocalPosts = async (): Promise<BlogPost[]> => {
   const fs = require("fs");
   const matter = require("gray-matter");
   const { v4: uuid } = require("uuid");
-
   const files = fs.readdirSync(`${process.cwd()}/_posts`, "utf-8");
 
   return files
@@ -55,7 +54,7 @@ const processLocalPosts = async (): Promise<BlogPost[]> => {
       const rawContent = fs.readFileSync(path, {
         encoding: "utf-8",
       });
-      const slug = fn.split(".md")[0];
+      const slug = `/blog/${fn.split(".md")[0]}`;
       const { data } = matter(rawContent);
 
       return { ...data, id: uuid(), slug };
