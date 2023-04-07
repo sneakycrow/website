@@ -1,9 +1,5 @@
 name: build and upload website
 on:
-  release:
-    types:
-      - released
-      - prereleased
   workflow_dispatch:
   push:
     branches:
@@ -18,24 +14,10 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
       - uses: actions/checkout@v3
-      - name: install rust
-        uses: actions-rs/toolchain@v1
+      - name: Use Node.js 18.14.2
+        uses: actions/setup-node@v3
         with:
-          toolchain: nightly
-      - uses: actions/cache@v3
-        with:
-          path: |
-            ~/.cargo/bin/
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-            target/
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-
-      - name: build binary
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
+          node-version: 18.14.2
 
       - name: start deployment
         uses: bobheadxi/deployments@v1
@@ -44,11 +26,6 @@ jobs:
           step: start
           token: ${{ secrets.GITHUB_TOKEN }}
           env: production
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.14.2
 
       - run: npm run build --if-present
 
