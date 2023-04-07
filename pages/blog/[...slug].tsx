@@ -2,18 +2,19 @@ import React from "react";
 import Hero from "@/components/Hero";
 import { BlogPost, getPostBySlug, getPosts } from "@/components/Post";
 import Markdown from "@/components/Markdown";
+import "@/app/globals.css";
 
 const BlogPage = (props: BlogPost) => {
   const { title, body } = props;
   return (
-    <>
+    <main className="grid gap-4 grid-flow-row bg-black p-4 min-h-screen">
       <header className="col-span-2">
         <Hero title={title} subtitle="" />
       </header>
       <article className="min-h-[75vh] bg-white col-span-2 p-6 leading-loose flex justify-center">
         <Markdown>{body}</Markdown>
       </article>
-    </>
+    </main>
   );
 };
 
