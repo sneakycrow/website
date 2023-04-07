@@ -11,7 +11,7 @@ export const ShortPost = (props: PostProps) => {
         {date.toLocaleDateString()}
       </p>
       <a
-        href={`/blog/${post.slug}`}
+        href={post.slug}
         className="text-green-550 text-xl hover:opacity-50 transition-opacity"
       >
         {post.title}
