@@ -11,7 +11,7 @@ export const ShortPost = (props: PostProps) => {
         {date.toLocaleDateString()}
       </p>
       <a
-        href={`/blog/${post.slug}`}
+        href={post.slug}
         className="text-green-550 text-xl hover:opacity-50 transition-opacity"
       >
         {post.title}
@@ -45,7 +45,6 @@ const processLocalPosts = async (): Promise<BlogPost[]> => {
   const fs = require("fs");
   const matter = require("gray-matter");
   const { v4: uuid } = require("uuid");
-
   const files = fs.readdirSync(`${process.cwd()}/_posts`, "utf-8");
 
   return files
@@ -55,7 +54,7 @@ const processLocalPosts = async (): Promise<BlogPost[]> => {
       const rawContent = fs.readFileSync(path, {
         encoding: "utf-8",
       });
-      const slug = fn.split(".md")[0];
+      const slug = `/blog/${fn.split(".md")[0]}`;
       const { data } = matter(rawContent);
 
       return { ...data, id: uuid(), slug };
@@ -63,13 +62,25 @@ const processLocalPosts = async (): Promise<BlogPost[]> => {
 };
 
 export const getPostBySlug = async (slug: string): Promise<BlogPost> => {
+  const { v4: uuid } = require("uuid");
+
   const fs = require("fs");
   const matter = require("gray-matter");
-  const { v4: uuid } = require("uuid");
 
   const files = fs.readdirSync(`${process.cwd()}/_posts`, "utf-8");
 
   const file = files.find((file: string) => file.startsWith(slug));
+  if (!file) {
+    const time = new Date().toISOString();
+    return {
+      slug: "error",
+      body: "<h1>Error rendering post</h1>",
+      id: uuid(),
+      time,
+      title: "Error rendering post",
+      userId: 1,
+    };
+  }
   const path = `${process.cwd()}/_posts/${file}`;
   const rawContent = fs.readFileSync(path, {
     encoding: "utf-8",
