@@ -63,13 +63,25 @@ const processLocalPosts = async (): Promise<BlogPost[]> => {
 };
 
 export const getPostBySlug = async (slug: string): Promise<BlogPost> => {
+  const { v4: uuid } = require("uuid");
+
   const fs = require("fs");
   const matter = require("gray-matter");
-  const { v4: uuid } = require("uuid");
 
   const files = fs.readdirSync(`${process.cwd()}/_posts`, "utf-8");
 
   const file = files.find((file: string) => file.startsWith(slug));
+  if (!file) {
+    const time = new Date().toISOString();
+    return {
+      slug: "error",
+      body: "<h1>Error rendering post</h1>",
+      id: uuid(),
+      time,
+      title: "Error rendering post",
+      userId: 1,
+    };
+  }
   const path = `${process.cwd()}/_posts/${file}`;
   const rawContent = fs.readFileSync(path, {
     encoding: "utf-8",
