@@ -58,7 +58,8 @@ const processLocalPosts = async (): Promise<BlogPost[]> => {
       const { data } = matter(rawContent);
 
       return { ...data, id: uuid(), slug };
-    });
+    })
+    .reverse();
 };
 
 export const getPostBySlug = async (slug: string): Promise<BlogPost> => {
