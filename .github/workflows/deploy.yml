@@ -7,6 +7,7 @@ on:
 
 jobs:
   run:
+    name: build and upload website
     runs-on: ubuntu-latest
     environment: production
     env:
@@ -14,22 +15,25 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 18.14.2
+      - name: setup Node.js 18.14.2
         uses: actions/setup-node@v3
         with:
           node-version: 18.14.2
 
-      - name: start deployment
+      - name: create deployment
         uses: bobheadxi/deployments@v1
         id: deployment
         with:
           step: start
           token: ${{ secrets.GITHUB_TOKEN }}
           env: production
-      - run: npm ci
-      - run: npm run build --if-present
+      - name: install dependencies
+        run: npm ci
 
-      - name: upload
+      - name: build
+        run: npm run build --if-present
+
+      - name: upload to S3
         uses: reggionick/s3-deploy@v3
         with:
           folder: out
