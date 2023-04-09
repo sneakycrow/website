@@ -7,11 +7,13 @@ import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 interface MarkdownProps {
   children: string;
+  className?: string;
 }
 
 const Article = (props: MarkdownProps) => {
+  const classes = `bg-white col-span-2 p-6 flex justify-center ${props.className}}`;
   return (
-    <article className="bg-white col-span-2 p-6 flex justify-center">
+    <article className={classes}>
       <ReactMarkdown
         className="max-w-[1000px] space-y-8"
         components={{

@@ -18,8 +18,8 @@ const BlogPage = (props: BlogPost) => {
           content="https://sneakycrow.dev/logo_v2.svg"
         />
       </Head>
-      <main className="grid gap-4 grid-flow-row bg-black p-4 min-h-screen">
-        <header className="col-span-2">
+      <main className="grid gap-4 grid-flow-row bg-black auto-rows-min p-4 min-h-screen">
+        <header className="col-span-2 row-start-1">
           <Hero title={title} subtitle="" />
         </header>
         <Article>{body}</Article>
