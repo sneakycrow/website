@@ -7,16 +7,16 @@ export const ShortPost = (props: PostProps) => {
   const date = new Date(post.date);
   return (
     <div className="py-4">
-      <p className="text-sm font-light italic text-gray-400">
+      <p className="text-xs font-light italic text-gray-400">
         {date.toLocaleDateString()}
       </p>
       <a
         href={post.slug}
-        className="text-green-550 text-xl hover:opacity-50 transition-opacity"
+        className="text-green-550 text-lg hover:opacity-50 transition-opacity"
       >
         {post.title}
       </a>
-      <p className="text-sm italic text-gray-400 mt-4">{post.summary}</p>
+      <p className="text-xs italic text-gray-400">{post.summary}</p>
     </div>
   );
 };

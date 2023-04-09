@@ -1,7 +1,7 @@
 import React from "react";
 import Hero from "@/components/Hero";
 import { BlogPost, getPostBySlug, getPosts } from "@/components/Post";
-import Markdown from "@/components/Markdown";
+import Article from "@/components/Article";
 import "@/app/globals.css";
 import Head from "next/head";
 
@@ -22,9 +22,7 @@ const BlogPage = (props: BlogPost) => {
         <header className="col-span-2">
           <Hero title={title} subtitle="" />
         </header>
-        <article className="min-h-[75vh] bg-white col-span-2 p-6 flex justify-center">
-          <Markdown>{body}</Markdown>
-        </article>
+        <Article>{body}</Article>
       </main>
     </>
   );

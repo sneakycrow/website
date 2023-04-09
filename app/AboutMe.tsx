@@ -7,7 +7,7 @@ const AboutMe = () => {
         About me
       </h3>
       <Profile />
-      <article className="mx-auto max-w-[800px] space-y-8 mt-16">
+      <article className="mx-auto max-w-[1000px] space-y-4 mt-16">
         <p className="text-base">
           My name is Zach (aka ctrlsquid), I really enjoy programming. Like a
           lot. Like honestly it&apos;s probably unhealthy, but thats for my
