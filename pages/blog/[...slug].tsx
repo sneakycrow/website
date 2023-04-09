@@ -15,7 +15,7 @@ const BlogPage = (props: BlogPost) => {
         <meta property="og:description" content={summary} />
         <meta
           property="og:image"
-          content="https://sneakycrow.dev/logo_v2.png"
+          content="https://sneakycrow.dev/logo_v2.svg"
         />
       </Head>
       <main className="grid gap-4 grid-flow-row bg-black p-4 min-h-screen">
