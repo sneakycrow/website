@@ -6,8 +6,6 @@ series_key: "chats-controller"
 series_pos: 1
 ---
 
-# chats controller - update 1
-
 This month I've been working on a project called [chats controller][github-cc]. It's a project that I've been wanting to
 work on for a while, but I've been waiting for the right time to start it. I've been wanting to learn more about Rust,
 and I've been wanting to learn more about GUI development. So, I decided to combine all of these things into one
