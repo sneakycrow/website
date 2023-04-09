@@ -3,18 +3,24 @@ import Hero from "@/components/Hero";
 import { BlogPost, getPostBySlug, getPosts } from "@/components/Post";
 import Markdown from "@/components/Markdown";
 import "@/app/globals.css";
+import Head from "next/head";
 
 const BlogPage = (props: BlogPost) => {
   const { title, body } = props;
   return (
-    <main className="grid gap-4 grid-flow-row bg-black p-4 min-h-screen">
-      <header className="col-span-2">
-        <Hero title={title} subtitle="" />
-      </header>
-      <article className="min-h-[75vh] bg-white col-span-2 p-6 leading-loose flex justify-center">
-        <Markdown>{body}</Markdown>
-      </article>
-    </main>
+    <>
+      <Head>
+        <title>{title}</title>
+      </Head>
+      <main className="grid gap-4 grid-flow-row bg-black p-4 min-h-screen">
+        <header className="col-span-2">
+          <Hero title={title} subtitle="" />
+        </header>
+        <article className="min-h-[75vh] bg-white col-span-2 p-6 flex justify-center">
+          <Markdown>{body}</Markdown>
+        </article>
+      </main>
+    </>
   );
 };
 
