@@ -4,9 +4,9 @@ interface PostProps {
 
 export const ShortPost = (props: PostProps) => {
   const { post } = props;
-  const date = new Date();
+  const date = new Date(post.date);
   return (
-    <div className="my-4">
+    <div className="py-4">
       <p className="text-sm font-light italic text-gray-400">
         {date.toLocaleDateString()}
       </p>
@@ -33,7 +33,7 @@ export type BlogPost = {
   userId: number;
   title: string;
   body: string;
-  time: string;
+  date: string;
   slug: string;
 };
 
@@ -56,8 +56,9 @@ const processLocalPosts = async (): Promise<BlogPost[]> => {
       });
       const slug = `/blog/${fn.split(".md")[0]}`;
       const { data } = matter(rawContent);
+      const date = fn.split("-").splice(0, 3).join("-");
 
-      return { ...data, id: uuid(), slug };
+      return { ...data, id: uuid(), slug, date };
     })
     .reverse();
 };
@@ -77,7 +78,7 @@ export const getPostBySlug = async (slug: string): Promise<BlogPost> => {
       slug: "error",
       body: "<h1>Error rendering post</h1>",
       id: uuid(),
-      time,
+      date: time,
       title: "Error rendering post",
       userId: 1,
     };
