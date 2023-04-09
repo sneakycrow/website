@@ -10,7 +10,19 @@ const inter = Inter({
 
 export const metadata = {
   title: "sneakycrow, llc",
-  description: "custom software engineering by Zachary Sohovich",
+  description:
+    "open source software, web development, and more by Zachary Sohovich",
+  openGraph: {
+    title: "sneakycrow",
+    url: "https://sneakycrow.dev",
+    images: [
+      {
+        url: "https://sneakycrow.dev/logo_v2.png",
+        width: 200,
+        height: 200,
+      },
+    ],
+  },
 };
 
 export default function RootLayout({

@@ -6,11 +6,17 @@ import "@/app/globals.css";
 import Head from "next/head";
 
 const BlogPage = (props: BlogPost) => {
-  const { title, body } = props;
+  const { title, body, summary } = props;
   return (
     <>
       <Head>
         <title>{title}</title>
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={summary} />
+        <meta
+          property="og:image"
+          content="https://sneakycrow.dev/logo_v2.png"
+        />
       </Head>
       <main className="grid gap-4 grid-flow-row bg-black p-4 min-h-screen">
         <header className="col-span-2">

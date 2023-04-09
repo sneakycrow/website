@@ -16,6 +16,7 @@ export const ShortPost = (props: PostProps) => {
       >
         {post.title}
       </a>
+      <p className="text-sm italic text-gray-400 mt-4">{post.summary}</p>
     </div>
   );
 };
@@ -35,6 +36,7 @@ export type BlogPost = {
   body: string;
   date: string;
   slug: string;
+  summary: string;
 };
 
 export const getPosts = async (): Promise<BlogPost[]> => {
@@ -81,6 +83,7 @@ export const getPostBySlug = async (slug: string): Promise<BlogPost> => {
       date: time,
       title: "Error rendering post",
       userId: 1,
+      summary: "",
     };
   }
   const path = `${process.cwd()}/_posts/${file}`;
