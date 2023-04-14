@@ -1,6 +1,7 @@
 import Header from "@/app/Header";
 import AboutMe from "@/app/AboutMe";
 import React from "react";
+import Footer from "@/components/Footer";
 
 const Home = async () => {
   return (
@@ -9,6 +10,7 @@ const Home = async () => {
       <div className="bg-white w-full">
         <AboutMe />
       </div>
+      <Footer />
     </main>
   );
 };

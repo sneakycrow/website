@@ -11,7 +11,7 @@ interface MarkdownProps {
 }
 
 const Article = (props: MarkdownProps) => {
-  const classes = `bg-white col-span-2 p-6 flex justify-center ${props.className}}`;
+  const classes = `bg-white p-6 flex justify-center ${props.className}}`;
   return (
     <article className={classes}>
       <ReactMarkdown

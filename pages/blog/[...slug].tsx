@@ -4,6 +4,7 @@ import { BlogPost, getPostBySlug, getPosts } from "@/components/Post";
 import Article from "@/components/Article";
 import "@/app/globals.css";
 import Head from "next/head";
+import Footer from "@/components/Footer";
 
 const BlogPage = (props: BlogPost) => {
   const { title, body, summary } = props;
@@ -19,10 +20,11 @@ const BlogPage = (props: BlogPost) => {
         />
       </Head>
       <main className="grid gap-4 grid-flow-row bg-black auto-rows-min p-4 min-h-screen">
-        <header className="col-span-2 row-start-1">
+        <header className="row-start-1">
           <Hero title={title} subtitle="" />
         </header>
         <Article>{body}</Article>
+        <Footer />
       </main>
     </>
   );
