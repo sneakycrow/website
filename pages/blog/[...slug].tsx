@@ -5,6 +5,7 @@ import Article from "@/components/Article";
 import "@/app/globals.css";
 import Head from "next/head";
 import Footer from "@/components/Footer";
+import { GetStaticPropsContext } from "next";
 
 const BlogPage = (props: BlogPost) => {
   const { title, body, summary } = props;
@@ -30,14 +31,14 @@ const BlogPage = (props: BlogPost) => {
   );
 };
 
-// @ts-ignore
-export async function getStaticProps(context) {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const slug = (context?.params?.slug ?? "") as string;
   return {
-    props: await getPostBySlug(context.params.slug),
+    props: await getPostBySlug(slug),
   };
-}
+};
 
-export async function getStaticPaths() {
+export const getStaticPaths = async () => {
   const posts = await getPosts();
   const paths = posts.map((post) => post.slug);
 
@@ -45,6 +46,6 @@ export async function getStaticPaths() {
     paths: paths,
     fallback: false,
   };
-}
+};
 
 export default BlogPage;
