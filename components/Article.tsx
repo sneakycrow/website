@@ -5,6 +5,7 @@ import React from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import cx from "classnames";
+import Image from "next/image";
 
 interface MarkdownProps {
   children: string;
@@ -35,7 +36,12 @@ const Article = (props: MarkdownProps) => {
             <ul {...props} className="list-disc list-inside" />
           ),
           img: ({ ...props }) => (
-            <img {...props} className="max-w-[90%] mx-auto shadow-lg my-4" />
+            // @ts-ignore
+            <Image
+              {...props}
+              className="max-w-[90%] mx-auto shadow-lg my-4"
+              alt={props.alt ?? ""}
+            />
           ),
           code: ({ node, inline, className, children, ...props }) => {
             const match = /language-(\w+)/.exec(className || "");

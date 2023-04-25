@@ -27,8 +27,8 @@ export const ShortGameDescription = (props: ShortGameDescriptionProps) => {
         {game.title}
       </a>
       <p className="text-xs italic text-gray-400">{game.summary}</p>
-      {game.platforms.map((platform) => (
-        <Tag>{platform}</Tag>
+      {game.platforms.map((platform, index) => (
+        <Tag key={`${index}-${platform}`}>{platform}</Tag>
       ))}
     </div>
   );
