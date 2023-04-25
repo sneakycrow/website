@@ -2,6 +2,8 @@ import Head from "next/head";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
 import React from "react";
+import { getGameBySlug, getGames } from "@/components/Game";
+import { GetStaticPropsContext } from "next";
 
 interface GamePageProps {
   title: string;
@@ -35,8 +37,20 @@ const GamePage = (props: GamePageProps) => {
   );
 };
 
-export const getStaticPaths = async () => {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const slug = (context?.params?.slug ?? "") as string;
   return {
-    paths: [],
+    props: await getGameBySlug(slug),
   };
 };
+
+export const getStaticPaths = async () => {
+  const games = await getGames();
+  const paths = games.map((game) => game.slug);
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export default GamePage;
