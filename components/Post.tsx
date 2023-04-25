@@ -1,3 +1,13 @@
+export type BlogPost = {
+  id: number;
+  userId: number;
+  title: string;
+  body: string;
+  date: string;
+  slug: string;
+  summary: string;
+};
+
 interface PostProps {
   post: BlogPost;
 }
@@ -19,24 +29,6 @@ export const ShortPost = (props: PostProps) => {
       <p className="text-xs italic text-gray-400">{post.summary}</p>
     </div>
   );
-};
-
-export const LongPost = (props: PostProps) => {
-  return (
-    <article>
-      <h1>{props.post.title}</h1>
-    </article>
-  );
-};
-
-export type BlogPost = {
-  id: number;
-  userId: number;
-  title: string;
-  body: string;
-  date: string;
-  slug: string;
-  summary: string;
 };
 
 export const getPosts = async (): Promise<BlogPost[]> => {
@@ -94,5 +86,3 @@ export const getPostBySlug = async (slug: string): Promise<BlogPost> => {
 
   return { ...data, body: content, id: uuid(), slug };
 };
-
-export default LongPost;
