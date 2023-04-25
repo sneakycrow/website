@@ -58,3 +58,31 @@ const processLocalGames = async (dir: string): Promise<Game[]> => {
     })
     .reverse();
 };
+
+export const getGameBySlug = async (slug: string): Promise<Game> => {
+  const { v4: uuid } = require("uuid");
+  const fs = require("fs");
+  const matter = require("gray-matter");
+
+  const files = fs.readdirSync(`${process.cwd()}/_games`, "utf-8");
+
+  const file: Game = files.find((file: string) => file.startsWith(slug));
+  if (!file) {
+    return {
+      slug: "error",
+      body: "<h1>Error rendering game</h1>",
+      id: uuid(),
+      title: "Error rendering game",
+      platforms: [],
+      status: "",
+      summary: "",
+    };
+  }
+  const path = `${process.cwd()}/_games/${file}`;
+  const rawContent = fs.readFileSync(path, {
+    encoding: "utf-8",
+  });
+  const { data, content } = matter(rawContent);
+
+  return { ...data, body: content, id: uuid(), slug };
+};
