@@ -4,14 +4,18 @@ import Footer from "@/components/Footer";
 import React from "react";
 import { getGameBySlug, getGames } from "@/components/Game";
 import { GetStaticPropsContext } from "next";
+import "@/app/globals.css";
+import Article from "@/components/Article";
 
 interface GamePageProps {
   title: string;
   summary: string;
+  body: string;
+  status: string;
 }
 
 const GamePage = (props: GamePageProps) => {
-  const { title, summary } = props;
+  const { title, summary, body, status } = props;
 
   return (
     <>
@@ -24,14 +28,12 @@ const GamePage = (props: GamePageProps) => {
           content="https://sneakycrow.dev/logo_v2.svg"
         />
       </Head>
-      <main className="grid gap-4 grid-flow-row bg-black auto-rows-min p-4 min-h-screen">
+      <main className="grid gap-4 grid-flow-row auto-rows-max bg-black p-4 min-h-screen">
         <header className="row-start-1">
-          <Hero title={title} subtitle="" />
+          <Hero title={title} subtitle={status} />
         </header>
-        <article>
-          <p>Game page</p>
-        </article>
-        <Footer />
+        <Article>{body}</Article>
+        <Footer className="self-end" />
       </main>
     </>
   );

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import cx from "classnames";
 
 const subnavLinks: { url: string; copy: string; rel?: string }[] = [
   {
@@ -16,9 +17,17 @@ const subnavLinks: { url: string; copy: string; rel?: string }[] = [
   },
 ];
 
-const Footer = () => {
+interface FooterProps {
+  className?: string;
+}
+
+const Footer = (props: FooterProps) => {
+  const wrapperClass = cx(
+    "bg-gray-100 p-4 w-full flex flex-col justify-evenly xl:flex-row items-center",
+    props.className
+  );
   return (
-    <footer className="bg-gray-100 p-4 w-full flex flex-col justify-evenly xl:flex-row items-center">
+    <footer className={wrapperClass}>
       {subnavLinks.map((link, index) => (
         <Link
           href={link.url}
