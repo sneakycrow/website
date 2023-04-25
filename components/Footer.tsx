@@ -1,13 +1,43 @@
-interface FooterProps {}
+import Link from "next/link";
+import cx from "classnames";
+
+const subnavLinks: { url: string; copy: string; rel?: string }[] = [
+  {
+    copy: "github",
+    url: "https://github.com/sneakycrow",
+  },
+  {
+    copy: "resume",
+    url: "/resume.pdf",
+  },
+  {
+    copy: "mastadon",
+    url: "https://cybre.gg/@ctrlsquid",
+    rel: "me",
+  },
+];
+
+interface FooterProps {
+  className?: string;
+}
 
 const Footer = (props: FooterProps) => {
+  const wrapperClass = cx(
+    "bg-gray-100 p-4 w-full flex flex-col justify-evenly xl:flex-row items-center",
+    props.className
+  );
   return (
-    <footer className="bg-gray-100 p-4 w-full text-center">
-      <h3 className="text-3xl">Want more?</h3>
-      Find me on {` `}
-      <a className="text-green-550" href="https://cybre.gg/@ctrlsquid">
-        my mastadon, cybre.gg
-      </a>
+    <footer className={wrapperClass}>
+      {subnavLinks.map((link, index) => (
+        <Link
+          href={link.url}
+          {...link}
+          className="text-2xl font-bold text-green-550 opacity-75 hover:opacity-100 transition-opacity"
+          key={`footer-link-${index}`}
+        >
+          {link.copy}
+        </Link>
+      ))}
     </footer>
   );
 };

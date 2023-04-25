@@ -1,11 +1,13 @@
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
+import { default as cx } from "classnames";
 
 interface HeroProps {
   imageURL?: string;
   title?: string;
   subtitle?: string;
+  className?: string;
 }
 
 const Hero = (props: HeroProps) => {
@@ -14,8 +16,13 @@ const Hero = (props: HeroProps) => {
     title = "Sneaky Crow",
     subtitle = "software wizard ",
   } = props;
+
+  const wrapperClass = cx(
+    "p-6 bg-white grid grid-flow-row md:grid-flow-col justify-center",
+    props.className
+  );
   return (
-    <div className="p-6 bg-white grid grid-flow-row md:grid-flow-col justify-center">
+    <div className={wrapperClass}>
       <Link
         href="/"
         className="inline-flex justify-self-center md:justify-self-end min-w-3/4"

@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import React from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import cx from "classnames";
 
 interface MarkdownProps {
   children: string;
@@ -11,9 +12,9 @@ interface MarkdownProps {
 }
 
 const Article = (props: MarkdownProps) => {
-  const classes = `bg-white p-6 flex justify-center ${props.className}}`;
+  const articleClass = cx("bg-white p-6 flex justify-center", props.className);
   return (
-    <article className={classes}>
+    <article className={articleClass}>
       <ReactMarkdown
         className="max-w-[1000px] space-y-8"
         components={{
