@@ -22,7 +22,8 @@ const AboutMe = () => {
         <ul className="list-disc list-inside text-base space-y-4">
           <li>
             front-end in several different capacities, from static websites to
-            full SPA&apos;s
+            full SPA&apos;s, using everything from vanilla js to to modern web
+            frame to WASM apps built in Rust
           </li>
           <li>
             back-end in several different capacities and protocols, mostly HTTP,
