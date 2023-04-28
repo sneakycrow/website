@@ -24,24 +24,24 @@ const AboutMe = () => {
             front-end in several different capacities, from static websites to
             full SPA&apos;s
           </li>
-          <li>I know React quite well, and I am also a big fan of Vue.</li>
           <li>
             back-end in several different capacities and protocols, mostly HTTP,
-            but some gRPC, Websockets, and WASM as well
+            but some gRPC, Websockets, RTMP, and WASI as well
           </li>
           <li>
             My languages of choice:
             <ul className="list-disc list-inside ml-8">
               <li>Rust (mi amor)</li>
-              <li>Go (my mistress)</li>
               <li>Typescript (old reliable, kinda?)</li>
+              <li>Go (my mistress)</li>
+              <li>Python (my ex)</li>
             </ul>
           </li>
 
           <li>
             near-real time data-streaming, pipelining, and event-driven systems
-            using all kinds of Apache software, Docker, k8s, cloud
-            infrastructure, cumulonimbus.
+            using all kinds of Apache software, Docker, Kubernetes, cloud
+            infrastructure, and cumulonimbus.
           </li>
           <li>
             pretty much all web-related AWS services, elastic container service,
