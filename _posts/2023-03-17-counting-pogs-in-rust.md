@@ -208,4 +208,4 @@ actually posted some unfinished, but good, code in [beautiful rust][beautiful ru
 
 [tracing_appender]:https://docs.rs/tracing-appender/latest/tracing_appender/index.html
 
-[beautiful rust]:https://sneakycrow.dev/2023/03/16/beautiful-rust.html
+[beautiful rust]:https://sneakycrow.dev/blog/2023-03-16-beautiful-rust
