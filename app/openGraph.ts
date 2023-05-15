@@ -1,7 +1,7 @@
 export const openGraph = {
   title: "sneakycrow",
   description:
-    "open source software, web development, and more by Zachary Sohovich",
+    "open source software, web development, and more by Zachary Corvidae",
   url: "https://sneakycrow.dev",
   images: [
     {

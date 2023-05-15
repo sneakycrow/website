@@ -1,6 +1,6 @@
 import "./globals.css";
-import {Inter} from "next/font/google";
-import React from "react";
+import { Inter } from "next/font/google";
+import React from "react"; // If loading a variable font, you don't need to specify the font weight
 
 // If loading a variable font, you don't need to specify the font weight
 const inter = Inter({
@@ -11,11 +11,11 @@ const inter = Inter({
 export const metadata = {
   title: "sneakycrow, llc",
   description:
-    "open source software, web development, and more by Zachary Sohovich",
+    "open source software, web development, and more by Zachary Corvidae",
   openGraph: {
     title: "sneakycrow",
     description:
-      "open source software, web development, and more by Zachary Sohovich",
+      "open source software, web development, and more by Zachary Corvidae",
     url: "https://sneakycrow.dev",
     images: [
       {
