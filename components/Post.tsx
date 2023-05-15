@@ -22,7 +22,7 @@ export const ShortPost = (props: PostProps) => {
       </p>
       <a
         href={post.slug}
-        className="text-green-550 text-lg hover:opacity-50 transition-opacity"
+        className="text-green-550 text-base lg:text-lg hover:opacity-50 transition-opacity"
       >
         {post.title}
       </a>

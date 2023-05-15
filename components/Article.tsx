@@ -19,7 +19,9 @@ const Article = (props: MarkdownProps) => {
       <ReactMarkdown
         className="max-w-[1000px] space-y-8"
         components={{
-          p: ({ ...props }) => <p {...props} className="text-base leading-1" />,
+          p: ({ ...props }) => (
+            <p {...props} className="text-sm lg:text-base leading-1" />
+          ),
           a: ({ ...props }) => (
             <a {...props} className="text-green-550 font-bold" />
           ),
