@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Profile = () => {
   return (
-    <div className="flex flex-col md:flex-row justify-evenly md:items-center">
+    <div className="mx-auto max-w-[1000px] flex flex-col md:flex-row md:items-center w-full">
       <Image
         src="/profile_normal.jpeg"
         alt="Picture of Zachary Corvidae, owner of Sneaky Crow"
@@ -10,7 +10,7 @@ const Profile = () => {
         width="658"
         className="rounded-full inline-block w-1/3 my-4"
       />
-      <ul className="inline-block w-full">
+      <ul className="inline-block md:ml-10 text-sm md:text-base">
         <li>
           <span className="font-bold">Name:</span> Zachary Corvidae
         </li>
