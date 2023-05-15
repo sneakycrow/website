@@ -7,8 +7,8 @@ const AboutMe = () => {
         About me
       </h3>
       <Profile />
-      <article className="mx-auto max-w-[1000px] space-y-4 mt-16">
-        <p className="text-base">
+      <article className="mx-auto max-w-[1000px] space-y-4 mt-8 lg:mt-16">
+        <p className="text-xs lg:text-base">
           My name is Zach (aka ctrlsquid), I really enjoy programming. Like a
           lot. Like honestly it&apos;s probably unhealthy, but thats for my
           therapist to solve. I&apos;m a weird guy, but I got a big head
@@ -18,8 +18,8 @@ const AboutMe = () => {
           experience, which has equipped me with multitudes of tools and
           experiences.
         </p>
-        <h4 className="text-xl font-bold">my 1337 skills</h4>
-        <ul className="list-disc list-inside text-base space-y-4">
+        <h4 className="text-base lg:text-lg font-bold">my 1337 skills</h4>
+        <ul className="list-disc list-inside space-y-4 text-xs lg:text-base">
           <li>
             front-end in several different capacities, from static websites to
             full SPA&apos;s, using everything from vanilla js to to modern web

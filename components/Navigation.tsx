@@ -7,10 +7,6 @@ const links = [
     url: "/blog",
   },
   {
-    copy: "games",
-    url: "/games",
-  },
-  {
     copy: "email me",
     url: "mailto:zach@sneakycrow.dev",
   },

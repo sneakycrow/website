@@ -2,15 +2,15 @@ import Image from "next/image";
 
 const Profile = () => {
   return (
-    <div className="flex flex-col md:flex-row justify-evenly items-center p-6">
+    <div className="flex flex-col md:flex-row justify-evenly md:items-center">
       <Image
         src="/profile_normal.jpeg"
         alt="Picture of Zachary Corvidae, owner of Sneaky Crow"
         height="658"
         width="658"
-        className="rounded-full inline-block w-1/3"
+        className="rounded-full inline-block w-1/3 my-4"
       />
-      <ul className="inline-block m-4 text-base">
+      <ul className="inline-block w-full">
         <li>
           <span className="font-bold">Name:</span> Zachary Corvidae
         </li>
@@ -22,7 +22,7 @@ const Profile = () => {
         </li>
         <li>
           <span className="font-bold">Experience:</span> 20
-          <span className="font-light text-sm"> (years)</span>
+          <span className="font-light text-xs"> (years)</span>
         </li>
       </ul>
     </div>

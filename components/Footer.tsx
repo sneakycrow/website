@@ -23,7 +23,7 @@ interface FooterProps {
 
 const Footer = (props: FooterProps) => {
   const wrapperClass = cx(
-    "bg-gray-100 p-4 w-full flex flex-col justify-evenly xl:flex-row items-center",
+    "bg-white p-4 w-full flex flex-col justify-evenly xl:flex-row items-center",
     props.className
   );
   return (
@@ -32,7 +32,7 @@ const Footer = (props: FooterProps) => {
         <Link
           href={link.url}
           {...link}
-          className="text-2xl font-bold text-green-550 opacity-75 hover:opacity-100 transition-opacity"
+          className="text-2xl font-bold text-green-550 opacity-50 hover:opacity-100 transition-opacity"
           key={`footer-link-${index}`}
         >
           {link.copy}
