@@ -16,11 +16,11 @@ processing.
 
 There's a few technical layers to this application. The first part is we create a bot to connect to the twitch chat.
 Every time a user sends a message, we log that message to our tracing library. In our tracing library, we configure it
-to write a specific tracing layer `chat_messages` to a log.
+to write a specific tracing layer, `chat_messages`, to a log.
 
-The next part is configuring an http server using [axum][axum]. It has a route that can receive events to process the
-logs. Using [polars][polars], we'll read the logs into memories and parse them. We'll do this in fairly performant and
-asynchronous way as well.
+The next part is configuring an http server using [axum][axum]. It has a route that can receive event requests to process the
+logs. Using [polars][polars], we'll read the logs into memory, then parse them. One neat thing about polars is its ability to 
+parse over the memory limit of data.
 
 ## connect to twitch chat with [twitch-irc][twitch-irc]
 
@@ -28,7 +28,7 @@ asynchronous way as well.
 only acting as a receiver (not sending messages), you don't need to create any authentication tokens/configurations.
 
 For this part, we'll just create an asynchronous function that we can call to connect to the twitch chat and starting
-receiving a function. You basically just need the example in the [README][twitch-irc], but we're going to add
+receiving message logs. You basically just need the example in the [README][twitch-irc], but we're going to add
 a [tracing][tracing] library for logging each message to. Each of these messages, using
 the [tracing_appender][tracing_appender] so that each log can get appended to a rolling hourly log file.
 
@@ -127,11 +127,11 @@ serde_json = "1.0"
 polars = { version = "0.27.2", features = ["lazy", "dynamic_groupby", "json", "strings", "dtype-date"] }
 ```
 
-And here's the http server I created. It has a root route that is mostly for me debugging its alive at all. I also have
-a status route...which is basically the same thing (I realize as I type this out). The status route is what I personally
-use for health checks, but it can supply useful data, highly recommend
+And here's the http server I created. It has a root route that is mostly for me debugging if it's alive at all. I also have
+a status route, which is basically the same thing (I realize as I type this out). The status route is what I personally
+use for things health checks, but it can supply useful data you can easily configure. 
 
-It also adds tracing similar to how we do the bot/processor, and a utility dynamic port function. That function just
+It also adds tracing similar to how we do in the bot and processor, and a utility dynamic port function. That function just
 checks to see whether the `PORT` environment variable is set, otherwise it falls back to the default (8000).
 
 ```rust
