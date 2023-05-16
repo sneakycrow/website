@@ -21,12 +21,12 @@ const AboutMe = () => {
         <ul className="list-disc list-inside space-y-4 text-xs lg:text-base">
           <li>
             front-end in several different capacities, from static websites to
-            full SPA&apos;s, using everything from vanilla js to to modern web
-            frame to WASM apps built in Rust
+            full SPA&apos;s, using everything from vanilla js to modern web
+            frameworks like React and NextJS to WASM apps built in Rust
           </li>
           <li>
             back-end in several different capacities and protocols, mostly HTTP,
-            but some gRPC, Websockets, RTMP, and WASI as well
+            but some gRPC, Websockets, and RTMP
           </li>
           <li>
             My languages of choice:
@@ -40,12 +40,12 @@ const AboutMe = () => {
 
           <li>
             near-real time data-streaming, pipelining, and event-driven systems
-            using all kinds of Apache software, Docker, Kubernetes, cloud
+            using all kinds of Apache software such as Docker, Kubernetes, cloud
             infrastructure, and cumulonimbus.
           </li>
           <li>
             pretty much all web-related AWS services, elastic container service,
-            elastic file storage, elastic underwear, etc...
+            elastic file storage, elastic underwear, and more!
           </li>
           <li>if-else statements that marketers advertised as AI</li>
         </ul>
