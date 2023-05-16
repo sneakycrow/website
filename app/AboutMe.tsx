@@ -1,13 +1,12 @@
 import Profile from "@/components/Profile";
+import Title from "@/components/Title";
 
 const AboutMe = () => {
   return (
-    <div className="p-6">
-      <h3 className="text-xl font-bold after:w-2 after:bg-green-550 after:h-full after:absolute relative after:-skew-x-12 after:ml-2">
-        About me
-      </h3>
+    <div className="p-6 max-w-[1000px]">
+      <Title>About Me</Title>
       <Profile />
-      <article className="mx-auto max-w-[1000px] space-y-4 mt-8 lg:mt-16">
+      <article className="mx-auto space-y-4 mt-2">
         <p className="text-xs lg:text-base">
           My name is Zach (aka ctrlsquid), I really enjoy programming. Like a
           lot. Like honestly it&apos;s probably unhealthy, but thats for my

@@ -17,7 +17,7 @@ const Article = (props: MarkdownProps) => {
   return (
     <article className={articleClass}>
       <ReactMarkdown
-        className="max-w-[1000px] space-y-8"
+        className="max-w-full space-y-8"
         components={{
           p: ({ ...props }) => (
             <p {...props} className="text-sm lg:text-base leading-1" />
@@ -47,18 +47,22 @@ const Article = (props: MarkdownProps) => {
           ),
           code: ({ node, inline, className, children, ...props }) => {
             const match = /language-(\w+)/.exec(className || "");
+            const classWithOverflow = cx("overflow-x-scroll", className);
             return !inline && match ? (
-              <SyntaxHighlighter
-                // @ts-ignore
-                style={dracula}
-                language={match[1]}
-                PreTag="div"
-                {...props}
-              >
-                {String(children).replace(/\n$/, "")}
-              </SyntaxHighlighter>
+              <div className={classWithOverflow}>
+                <SyntaxHighlighter
+                  // @ts-ignore
+                  style={dracula}
+                  language={match[1]}
+                  PreTag="div"
+                  showInlineLineNumbers
+                  {...props}
+                >
+                  {String(children).replace(/\n$/, "")}
+                </SyntaxHighlighter>
+              </div>
             ) : (
-              <code className={className} {...props}>
+              <code className={classWithOverflow} {...props}>
                 {children}
               </code>
             );

@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import React from "react"; // If loading a variable font, you don't need to specify the font weight
+import React from "react";
+import { Metadata } from "next"; // If loading a variable font, you don't need to specify the font weight
 
 // If loading a variable font, you don't need to specify the font weight
 const inter = Inter({
@@ -8,8 +9,12 @@ const inter = Inter({
   display: "swap",
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "sneakycrow, llc",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+  },
   description:
     "open source software, web development, and more by Zachary Corvidae",
   openGraph: {

@@ -28,7 +28,7 @@ const Hero = (props: HeroProps) => {
         className="inline-flex justify-self-center md:justify-self-end min-w-3/4"
       >
         <Image
-          alt=""
+          alt="Line art picture of a crow with a green baseball cap on, logo of Sneaky Crow"
           src={imageURL}
           width={200}
           height={200}
@@ -39,7 +39,7 @@ const Hero = (props: HeroProps) => {
         <h1 className="w-full text-lg lg:text-3xl text-center lg:text-left">
           {title}
         </h1>
-        <h2 className="w-full text-base lg:text-2xl leading-13 text-center lg:text-left">
+        <h2 className="w-full text-2xl leading-13 text-center lg:text-left">
           {subtitle}
         </h2>
       </div>

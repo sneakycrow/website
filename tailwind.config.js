@@ -10,14 +10,14 @@ module.exports = {
       sans: ["Inter", "sans-serif"],
     },
     fontSize: {
-      sm: "1.5rem",
-      base: "2rem",
-      lg: "2.5rem",
-      xl: "3rem",
-      "2xl": ["4.2rem", { lineHeight: "4.4rem" }],
-      "3xl": ["4.8rem", { lineHeight: "5rem" }],
-      "4xl": "2.441rem",
-      "5xl": "3.052rem",
+      sm: "0.8rem",
+      base: "1rem",
+      lg: "1.5rem",
+      xl: "2rem",
+      "2xl": ["3.2rem", { lineHeight: "3.4rem" }],
+      "3xl": ["3.8rem", { lineHeight: "4rem" }],
+      "4xl": "4.4rem",
+      "5xl": "5rem",
     },
     extend: {
       colors: {
