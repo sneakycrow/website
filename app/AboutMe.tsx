@@ -3,7 +3,7 @@ import Title from "@/components/Title";
 
 const AboutMe = () => {
   return (
-    <div className="p-6 max-w-[1000px]">
+    <div className="p-4 w-3/4 max-w-[1000px]">
       <Title>About Me</Title>
       <Profile />
       <article className="mx-auto space-y-4 mt-2">

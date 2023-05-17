@@ -17,7 +17,7 @@ const Article = (props: MarkdownProps) => {
   return (
     <article className={articleClass}>
       <ReactMarkdown
-        className="max-w-full space-y-8"
+        className="space-y-8 w-3/4 max-w-[1000px]"
         components={{
           p: ({ ...props }) => (
             <p {...props} className="text-sm lg:text-base leading-1" />
