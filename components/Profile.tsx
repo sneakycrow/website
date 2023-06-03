@@ -10,7 +10,7 @@ const Profile = () => {
         width="200"
         className="rounded-full inline-block my-4 self-center"
       />
-      <ul className="inline-flex flex-col md:ml-10 text-sm md:text-base justify-center items-start">
+      <ul className="inline-flex flex-col md:ml-10 text-base md:text-lg justify-center items-start">
         <li>
           <span className="font-bold">Name:</span> Zachary Corvidae
         </li>
@@ -22,7 +22,7 @@ const Profile = () => {
         </li>
         <li>
           <span className="font-bold">Experience:</span> 20
-          <span className="font-light text-xs"> (years)</span>
+          <span className="font-light text-sm md:text-base"> (years)</span>
         </li>
       </ul>
     </div>
