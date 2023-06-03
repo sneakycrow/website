@@ -20,7 +20,7 @@ const Article = (props: MarkdownProps) => {
         className="space-y-8 w-full lg:w-3/4 max-w-[1000px]"
         components={{
           p: ({ ...props }) => (
-            <p {...props} className="text-sm lg:text-base leading-1" />
+            <p {...props} className="text-base lg:text-lg leading-1" />
           ),
           a: ({ ...props }) => (
             <a {...props} className="text-green-550 font-bold" />
