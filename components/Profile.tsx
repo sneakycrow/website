@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Profile = () => {
   return (
-    <div className="mx-auto max-w-[1000px] flex flex-col md:flex-row md:items-center w-full">
+    <div className="mx-auto max-w-[1000px] flex flex-col md:flex-row items-center w-full">
       <Image
         src="/profile_normal.jpeg"
         alt="Picture of Zachary Corvidae, owner of Sneaky Crow"

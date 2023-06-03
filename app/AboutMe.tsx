@@ -3,11 +3,11 @@ import Title from "@/components/Title";
 
 const AboutMe = () => {
   return (
-    <div className="p-4 w-3/4 max-w-[1000px]">
+    <div className="p-4 w-full lg:w-3/4 max-w-[1000px]">
       <Title>About Me</Title>
       <Profile />
-      <article className="mx-auto space-y-4 mt-2">
-        <p className="text-xs lg:text-base">
+      <article className="mx-auto space-y-4 mt-10">
+        <p className="text-base my-8">
           My name is Zach (aka ctrlsquid), I really enjoy programming. Like a
           lot. Like honestly it&apos;s probably unhealthy, but thats for my
           therapist to solve. I&apos;m a weird guy, but I got a big head
