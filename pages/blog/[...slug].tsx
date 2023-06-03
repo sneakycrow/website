@@ -22,7 +22,7 @@ const BlogPage = (props: BlogPost) => {
       </Head>
       <main className="flex flex-col gap-4 bg-black p-4">
         <header>
-          <Hero title={title} subtitle="" />
+          <Hero title={title} subtitle="" homeURL="/blog" />
         </header>
         <Article>{body}</Article>
         <Footer />

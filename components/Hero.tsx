@@ -8,6 +8,7 @@ interface HeroProps {
   title?: string;
   subtitle?: string;
   className?: string;
+  homeURL?: string;
 }
 
 const Hero = (props: HeroProps) => {
@@ -15,6 +16,7 @@ const Hero = (props: HeroProps) => {
     imageURL = "/logo_v2.svg",
     title = "Sneaky Crow",
     subtitle = "software wizard ",
+    homeURL = "/",
   } = props;
 
   const wrapperClass = cx(
@@ -24,7 +26,7 @@ const Hero = (props: HeroProps) => {
   return (
     <div className={wrapperClass}>
       <Link
-        href="/"
+        href={homeURL}
         className="inline-flex justify-self-center md:justify-self-end min-w-3/4"
       >
         <Image
