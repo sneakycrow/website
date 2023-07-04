@@ -11,8 +11,8 @@ const subnavLinks: { url: string; copy: string; rel?: string }[] = [
     url: "/resume.pdf",
   },
   {
-    copy: "mastadon",
-    url: "https://cybre.gg/@ctrlsquid",
+    copy: "mastodon",
+    url: "https://cybre.gg/@squid",
     rel: "me",
   },
 ];
