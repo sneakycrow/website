@@ -14,22 +14,23 @@ export type BannerLink = {
   icon: ReactNode;
 };
 
+const ICON_SIZE = 48;
 const defaultLinks: BannerLink[] = [
   {
     copy: "github",
     url: "https://github.com/sneakycrow",
-    icon: <IconBrandGithub />,
+    icon: <IconBrandGithub size={ICON_SIZE} />,
   },
   {
     copy: "resume",
     url: "/resume.pdf",
-    icon: <IconTie />,
+    icon: <IconTie size={ICON_SIZE} />,
   },
   {
     copy: "mastodon",
     url: "https://cybre.gg/@squid",
     rel: "me",
-    icon: <IconBrandMastodon />,
+    icon: <IconBrandMastodon size={ICON_SIZE} />,
   },
 ];
 
