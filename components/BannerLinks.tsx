@@ -7,59 +7,55 @@ import {
 } from "@tabler/icons-react";
 import { ReactNode } from "react";
 
-const iconProps = {
-  size: 48,
-};
-const subnavLinks: {
+export type BannerLink = {
   url: string;
   copy: string;
   rel?: string;
-  icon?: ReactNode;
-}[] = [
+  icon: ReactNode;
+};
+
+const defaultLinks: BannerLink[] = [
   {
     copy: "github",
     url: "https://github.com/sneakycrow",
-    icon: <IconBrandGithub {...iconProps} />,
+    icon: <IconBrandGithub />,
   },
   {
     copy: "resume",
     url: "/resume.pdf",
-    icon: <IconTie {...iconProps} />,
+    icon: <IconTie />,
   },
   {
     copy: "mastodon",
     url: "https://cybre.gg/@squid",
     rel: "me",
-    icon: <IconBrandMastodon {...iconProps} />,
+    icon: <IconBrandMastodon />,
   },
 ];
 
 interface FooterProps {
   className?: string;
+  links?: BannerLink[];
 }
 
-const BannerLinks = (props: FooterProps) => {
+const BannerLinks = ({ links = defaultLinks, className }: FooterProps) => {
   const wrapperClass = cx(
     "bg-white p-4 w-full flex flex-col justify-evenly xl:flex-row items-center",
-    props.className
+    className
   );
   return (
     <footer className={wrapperClass}>
-      {subnavLinks.map((link, index) => (
+      {links.map((link, index) => (
         <Link
           href={link.url}
           {...link}
           className="text-xl font-bold text-green-550 opacity-50 hover:opacity-100 transition-opacity"
           key={`footer-link-${index}`}
         >
-          {link.icon ? (
-            <span className="flex flex-row items-center">
-              {link.icon}
-              <span className="ml-2">{link.copy}</span>
-            </span>
-          ) : (
-            <span>{link.copy}</span>
-          )}
+          <span className="flex flex-row items-center">
+            {link.icon}
+            <span className="ml-2">{link.copy}</span>
+          </span>
         </Link>
       ))}
     </footer>
