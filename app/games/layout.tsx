@@ -1,10 +1,10 @@
 import React from "react";
-import { openGraph } from "@/app/openGraph";
+import { openGraph } from "@/_next_pages/openGraph";
 
 export const metadata = {
   title: "homemade games by sneakycrow",
   description: "games developed and published by sneakycrow",
-  openGraph,
+  openGraph
 };
 
 const GamesLayout = ({ children }: { children: React.ReactNode }) => {

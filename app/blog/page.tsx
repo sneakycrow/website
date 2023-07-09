@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "@/app/Header";
-import PostList from "@/app/blog/PostList";
+import Header from "@/_next_pages/Header";
+import PostList from "@/_next_pages/blog/PostList";
 import BannerLinks from "@/components/BannerLinks";
 
 const Blog = () => {

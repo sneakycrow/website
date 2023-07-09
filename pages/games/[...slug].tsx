@@ -4,7 +4,7 @@ import BannerLinks from "@/components/BannerLinks";
 import React from "react";
 import { getGameBySlug, getGames } from "@/components/Game";
 import { GetStaticPropsContext } from "next";
-import "@/app/globals.css";
+import "@/_next_pages/globals.css";
 import Article from "@/components/Article";
 
 interface GamePageProps {
@@ -23,10 +23,7 @@ const GamePage = (props: GamePageProps) => {
         <title>{title}</title>
         <meta property="og:title" content={title} />
         <meta property="og:description" content={summary} />
-        <meta
-          property="og:image"
-          content="https://sneakycrow.dev/logo_v2.svg"
-        />
+        <meta property="og:image" content="https://sneakycrow.dev/logo_v2.svg" />
       </Head>
       <main className="grid gap-4 grid-flow-row auto-rows-max bg-black p-4 min-h-screen">
         <header className="row-start-1">
@@ -42,7 +39,7 @@ const GamePage = (props: GamePageProps) => {
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const slug = (context?.params?.slug ?? "") as string;
   return {
-    props: await getGameBySlug(slug),
+    props: await getGameBySlug(slug)
   };
 };
 
@@ -51,7 +48,7 @@ export const getStaticPaths = async () => {
   const paths = games.map((game) => game.slug);
   return {
     paths,
-    fallback: false,
+    fallback: false
   };
 };
 

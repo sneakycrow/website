@@ -1,5 +1,5 @@
-import Header from "@/app/Header";
-import GameList from "@/app/games/GameList";
+import Header from "@/_next_pages/Header";
+import GameList from "@/_next_pages/games/GameList";
 
 const Games = () => {
   return (

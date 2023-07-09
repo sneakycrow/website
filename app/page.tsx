@@ -1,5 +1,5 @@
-import Header from "@/app/Header";
-import AboutMe from "@/app/AboutMe";
+import Header from "@/_next_pages/Header";
+import AboutMe from "@/_next_pages/AboutMe";
 import React from "react";
 import BannerLinks from "@/components/BannerLinks";
 

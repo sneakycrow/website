@@ -2,7 +2,7 @@ import React from "react";
 import Hero from "@/components/Hero";
 import { BlogPost, getPostBySlug, getPosts } from "@/components/Post";
 import Article from "@/components/Article";
-import "@/app/globals.css";
+import "@/_next_pages/globals.css";
 import Head from "next/head";
 import BannerLinks from "@/components/BannerLinks";
 import { GetStaticPropsContext } from "next";
@@ -15,10 +15,7 @@ const BlogPage = (props: BlogPost) => {
         <title>{title}</title>
         <meta property="og:title" content={title} />
         <meta property="og:description" content={summary} />
-        <meta
-          property="og:image"
-          content="https://sneakycrow.dev/logo_v2.svg"
-        />
+        <meta property="og:image" content="https://sneakycrow.dev/logo_v2.svg" />
       </Head>
       <main className="flex flex-col gap-4 bg-black p-4">
         <header>
@@ -34,7 +31,7 @@ const BlogPage = (props: BlogPost) => {
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const slug = (context?.params?.slug ?? "") as string;
   return {
-    props: await getPostBySlug(slug),
+    props: await getPostBySlug(slug)
   };
 };
 
@@ -44,7 +41,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths: paths,
-    fallback: false,
+    fallback: false
   };
 };
 
