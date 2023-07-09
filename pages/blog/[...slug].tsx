@@ -4,7 +4,7 @@ import { BlogPost, getPostBySlug, getPosts } from "@/components/Post";
 import Article from "@/components/Article";
 import "@/app/globals.css";
 import Head from "next/head";
-import Footer from "@/components/Footer";
+import BannerLinks from "@/components/BannerLinks";
 import { GetStaticPropsContext } from "next";
 
 const BlogPage = (props: BlogPost) => {
@@ -25,7 +25,7 @@ const BlogPage = (props: BlogPost) => {
           <Hero title={title} subtitle="" homeURL="/blog" />
         </header>
         <Article>{body}</Article>
-        <Footer />
+        <BannerLinks />
       </main>
     </>
   );

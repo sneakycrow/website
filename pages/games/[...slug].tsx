@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Hero from "@/components/Hero";
-import Footer from "@/components/Footer";
+import BannerLinks from "@/components/BannerLinks";
 import React from "react";
 import { getGameBySlug, getGames } from "@/components/Game";
 import { GetStaticPropsContext } from "next";
@@ -33,7 +33,7 @@ const GamePage = (props: GamePageProps) => {
           <Hero title={title} subtitle={status} />
         </header>
         <Article>{body}</Article>
-        <Footer className="self-end" />
+        <BannerLinks className="self-end" />
       </main>
     </>
   );
