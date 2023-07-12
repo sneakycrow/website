@@ -22,7 +22,7 @@
       <li>
         front-end in several different capacities, from static websites to
         full SPA&apos;s, using everything from vanilla js to modern web
-        frameworks like React and NextJS to WASM apps built in Rust
+        frameworks like React and Svelte to WASM apps built in Rust
       </li>
       <li>
         back-end in several different capacities and protocols, mostly HTTP,
