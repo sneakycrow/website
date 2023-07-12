@@ -13,7 +13,6 @@
       copy: "resume",
       url: "/resume.pdf",
       icon: "ri:briefcase-2-line"
-
     },
     {
       copy: "mastodon",
@@ -31,10 +30,10 @@
       {...link}
       class="text-xl font-bold text-green-550 opacity-50 hover:opacity-100 transition-opacity"
     >
-          <span class="flex flex-row items-center">
-            <Icon icon={link.icon} size={ICON_SIZE} />
-            <span class="ml-2">{link.copy}</span>
-          </span>
+      <span class="flex flex-row items-center">
+        <Icon icon={link.icon} size={ICON_SIZE} />
+        <span class="ml-2">{link.copy}</span>
+      </span>
     </a>
   {/each}
 </nav>

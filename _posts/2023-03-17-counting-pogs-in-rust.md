@@ -18,8 +18,10 @@ There's a few technical layers to this application. The first part is we create 
 Every time a user sends a message, we log that message to our tracing library. In our tracing library, we configure it
 to write a specific tracing layer, `chat_messages`, to a log.
 
-The next part is configuring an http server using [axum][axum]. It has a route that can receive event requests to process the
-logs. Using [polars][polars], we'll read the logs into memory, then parse them. One neat thing about polars is its ability to 
+The next part is configuring an http server using [axum][axum]. It has a route that can receive event requests to
+process the
+logs. Using [polars][polars], we'll read the logs into memory, then parse them. One neat thing about polars is its
+ability to
 parse over the memory limit of data.
 
 ## connect to twitch chat with [twitch-irc][twitch-irc]
@@ -127,11 +129,13 @@ serde_json = "1.0"
 polars = { version = "0.27.2", features = ["lazy", "dynamic_groupby", "json", "strings", "dtype-date"] }
 ```
 
-And here's the http server I created. It has a root route that is mostly for me debugging if it's alive at all. I also have
+And here's the http server I created. It has a root route that is mostly for me debugging if it's alive at all. I also
+have
 a status route, which is basically the same thing (I realize as I type this out). The status route is what I personally
-use for things health checks, but it can supply useful data you can easily configure. 
+use for things health checks, but it can supply useful data you can easily configure.
 
-It also adds tracing similar to how we do in the bot and processor, and a utility dynamic port function. That function just
+It also adds tracing similar to how we do in the bot and processor, and a utility dynamic port function. That function
+just
 checks to see whether the `PORT` environment variable is set, otherwise it falls back to the default (8000).
 
 ```rust
@@ -194,18 +198,18 @@ I also added, and commented out, the events route and the events mod, which is g
 processing it. I'm going to add that section in a part 2 because its fun to talk about, but if you want a skeleton I
 actually posted some unfinished, but good, code in [beautiful rust][beautiful rust].
 
-[axum]:https://github.com/tokio-rs/axum
+[axum]: https://github.com/tokio-rs/axum
 
-[polars]:https://pola.rs
+[polars]: https://pola.rs
 
-[twitch]:https://twitch.rs
+[twitch]: https://twitch.rs
 
-[twitch-irc]:https://crates.io/
+[twitch-irc]: https://crates.io/
 
-[join-all-docs]:https://docs.rs/futures/latest/futures/future/fn.join_all.html
+[join-all-docs]: https://docs.rs/futures/latest/futures/future/fn.join_all.html
 
-[tracing]:https://docs.rs/tracing/latest/tracing
+[tracing]: https://docs.rs/tracing/latest/tracing
 
-[tracing_appender]:https://docs.rs/tracing-appender/latest/tracing_appender/index.html
+[tracing_appender]: https://docs.rs/tracing-appender/latest/tracing_appender/index.html
 
-[beautiful rust]:https://sneakycrow.dev/blog/2023-03-16-beautiful-rust
+[beautiful rust]: https://sneakycrow.dev/blog/2023-03-16-beautiful-rust

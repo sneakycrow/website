@@ -34,6 +34,6 @@ Cobrashare is getting farther with it's integration with Patreon. I've had to re
 both on the frontend and the backend. Long story short: the Node and React ecosystem move _fast_ and become quickly
 unstable if not taken care of right.
 
-[tracing-package]:https://docs.rs/tracing/latest/tracing/
+[tracing-package]: https://docs.rs/tracing/latest/tracing/
 
-[log-package]:https://docs.rs/log/latest/log/
+[log-package]: https://docs.rs/log/latest/log/

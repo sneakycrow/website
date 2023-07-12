@@ -18,10 +18,10 @@ it's been working well for me so far. I'm using [React][react] for the frontend,
 Here's a neat little preview of what it looks like so far:
 ![preview](/chats-controller-1-preview.gif)
 
-[github-cc]:https://github.com/sneakycrow/chats-controller
+[github-cc]: https://github.com/sneakycrow/chats-controller
 
-[tauri]:https://tauri.studio/en/
+[tauri]: https://tauri.studio/en/
 
-[react]:https://reactjs.org/
+[react]: https://reactjs.org/
 
-[rust]:https://www.rust-lang.org/
+[rust]: https://www.rust-lang.org/

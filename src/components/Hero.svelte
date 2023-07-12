@@ -1,14 +1,11 @@
 <script lang="ts">
-  export let homeURL: string;
+  export let homeURL: string = "/";
   export let title: string;
   export let subtitle: string;
 </script>
 
 <div class="p-6 bg-white grid grid-flow-row md:grid-flow-col justify-center">
-  <a
-    class="inline-flex justify-self-center md:justify-self-end min-w-3/4"
-    href={homeURL}
-  >
+  <a class="inline-flex justify-self-center md:justify-self-end min-w-3/4" href={homeURL}>
     <img
       alt="Line art of a crow with a green baseball cap on, logo of Sneaky Crow"
       class="min-w-[200px]"

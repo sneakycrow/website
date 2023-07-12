@@ -22,8 +22,8 @@ end up doing that.
 
 Thanks for reading! More posts about software (rust), books, and video games next month!
 
-[gis]:https://education.nationalgeographic.org/resource/geographic-information-system-gis
+[gis]: https://education.nationalgeographic.org/resource/geographic-information-system-gis
 
-[izfs]:https://github.com/sneakycrow/izfs
+[izfs]: https://github.com/sneakycrow/izfs
 
-[cyberattack]:https://www.youtube.com/@CyberattackWorld
+[cyberattack]: https://www.youtube.com/@CyberattackWorld
