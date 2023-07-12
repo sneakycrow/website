@@ -5,6 +5,7 @@ series_key: "website-generator-tutorial"
 series_pos: 0
 summary: "The initial project setup and planning phase of setting up a static site generator"
 ---
+
 Recently, I set up this new website re-design. But beyond just a re-design, it's actually a full "re-software"?.
 As you may have guessed from the title, I wrote my
 own [static site generator for this website](https://github.com/sneakycrow/website), and I'm going to review my
@@ -79,7 +80,7 @@ program save that string to a file in an output directory.
 We'll start by editing `~/cli/src/main.rs`. First, we'll add the HTML string output we want to save and have
 the `println!` macro print that instead.
 
-```rust 
+```rust
 fn main() {
     let html = "\
 <html>
@@ -126,7 +127,7 @@ and finally adding logic to:
 2. create our empty html file in the output directory
 3. write our html string into the empty file
 
-```rust 
+```rust
 use env_logger::init;
 use log::debug;
 use std::fs;
@@ -220,4 +221,4 @@ And that's it! Now, every time we do a (pre)release it will compile our binary a
 the binary itself, but this yaml also enables manual deployments for when you just have content updates. This way, you
 don't need to create a new version for content updates.
 
-That's it for this part. In the next part we'll run through adding handlebars and SASS to get prettier pages. 
+That's it for this part. In the next part we'll run through adding handlebars and SASS to get prettier pages.

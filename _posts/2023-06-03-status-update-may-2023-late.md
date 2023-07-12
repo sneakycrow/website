@@ -34,5 +34,4 @@ hoping to get some friends involved too.
 
 I hope with some of these changes my mental health and feelings of social isolation will improve. I'm also hoping to
 get back into some more creative hobbies, like writing and music. So maybe that means more posts here? We'll see. I've
-got some ideas for experimenting with other media, like writing posts in an audio format and stuff like that. 
-
+got some ideas for experimenting with other media, like writing posts in an audio format and stuff like that.

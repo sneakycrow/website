@@ -5,6 +5,7 @@ series_key: "website-generator-tutorial"
 series_pos: 1
 summary: "The second part of setting up a static site generator, setting up initial templating"
 ---
+
 [In the first part of this series][part 1] we did some basic initial research, and then a "kinda-mvp" of a html file
 generator. We also added a Github Actions config for auto-deployment.
 
@@ -23,7 +24,7 @@ because when rust is parsing relative files it starts there. It basically just m
 In addition, we know we're going to have SCSS files as well, so let's call the top level folder `assets` with two
 subfolders `assets/templates` and `assets/scss`.
 
-*note, you may notice I re-organized this [website repository](https://github.com/sneakycrow/website)* to match this _
+_note, you may notice I re-organized this [website repository](https://github.com/sneakycrow/website)_ to match this _
 after_ I wrote this article. Shut up, software is iterative. I realized this was better when writing this, lol.
 
 So, our repo should look something like this now:
@@ -46,14 +47,14 @@ from [part 1][part 1] and move it to the template file. So, we should
 have the file `assets/templates/pages/index.hbs` now, and it should look something like this:
 
 ```handlebars
- <!DOCTYPE html>
+
 <html lang="en">
-<head>
+  <head>
     <title>{{title}}</title>
-</head>
-<body>
-<h1>It works!</h1>
-</body>
+  </head>
+  <body>
+    <h1>It works!</h1>
+  </body>
 </html>
 ```
 
@@ -183,24 +184,23 @@ fn main() {
 Lastly, make sure to add the appropriate `<link>` to our html template
 
 ```handlebars
- <!DOCTYPE html>
+
 <html lang="en">
-<head>
+  <head>
     <title>{{title}}</title>
-    <link rel="stylesheet" href="/main.css"/>
-</head>
-<body>
-<h1>It works!</h1>
-</body>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <h1>It works!</h1>
+  </body>
 </html>
 ```
 
 Congratulations! You should now have a templated static site generator with handlebars and SCSS! In the next tutorial
 we'll implement a markdown parser so we can write static blog posts in markdown.
 
+[part 1]: https://sneakycrow.dev/2022/11/26/setting-up-my-own-static-site-generator.html
 
-[part 1]:https://sneakycrow.dev/2022/11/26/setting-up-my-own-static-site-generator.html
+[handlebars-rust]: https://crates.io/crates/handlebars
 
-[handlebars-rust]:https://crates.io/crates/handlebars
-
-[grass]:https://crates.io/crates/grass
+[grass]: https://crates.io/crates/grass

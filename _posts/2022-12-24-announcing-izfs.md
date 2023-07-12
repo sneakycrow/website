@@ -22,4 +22,4 @@ Planned features:
 As of right now, we're still in development for the mvp. But feel free to join us and participate on [GitHub][izfs]. We
 encourage feature requests, discussions, and general community contribution!
 
-[izfs]:https://github.com/sneakycrow/izfs
+[izfs]: https://github.com/sneakycrow/izfs
