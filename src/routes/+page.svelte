@@ -5,7 +5,7 @@
 </script>
 
 <main class="grid gap-4 grid-flow-row bg-black p-4 min-h-screen max-w-full">
-  <Header image="/logo_v2.svg" subtitle="software wizard" title="Sneaky Crow" />
+  <Header subtitle="software wizard" title="Sneaky Crow" />
   <BannerLinks />
 
   <div class="bg-white w-full flex flex-col justify-center items-center">

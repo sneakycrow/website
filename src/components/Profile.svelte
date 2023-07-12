@@ -1,6 +1,6 @@
 <div class="mx-auto max-w-[1000px] flex flex-col md:flex-row items-center w-full">
   <img
-    alt="Picture of Zachary Corvidae, owner of Sneaky Crow"
+    alt="Zachary Corvidae, owner of Sneaky Crow"
     class="rounded-full inline-block my-4 self-center"
     height={200}
     src="/profile_normal.jpeg"

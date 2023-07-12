@@ -1,6 +1,5 @@
 <script lang="ts">
   export let homeURL: string;
-  export let imageURL: string;
   export let title: string;
   export let subtitle: string;
 </script>
@@ -11,10 +10,10 @@
     href={homeURL}
   >
     <img
-      alt="Line art picture of a crow with a green baseball cap on, logo of Sneaky Crow"
+      alt="Line art of a crow with a green baseball cap on, logo of Sneaky Crow"
       class="min-w-[200px]"
       height={200}
-      src={imageURL}
+      src="/logo_v2.svg"
       width={200}
     />
   </a>
