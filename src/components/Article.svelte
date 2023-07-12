@@ -15,7 +15,14 @@
 
 <div class="bg-white p-6 flex justify-center">
   <article class="space-y-8 w-full lg:w-3/4 max-w-[1000px]">
-    <SvelteMarkdown renderers={{ code: Code, paragraph: Paragraph, link: Link, heading: Heading, list: List }}
-                    source={post.body} />
+    <SvelteMarkdown
+      renderers={{
+        code: Code,
+        paragraph: Paragraph,
+        link: Link,
+        heading: Heading,
+        list: List
+      }}
+      source={post.body} />
   </article>
 </div>
