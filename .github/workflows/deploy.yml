@@ -10,7 +10,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  build_deploy:
+    name: build and deploy
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
