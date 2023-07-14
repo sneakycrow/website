@@ -1,7 +1,7 @@
 ---
 title: "beautiful rust"
 category: "software"
-summary: "I forked an outdated package and am maintaining a new version"
+summary: "Just me admiring my favorite language"
 ---
 
 There isn't much to this post other than me just admiring how beautiful of a language rust is. I love it so much.
