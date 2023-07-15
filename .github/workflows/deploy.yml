@@ -11,19 +11,13 @@ concurrency:
 
 jobs:
   build_deploy:
+    environment: production
     name: build and deploy
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "20.3.0"
-      - run: npm install
-      - run: npm run build
-      - name: deploy
-        uses: peaceiris/actions-gh-pages@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
         env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
           ORIGIN: ${{ env.ORIGIN }}
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
