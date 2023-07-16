@@ -5,12 +5,9 @@
   import Link from "./post/Link.svelte";
   import Heading from "./post/Heading.svelte";
   import List from "./post/List.svelte";
+  import type { Post } from "$lib/posts";
 
-  export let post: {
-    title: string;
-    date: string;
-    body: string;
-  };
+  export let post: Post;
 </script>
 
 <div class="bg-white p-6 flex justify-center">

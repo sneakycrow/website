@@ -12,11 +12,13 @@
 <main class="grid gap-4 grid-flow-row bg-black p-4 min-h-screen">
   <Header subtitle="award-winning blog" title="self*-awarded" />
   <div class="flex flex-col w-full bg-white p-6 lg:items-center">
-    <Title class="lg:w-3/4 max-w-[1000px]">Posts</Title>
-    <div class="lg:w-3/4 max-w-[1000px] divide-y-2">
-      {#each data.posts as post, i}
-        <PostExcerpt {post} />
-      {/each}
+    <div class="lg:w-3/4 max-w-[1000px]">
+      <Title>Posts</Title>
+      <div class="divide-y-2 divide-green-100">
+        {#each data.posts as post, i}
+          <PostExcerpt {post} />
+        {/each}
+      </div>
     </div>
   </div>
   <BannerLinks />
