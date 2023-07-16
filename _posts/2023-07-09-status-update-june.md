@@ -1,8 +1,9 @@
 ---
-title: "Status update, June 2023"
+title: "Status Update - June 2023"
 slug: "status-update-2023-07"
-date: 2023-07-09 12:00:00 -0700
-summary: short "I'm alive and well" update
+summary: "short \"I'm alive and well\" update"
+series_key: "status-monthly"
+series_pos: 4
 ---
 
 Hello, and welcome to my status update for June 2023! The last few months have been quite busy for me, so this status
