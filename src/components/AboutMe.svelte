@@ -16,7 +16,7 @@
       tools and experiences.
     </p>
     <h4 class="text-base lg:text-lg font-bold">my 1337 skills</h4>
-    <ul class="list-disc list-inside space-y-4 text-xs lg:text-base">
+    <ul class="list-disc list-inside space-y-4 text-base">
       <li>
         front-end in several different capacities, from static websites to full SPA&apos;s, using
         everything from vanilla js to modern web frameworks like React and Svelte to WASM apps built

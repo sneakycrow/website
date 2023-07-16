@@ -12,7 +12,7 @@
   <Header subtitle="software wizard" title="Sneaky Crow" />
   <BannerLinks />
   <MOTD content={data.motd.content} source={data.motd.source} />
-  <div class="bg-white w-full flex flex-col justify-center items-center">
+  <div class="bg-white w-full flex flex-col justify-center items-center lg:p-0 p-4">
     <AboutMe />
   </div>
 </main>

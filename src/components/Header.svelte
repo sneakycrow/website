@@ -7,7 +7,8 @@
 </script>
 
 <header class="w-full bg-white flex justify-center">
-  <div class="xl:max-h-[50vh] w-full grid grid-flow-row xl:grid-flow-col max-w-[1000px] justify-between">
+  <div
+    class="xl:max-h-[50vh] w-full grid grid-flow-row xl:grid-flow-col max-w-[1000px]">
     <Hero {subtitle} {title} />
     <Navigation />
   </div>

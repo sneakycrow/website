@@ -11,7 +11,7 @@
   ];
 </script>
 
-<div class="p-6 bg-white flex flex-col justify-between items-end">
+<div class="p-6 bg-white flex flex-col justify-between items-center lg:items-end">
   {#each links as link, index}
     <a href={link.url} class="my-4 text-center active:text-green-550 hover:text-green-550">
       <span class="text-2xl font-extrabold">
