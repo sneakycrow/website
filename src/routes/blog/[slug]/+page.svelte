@@ -11,20 +11,20 @@
 <main class="flex flex-col gap-4 bg-black p-4">
   <Header subtitle="" title={data.post.title} />
   <Article post={data.post} />
-  <div class="w-full bg-white flex flex-col items-center justify-center">
-    <div class="py-2 max-w-[1000px] w-full">
-      <Title>Series</Title>
-      <ol
-        class="list-decimal list-inside grid grid-flow-row items-center space-y-2 text-lg">
-        {#if data.series?.length ?? [] > 0}
+  {#if data.series?.length ?? [] > 0}
+    <div class="w-full bg-white flex flex-col items-center justify-center">
+      <div class="py-2 max-w-[1000px] w-full">
+        <Title>Series</Title>
+        <ol
+          class="list-decimal list-inside grid grid-flow-row items-center space-y-2 text-lg">
           {#each data.series as post}
             <li class={`${post.slug === data.post.slug ? "text-green-550 opacity-60" : "text-green-550"}`}>
               <a href={`/blog/${post.slug}`}>{post.title}</a>
             </li>
           {/each}
-        {/if}
-      </ol>
+        </ol>
+      </div>
     </div>
-  </div>
+  {/if}
   <BannerLinks />
 </main>

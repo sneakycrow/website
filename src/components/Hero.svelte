@@ -15,7 +15,7 @@
     />
   </a>
   <div class="flex flex-col justify-center items-center font-extrabold">
-    <h1 class="w-full text-lg lg:text-3xl text-center lg:text-left">
+    <h1 class="w-full text-lg lg:text-2xl text-center lg:text-left">
       {title}
     </h1>
     <h2 class="w-full text-xl leading-13 text-center lg:text-left">
