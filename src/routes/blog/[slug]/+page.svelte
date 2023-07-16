@@ -13,7 +13,7 @@
   <Article post={data.post} />
   {#if data.series?.length ?? [] > 0}
     <div class="w-full bg-white flex flex-col items-center justify-center">
-      <div class="py-2 max-w-[1000px] w-full">
+      <div class="p-4 lg:p-0 lg:py-2 max-w-[1000px] w-full">
         <Title>Series</Title>
         <ol
           class="list-decimal list-inside grid grid-flow-row items-center space-y-2 text-lg">
