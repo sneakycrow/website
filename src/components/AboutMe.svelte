@@ -3,7 +3,7 @@
   import Profile from "./Profile.svelte";
 </script>
 
-<div class="p-4 w-full lg:w-3/4 max-w-[1000px]">
+<div class="py-4 w-full lg:w-3/4 max-w-[1000px]">
   <Title>About Me</Title>
   <Profile />
   <article class="mx-auto space-y-4 mt-10">

@@ -1,17 +1,15 @@
 <script lang="ts">
-  import Hero from "../../../components/Hero.svelte";
   import Article from "../../../components/Article.svelte";
   import BannerLinks from "../../../components/BannerLinks.svelte";
   import type { PageServerData } from "./$types";
   import Title from "../../../components/Title.svelte";
+  import Header from "../../../components/Header.svelte";
 
   export let data: PageServerData;
 </script>
 
 <main class="flex flex-col gap-4 bg-black p-4">
-  <header>
-    <Hero homeURL="/blog" subtitle="" title={data.post.title} />
-  </header>
+  <Header subtitle="" title={data.post.title} />
   <Article post={data.post} />
   <div class="w-full bg-white flex flex-col items-center justify-center">
     <div class="py-2 max-w-[1000px] w-full">
