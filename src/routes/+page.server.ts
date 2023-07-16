@@ -4,7 +4,6 @@ import { getMastodonStatus } from "$lib/motd";
 export const load = (async ({ params }) => {
   const statuses = await getMastodonStatus();
   const latestStatus = statuses[0];
-  console.log(latestStatus);
   return {
     motd: {
       content: latestStatus.content,
