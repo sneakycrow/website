@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Article from "../../../components/Article.svelte";
-  import BannerLinks from "../../../components/BannerLinks.svelte";
+  import Article from "$lib/components/Article.svelte";
+  import BannerLinks from "$lib/components/BannerLinks.svelte";
   import type { PageServerData } from "./$types";
-  import Title from "../../../components/Title.svelte";
-  import Header from "../../../components/Header.svelte";
+  import Title from "$lib/components/Title.svelte";
+  import Header from "$lib/components/Header.svelte";
 
   export let data: PageServerData;
 </script>

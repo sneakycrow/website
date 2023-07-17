@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Header from "../components/Header.svelte";
-  import BannerLinks from "../components/BannerLinks.svelte";
-  import AboutMe from "../components/AboutMe.svelte";
+  import Header from "$lib/components/Header.svelte";
+  import BannerLinks from "$lib/components/BannerLinks.svelte";
+  import AboutMe from "$lib/components/AboutMe.svelte";
+  import MOTD from "$lib/components/MOTD.svelte";
   import type { PageServerData } from "./$types";
-  import MOTD from "../components/MOTD.svelte";
 
   export let data: PageServerData;
 </script>

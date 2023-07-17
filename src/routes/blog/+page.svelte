@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Header from "../../components/Header.svelte";
-  import Title from "../../components/Title.svelte";
-  import PostExcerpt from "../../components/PostExcerpt.svelte";
-  import BannerLinks from "../../components/BannerLinks.svelte";
+  import Header from "$lib/components/Header.svelte";
+  import Title from "$lib/components/Title.svelte";
+  import PostExcerpt from "$lib/components/PostExcerpt.svelte";
+  import BannerLinks from "$lib/components/BannerLinks.svelte";
 
   import type { PageServerData } from "./$types";
 
