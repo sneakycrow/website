@@ -11,7 +11,7 @@
 <main class="grid gap-4 grid-flow-row bg-black p-4 min-h-screen max-w-full">
   <Header subtitle="software wizard" title="Sneaky Crow" />
   <BannerLinks />
-  <MOTD content={data.motd.content} image={data.motd.image} source={data.motd.source} />
+  <MOTD content={data.motd.content} image={data.motd.image} source={data.motd.url} />
   <div class="bg-white w-full flex flex-col justify-center items-center lg:p-0 p-4">
     <AboutMe />
   </div>
