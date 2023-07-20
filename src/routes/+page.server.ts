@@ -3,8 +3,7 @@ import { getMastodonStatus } from "$lib/motd";
 
 export const load = (async ({ params }) => {
   const statuses = await getMastodonStatus();
-  const latestStatus = statuses[2];
-  console.log(latestStatus.url);
+  const latestStatus = statuses[0];
   return {
     motd: {
       content: latestStatus.content,
