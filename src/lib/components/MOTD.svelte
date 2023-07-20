@@ -7,6 +7,7 @@
 
   export let content: string;
   export let source: string;
+  export let image: string = "";
 
   let ready = false;
   onMount(() => ready = true);
@@ -19,6 +20,9 @@
       <div class="self-center text-lg">
         {@html content}
       </div>
+      {#if image}
+        <img class="self-center w-full max-w-[500px] rounded-lg shadow-lg" src={image} alt="" />
+      {/if}
       <a class="text-green-550 hover:underline text-xs self-end hover:cursor-pointer flex items-center justify-center"
          href={source}
          target="_blank">
