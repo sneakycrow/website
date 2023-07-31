@@ -173,7 +173,7 @@ fn setup(
 Next, we just need to build our game for the wasm target.
 
 ```shell
-cargo build --bin game --target wasm32-unknown-unknown
+cargo build --release --bin game --target wasm32-unknown-unknown
 ```
 
 Now we should have a wasm file at `target/wasm32-unknown-unknown/release/game.wasm`.
