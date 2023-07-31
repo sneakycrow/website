@@ -113,8 +113,8 @@ use bevy::{prelude::*, sprite::MaterialMesh2dBundle};
 fn main() {
     let mut window_plugin = WindowPlugin::default();
     window_plugin.primary_window = Some(Window {
-        title: "Art".to_string(),
-        canvas: Some("#art_canvas".to_string()),
+        title: "Game".to_string(),
+        canvas: Some("#game_canvas".to_string()),
         ..Default::default()
     });
     let plugins = DefaultPlugins.set(window_plugin);
