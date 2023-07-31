@@ -1,5 +1,5 @@
 ---
-title: "Playing a Bevy Game in SvelteKit"
+title: "Running a Bevy Game in SvelteKit"
 slug: "bevy-game-in-svelte-kit"
 summary: "Running your bevy games with wasm in SvelteKit"
 ---
