@@ -176,7 +176,7 @@ Next, we just need to build our game for the wasm target.
 cargo build --bin game --target wasm32-unknown-unknown
 ```
 
-Now we should have a wasm file at `game/target/wasm32-unknown-unknown/release/game.wasm`.
+Now we should have a wasm file at `target/wasm32-unknown-unknown/release/game.wasm`.
 
 We're almost done! Next we're going to utilize [wasm-bindgen](https://github.com/rustwasm/wasm-bindgen) to
 package our wasm file into a js/ts file that we can import into our SvelteKit project.
