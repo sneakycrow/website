@@ -6,9 +6,9 @@ module.exports = {
       sans: ["Inter", "sans-serif"]
     },
     fontSize: {
-      xs: "0.6rem",
-      sm: "0.8rem",
-      base: "1rem",
+      xs: "0.9rem",
+      sm: "1rem",
+      base: "1.25rem",
       lg: "1.5rem",
       xl: "2rem",
       "2xl": ["3.2rem", { lineHeight: "3.4rem" }],
