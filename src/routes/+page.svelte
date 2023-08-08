@@ -13,8 +13,8 @@
 <main class="grid gap-4 grid-flow-row bg-black p-4 min-h-screen max-w-full">
   <Header subtitle="software wizard" title="Sneaky Crow" />
   <BannerLinks />
-  <div class="flex divide-x-[16px] divide-black bg-white">
-    <div class="w-1/2">
+  <div class="w-full gap-4 grid grid-flow-row lg:grid-cols-2">
+    <div>
       <MOTD content={data.motd.content} image={data.motd.image} source={data.motd.url} />
     </div>
     <div class="p-4 flex flex-col h-full justify-between bg-white">
