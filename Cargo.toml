@@ -1,6 +1,7 @@
 [workspace]
 members = [
-    "art"
+    "art",
+    "games"
 ]
 resolver = "2"
 
