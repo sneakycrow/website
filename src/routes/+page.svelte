@@ -6,15 +6,8 @@
   import type { PageServerData } from "./$types";
   import Title from "$lib/components/Title.svelte";
 
-  import { onMount } from "svelte";
-  import { fade } from "svelte/transition";
 
-
-  let ready = false;
   export let data: PageServerData;
-  onMount(() => {
-    ready = true;
-  });
 </script>
 
 <main class="grid gap-4 grid-flow-row bg-black p-4 min-h-screen max-w-full">
@@ -24,13 +17,11 @@
     <div class="w-1/2">
       <MOTD content={data.motd.content} image={data.motd.image} source={data.motd.url} />
     </div>
-    <div class="w-1/2 p-4 flex flex-col h-full justify-between" in:fade={{ delay: 250, duration: 300 }}>
-      {#if ready}
-        <Title size="sm">Featured Post</Title>
-        <div class="self-center text-lg">
-          <a href={`/blog/${data.featuredPost.slug}`}>{data.featuredPost.title}</a>
-        </div>
-      {/if}
+    <div class="p-4 flex flex-col h-full justify-between bg-white">
+      <Title size="sm">Featured Post</Title>
+      <div class="self-center text-lg">
+        <a href={`/blog/${data.featuredPost.slug}`}>{data.featuredPost.title}</a>
+      </div>
       <p
         class="text-xs text-gray-400 italic self-end hover:cursor-pointer flex items-center justify-center">
         {data.featuredPost.date}
