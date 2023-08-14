@@ -4,6 +4,6 @@
   $: code = raw.replace(/`/g, "");
 </script>
 
-<code class="font-bold bg-gray-800 text-green-500 p-2 rounded-sm">
+<code class="bg-gray-100 text-green-600 p-2 rounded-sm font-mono">
   {code}
 </code>
