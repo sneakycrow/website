@@ -6,7 +6,7 @@ enum Game {
 }
 
 impl Game {
-    fn run(&self) {
+    pub fn run(&self) {
         match self {
             Game::CubeSpawner => cube_spawner::run(),
         }
