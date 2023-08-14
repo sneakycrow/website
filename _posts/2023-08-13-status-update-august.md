@@ -18,7 +18,7 @@ finally starting to get some interest from investors. I'm really excited to see 
 have more to share soon.
 
 As far as life goes, lots of music and video games. I've been messing around with my
-new [Bit Commander peda](https://www.earthquakerdevices.com/bit-commander), and I've been having a lot of fun with it.
+new [Bit Commander pedal](https://www.earthquakerdevices.com/bit-commander), and I've been having a lot of fun with it.
 I've also been playing a lot of [Baldur's Gate 3](https://baldursgate3.game/), and I'm really enjoying it. I've been
 really impressed with the narrative flexibility and game mechanics. They've really made something special.
 
