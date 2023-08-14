@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+/target
 
 # testing
 /coverage
@@ -38,6 +39,3 @@ next-env.d.ts
 .idea/
 .vscode/
 .svelte-kit/
-
-# rust
-target/
