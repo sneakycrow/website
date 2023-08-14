@@ -1,3 +1,3 @@
-<p class="text-base lg:text-lg leading-1">
+<p class="leading-1">
   <slot />
 </p>
