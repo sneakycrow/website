@@ -3,7 +3,17 @@ module.exports = {
   content: ["./src/**/*.{html,js,svelte,ts}"],
   theme: {
     fontFamily: {
-      sans: ["Inter", "sans-serif"]
+      sans: ["Inter", "sans-serif"],
+      mono: [
+        "ui-monospace",
+        "SFMono-Regular",
+        "Menlo",
+        "Monaco",
+        "Consolas",
+        "Liberation Mono",
+        "Courier New",
+        "monospace"
+      ]
     },
     fontSize: {
       xs: "0.9rem",
