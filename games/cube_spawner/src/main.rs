@@ -5,7 +5,7 @@ use bevy_xpbd_3d::{math::*, prelude::*};
 
 mod plugins;
 
-pub(crate) fn run() {
+pub(crate) fn main() {
     App::new()
         .add_plugins((
             DefaultPlugins,

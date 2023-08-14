@@ -1,7 +1,7 @@
 [workspace]
 members = [
     "art",
-    "games"
+    "games/*"
 ]
 resolver = "2"
 
