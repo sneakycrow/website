@@ -35,7 +35,7 @@
     "classnames": "^2.3.2",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-svelte": "^2.33.0",
+    "eslint-plugin-svelte": "^2.34.1",
     "gray-matter": "^4.0.3",
     "lucia": "^2.4.0",
     "marked": "^5.1.1",
