@@ -1,10 +1,15 @@
 import type { LayoutServerLoad } from "./$types";
 
 export const load: LayoutServerLoad = async ({ locals }) => {
-  const session = await locals.auth.validate();
-  if (!session) return;
-  return {
-    username: session.user.username,
-    avatar: session.user.avatar
-  };
+  try {
+    const session = await locals.auth.validate();
+    if (!session) return;
+    return {
+      username: session.user.username,
+      avatar: session.user.avatar
+    };
+  } catch (error) {
+    // TODO: This will go off until I actually connect the DB
+    console.error(`Error authorizing user`, error);
+  }
 };
