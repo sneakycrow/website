@@ -10,7 +10,7 @@
   export let data: PageServerData;
 </script>
 
-<main class="grid gap-4 grid-flow-row bg-black p-4 min-h-screen max-w-full">
+<main class="grid gap-4 grid-flow-row p-4 min-h-screen max-w-full">
   <Header subtitle="software wizard" title="Sneaky Crow" />
   <BannerLinks />
   <div class="w-full gap-4 grid grid-flow-row lg:grid-cols-2">
