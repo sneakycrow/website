@@ -17,7 +17,7 @@
   ];
 </script>
 <div class="bg-white flex justify-center">
-  <nav class="py-4 w-full flex flex-col justify-between xl:flex-row items-center max-w-[1000px]">
+  <nav class="py-4 w-full flex flex-col justify-evenly xl:flex-row items-center max-w-[1000px]">
     {#each links as link, index}
       <a
         href={link.url}
