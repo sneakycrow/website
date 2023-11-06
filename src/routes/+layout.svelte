@@ -1,7 +1,6 @@
 <script lang="ts">
   import "../app.css";
   import type { LayoutServerData } from "./$types";
-  import Footer from "$lib/components/Footer.svelte";
 
   export let data: LayoutServerData;
 
@@ -15,6 +14,4 @@
 </script>
 
 <slot />
-
-<Footer {user} />
 
