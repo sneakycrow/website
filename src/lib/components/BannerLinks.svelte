@@ -13,12 +13,6 @@
       copy: "resume",
       url: "/resume.pdf",
       icon: "ri:briefcase-2-line"
-    },
-    {
-      copy: "mastodon",
-      url: "https://cybre.gg/@squid",
-      rel: "me",
-      icon: "ri:mastodon-line"
     }
   ];
 </script>
