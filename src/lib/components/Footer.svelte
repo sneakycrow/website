@@ -1,13 +1,10 @@
-<script lang="ts">
-  import ProfileMini from "$lib/components/ProfileMini.svelte";
-
-  export let user: { username: string; avatar: string; } | undefined;
-</script>
-
-<footer class="bg-white mx-4 mb-4 p-2 flex flex-col">
-  {#if user}
-    <ProfileMini avatar={user.avatar} username={user.username} />
-  {:else}
-    <a href="/login">Login</a>
-  {/if}
+<footer class="bg-white w-full p-2 flex items-center justify-center">
+  <div class="flex flex-nowrap justify-between w-full max-w-[1000px]">
+    <div class="flex flex-col text-left items-start w-3/4">
+      <slot name="left" />
+    </div>
+    <div class="flex flex-col text-right items-end w-1/4">
+      <slot name="right" />
+    </div>
+  </div>
 </footer>
