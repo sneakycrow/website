@@ -7,7 +7,5 @@
 <main class="grid gap-4 grid-flow-row p-4 min-h-screen max-w-full">
   <Header subtitle="software wizard" title="Sneaky Crow" />
   <BannerLinks />
-  <div class="bg-white w-full flex flex-col justify-center items-center lg:p-0 p-4">
-    <AboutMe />
-  </div>
+  <AboutMe />
 </main>
