@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-  schedule:
-    - cron: "0 0 * * *"
   workflow_dispatch:
 
 concurrency:
@@ -15,13 +13,22 @@ concurrency:
 jobs:
   build_deploy:
     environment: production
-    name: build and deploy
+    name: build and deploy image
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v2
-      - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-          ORIGIN: ${{ env.ORIGIN }}
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: install doctl
+        uses: digitalocean/action-doctl@v2.4.1
+        with:
+          token: ${{ secrets.DO_ACCESS_KEY }}
+
+      - name: Build container image
+        run: docker build -t ${{ secrets.REGISTRY }}/${{ github.repository }}:$(echo $GITHUB_SHA | head -c7) -t ${{ secrets.REGISTRY }}/${{ github.repository }}:latest .
+
+      - name: Log in to DigitalOcean Container Registry with short-lived credentials
+        run: doctl registry login --expiry-seconds 1200
+
+      - name: Push image to DigitalOcean Container Registry
+        run: docker push ${{ secrets.REGISTRY }}/${{ github.repository }} --all-tags
