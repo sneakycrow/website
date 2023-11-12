@@ -5,8 +5,8 @@
       url: "/blog"
     },
     {
-      copy: "email me",
-      url: "mailto:zach@sneakycrow.dev"
+      copy: "about",
+      url: "/#about"
     }
   ];
 </script>
