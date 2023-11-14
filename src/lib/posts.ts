@@ -9,6 +9,7 @@ export type Post = {
   body: string;
   title: string;
   summary: string;
+  featured?: boolean;
   series_key?: string;
   series_pos?: number;
 };
@@ -16,6 +17,11 @@ type Series = {};
 
 export const getAllPosts = async (): Promise<Post[]> => {
   return await processLocalPosts();
+};
+
+export const getFeaturedPosts = async (): Promise<Post[]> => {
+  const allPosts = await getAllPosts();
+  return allPosts.filter((p: Post) => p.featured);
 };
 
 export const getSeriesByPost = async (post: Post): Promise<Post[]> => {

@@ -1,26 +1,16 @@
 <script lang="ts">
   import Header from "$lib/components/Header.svelte";
-  import Title from "$lib/components/Title.svelte";
-  import PostExcerpt from "$lib/components/PostExcerpt.svelte";
   import BannerLinks from "$lib/components/BannerLinks.svelte";
 
   import type { PageServerData } from "./$types";
+  import PostList from "$lib/components/PostList.svelte";
 
   export let data: PageServerData;
 </script>
 
 <main class="grid gap-4 grid-flow-row bg-black p-4 min-h-screen">
   <Header subtitle="award-winning blog" title="brain juice" />
-  <div class="flex flex-col w-full bg-white p-6 lg:items-center">
-    <div class="lg:w-3/4 max-w-[1000px]">
-      <Title>Posts</Title>
-      <div class="divide-y-2 divide-green-100">
-        {#each data.posts as post, i}
-          <PostExcerpt {post} />
-        {/each}
-      </div>
-    </div>
-  </div>
+  <PostList posts={data.posts} />
   <BannerLinks />
 </main>
  
