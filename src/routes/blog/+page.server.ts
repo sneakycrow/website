@@ -3,7 +3,8 @@ import type { Post } from "$lib/posts";
 import { getAllPosts } from "$lib/posts";
 
 export const prerender = true;
-export const load = (async ({ params }): Promise<{ posts: Post[] }> => {
+
+export const load: PageServerLoad = async ({ locals }) => {
   const posts = await getAllPosts();
   const postsWithPrefix: Post[] = posts.map((p) => {
     return {
@@ -14,4 +15,4 @@ export const load = (async ({ params }): Promise<{ posts: Post[] }> => {
   return {
     posts: postsWithPrefix
   };
-}) satisfies PageServerLoad;
+};
