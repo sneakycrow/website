@@ -8,19 +8,25 @@ import { env } from "$env/dynamic/private";
 
 export const initializedPrismaClient = new PrismaClient();
 
+const GITHUB_SCOPES = ["user:email"];
+
 export const auth = lucia({
+  adapter: prisma(initializedPrismaClient),
   env: dev ? "DEV" : "PROD",
   middleware: sveltekit(),
-  adapter: prisma(initializedPrismaClient),
   getUserAttributes: (data) => {
     return {
       username: data.username,
       avatar: data.avatar
     };
+  },
+  sessionCookie: {
+    name: "user_session",
+    attributes: {
+      sameSite: "strict"
+    }
   }
 });
-
-const GITHUB_SCOPES = ["user:email"];
 
 export const githubAuth = github(auth, {
   redirectUri: "http://localhost:5173/auth/callback/github",
