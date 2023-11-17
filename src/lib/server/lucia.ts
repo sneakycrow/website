@@ -19,12 +19,6 @@ export const auth = lucia({
       username: data.username,
       avatar: data.avatar
     };
-  },
-  sessionCookie: {
-    name: "user_session",
-    attributes: {
-      sameSite: "strict"
-    }
   }
 });
 
