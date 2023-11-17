@@ -1,10 +1,26 @@
 <script>
   import Title from "./Title.svelte";
   import Profile from "./Profile.svelte";
+  import Tag from "$lib/components/Tag.svelte";
+
+  const skills = [
+    "Rust",
+    "Go",
+    "TypeScript",
+    "React",
+    "Svelte",
+    "gRPC",
+    "Kubernetes",
+    "Docker",
+    "AWS",
+    "Terraform",
+    "PostgreSQL",
+    "Redis"
+  ];
 </script>
 
 <div class="py-4 w-full bg-white" id="about">
-  <article class="lg:w-3/4 max-w-[1000px] mx-auto space-y-4">
+  <article class="lg:w-3/4 p-4 max-w-[1000px] mx-auto space-4">
     <Title>Who am I?!</Title>
     <Profile />
     <p class="text-base my-8">
@@ -27,5 +43,10 @@
         data streaming, queueing, processing, and general data engineering
       </li>
     </ul>
+    <aside class="flex flex-wrap items-center justify-center">
+      {#each skills as skill}
+        <Tag>{skill}</Tag>
+      {/each}
+    </aside>
   </article>
 </div>
