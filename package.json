@@ -15,13 +15,14 @@
     "lint": "prettier --plugin-search-dir . --check . && eslint .",
     "format": "prettier --plugin-search-dir . --write .",
     "start": "node build",
-    "migrate": "prisma migrate dev"
+    "migrate": "prisma migrate dev",
+    "sync": "npx svelte-kit sync"
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.4.10",
     "@iconify/svelte": "^3.1.4",
-    "@lucia-auth/adapter-prisma": "^3.0.1",
-    "@lucia-auth/oauth": "^2.2.0",
+    "@lucia-auth/adapter-prisma": "^3.0.2",
+    "@lucia-auth/oauth": "^3.5.0",
     "@prisma/client": "^5.2.0",
     "@sveltejs/adapter-node": "^1.3.1",
     "@sveltejs/adapter-static": "^2.0.3",
@@ -37,7 +38,7 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-svelte": "^2.34.1",
     "gray-matter": "^4.0.3",
-    "lucia": "^2.4.0",
+    "lucia": "^2.7.4",
     "marked": "^5.1.1",
     "postcss": "^8.4.27",
     "prettier": "^2.8.0",
