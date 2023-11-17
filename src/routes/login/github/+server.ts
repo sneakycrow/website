@@ -1,11 +1,11 @@
-import { dev } from "$app/environment";
 import type { RequestHandler } from "./$types";
-import { githubAuth } from "$lib/server/lucia";
+import { dev } from "$app/environment";
+import { githubAuth } from "$lib/server/lucia.js";
 
 export const GET: RequestHandler = async ({ cookies }) => {
   const [url, state] = await githubAuth.getAuthorizationUrl();
   // store state
-  cookies.set("patreon_oauth_state", state, {
+  cookies.set("github_oauth_state", state, {
     httpOnly: true,
     secure: !dev,
     path: "/",
