@@ -13,7 +13,7 @@
   <Header subtitle="software wizard" title="Sneaky Crow" />
   <BannerLinks />
   {#if data.posts}
-    <PostList posts={data.posts} title="Featured Posts" />
+    <PostList posts={data.posts} title="Recent Posts" />
   {/if}
   <AboutMe />
 </main>

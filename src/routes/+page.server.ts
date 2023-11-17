@@ -1,12 +1,14 @@
-import { getFeaturedPosts, type Post } from "$lib/posts";
+import { getAllPosts, type Post } from "$lib/posts";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ locals }) => {
   try {
     const session = await locals.auth.validate();
 
-    const posts = await getFeaturedPosts();
-    const postsWithPrefix: Post[] = posts.map((p) => {
+    const posts = await getAllPosts();
+    // Trim to 3 most recent posts
+    const trimmedPosts = posts.slice(0, 3);
+    const postsWithPrefix: Post[] = trimmedPosts.map((p) => {
       return {
         ...p,
         slug: `/blog/${p.slug}`
