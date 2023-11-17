@@ -26,7 +26,7 @@ export const auth = lucia({
 });
 
 export const githubAuth = github(auth, {
-  redirectUri: "http://localhost:5173/auth/callback/github",
+  redirectUri: "https://sneakycrow.dev/auth/callback/github",
   clientId: env.GITHUB_ID ?? "",
   clientSecret: env.GITHUB_SECRET ?? "",
   scope: GITHUB_SCOPES
