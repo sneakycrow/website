@@ -13,7 +13,7 @@
 <main class="flex flex-col space-y-4 p-4 min-h-screen max-w-full">
   <Header subtitle="software wizard" title="Sneaky Crow" />
   <BannerLinks />
-  {#if data.posts}
+  {#if data.posts?.length > 0}
     <PostList posts={data.posts} title="Recent Posts" cols="grid-cols-2" />
   {/if}
   <AboutMe />

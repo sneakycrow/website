@@ -3,29 +3,42 @@ import type { Actions, PageServerLoad } from "./$types";
 import { fail, redirect } from "@sveltejs/kit";
 import { auth } from "$lib/server/lucia";
 
+type LoadOutput = {
+  posts: Post[];
+  username?: string;
+  avatar?: string;
+};
+
 export const load: PageServerLoad = async ({ locals }) => {
+  let output: LoadOutput = {
+    posts: []
+  };
+  // Get session
   try {
     const session = await locals.auth.validate();
-
+    if (session) {
+      output.username = session.user.username;
+      output.avatar = session.user.avatar;
+    }
+  } catch (e) {
+    console.error(`Could not load page on server ${e}`);
+  }
+  // Get posts
+  try {
     const posts = await getAllPosts();
     // Trim to 3 most recent posts
     const trimmedPosts = posts.slice(0, 4);
-    const postsWithPrefix: Post[] = trimmedPosts.map((p) => {
+    output.posts = trimmedPosts.map((p) => {
       return {
         ...p,
         slug: `/blog/${p.slug}`
       };
     });
-    if (!session) return { posts: postsWithPrefix };
-    return {
-      posts: postsWithPrefix,
-      username: session.user.username,
-      avatar: session.user.avatar
-    };
   } catch (e) {
     console.error(`Could not load page on server ${e}`);
-    return { posts: [] };
   }
+
+  return output;
 };
 
 export const actions: Actions = {
