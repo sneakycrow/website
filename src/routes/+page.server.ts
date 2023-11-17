@@ -19,7 +19,8 @@ export const load: PageServerLoad = async ({ locals }) => {
     if (!session) return { posts: postsWithPrefix };
     return {
       posts: postsWithPrefix,
-      username: session.username
+      username: session.user.username,
+      avatar: session.user.avatar
     };
   } catch (e) {
     console.error(`Could not load page on server ${e}`);
