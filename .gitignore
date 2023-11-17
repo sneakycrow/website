@@ -40,3 +40,6 @@ next-env.d.ts
 .vscode/
 .svelte-kit/
 target/
+
+# Sentry Config File
+.sentryclirc
