@@ -13,16 +13,12 @@ declare global {
 }
 
 /// <reference types="lucia" />
-declare global {
-  namespace Lucia {
-    type Auth = import("$lib/server/lucia").Auth;
-
-    type DatabaseUserAttributes = {
-      avatar: string;
-      username: string;
-    };
-    type DatabaseSessionAttributes = Record<string, never>;
-  }
+declare namespace Lucia {
+  type Auth = import("./lucia.js").Auth;
+  type DatabaseUserAttributes = {
+    username: string;
+  };
+  type DatabaseSessionAttributes = {};
 }
 
 interface ImportMetaEnv {
