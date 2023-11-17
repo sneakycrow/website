@@ -9,7 +9,6 @@ export const load: LayoutServerLoad = async ({ locals }) => {
       avatar: session.user.avatar
     };
   } catch (error) {
-    // TODO: This will go off until I actually connect the DB
     console.error(`Error authorizing user`, error);
   }
 };
