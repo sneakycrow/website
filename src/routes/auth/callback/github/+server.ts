@@ -3,7 +3,7 @@ import { OAuthRequestError } from "@lucia-auth/oauth";
 import type { RequestEvent } from "@sveltejs/kit";
 
 export const GET = async ({ url, cookies, locals }: RequestEvent) => {
-  const storedState = cookies.get("patreon_oauth_state");
+  const storedState = cookies.get("github_oauth_state");
   const state = url.searchParams.get("state");
   const code = url.searchParams.get("code");
   // validate state
@@ -13,8 +13,8 @@ export const GET = async ({ url, cookies, locals }: RequestEvent) => {
     });
   }
   try {
-    const { createUser, githubUser, existingUser } = await githubAuth.validateCallback(code);
-
+    const { createUser, githubUser, getExistingUser } = await githubAuth.validateCallback(code);
+    const existingUser = await getExistingUser();
     const getUser = async () => {
       if (existingUser) return existingUser;
       const { email, login, avatar_url } = githubUser;
