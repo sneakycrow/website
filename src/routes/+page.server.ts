@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 
     const posts = await getAllPosts();
     // Trim to 3 most recent posts
-    const trimmedPosts = posts.slice(0, 3);
+    const trimmedPosts = posts.slice(0, 4);
     const postsWithPrefix: Post[] = trimmedPosts.map((p) => {
       return {
         ...p,
