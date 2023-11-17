@@ -4,6 +4,6 @@
 >
   <img
     alt="Logo for Sneaky Crow, LLC (vector art of a crow with a green baseball cap on)"
-    src="/logo_v2.svg"
+    src="/logo_v3.svg"
   />
 </a>
