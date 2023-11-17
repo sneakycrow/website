@@ -1,8 +1,8 @@
-import { initializedPrismaClient as prisma } from "$lib/server/lucia";
 import type { User } from "@prisma/client";
+import { prismaClient } from "$lib/server/db";
 
 export const getUserByUsername = async (username: string): Promise<User | null> => {
-  return prisma.user.findUnique({
+  return prismaClient.user.findUnique({
     where: {
       username
     }
