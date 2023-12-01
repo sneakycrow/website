@@ -62,6 +62,6 @@
   "dependencies": {
     "@sentry/node": "^7.80.1",
     "@sentry/profiling-node": "^1.2.6",
-    "@sentry/sveltekit": "^7.80.1"
+    "@sentry/sveltekit": "^7.84.0"
   }
 }
