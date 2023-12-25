@@ -10,6 +10,11 @@
       icon: "prime:github"
     },
     {
+      copy: "mastadon",
+      url: "https://social.lol/@sneakycrow",
+      icon: "mdi:mastodon"
+    },
+    {
       copy: "resume",
       url: "/resume.pdf",
       icon: "tabler:id"
@@ -27,6 +32,7 @@
       <a
         href={link.url}
         {...link}
+        target="_blank"
         class="text-xl font-bold text-green-550 opacity-50 hover:opacity-100 transition-opacity"
       >
       <span class="flex flex-row items-center">
