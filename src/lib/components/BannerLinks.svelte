@@ -10,6 +10,11 @@
       icon: "prime:github"
     },
     {
+      copy: "mastadon",
+      url: "https://social.lol/@sneakycrow",
+      icon: "mdi:mastodon"
+    },
+    {
       copy: "resume",
       url: "/resume.pdf",
       icon: "tabler:id"
