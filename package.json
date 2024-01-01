@@ -37,7 +37,7 @@
     "eslint-plugin-svelte": "^2.34.1",
     "gray-matter": "^4.0.3",
     "lucia": "^2.7.4",
-    "marked": "^5.1.1",
+    "marked": "^11.1.1",
     "postcss": "^8.4.27",
     "prettier": "^2.8.0",
     "prettier-plugin-svelte": "^2.10.1",
