@@ -2,21 +2,21 @@
   export let links = [
     {
       copy: "blog",
-      url: "/blog"
+      url: "/blog",
+      hover: "hover:text-red-500"
     },
     {
       copy: "about",
-      url: "/#about"
+      url: "/#about",
+      hover: "hover:text-blue-500"
     }
   ];
 </script>
 
-<div class="p-6 bg-white flex flex-col justify-evenly items-center lg:items-end">
+<div class={`w-full flex space-x-4 justify-end ${$$restProps.class}`}>
   {#each links as link, index}
-    <a href={link.url} class="my-4 text-center active:text-green-550 hover:text-green-550">
-      <span class="text-2xl font-extrabold">
-        <span class="relative text-black block">{link.copy}</span>
-      </span>
+    <a href={link.url} class={`text-black block text-xl font-bold uppercase ${link.hover}`}>
+      {link.copy}
     </a>
   {/each}
 </div>

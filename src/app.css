@@ -10,12 +10,18 @@
 
 html,
 body {
-    @apply bg-black;
+    @apply bg-white;
 }
 
 a {
     @apply text-green-550;
     @apply font-semibold;
+    @apply transition-opacity;
+    @apply transition-colors;
+}
+
+a:hover {
+    @apply opacity-75;
 }
 
 .noise {

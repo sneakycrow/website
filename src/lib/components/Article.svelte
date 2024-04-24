@@ -5,8 +5,9 @@
   export let post: Post;
 </script>
 
-<div class="bg-white p-6 flex justify-center">
-  <article class="space-y-8 w-full lg:w-3/4 max-w-[1000px]">
+<div class="p-4 grid grid-cols-2 items-start justify-center my-10">
+  <h2 class="text-4xl mb-10 font-bold col-start-1 col-span-2">{post.title}</h2>
+  <article class="w-full col-start-1 col-span-2">
     <MarkdownRenderer source={post.body} />
   </article>
 </div>

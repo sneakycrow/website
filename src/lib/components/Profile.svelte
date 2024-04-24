@@ -1,12 +1,12 @@
-<div class="mx-auto max-w-[1000px] flex flex-col md:flex-row items-center w-full">
+<div class={`flex space-x-10 items-center ${$$restProps.class}`}>
   <img
     alt="Zachary Corvidae, owner of Sneaky Crow"
-    class="rounded-full inline-block my-4 self-center"
-    height={200}
+    class="rounded-md border-green-550 shadow-md"
+    height={250}
     src="/profile_normal.jpeg"
-    width={200}
+    width={250}
   />
-  <ul class="inline-flex flex-col md:ml-10 text-base md:text-lg justify-center items-start">
+  <ul class="flex flex-col text-xl">
     <li>
       <span class="font-bold">Name:</span> Zachary Corvidae
     </li>

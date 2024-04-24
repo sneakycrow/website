@@ -9,13 +9,15 @@
   export let source: string;
 </script>
 
-<SvelteMarkdown
-  renderers={{
-        code: Code,
-        codespan: CodeSpan,
-        paragraph: Paragraph,
-        heading: Heading,
-        list: List
-      }}
-  source={source}
-/>
+<article class="max-w-[800px]">
+  <SvelteMarkdown
+    renderers={{
+      code: Code,
+      codespan: CodeSpan,
+      paragraph: Paragraph,
+      heading: Heading,
+      list: List
+    }}
+    {source}
+  />
+</article>

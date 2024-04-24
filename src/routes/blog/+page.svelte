@@ -8,13 +8,8 @@
   export let data: PageServerData;
 </script>
 
-<main class="grid gap-4 grid-flow-row bg-black p-4 min-h-screen">
-  <Header subtitle="award-winning blog" title="brain juice" />
+<main class="grid gap-8 grid-flow-row p-4 min-h-screen">
+  <Header title="brain juice" link="/blog" />
   <PostList posts={data.posts} />
-  <Footer>
-    <div class="flex flex-col space-y-2" slot="left">
-      <span class="text-sm">© {new Date().getFullYear()} Sneaky Crow, LLC</span>
-      <span class="text-sm">All Rights Reserved</span>
-    </div>
-  </Footer>
+  <Footer />
 </main>
