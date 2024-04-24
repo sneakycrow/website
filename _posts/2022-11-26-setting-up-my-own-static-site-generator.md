@@ -1,5 +1,5 @@
 ---
-title: "Setting up my own static site generator, part 1 - planning & initialization"
+title: "Custom Static Site Generator - planning & initialization"
 category: "software"
 series_key: "website-generator-tutorial"
 series_pos: 0
@@ -22,20 +22,20 @@ more organized approach, generally, than the latter.
 My requirements with jumping off points for implementations:
 
 1. Small static files as my output
-    1. Simple binary built in Rust that I can run that produces the html files
+   1. Simple binary built in Rust that I can run that produces the html files
 2. Support for local markdown files parsed into blog posts
-    1. [pulldown-cmark](https://github.com/raphlinus/pulldown-cmark) for parsing markdown into html
-    2. [handlebars](https://github.com/sunng87/handlebars-rust) for page templating
+   1. [pulldown-cmark](https://github.com/raphlinus/pulldown-cmark) for parsing markdown into html
+   2. [handlebars](https://github.com/sunng87/handlebars-rust) for page templating
 3. Support for SASS
-    1. [grass](https://github.com/connorskees/grass) for parsing with Rust
+   1. [grass](https://github.com/connorskees/grass) for parsing with Rust
 4. Support for simple assets (images and fonts)
-    1. [walkdir](https://github.com/BurntSushi/walkdir) for walking directories to copy assets
+   1. [walkdir](https://github.com/BurntSushi/walkdir) for walking directories to copy assets
 5. Automatic Deployment
-    1. [GitHub s3 deploy + cloudfront cache invalidation action](https://github.com/Reggionick/s3-deploy) for deploying
-       to S3 and invalidating cache
+   1. [GitHub s3 deploy + cloudfront cache invalidation action](https://github.com/Reggionick/s3-deploy) for deploying
+      to S3 and invalidating cache
 6. Dynamic UI components using React (as the "templating" language)
-    1. [preact](https://preactjs.com/) for a small basic react implementation
-        1. using the [htm](https://github.com/developit/htm) library, so we don't need a js build step
+   1. [preact](https://preactjs.com/) for a small basic react implementation
+      1. using the [htm](https://github.com/developit/htm) library, so we don't need a js build step
 
 ## Setting up the environment
 

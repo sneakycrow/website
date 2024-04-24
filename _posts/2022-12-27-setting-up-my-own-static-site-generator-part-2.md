@@ -1,5 +1,5 @@
 ---
-title: "Setting up my own static site generator, part 2 - handlebars & SCSS"
+title: "Custom Static Site Generator - handlebars & SCSS"
 category: "software"
 series_key: "website-generator-tutorial"
 series_pos: 1
@@ -47,7 +47,6 @@ from [part 1][part 1] and move it to the template file. So, we should
 have the file `assets/templates/pages/index.hbs` now, and it should look something like this:
 
 ```handlebars
-
 <html lang="en">
   <head>
     <title>{{title}}</title>
@@ -184,7 +183,6 @@ fn main() {
 Lastly, make sure to add the appropriate `<link>` to our html template
 
 ```handlebars
-
 <html lang="en">
   <head>
     <title>{{title}}</title>
@@ -200,7 +198,5 @@ Congratulations! You should now have a templated static site generator with hand
 we'll implement a markdown parser so we can write static blog posts in markdown.
 
 [part 1]: https://sneakycrow.dev/2022/11/26/setting-up-my-own-static-site-generator.html
-
 [handlebars-rust]: https://crates.io/crates/handlebars
-
 [grass]: https://crates.io/crates/grass
