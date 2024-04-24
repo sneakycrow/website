@@ -14,11 +14,13 @@
       <span class="font-bold">Class:</span> Software Engineer
     </li>
     <li>
+      <span class="font-bold">Subclass:</span> Full Stack, Infrastructure, Big Data
+    </li>
+    <li>
       <span class="font-bold">Origin:</span> Portland, OR
     </li>
     <li>
-      <span class="font-bold">Experience:</span> 20
-      <span class="font-light text-sm md:text-base"> (years)</span>
+      <span class="font-bold">Experience:</span> 20 years
     </li>
   </ul>
 </div>
