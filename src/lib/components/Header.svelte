@@ -7,13 +7,17 @@
 </script>
 
 <header
-  class={`w-full grid grid-cols-3 grid-rows-2 items-center justify-between max-h-[200px] ${$$restProps.class}`}
+  class={`w-full grid grid-flow-dense grid-cols-3 lg:gap-10 lg:grid-rows-3 items-center justify-between lg:max-h-[300px] ${$$restProps.class}`}
 >
-  <Logo class="row-start-1 row-span-2 col-start-1 w-[200px] place-self-center justify-self-start" />
-  <Navigation class="w-full row-start-1 col-start-2 col-span-2" />
-  <section class="col-start-2 col-span-2 row-start-2 flex justify-end">
+  <Logo
+    class="row-start-1 py-4 lg:row-span-2 col-start-1 lg:col-span-1 col-span-3 w-full lg:w-[200px] place-self-center justify-self-start"
+  />
+  <Navigation class="w-full lg:row-start-1 row-start-2 col-start-2 col-span-2" />
+  <section
+    class="lg:col-start-2 col-start-1 lg:col-span-2 col-span-3 row-start-3 lg:row-start-2 flex justify-end"
+  >
     <a href={link} class="text-black hover:text-green-550">
-      <h1 class="text-5xl font-bold uppercase">{title}</h1>
+      <h1 class="text-xl lg:text-5xl font-bold uppercase">{title}</h1>
     </a>
   </section>
 </header>

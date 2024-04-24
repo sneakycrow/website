@@ -8,7 +8,7 @@
   export let data: PageServerData;
 </script>
 
-<main class="grid gap-8 grid-flow-row p-4 min-h-screen">
+<main class="flex flex-col p-2">
   <Header title="brain juice" link="/blog" />
   <PostList posts={data.posts} />
   <Footer />

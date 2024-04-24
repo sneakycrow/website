@@ -7,7 +7,7 @@
   export let data: PageServerData;
 </script>
 
-<main class="flex flex-col gap-4 p-4">
+<main class="flex flex-col p-4">
   <Header title="brain juice" link="/blog" />
   <Article post={data.post} />
   <Footer />

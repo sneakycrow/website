@@ -1,4 +1,6 @@
-<div class={`flex space-x-10 items-center ${$$restProps.class}`}>
+<div
+  class={`flex lg:flex-row flex-col lg:space-x-10 items-start justify-start ${$$restProps.class}`}
+>
   <img
     alt="Zachary Corvidae, owner of Sneaky Crow"
     class="rounded-md border-green-550 shadow-md"
@@ -6,21 +8,21 @@
     src="/profile_normal.jpeg"
     width={250}
   />
-  <ul class="flex flex-col text-xl">
-    <li>
+  <aside class="w-full flex flex-col lg:text-xl items-start justify-start">
+    <p>
       <span class="font-bold">Name:</span> Zachary Corvidae
-    </li>
-    <li>
+    </p>
+    <p>
       <span class="font-bold">Class:</span> Software Engineer
-    </li>
-    <li>
+    </p>
+    <p>
       <span class="font-bold">Subclass:</span> Full Stack, Infrastructure, Big Data
-    </li>
-    <li>
+    </p>
+    <p>
       <span class="font-bold">Origin:</span> Portland, OR
-    </li>
-    <li>
+    </p>
+    <p>
       <span class="font-bold">Experience:</span> 20 years
-    </li>
-  </ul>
+    </p>
+  </aside>
 </div>

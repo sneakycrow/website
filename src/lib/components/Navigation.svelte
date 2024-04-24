@@ -15,7 +15,10 @@
 
 <div class={`w-full flex space-x-4 justify-end ${$$restProps.class}`}>
   {#each links as link, index}
-    <a href={link.url} class={`text-black block text-xl font-bold uppercase ${link.hover}`}>
+    <a
+      href={link.url}
+      class={`text-black block lg:text-xl text-lg font-bold uppercase ${link.hover}`}
+    >
       {link.copy}
     </a>
   {/each}
