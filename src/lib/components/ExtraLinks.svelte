@@ -27,7 +27,7 @@
   ];
 </script>
 
-<nav class="py-2 flex flex-col justify-between items-start space-y-2">
+<nav class="py-2 flex flex-col justify-between items-end lg:items-start space-y-2">
   {#each links as link, index}
     <a
       href={link.url}
