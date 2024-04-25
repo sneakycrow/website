@@ -2,7 +2,7 @@
   import Profile from "./Profile.svelte";
 </script>
 
-<article class={`w-full ${$$restProps.class} grid grid-flow-row gap-10`} id="about">
+<article class={`w-full grid grid-flow-row gap-10 lg:text-lg ${$$restProps.class}`} id="about">
   <Profile />
   <p>
     My name is Zachary Corvidae, also known as sneaky crow. With over two decades of experience,
