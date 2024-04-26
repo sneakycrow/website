@@ -4,8 +4,12 @@
   import Header from "$lib/components/Header.svelte";
 </script>
 
+<svelte:head>
+  <title>art</title>
+</svelte:head>
+
 <main class="grid gap-4 grid-flow-row bg-black p-4 min-h-screen">
-  <Header subtitle="games & art by zach" title="play catch" />
+  <Header title="games & art by zach" />
   <BannerLinks />
   <Art />
 </main>

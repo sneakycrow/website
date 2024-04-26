@@ -8,6 +8,10 @@
   export let data: PageServerData;
 </script>
 
+<svelte:head>
+  <title>brain juice</title>
+</svelte:head>
+
 <main class="flex flex-col p-4 min-h-screen">
   <Header title="brain juice" link="/blog" />
   <PostList posts={data.posts} />

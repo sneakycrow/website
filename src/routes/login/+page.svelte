@@ -3,12 +3,19 @@
   import Logo from "$lib/components/Logo.svelte";
 </script>
 
-<main class="min-h-screen w-screen noise flex justify-center items-center text-white flex-col space-y-4">
+<svelte:head>
+  <title>login - sneaky crow</title>
+</svelte:head>
+
+<main
+  class="min-h-screen w-screen noise flex justify-center items-center text-white flex-col space-y-4"
+>
   <Logo />
   <h1 class="text-xl drop-shadow-md font-bold">Sign in</h1>
   <a
     class="flex flex-nowrap text-black items-center justify-between border-black border-4 rounded-lg px-4 py-2 drop-shadow-md bg-white hover:shadow-xl transition-shadow"
-    href="/login/github">
+    href="/login/github"
+  >
     Sign in with Github
     <Icon class="ml-2" icon="mdi:github" width={24} />
   </a>
