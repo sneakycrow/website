@@ -275,10 +275,10 @@
   resolved "https://registry.yarnpkg.com/@lucia-auth/adapter-prisma/-/adapter-prisma-3.0.2.tgz#712bfca8c4e74575c0aa53a96f1fed738afada09"
   integrity sha512-EyJWZene1/zasPwPctv8wwNErZt5mwwm5JATbhg+kXr3R8pbC7lJfVzDTAeeFClVH5k/FywRcsBl3JkPaNIcow==
 
-"@lucia-auth/oauth@^3.5.0":
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/@lucia-auth/oauth/-/oauth-3.5.0.tgz#96af9829dfcb8b7b006952481f5f996599784a58"
-  integrity sha512-JSwAMVwlDJtbvfcJV1nbkv41OD830pgICrx8zFT71SYd5I1MnEQ+GqMTXBGRyxzc5XlLatT8ZS1Jt0k81487xg==
+"@lucia-auth/oauth@^3.5.3":
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/@lucia-auth/oauth/-/oauth-3.5.3.tgz#bd42117ba74fa3db570fef920254b0ba620bf6f1"
+  integrity sha512-3blBldenf2zXsSJTZUwzB+NxI+0KJljfMHT0WR7hyLNwi4Ijss7F2cQqk2xW1lGH3lzdmsV93ZsY9Yv8ekBRUw==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
