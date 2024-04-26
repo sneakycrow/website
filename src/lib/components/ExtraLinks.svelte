@@ -1,7 +1,7 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
 
-  const ICON_SIZE = 48;
+  const ICON_SIZE = 24;
 
   export let links = [
     {
@@ -26,20 +26,19 @@
     }
   ];
 </script>
-<div class="bg-white flex justify-center">
-  <nav class="py-4 w-full flex flex-col justify-between xl:flex-row items-center max-w-[1000px]">
-    {#each links as link, index}
-      <a
-        href={link.url}
-        {...link}
-        target="_blank"
-        class="text-xl font-bold text-green-550 opacity-50 hover:opacity-100 transition-opacity"
-      >
+
+<nav class="py-2 flex flex-col justify-between items-end lg:items-start space-y-2">
+  {#each links as link, index}
+    <a
+      href={link.url}
+      {...link}
+      target="_blank"
+      class="text-lg text-green-550 opacity-50 hover:opacity-100 transition-opacity"
+    >
       <span class="flex flex-row items-center">
         <Icon icon={link.icon} height={ICON_SIZE} />
         <span class="ml-2">{link.copy}</span>
       </span>
-      </a>
-    {/each}
-  </nav>
-</div>
+    </a>
+  {/each}
+</nav>

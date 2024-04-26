@@ -1,6 +1,6 @@
 <script lang="ts">
   import Art from "$lib/components/Art.svelte";
-  import BannerLinks from "$lib/components/BannerLinks.svelte";
+  import BannerLinks from "$lib/components/ExtraLinks.svelte";
   import Header from "$lib/components/Header.svelte";
 </script>
 

@@ -4,7 +4,7 @@
 
   export let data: LayoutServerData;
 
-  let user: { username: string, avatar: string } | undefined;
+  let user: { username: string; avatar: string } | undefined;
   $: if (data.username && data.avatar) {
     user = {
       username: data.username,
@@ -14,4 +14,3 @@
 </script>
 
 <slot />
-
