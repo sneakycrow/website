@@ -1,5 +1,5 @@
 import fs from "fs";
-import matter from "gray-matter";
+import { default as matter } from "gray-matter";
 import { v4 as uuid } from "uuid";
 
 export type Post = {
