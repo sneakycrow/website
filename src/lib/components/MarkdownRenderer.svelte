@@ -9,7 +9,7 @@
   export let source: string;
 </script>
 
-<article class="max-w-[800px]">
+<article class="max-w-[800px] space-y-4">
   <SvelteMarkdown
     renderers={{
       code: Code,

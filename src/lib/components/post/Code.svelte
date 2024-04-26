@@ -5,4 +5,4 @@
   export let text: string;
 </script>
 
-<HighlightAuto class="py-6" code={text} />
+<HighlightAuto class="my-4" code={text} />
