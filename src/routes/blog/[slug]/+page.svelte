@@ -7,6 +7,10 @@
   export let data: PageServerData;
 </script>
 
+<svelte:head>
+  <title>{data.post.title} - sneaky crow</title>
+</svelte:head>
+
 <main class="flex flex-col p-4">
   <Header title="brain juice" link="/blog" />
   <Article post={data.post} />
