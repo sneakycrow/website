@@ -9,6 +9,11 @@
       copy: "about",
       url: "/#about",
       hover: "hover:text-blue-500"
+    },
+    {
+      copy: "projects",
+      url: "/#projects",
+      hover: "hover:text-yellow-500"
     }
   ];
 </script>
