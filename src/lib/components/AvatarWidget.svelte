@@ -1,9 +1,4 @@
 <script lang="ts">
-  import Icon from "@iconify/svelte";
-  import { slide } from "svelte/transition";
-  import { quintOut } from "svelte/easing";
-  import { enhance } from "$app/forms";
-
   type User = {
     username: string;
     avatar: string;
