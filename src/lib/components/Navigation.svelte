@@ -1,4 +1,10 @@
 <script lang="ts">
+  type Link = {
+    copy: string;
+    url: string;
+    hover: string;
+  };
+  export let additionalLinks: Link[] = [];
   export let links = [
     {
       copy: "blog",
@@ -19,7 +25,7 @@
 </script>
 
 <div class={`w-full flex space-x-4 justify-end ${$$restProps.class}`}>
-  {#each links as link, index}
+  {#each [...links, ...additionalLinks] as link}
     <a
       href={link.url}
       class={`text-black block lg:text-xl text-lg font-bold uppercase ${link.hover}`}

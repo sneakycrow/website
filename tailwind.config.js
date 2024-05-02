@@ -32,6 +32,9 @@ module.exports = {
         green: {
           550: "#0ba750"
         }
+      },
+      transitionProperty: {
+        'height': 'height'
       }
     }
   },

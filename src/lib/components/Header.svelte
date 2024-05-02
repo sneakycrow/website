@@ -4,6 +4,19 @@
 
   export let title: string;
   export let link: string = "/";
+  type User = {
+    username: string;
+    avatar: string;
+  };
+  export let user: User | null = null;
+
+  const authLinks = [
+    {
+      copy: "Dashboard",
+      url: "/dashboard",
+      hover: "hover:text-purple-500"
+    }
+  ];
 </script>
 
 <header
@@ -12,7 +25,10 @@
   <Logo
     class="row-start-1 py-4 lg:row-span-2 col-start-1 lg:col-span-1 col-span-3 mx-auto lg:ml-0 w-[100px] lg:w-[200px] place-self-center justify-self-start"
   />
-  <Navigation class="w-full lg:row-start-1 row-start-2 col-start-2 col-span-2" />
+  <Navigation
+    class="w-full lg:row-start-1 row-start-2 col-start-2 col-span-2"
+    additionalLinks={user ? authLinks : []}
+  />
   <section
     class="lg:col-start-2 col-start-1 lg:col-span-2 col-span-3 row-start-3 lg:row-start-2 flex justify-end"
   >

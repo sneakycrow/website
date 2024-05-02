@@ -2,7 +2,6 @@ import type { Actions } from "./$types";
 import { fail, redirect } from "@sveltejs/kit";
 import { auth } from "$lib/server/lucia";
 
-
 export const actions: Actions = {
   logout: async ({ locals }) => {
     const session = await locals.auth.validate();

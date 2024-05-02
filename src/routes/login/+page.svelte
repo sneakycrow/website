@@ -7,9 +7,7 @@
   <title>login - sneaky crow</title>
 </svelte:head>
 
-<main
-  class="min-h-screen w-screen noise flex justify-center items-center text-white flex-col space-y-4"
->
+<section class="flex col-span-6 justify-center items-center flex-col space-y-4">
   <Logo />
   <h1 class="text-xl drop-shadow-md font-bold">Sign in</h1>
   <a
@@ -19,5 +17,4 @@
     Sign in with Github
     <Icon class="ml-2" icon="mdi:github" width={24} />
   </a>
-  <a class="text-white text-xs hover:underline" href="/">Go Back</a>
-</main>
+</section>
