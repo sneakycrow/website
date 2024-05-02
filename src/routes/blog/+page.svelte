@@ -1,9 +1,6 @@
 <script lang="ts">
-  import Header from "$lib/components/Header.svelte";
-
   import type { PageServerData } from "./$types";
   import PostList from "$lib/components/PostList.svelte";
-  import Footer from "$lib/components/Footer.svelte";
 
   export let data: PageServerData;
 </script>
@@ -12,8 +9,4 @@
   <title>brain juice</title>
 </svelte:head>
 
-<main class="flex flex-col p-4 min-h-screen">
-  <Header title="brain juice" link="/blog" />
-  <PostList posts={data.posts} />
-  <Footer class="mt-auto" />
-</main>
+<PostList posts={data.posts} class="col-span-6 row-start-2 row-span-2" />

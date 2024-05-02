@@ -5,7 +5,7 @@
   export let posts: Post[];
 </script>
 
-<div class="flex flex-col w-full">
+<div class={`flex flex-col w-full ${$$restProps.class}`}>
   {#each posts as post, i}
     <PostExcerpt {post} />
   {/each}

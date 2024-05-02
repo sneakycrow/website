@@ -6,11 +6,8 @@
 </script>
 
 <div class="flex flex-nowrap items-center justify-center space-x-4">
-  <p class="text-sm text-gray-400">Logged in as {username}</p>
   <img alt="avatar" class="rounded-full w-10" src={avatar} />
   <form action="/?/logout" method="post" use:enhance>
-    <input class="hover:text-red-500 cursor-pointer"
-           type="submit"
-           value="Log Out" />
+    <input class="hover:text-red-500 cursor-pointer" type="submit" value="Log Out" />
   </form>
 </div>
