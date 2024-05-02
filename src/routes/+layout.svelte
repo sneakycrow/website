@@ -14,13 +14,13 @@
   }
 </script>
 
-<main class="grid lg:grid-cols-6 grid-flow-row gap-10 p-4 min-h-screen">
+<main class="grid lg:grid-cols-6 gap-10 p-4 min-h-screen">
   <Header
     title="sneaky crow"
     subtitle="software engineer"
-    class="col-start-1 lg:col-span-6"
+    class="row-start-1 row-span-1 col-start-1 lg:col-span-6"
     {user}
   />
   <slot />
-  <Footer class="lg:col-span-6 max-h-[200px] self-end" {user} />
+  <Footer class="row-start-4 lg:col-span-6 max-h-[200px] self-end" {user} />
 </main>

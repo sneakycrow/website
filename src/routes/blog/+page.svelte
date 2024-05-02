@@ -9,4 +9,4 @@
   <title>brain juice</title>
 </svelte:head>
 
-<PostList posts={data.posts} class="col-span-6" />
+<PostList posts={data.posts} class="col-span-6 row-start-2 row-span-2" />
