@@ -15,16 +15,13 @@
       copy: "about",
       url: "/#about",
       hover: "hover:text-blue-500"
-    },
-    {
-      copy: "projects",
-      url: "/#projects",
-      hover: "hover:text-yellow-500"
     }
   ];
 </script>
 
-<div class={`w-full flex space-x-4 justify-end ${$$restProps.class}`}>
+<div
+  class={`w-full flex flex-col lg:flex-row lg:space-x-4 items-end justify-end ${$$restProps.class}`}
+>
   {#each [...links, ...additionalLinks] as link}
     <a
       href={link.url}

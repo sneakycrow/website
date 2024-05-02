@@ -8,7 +8,9 @@
   export let user: User | null = null;
 </script>
 
-<footer class={`py-4 flex justify-between items-center ${$$restProps.class}`}>
+<footer
+  class={`py-4 flex flex-col space-y-10 lg:flex-row justify-between items-center ${$$restProps.class}`}
+>
   <p>
     <span class="text-sm">© {new Date().getFullYear()} Sneaky Crow, LLC</span>
     <span class="text-sm">All Rights Reserved</span>
