@@ -2,7 +2,7 @@ import { Lucia } from "lucia";
 import { dev } from "$app/environment";
 import { adapter } from "./db";
 import { GitHub } from "arctic";
-import { GITHUB_ID, GITHUB_SECRET } from "$env/static/private";
+import { env } from "$env/dynamic/private";
 
 export const lucia = new Lucia(adapter, {
   sessionCookie: {
@@ -20,7 +20,7 @@ export const lucia = new Lucia(adapter, {
   }
 });
 
-export const github = new GitHub(GITHUB_ID, GITHUB_SECRET);
+export const github = new GitHub(env.GITHUB_ID ?? "", env.GITHUB_SECRET ?? "");
 
 declare module "lucia" {
   interface Register {
