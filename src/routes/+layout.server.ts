@@ -1,7 +1,6 @@
 import type { LayoutServerLoad } from "./$types";
 
 export const load: LayoutServerLoad = async ({ locals, route }) => {
-  const session = await locals.auth.validate();
   const pageMeta = {
     title: {
       text: "Sneaky Crow",
@@ -12,10 +11,10 @@ export const load: LayoutServerLoad = async ({ locals, route }) => {
     pageMeta.title.text = "Brain Juice";
     pageMeta.title.link = "/blog";
   }
-  if (!session) return pageMeta;
+  if (!locals.user) return pageMeta;
   return {
-    username: session.user.username,
-    avatar: session.user.avatar,
+    username: locals.user.username,
+    avatar: locals.user.avatar,
     ...pageMeta
   };
 };
