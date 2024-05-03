@@ -18,7 +18,7 @@ export const projects: Project[] = [
   },
   {
     name: "resume",
-    description: "my implicit human value confined to a single document",
+    description: "my implicit human value confined to a single-page document",
     website: "/resume.pdf",
     borderColor: "border-red-500",
     textColor: "text-red-500",
