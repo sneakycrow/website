@@ -1,20 +1,20 @@
-import type { RequestHandler } from "./$types";
-import { dev } from "$app/environment";
-import { githubAuth } from "$lib/server/lucia.js";
+import { redirect } from "@sveltejs/kit";
+import { generateState } from "arctic";
+import { github } from "$lib/server/auth";
 
-export const GET: RequestHandler = async ({ cookies }) => {
-  const [url, state] = await githubAuth.getAuthorizationUrl();
-  // store state
-  cookies.set("github_oauth_state", state, {
-    httpOnly: true,
-    secure: !dev,
+import type { RequestEvent } from "@sveltejs/kit";
+
+export async function GET(event: RequestEvent): Promise<Response> {
+  const state = generateState();
+  const url = await github.createAuthorizationURL(state);
+
+  event.cookies.set("github_oauth_state", state, {
     path: "/",
-    maxAge: 60 * 60
+    secure: import.meta.env.PROD,
+    httpOnly: true,
+    maxAge: 60 * 10,
+    sameSite: "lax"
   });
-  return new Response(null, {
-    status: 302,
-    headers: {
-      Location: url.toString()
-    }
-  });
-};
+
+  throw redirect(302, url.toString());
+}
