@@ -1,4 +1,4 @@
-import { getUserByUsername, getUserWithAccountsById } from "$lib/server/user";
+import { getUserWithAccountsById } from "$lib/server/user";
 import type { PageServerLoad } from "./$types";
 import { redirect } from "@sveltejs/kit";
 
