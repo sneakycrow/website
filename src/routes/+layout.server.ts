@@ -1,18 +1,21 @@
 import type { LayoutServerLoad } from "./$types";
 
-export const load: LayoutServerLoad = async ({ locals, route, ...rest }) => {
+export const load: LayoutServerLoad = async ({ locals, route }) => {
   const session = await locals.auth.validate();
-  let pageTitle = "Sneaky Crow";
+  const pageMeta = {
+    title: {
+      text: "Sneaky Crow",
+      link: "/"
+    }
+  };
   if (route.id?.startsWith("/blog")) {
-    pageTitle = "Brain Juice";
+    pageMeta.title.text = "Brain Juice";
+    pageMeta.title.link = "/blog";
   }
-  if (!session)
-    return {
-      pageTitle
-    };
+  if (!session) return pageMeta;
   return {
     username: session.user.username,
     avatar: session.user.avatar,
-    pageTitle
+    ...pageMeta
   };
 };

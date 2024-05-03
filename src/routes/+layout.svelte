@@ -16,7 +16,8 @@
 
 <main class="grid lg:grid-cols-6 gap-10 p-4 min-h-screen">
   <Header
-    title={data.pageTitle}
+    title={data.title.text}
+    link={data.title.link}
     subtitle="software engineer"
     class="row-start-1 row-span-1 col-start-1 lg:col-span-6"
     {user}
