@@ -1,5 +1,5 @@
 import { Prisma, type User } from "@prisma/client";
-import { client } from "$lib/server/db";
+import client from "$lib/server/db";
 import { nanoid } from "nanoid";
 
 export const getUserByUsername = async (username: string): Promise<User | null> => {
