@@ -9,4 +9,4 @@
   <title>{data.post.title} - sneaky crow</title>
 </svelte:head>
 
-<Article post={data.post} class="col-span-6" />
+<Article post={data.post} class="lg:col-span-6" />
