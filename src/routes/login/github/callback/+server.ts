@@ -3,7 +3,7 @@ import { generateIdFromEntropySize } from "lucia";
 import { github, lucia } from "$lib/server/auth";
 
 import type { RequestEvent } from "@sveltejs/kit";
-import { createUserFromProvider, getUserByProviderId } from "$lib/server/user";
+import { createUserFromProvider, getUserByEmail, getUserByProviderId } from "$lib/server/user";
 
 export async function GET(event: RequestEvent): Promise<Response> {
   const code = event.url.searchParams.get("code");
@@ -24,9 +24,10 @@ export async function GET(event: RequestEvent): Promise<Response> {
       }
     });
     const githubUser: GitHubUser = await githubUserResponse.json();
-    const existingUser = await getUserByProviderId(githubUser.id.toString());
+    const existingUser = await getUserByEmail(githubUser.email);
 
     if (existingUser) {
+      // TODO: Check if the user has a github account connected already, if not, connect it
       const session = await lucia.createSession(existingUser.id, {});
       const sessionCookie = lucia.createSessionCookie(session.id);
       event.cookies.set(sessionCookie.name, sessionCookie.value, {
