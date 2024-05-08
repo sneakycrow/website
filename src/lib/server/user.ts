@@ -10,6 +10,14 @@ export const getUserByUsername = async (username: string): Promise<User | null> 
   });
 };
 
+export const getUserByEmail = async (email: string): Promise<User | null> => {
+  return client.user.findUnique({
+    where: {
+      email
+    }
+  });
+};
+
 const userWithAccounts = Prisma.validator<Prisma.UserDefaultArgs>()({
   include: {
     accounts: true
