@@ -1,6 +1,5 @@
 import { OAuth2RequestError } from "arctic";
-import { generateIdFromEntropySize } from "lucia";
-import { github, lucia } from "$lib/server/auth";
+import { spotify, lucia } from "$lib/server/auth";
 
 import type { RequestEvent } from "@sveltejs/kit";
 import { createUserFromProvider, getUserByProviderId } from "$lib/server/user";
@@ -8,7 +7,7 @@ import { createUserFromProvider, getUserByProviderId } from "$lib/server/user";
 export async function GET(event: RequestEvent): Promise<Response> {
   const code = event.url.searchParams.get("code");
   const state = event.url.searchParams.get("state");
-  const storedState = event.cookies.get("github_oauth_state") ?? null;
+  const storedState = event.cookies.get("spotify_oauth_state") ?? null;
 
   if (!code || !state || !storedState || state !== storedState) {
     return new Response(null, {
@@ -17,15 +16,15 @@ export async function GET(event: RequestEvent): Promise<Response> {
   }
 
   try {
-    const tokens = await github.validateAuthorizationCode(code);
-    const githubUserResponse = await fetch("https://api.github.com/user", {
+    const tokens = await spotify.validateAuthorizationCode(code);
+    const spotifyUserResponse = await fetch("https://api.spotify.com/v1/me", {
       headers: {
         Authorization: `Bearer ${tokens.accessToken}`
       }
     });
-    const githubUser: GitHubUser = await githubUserResponse.json();
-    const existingUser = await getUserByProviderId(githubUser.id.toString());
-
+    const spotifyUser: SpotifyUser = await spotifyUserResponse.json();
+    const existingUser = await getUserByProviderId(spotifyUser.id);
+    console.log(spotifyUser);
     if (existingUser) {
       const session = await lucia.createSession(existingUser.id, {});
       const sessionCookie = lucia.createSessionCookie(session.id);
@@ -34,12 +33,12 @@ export async function GET(event: RequestEvent): Promise<Response> {
         ...sessionCookie.attributes
       });
     } else {
-      const user = await createUserFromProvider("github", {
-        providerId: githubUser.id.toString(),
-        username: githubUser.login,
+      const user = await createUserFromProvider("spotify", {
+        providerId: spotifyUser.id,
+        username: spotifyUser.display_name,
         accessToken: tokens.accessToken,
-        email: githubUser.email,
-        avatar: githubUser.avatar_url
+        email: spotifyUser.email,
+        avatar: spotifyUser.images[0].url
       });
 
       const session = await lucia.createSession(user.id, {});
@@ -63,15 +62,16 @@ export async function GET(event: RequestEvent): Promise<Response> {
         status: 400
       });
     }
+    console.error(`Unknown error occurred, ${e}`);
     return new Response(null, {
       status: 500
     });
   }
 }
 
-interface GitHubUser {
-  id: number;
-  login: string;
+interface SpotifyUser {
+  id: string;
+  display_name: string;
   email: string;
-  avatar_url: string;
+  images: { url: string; height: number; width: number }[];
 }

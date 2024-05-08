@@ -1,7 +1,7 @@
 import { Lucia } from "lucia";
 import { dev } from "$app/environment";
 import { adapter } from "./db";
-import { GitHub } from "arctic";
+import { GitHub, Spotify } from "arctic";
 import { env } from "$env/dynamic/private";
 
 export const lucia = new Lucia(adapter, {
@@ -21,6 +21,11 @@ export const lucia = new Lucia(adapter, {
 });
 
 export const github = new GitHub(env.GITHUB_ID ?? "", env.GITHUB_SECRET ?? "");
+export const spotify = new Spotify(
+  env.SPOTIFY_ID ?? "",
+  env.SPOTIFY_SECRET ?? "",
+  env.SPOTIFY_REDIRECT_URI ?? ""
+);
 
 declare module "lucia" {
   interface Register {
