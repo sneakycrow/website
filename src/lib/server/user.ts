@@ -1,4 +1,5 @@
-import { Prisma, type User } from "@prisma/client";
+import { Prisma } from "@prisma/client";
+import type { User, Account } from "@prisma/client";
 import client from "$lib/server/db";
 import { nanoid } from "nanoid";
 
@@ -14,6 +15,18 @@ export const getUserByEmail = async (email: string): Promise<User | null> => {
   return client.user.findUnique({
     where: {
       email
+    }
+  });
+};
+
+export const getUserAccountProviderByUserId = async (
+  provider: string,
+  userId: string
+): Promise<Account | null> => {
+  return client.account.findFirst({
+    where: {
+      provider,
+      userId
     }
   });
 };
@@ -74,6 +87,26 @@ export const createUserFromProvider = async (provider: string, user: NewUser): P
           }
         ]
       }
+    }
+  });
+};
+
+type NewAccount = {
+  provider: string;
+  providerId: string;
+  accessToken?: string;
+  refreshToken?: string;
+  userId: string;
+};
+
+export const connectAccountToUser = async (account: NewAccount) => {
+  return client.account.create({
+    data: {
+      id: account.providerId,
+      provider: account.provider,
+      accessToken: account.accessToken,
+      refreshToken: account.refreshToken,
+      userId: account.userId
     }
   });
 };

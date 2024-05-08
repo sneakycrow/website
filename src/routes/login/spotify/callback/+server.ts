@@ -2,7 +2,12 @@ import { OAuth2RequestError } from "arctic";
 import { spotify, lucia } from "$lib/server/auth";
 
 import type { RequestEvent } from "@sveltejs/kit";
-import { createUserFromProvider, getUserByEmail } from "$lib/server/user";
+import {
+  connectAccountToUser,
+  createUserFromProvider,
+  getUserAccountProviderByUserId,
+  getUserByEmail
+} from "$lib/server/user";
 
 export async function GET(event: RequestEvent): Promise<Response> {
   const code = event.url.searchParams.get("code");
@@ -26,7 +31,18 @@ export async function GET(event: RequestEvent): Promise<Response> {
     const existingUser = await getUserByEmail(spotifyUser.email);
 
     if (existingUser) {
-      // TODO: Check if the user has a spotify account connected already, if not, connect it
+      const account = await getUserAccountProviderByUserId("spotify", existingUser.id);
+      if (!account) {
+        // The user exists, but doesn't have a spotify account connected
+        // Connect the spotify account
+        await connectAccountToUser({
+          provider: "spotify",
+          providerId: spotifyUser.id,
+          userId: existingUser.id,
+          accessToken: tokens.accessToken,
+          refreshToken: tokens.refreshToken
+        });
+      }
       const session = await lucia.createSession(existingUser.id, {});
       const sessionCookie = lucia.createSessionCookie(session.id);
       event.cookies.set(sessionCookie.name, sessionCookie.value, {
