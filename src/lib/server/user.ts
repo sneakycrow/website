@@ -1,4 +1,5 @@
-import { Prisma, type User } from "@prisma/client";
+import { Prisma } from "@prisma/client";
+import type { User, Account } from "@prisma/client";
 import client from "$lib/server/db";
 import { nanoid } from "nanoid";
 
@@ -6,6 +7,26 @@ export const getUserByUsername = async (username: string): Promise<User | null> 
   return client.user.findUnique({
     where: {
       username
+    }
+  });
+};
+
+export const getUserByEmail = async (email: string): Promise<User | null> => {
+  return client.user.findUnique({
+    where: {
+      email
+    }
+  });
+};
+
+export const getUserAccountProviderByUserId = async (
+  provider: string,
+  userId: string
+): Promise<Account | null> => {
+  return client.account.findFirst({
+    where: {
+      provider,
+      userId
     }
   });
 };
@@ -42,7 +63,7 @@ export const getUserByProviderId = async (id: string): Promise<User | null> => {
   return account ? account.user : null;
 };
 
-type GitHubUserRequirements = {
+type NewUser = {
   providerId: string;
   accessToken: string;
   username: string;
@@ -50,22 +71,42 @@ type GitHubUserRequirements = {
   avatar: string;
 };
 
-export const createUserWithGitHub = async (githubUser: GitHubUserRequirements): Promise<User> => {
+export const createUserFromProvider = async (provider: string, user: NewUser): Promise<User> => {
   return client.user.create({
     data: {
       id: nanoid(10),
-      username: githubUser.username,
-      email: githubUser.email,
-      avatar: githubUser.avatar,
+      username: user.username,
+      email: user.email,
+      avatar: user.avatar,
       accounts: {
         create: [
           {
-            id: githubUser.providerId,
-            provider: "github",
-            accessToken: githubUser.accessToken
+            id: user.providerId,
+            provider: provider,
+            accessToken: user.accessToken
           }
         ]
       }
+    }
+  });
+};
+
+type NewAccount = {
+  provider: string;
+  providerId: string;
+  accessToken?: string;
+  refreshToken?: string;
+  userId: string;
+};
+
+export const connectAccountToUser = async (account: NewAccount) => {
+  return client.account.create({
+    data: {
+      id: account.providerId,
+      provider: account.provider,
+      accessToken: account.accessToken,
+      refreshToken: account.refreshToken,
+      userId: account.userId
     }
   });
 };

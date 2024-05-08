@@ -11,7 +11,7 @@ model User {
   id       String    @id
   username String    @unique
   avatar   String
-  email    String
+  email    String    @unique
   sessions Session[]
   accounts Account[]
 }

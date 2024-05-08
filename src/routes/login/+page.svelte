@@ -17,4 +17,11 @@
     Sign in with Github
     <Icon class="ml-2" icon="mdi:github" width={24} />
   </a>
+  <a
+    class="flex flex-nowrap items-center justify-between text-[#1DB954] border-[#1DB954] border-4 rounded-lg px-4 py-2 drop-shadow-md bg-white hover:shadow-xl transition-shadow"
+    href="/login/spotify"
+  >
+    Sign in with Spotify
+    <Icon class="ml-2" icon="mdi:spotify" width={24} />
+  </a>
 </section>
