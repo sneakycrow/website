@@ -133,8 +133,12 @@ export const getSneakyCrowAlbum = async (): Promise<AlbumData[]> => {
       throw new Error("SneakyCrow account not found");
     }
     const albumData = await getUserAlbumsWithAccount(sneakyCrowAccount);
-    // Cache the album data
-    await saveToRedis("sneakyCrowAlbum", JSON.stringify(albumData));
+    // Cache the album data, it's okay if this fails
+    try {
+      await saveToRedis("sneakyCrowAlbum", JSON.stringify(albumData));
+    } catch (e) {
+      console.error(`Failed to cache album data: ${e}`);
+    }
     return albumData;
   } catch (e) {
     console.error(`Failed to get album data: ${e}`);
