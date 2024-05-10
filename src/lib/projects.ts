@@ -40,13 +40,6 @@ export const projects: Project[] = [
     textColor: "text-green-500"
   },
   {
-    name: "badbird.lol",
-    description: "custom url shortener tool",
-    website: "https://badbird.lol",
-    borderColor: "border-yellow-500",
-    textColor: "text-yellow-500"
-  },
-  {
     name: "mastadon",
     description: "intimate discussions with the void",
     website: "https://social.lol/@sneakycrow",
