@@ -2,7 +2,6 @@ import { env } from "$env/dynamic/private";
 import type { Account } from "@prisma/client";
 import client from "./server/db";
 import { getAccountWithUserById } from "./server/user";
-import { getFromRedis, saveToRedis } from "./server/redis";
 
 export const scopes = ["user-read-email", "user-library-read", "user-top-read"];
 
@@ -84,7 +83,7 @@ type UpdatedTokens = {
 export const refreshToken = async (refreshToken: string): Promise<UpdatedTokens> => {
   const spotifyClientId = env.SPOTIFY_ID;
   const spotifyClientSecret = env.SPOTIFY_SECRET;
-  if (!spotifyClientId) {
+  if (!spotifyClientId || !spotifyClientSecret) {
     throw new Error("Missing Spotify client ID");
   }
   const res = await fetch("https://accounts.spotify.com/api/token", {
@@ -101,18 +100,20 @@ export const refreshToken = async (refreshToken: string): Promise<UpdatedTokens>
     })
   });
 
+  const json = await res.json();
+
   if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`Failed to refresh token, ${res.status}, ${text}`);
+    const { status, message } = json.error;
+    throw new Error(`Failed to refresh token, ${status}, ${message}`);
   }
 
-  const json = await res.json();
-  if (!json.access_token || !json.refresh_token) {
-    throw new Error("Failed to refresh token, missing access or refresh token");
+  if (!json.access_token) {
+    throw new Error(`Failed to refresh token, no access token found in response`);
   }
+
   return {
     accessToken: json.access_token,
-    refreshToken: json.refresh_token
+    refreshToken: json.refresh_token ?? refreshToken // Return the old refresh token if not updated
   };
 };
 
@@ -150,7 +151,30 @@ export const getTopItemsWithAccount = async (
       Authorization: `Bearer ${account.accessToken}`
     }
   });
+
   const json = await res.json();
+
+  if (!res.ok) {
+    const { status, message } = json.error;
+    if (status === 401) {
+      // Token expired, need to refresh
+      if (!account.refreshToken) {
+        throw new Error("Access Token expired, but no refresh token found");
+      }
+      const newTokens = await refreshToken(account.refreshToken);
+      await client.account.update({
+        where: {
+          id: account.id
+        },
+        data: {
+          accessToken: newTokens.accessToken,
+          refreshToken: newTokens.refreshToken
+        }
+      });
+    }
+    throw new Error(`Failed to get top items, ${status} ${message}`);
+  }
+
   return json.items;
 };
 

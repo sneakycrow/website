@@ -8,12 +8,16 @@ export const getRedisClient = async (): Promise<RedisClientType> => {
   });
 };
 
-// A month converted to seconds
-const DEFAULT_EXPIRATION = 60 * 60 * 24 * 30;
+// A function for getting an expiration by days
+export const getExpirationByDays = (days: number): number => {
+  // 1 day = 24 hours = 24 * 60 minutes = 24 * 60 * 60 seconds
+  return days * 24 * 60 * 60;
+};
+
 export const saveToRedis = async (
   key: string,
   value: string,
-  expiration: number = DEFAULT_EXPIRATION
+  expiration: number = getExpirationByDays(1) // 1 day
 ): Promise<void> => {
   const client = await getRedisClient();
   await client.connect();
