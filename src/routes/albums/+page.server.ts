@@ -10,6 +10,7 @@ export const load: PageServerLoad = async () => {
       albums: albumData
     };
   } catch (e) {
+    console.error(`Could not load album page ${e}`);
     return {
       error: {
         message: ERROR_MSG

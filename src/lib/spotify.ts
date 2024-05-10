@@ -27,7 +27,7 @@ export const getUserAlbumsWithAccount = async (account: Account): Promise<AlbumD
   });
   const json = await res.json();
   const albums: AlbumData[] = json.items;
-  if (json.error?.status === 401) {
+  if (json.error?.status === 400) {
     // Token expired, need to refresh
     if (!account.refreshToken) {
       console.error("Access Token expired, but no refresh token found");
@@ -81,24 +81,32 @@ type UpdatedTokens = {
 
 export const refreshToken = async (refreshToken: string): Promise<UpdatedTokens> => {
   const spotifyClientId = env.SPOTIFY_ID;
+  const spotifyClientSecret = env.SPOTIFY_SECRET;
   if (!spotifyClientId) {
     throw new Error("Missing Spotify client ID");
   }
   const res = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization:
+        // @ts-expect-error - Buffer is not defined in the browser
+        "Basic " + new Buffer.from(spotifyClientId + ":" + spotifyClientSecret).toString("base64")
     },
     body: new URLSearchParams({
       grant_type: "refresh_token",
-      refresh_token: refreshToken,
-      client_id: spotifyClientId
+      refresh_token: refreshToken
     })
   });
 
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Failed to refresh token, ${res.status}, ${text}`);
+  }
+
   const json = await res.json();
   if (!json.access_token || !json.refresh_token) {
-    throw new Error("Failed to refresh token");
+    throw new Error("Failed to refresh token, missing access or refresh token");
   }
   return {
     accessToken: json.access_token,
