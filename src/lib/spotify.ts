@@ -2,6 +2,7 @@ import { env } from "$env/dynamic/private";
 import type { Account } from "@prisma/client";
 import client from "./server/db";
 import { getAccountWithUserById } from "./server/user";
+import { getFromRedis, saveToRedis } from "./server/redis";
 
 type AlbumData = {
   album: {
@@ -27,7 +28,6 @@ export const getUserAlbumsWithAccount = async (account: Account): Promise<AlbumD
   const json = await res.json();
   const albums: AlbumData[] = json.items;
   if (json.error?.status === 401) {
-    console.log("Access Token expired, refreshing");
     // Token expired, need to refresh
     if (!account.refreshToken) {
       console.error("Access Token expired, but no refresh token found");
@@ -107,10 +107,19 @@ export const refreshToken = async (refreshToken: string): Promise<UpdatedTokens>
 };
 
 export const getSneakyCrowAlbum = async (): Promise<AlbumData[]> => {
+  // Check if we have the album data cached
+  const cachedAlbumData = await getFromRedis("sneakyCrowAlbum");
+  if (cachedAlbumData) {
+    return JSON.parse(cachedAlbumData);
+  }
+  // If not, fetch it from Spotify
   const SNEAKYCROW_SPOTIFY_USERNAME = "sneakycr0w";
   const sneakyCrowAccount = await getAccountWithUserById(SNEAKYCROW_SPOTIFY_USERNAME);
   if (!sneakyCrowAccount) {
     throw new Error("SneakyCrow account not found");
   }
-  return getUserAlbumsWithAccount(sneakyCrowAccount);
+  const albumData = await getUserAlbumsWithAccount(sneakyCrowAccount);
+  // Make sure to cache the album data before returning
+  await saveToRedis("sneakyCrowAlbum", JSON.stringify(albumData));
+  return albumData;
 };
