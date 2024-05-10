@@ -116,18 +116,28 @@ export const refreshToken = async (refreshToken: string): Promise<UpdatedTokens>
 
 export const getSneakyCrowAlbum = async (): Promise<AlbumData[]> => {
   // Check if we have the album data cached
-  const cachedAlbumData = await getFromRedis("sneakyCrowAlbum");
-  if (cachedAlbumData) {
-    return JSON.parse(cachedAlbumData);
+  try {
+    const cachedAlbumData = await getFromRedis("sneakyCrowAlbum");
+    if (cachedAlbumData) {
+      return JSON.parse(cachedAlbumData);
+    }
+  } catch (e) {
+    console.error(`Failed to get cached album data: ${e}`);
+    // If we failed to get the cached data, just fetch it from Spotify
   }
-  // If not, fetch it from Spotify
-  const SNEAKYCROW_SPOTIFY_USERNAME = "sneakycr0w";
-  const sneakyCrowAccount = await getAccountWithUserById(SNEAKYCROW_SPOTIFY_USERNAME);
-  if (!sneakyCrowAccount) {
-    throw new Error("SneakyCrow account not found");
+  // If not, fetch it from Spotify and cache it
+  try {
+    const SNEAKYCROW_SPOTIFY_USERNAME = "sneakycr0w";
+    const sneakyCrowAccount = await getAccountWithUserById(SNEAKYCROW_SPOTIFY_USERNAME);
+    if (!sneakyCrowAccount) {
+      throw new Error("SneakyCrow account not found");
+    }
+    const albumData = await getUserAlbumsWithAccount(sneakyCrowAccount);
+    // Cache the album data
+    await saveToRedis("sneakyCrowAlbum", JSON.stringify(albumData));
+    return albumData;
+  } catch (e) {
+    console.error(`Failed to get album data: ${e}`);
+    throw new Error("Failed to get album data");
   }
-  const albumData = await getUserAlbumsWithAccount(sneakyCrowAccount);
-  // Make sure to cache the album data before returning
-  await saveToRedis("sneakyCrowAlbum", JSON.stringify(albumData));
-  return albumData;
 };
