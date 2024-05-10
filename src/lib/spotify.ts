@@ -1,5 +1,5 @@
-import { env } from "$env/dynamic/private";
 import type { Account } from "@prisma/client";
+import { SPOTIFY_ID, SPOTIFY_SECRET } from "$env/static/private";
 import client from "./server/db";
 import { getAccountWithUserById } from "./server/user";
 import { getFromRedis, saveToRedis } from "./server/redis";
@@ -80,8 +80,8 @@ type UpdatedTokens = {
 };
 
 export const refreshToken = async (refreshToken: string): Promise<UpdatedTokens> => {
-  const spotifyClientId = env.SPOTIFY_ID;
-  const spotifyClientSecret = env.SPOTIFY_SECRET;
+  const spotifyClientId = SPOTIFY_ID;
+  const spotifyClientSecret = SPOTIFY_SECRET;
   if (!spotifyClientId) {
     throw new Error("Missing Spotify client ID");
   }
@@ -115,33 +115,11 @@ export const refreshToken = async (refreshToken: string): Promise<UpdatedTokens>
 };
 
 export const getSneakyCrowAlbum = async (): Promise<AlbumData[]> => {
-  // Check if we have the album data cached
-  try {
-    const cachedAlbumData = await getFromRedis("sneakyCrowAlbum");
-    if (cachedAlbumData) {
-      return JSON.parse(cachedAlbumData);
-    }
-  } catch (e) {
-    console.error(`Failed to get cached album data: ${e}`);
-    // If we failed to get the cached data, just fetch it from Spotify
+  const SNEAKYCROW_SPOTIFY_USERNAME = "sneakycr0w";
+  const sneakyCrowAccount = await getAccountWithUserById(SNEAKYCROW_SPOTIFY_USERNAME);
+  if (!sneakyCrowAccount) {
+    throw new Error("SneakyCrow account not found");
   }
-  // If not, fetch it from Spotify and cache it
-  try {
-    const SNEAKYCROW_SPOTIFY_USERNAME = "sneakycr0w";
-    const sneakyCrowAccount = await getAccountWithUserById(SNEAKYCROW_SPOTIFY_USERNAME);
-    if (!sneakyCrowAccount) {
-      throw new Error("SneakyCrow account not found");
-    }
-    const albumData = await getUserAlbumsWithAccount(sneakyCrowAccount);
-    // Cache the album data, it's okay if this fails
-    try {
-      await saveToRedis("sneakyCrowAlbum", JSON.stringify(albumData));
-    } catch (e) {
-      console.error(`Failed to cache album data: ${e}`);
-    }
-    return albumData;
-  } catch (e) {
-    console.error(`Failed to get album data: ${e}`);
-    throw new Error("Failed to get album data");
-  }
+  const albumData = await getUserAlbumsWithAccount(sneakyCrowAccount);
+  return albumData;
 };
