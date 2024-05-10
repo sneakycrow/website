@@ -1,6 +1,8 @@
 import type { PageServerLoad } from "./$types";
 import { getSneakyCrowAlbum } from "$lib/spotify";
 
+export const prerender = true;
+
 const ERROR_MSG =
   "Zach failed to connect this website to Spotify, blame him for this error and try again later.";
 export const load: PageServerLoad = async () => {
