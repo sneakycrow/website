@@ -7,7 +7,7 @@ import type { RequestEvent } from "@sveltejs/kit";
 export async function GET(event: RequestEvent): Promise<Response> {
   const state = generateState();
   const url = await spotify.createAuthorizationURL(state, {
-    scopes: ["user-read-email"]
+    scopes: ["user-read-email", "user-library-read"]
   });
 
   event.cookies.set("spotify_oauth_state", state, {

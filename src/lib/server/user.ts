@@ -50,8 +50,16 @@ export const getUserWithAccountsById = async (id: string): Promise<UserWithAccou
   });
 };
 
-export const getUserByProviderId = async (id: string): Promise<User | null> => {
-  const account = await client.account.findUnique({
+const accountsWithUser = Prisma.validator<Prisma.AccountDefaultArgs>()({
+  include: {
+    user: true
+  }
+});
+
+type AccountsWithUser = Prisma.AccountGetPayload<typeof accountsWithUser>;
+
+export const getAccountWithUserById = async (id: string): Promise<AccountsWithUser | null> => {
+  return client.account.findUnique({
     where: {
       id
     },
@@ -59,8 +67,6 @@ export const getUserByProviderId = async (id: string): Promise<User | null> => {
       user: true
     }
   });
-
-  return account ? account.user : null;
 };
 
 type NewUser = {
