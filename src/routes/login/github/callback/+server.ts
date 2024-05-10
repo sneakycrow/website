@@ -1,5 +1,4 @@
 import { OAuth2RequestError } from "arctic";
-import { generateIdFromEntropySize } from "lucia";
 import { github, lucia } from "$lib/server/auth";
 
 import type { RequestEvent } from "@sveltejs/kit";
@@ -7,8 +6,7 @@ import {
   connectAccountToUser,
   createUserFromProvider,
   getUserAccountProviderByUserId,
-  getUserByEmail,
-  getUserByProviderId
+  getUserByEmail
 } from "$lib/server/user";
 
 export async function GET(event: RequestEvent): Promise<Response> {
