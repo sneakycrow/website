@@ -31,6 +31,10 @@ RUN yarn build
 # Final stage for app image
 FROM base
 
+# Install packages needed to run node modules
+RUN apt-get update -qq && \
+    apt-get install -y ca-certificates
+
 # Copy built application
 COPY --from=build /app /app
 
