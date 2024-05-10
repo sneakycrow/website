@@ -4,6 +4,8 @@ import client from "./server/db";
 import { getAccountWithUserById } from "./server/user";
 import { getFromRedis, saveToRedis } from "./server/redis";
 
+export const scopes = ["user-read-email", "user-library-read", "user-top-read"];
+
 type AlbumData = {
   album: {
     name: string;
@@ -115,33 +117,95 @@ export const refreshToken = async (refreshToken: string): Promise<UpdatedTokens>
 };
 
 export const getSneakyCrowAlbum = async (): Promise<AlbumData[]> => {
-  // Check if we have the album data cached
-  try {
-    const cachedAlbumData = await getFromRedis("sneakyCrowAlbum");
-    if (cachedAlbumData) {
-      return JSON.parse(cachedAlbumData);
-    }
-  } catch (e) {
-    console.error(`Failed to get cached album data: ${e}`);
-    // If we failed to get the cached data, just fetch it from Spotify
+  const SNEAKYCROW_SPOTIFY_USERNAME = "sneakycr0w";
+  const sneakyCrowAccount = await getAccountWithUserById(SNEAKYCROW_SPOTIFY_USERNAME);
+  if (!sneakyCrowAccount) {
+    throw new Error("SneakyCrow account not found");
   }
-  // If not, fetch it from Spotify and cache it
-  try {
-    const SNEAKYCROW_SPOTIFY_USERNAME = "sneakycr0w";
-    const sneakyCrowAccount = await getAccountWithUserById(SNEAKYCROW_SPOTIFY_USERNAME);
-    if (!sneakyCrowAccount) {
-      throw new Error("SneakyCrow account not found");
+  return getUserAlbumsWithAccount(sneakyCrowAccount);
+};
+
+type TopItemsOptions = {
+  type: "artists" | "tracks";
+  limit: number;
+  time_range: "short_term" | "medium_term" | "long_term";
+};
+
+const defaultTopItemsOptions: TopItemsOptions = {
+  type: "artists",
+  limit: 10,
+  time_range: "short_term"
+};
+
+export const getTopItemsWithAccount = async (
+  account: Account,
+  options: TopItemsOptions = defaultTopItemsOptions
+) => {
+  const url = new URL(`https://api.spotify.com/v1/me/top/${options.type}`);
+  url.searchParams.append("time_range", options.time_range);
+  url.searchParams.append("limit", options.limit.toString());
+
+  const res = await fetch(url.toString(), {
+    headers: {
+      Authorization: `Bearer ${account.accessToken}`
     }
-    const albumData = await getUserAlbumsWithAccount(sneakyCrowAccount);
-    // Cache the album data, it's okay if this fails
-    try {
-      await saveToRedis("sneakyCrowAlbum", JSON.stringify(albumData));
-    } catch (e) {
-      console.error(`Failed to cache album data: ${e}`);
-    }
-    return albumData;
-  } catch (e) {
-    console.error(`Failed to get album data: ${e}`);
-    throw new Error("Failed to get album data");
+  });
+  const json = await res.json();
+  return json.items;
+};
+
+type TrackData = {
+  album: AlbumData;
+  artists: {
+    name: string;
+    external_urls: {
+      spotify: string;
+    };
+  }[];
+  preview_url: string;
+};
+
+export const getSneakyCrowTopTracks = async (): Promise<TrackData[]> => {
+  const SNEAKYCROW_SPOTIFY_USERNAME = "sneakycr0w";
+  const sneakyCrowAccount = await getAccountWithUserById(SNEAKYCROW_SPOTIFY_USERNAME);
+  if (!sneakyCrowAccount) {
+    throw new Error("SneakyCrow account not found");
   }
+  const items = await getTopItemsWithAccount(sneakyCrowAccount, {
+    type: "tracks",
+    limit: 10,
+    time_range: "short_term"
+  });
+
+  return items;
+};
+
+type ArtistData = {
+  genres: string[];
+  images: [
+    {
+      url: string;
+      height: number;
+      width: number;
+    }
+  ];
+  name: string;
+  external_urls: {
+    spotify: string;
+  };
+};
+
+export const getSneakyCrowTopArtists = async (): Promise<ArtistData[]> => {
+  const SNEAKYCROW_SPOTIFY_USERNAME = "sneakycr0w";
+  const sneakyCrowAccount = await getAccountWithUserById(SNEAKYCROW_SPOTIFY_USERNAME);
+  if (!sneakyCrowAccount) {
+    throw new Error("SneakyCrow account not found");
+  }
+  const items = await getTopItemsWithAccount(sneakyCrowAccount, {
+    type: "artists",
+    limit: 9, // 3 x 3 grid
+    time_range: "short_term"
+  });
+
+  return items;
 };

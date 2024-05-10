@@ -7,13 +7,15 @@
       url: "/blog",
       description: "brain juice, mostly",
       class: "hover:text-yellow-500",
+      iconColor: "text-yellow-500 opacity-75",
       icon: "tabler:writing"
     },
     {
-      copy: "albums",
-      url: "/albums",
+      copy: "music",
+      url: "/collections/music",
       description: "totally radical tunes",
       class: "hover:text-green-500",
+      iconColor: "text-green-500 opacity-75",
       icon: "material-symbols:album"
     }
   ];
@@ -30,7 +32,7 @@
       href={link.url}
       class={`text-gray-900 lg:text-5xl font-bold uppercase flex flex-nowrap space-x-2 items-center justify-center ${link.class}`}
     >
-      <Icon icon={link.icon} height={ICON_SIZE} width={ICON_SIZE} />
+      <Icon icon={link.icon} height={ICON_SIZE} width={ICON_SIZE} class={link.iconColor} />
       {link.copy}
     </a>
     <p class="text-sm text-gray-500">{link.description}</p>

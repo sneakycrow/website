@@ -11,6 +11,17 @@ export const load: LayoutServerLoad = async ({ locals, route }) => {
     pageMeta.title.text = "Brain Juice";
     pageMeta.title.link = "/blog";
   }
+
+  if (route.id?.startsWith("/collections/music")) {
+    pageMeta.title.text = "Bad Taste";
+    pageMeta.title.link = "/collections/music";
+  }
+
+  if (route.id === "/collections") {
+    pageMeta.title.text = "Treasure Trash";
+    pageMeta.title.link = "/collections";
+  }
+
   if (!locals.user) return pageMeta;
   return {
     username: locals.user.username,

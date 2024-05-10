@@ -1,13 +1,13 @@
 import type { PageServerLoad } from "./$types";
-import { getSneakyCrowAlbum } from "$lib/spotify";
+import { getSneakyCrowTopArtists } from "$lib/spotify";
 
 const ERROR_MSG =
   "Zach failed to connect this website to Spotify, blame him for this error and try again later.";
 export const load: PageServerLoad = async () => {
   try {
-    const albumData = await getSneakyCrowAlbum();
+    const artistData = await getSneakyCrowTopArtists();
     return {
-      albums: albumData
+      artists: artistData
     };
   } catch (e) {
     console.error(`Could not load album page ${e}`);
