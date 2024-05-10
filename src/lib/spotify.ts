@@ -116,10 +116,10 @@ export const refreshToken = async (refreshToken: string): Promise<UpdatedTokens>
 
 export const getSneakyCrowAlbum = async (): Promise<AlbumData[]> => {
   // Check if we have the album data cached
-  // const cachedAlbumData = await getFromRedis("sneakyCrowAlbum");
-  // if (cachedAlbumData) {
-  //   return JSON.parse(cachedAlbumData);
-  // }
+  const cachedAlbumData = await getFromRedis("sneakyCrowAlbum");
+  if (cachedAlbumData) {
+    return JSON.parse(cachedAlbumData);
+  }
   // If not, fetch it from Spotify
   const SNEAKYCROW_SPOTIFY_USERNAME = "sneakycr0w";
   const sneakyCrowAccount = await getAccountWithUserById(SNEAKYCROW_SPOTIFY_USERNAME);
