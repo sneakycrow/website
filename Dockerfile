@@ -25,14 +25,6 @@ RUN yarn install --frozen-lockfile --production=false
 # Copy application code
 COPY --link . .
 
-# Pass build-time arguments to the application
-ARG SPOTIFY_ID
-ARG SPOTIFY_SECRET
-ARG ORIGIN
-ENV SPOTIFY_ID=$SPOTIFY_ID
-ENV SPOTIFY_SECRET=$SPOTIFY_SECRET
-ENV ORIGIN=$ORIGIN
-
 # Build application
 RUN yarn build
 
