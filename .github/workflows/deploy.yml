@@ -19,6 +19,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only --build-arg ORIGIN=${{ env.ORIGIN }} --build-arg SPOTIFY_ID=${{ secrets.SPOTIFY_ID }} --build-arg SPOTIFY_SECRET=${{ secrets.SPOTIFY_SECRET }}
+      - run: flyctl deploy --remote-only --build-arg ORIGIN=${{ vars.ORIGIN }} --build-arg SPOTIFY_ID=${{ secrets.SPOTIFY_ID }} --build-arg SPOTIFY_SECRET=${{ secrets.SPOTIFY_SECRET }}
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
