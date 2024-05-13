@@ -162,7 +162,6 @@ fn main() {
 
 ## Displaying Data with Frontend
 
-`TODO: Show how to start listening for events in React`
 The frontend is fairly standard React code. When the app starts, it sends a message to the backend to start the chat monitor via the `track_stream` event.
 
 That starts the chat monitor, and the backend sends messages to the frontend via the `twitch_message_received` event. The frontend listens for this event and updates the chat window with the new message.
