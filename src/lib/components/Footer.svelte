@@ -1,13 +1,23 @@
 <script lang="ts">
-  import ExtraLinks from "./ExtraLinks.svelte";
+  import Avatar from "./AvatarWidget.svelte";
+
+  type User = {
+    username: string;
+    avatar: string;
+  };
+  export let user: User | null = null;
 </script>
 
 <footer
-  class={`w-full flex flex-col-reverse lg:flex-row justify-between items-end ${$$restProps.class}`}
+  class={`py-4 flex flex-col space-y-10 lg:flex-row justify-between items-center ${$$restProps.class}`}
 >
-  <p class="py-2">
+  <p>
     <span class="text-sm">© {new Date().getFullYear()} Sneaky Crow, LLC</span>
     <span class="text-sm">All Rights Reserved</span>
   </p>
-  <ExtraLinks />
+  {#if user}
+    <Avatar {user} />
+  {:else}
+    <a href="/login">Login</a>
+  {/if}
 </footer>

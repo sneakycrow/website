@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1
 
 # Adjust NODE_VERSION as desired
-FROM node:20 as base
+FROM node:21 as base
 
 LABEL fly_launch_runtime="Node.js"
 
@@ -30,6 +30,10 @@ RUN yarn build
 
 # Final stage for app image
 FROM base
+
+# Install packages needed to run node modules
+RUN apt-get update -qq && \
+    apt-get install -y ca-certificates
 
 # Copy built application
 COPY --from=build /app /app

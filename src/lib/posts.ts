@@ -13,7 +13,6 @@ export type Post = {
   series_key?: string;
   series_pos?: number;
 };
-type Series = {};
 
 export const getAllPosts = async (): Promise<Post[]> => {
   return await processLocalPosts();

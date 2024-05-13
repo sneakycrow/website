@@ -8,29 +8,26 @@ generator client {
 }
 
 model User {
-  id           String    @id @unique
-  username     String    @unique
-  avatar       String?
-  email        String?   @unique
-  auth_session Session[]
-  key          Key[]
+  id       String    @id
+  username String    @unique
+  avatar   String
+  email    String    @unique
+  sessions Session[]
+  accounts Account[]
 }
 
 model Session {
-  id             String @id @unique
-  user_id        String
-  active_expires BigInt
-  idle_expires   BigInt
-  user           User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
-
-  @@index([user_id])
+  id        String   @id
+  userId    String
+  expiresAt DateTime
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
 }
 
-model Key {
-  id              String  @id @unique
-  hashed_password String?
-  user_id         String
-  user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
-
-  @@index([user_id])
+model Account {
+  id           String  @id
+  userId       String
+  provider     String
+  accessToken  String?
+  refreshToken String?
+  user         User    @relation(references: [id], fields: [userId], onDelete: Cascade)
 }

@@ -1,14 +1,12 @@
-<div
-  class={`flex lg:flex-row flex-col lg:space-x-10 items-start justify-start ${$$restProps.class}`}
->
+<div class={`flex lg:flex-row flex-col items-center justify-evenly ${$$restProps.class}`}>
   <img
     alt="Zachary Corvidae, owner of Sneaky Crow"
-    class="rounded-md border-green-550 shadow-md"
+    class="rounded-md border-green-550 shadow-md m-4"
     height={250}
     src="/profile_normal.jpeg"
     width={250}
   />
-  <aside class="w-full flex flex-col lg:text-xl items-start justify-start">
+  <aside class="lg:w-1/2 flex flex-col lg:text-xl">
     <p>
       <span class="font-bold">Name:</span> Zachary Corvidae
     </p>
