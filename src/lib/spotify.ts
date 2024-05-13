@@ -138,11 +138,28 @@ const defaultTopItemsOptions: TopItemsOptions = {
   time_range: "short_term"
 };
 
-export const getTopItemsWithAccount = async (
+type TopArtistData = {
+  error?: {
+    message: string;
+  };
+  name: string;
+  external_urls: {
+    spotify: string;
+  };
+  images: [
+    {
+      url: string;
+      width: number;
+      height: number;
+    }
+  ];
+};
+
+export const getTopArtistsWithAccount = async (
   account: Account,
   options: TopItemsOptions = defaultTopItemsOptions
-) => {
-  const url = new URL(`https://api.spotify.com/v1/me/top/${options.type}`);
+): Promise<TopArtistData[]> => {
+  const url = new URL(`https://api.spotify.com/v1/me/top/artists`);
   url.searchParams.append("time_range", options.time_range);
   url.searchParams.append("limit", options.limit.toString());
 
@@ -162,6 +179,7 @@ export const getTopItemsWithAccount = async (
         throw new Error("Access Token expired, but no refresh token found");
       }
       const newTokens = await refreshToken(account.refreshToken);
+      // Successfully got new tokens, update account in database
       await client.account.update({
         where: {
           id: account.id
@@ -171,6 +189,14 @@ export const getTopItemsWithAccount = async (
           refreshToken: newTokens.refreshToken
         }
       });
+      // Retry the request with the new tokens
+      return getTopArtistsWithAccount(
+        {
+          ...account,
+          accessToken: newTokens.accessToken
+        },
+        options
+      );
     }
     throw new Error(`Failed to get top items, ${status} ${message}`);
   }
@@ -178,54 +204,13 @@ export const getTopItemsWithAccount = async (
   return json.items;
 };
 
-type TrackData = {
-  album: AlbumData;
-  artists: {
-    name: string;
-    external_urls: {
-      spotify: string;
-    };
-  }[];
-  preview_url: string;
-};
-
-export const getSneakyCrowTopTracks = async (): Promise<TrackData[]> => {
+export const getSneakyCrowTopArtists = async (): Promise<TopArtistData[]> => {
   const SNEAKYCROW_SPOTIFY_USERNAME = "sneakycr0w";
   const sneakyCrowAccount = await getAccountWithUserById(SNEAKYCROW_SPOTIFY_USERNAME);
   if (!sneakyCrowAccount) {
     throw new Error("SneakyCrow account not found");
   }
-  const items = await getTopItemsWithAccount(sneakyCrowAccount, {
-    type: "tracks",
-    limit: 10,
-    time_range: "short_term"
-  });
-
-  return items;
-};
-
-type ArtistData = {
-  genres: string[];
-  images: [
-    {
-      url: string;
-      height: number;
-      width: number;
-    }
-  ];
-  name: string;
-  external_urls: {
-    spotify: string;
-  };
-};
-
-export const getSneakyCrowTopArtists = async (): Promise<ArtistData[]> => {
-  const SNEAKYCROW_SPOTIFY_USERNAME = "sneakycr0w";
-  const sneakyCrowAccount = await getAccountWithUserById(SNEAKYCROW_SPOTIFY_USERNAME);
-  if (!sneakyCrowAccount) {
-    throw new Error("SneakyCrow account not found");
-  }
-  const items = await getTopItemsWithAccount(sneakyCrowAccount, {
+  const items = await getTopArtistsWithAccount(sneakyCrowAccount, {
     type: "artists",
     limit: 9, // 3 x 3 grid
     time_range: "short_term"

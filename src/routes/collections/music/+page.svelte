@@ -9,12 +9,6 @@
   <title>headphones in</title>
 </svelte:head>
 
-{#if data?.error}
-  <div class="lg:col-span-6 row-start-2 row-span-2 text-center text-lg text-red-500 font-semibold">
-    <p>{data.error.message}</p>
-  </div>
-{/if}
-
 {#if artists.length === 0}
   <section class="lg:col-span-6 row-start-2 row-span-2 text-center">
     <p class="text-lg text-gray-500">
