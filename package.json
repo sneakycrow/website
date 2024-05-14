@@ -62,9 +62,9 @@
     "arctic": "^1.8.0",
     "dotenv": "^16.4.5",
     "gray-matter": "^4.0.3",
+    "ioredis": "^5.4.1",
     "lucia": "^3.2.0",
     "marked": "5",
-    "nanoid": "^5.0.7",
-    "redis": "^4.6.13"
+    "nanoid": "^5.0.7"
   }
 }
