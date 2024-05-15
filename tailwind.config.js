@@ -33,8 +33,11 @@ module.exports = {
           550: "#0ba750"
         }
       },
+      boxShadow: {
+        "flat-green": "10px 10px #0ba750"
+      },
       transitionProperty: {
-        'height': 'height'
+        height: "height"
       }
     }
   },

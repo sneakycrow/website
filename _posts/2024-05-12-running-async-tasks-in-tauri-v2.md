@@ -18,13 +18,13 @@ For this tutorial, we'll be using Tauri version `2.0.0-beta`. Because this is a 
 
 To kickstart our journey, ensure you have Tauri v2 and its associated tooling installed. If not, you can swiftly set it up by installing create-tauri-app using Cargo:
 
-```shell
+```sh
 cargo install create-tauri-app
 ```
 
 Then, initialize your Tauri application using:
 
-```shell
+```sh
 cargo create-tauri-app --beta
 ```
 
