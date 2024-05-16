@@ -20,7 +20,7 @@
     },
     {
       copy: "music",
-      url: "/collections/music",
+      url: "/music",
       description: "totally radical tunes",
       class: "hover:text-green-500",
       iconColor: "text-green-500 opacity-75",
@@ -28,7 +28,7 @@
     },
     {
       copy: "games",
-      url: "/collections/games",
+      url: "/games",
       description: "where my dreams become virtual reality (uh oh)",
       class: "hover:text-blue-500",
       iconColor: "text-blue-500 opacity-75",
@@ -37,7 +37,7 @@
     },
     {
       copy: "art",
-      url: "/collections/art",
+      url: "/art",
       description: "I like to make pretty things sometimes",
       class: "hover:text-red-500",
       iconColor: "text-red-500 opacity-75",
