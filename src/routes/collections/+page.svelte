@@ -128,14 +128,14 @@
       <Icon icon={link.icon} height={ICON_SIZE} width={ICON_SIZE} class={link.iconColor} />
       {link.copy}
     </a>
+    <p class="text-sm text-gray-500 mb-4">{link.description}</p>
     {#if link.subPages}
-      <div class="flex gap-4 text-center items-center justify-center my-4">
+      <div class="flex gap-4 text-center items-center justify-center">
         {#each link.subPages as subpage}
           <a href={subpage.url} class={`text-black ${subpage.class}`}>{subpage.copy}</a>
         {/each}
       </div>
     {/if}
-    <p class="text-sm text-gray-500">{link.description}</p>
     {#if link.comingSoon}
       <p class="text-lg uppercase text-gray-500 font-semibold my-4">Coming Soon</p>
     {/if}
