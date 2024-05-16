@@ -49,14 +49,14 @@
       icon: "material-symbols:album",
       subPages: [
         {
-          copy: "top artists",
-          url: "/music",
-          class: "border-green-500 border-b-4"
-        },
-        {
           copy: "made by me",
           url: "#",
           class: "opacity-25 hover:opacity-25 cursor-not-allowed"
+        },
+        {
+          copy: "top artists",
+          url: "/music",
+          class: "border-green-500 border-b-4"
         }
       ]
     },
