@@ -16,7 +16,7 @@
   };
   const links: Link[] = [
     {
-      copy: "writing",
+      copy: "literature",
       url: "/blog",
       description: "brain juice, mostly",
       class: "hover:text-yellow-500",
@@ -30,6 +30,11 @@
         },
         {
           copy: "poetry",
+          url: "#",
+          class: "opacity-25 hover:opacity-25 cursor-not-allowed"
+        },
+        {
+          copy: "book reviews",
           url: "#",
           class: "opacity-25 hover:opacity-25 cursor-not-allowed"
         }
@@ -49,7 +54,7 @@
           class: "border-green-500 border-b-4"
         },
         {
-          copy: "self-published",
+          copy: "made by me",
           url: "#",
           class: "opacity-25 hover:opacity-25 cursor-not-allowed"
         }
@@ -65,7 +70,7 @@
       comingSoon: true,
       subPages: [
         {
-          copy: "self-made",
+          copy: "made by me",
           url: "#",
           class: "opacity-25 hover:opacity-25 cursor-not-allowed"
         },
@@ -123,13 +128,13 @@
       <Icon icon={link.icon} height={ICON_SIZE} width={ICON_SIZE} class={link.iconColor} />
       {link.copy}
     </a>
-    <!-- {#if link.subPages}
+    {#if link.subPages}
       <div class="flex gap-4 text-center items-center justify-center my-4">
         {#each link.subPages as subpage}
           <a href={subpage.url} class={`text-black ${subpage.class}`}>{subpage.copy}</a>
         {/each}
       </div>
-    {/if} -->
+    {/if}
     <p class="text-sm text-gray-500">{link.description}</p>
     {#if link.comingSoon}
       <p class="text-lg uppercase text-gray-500 font-semibold my-4">Coming Soon</p>
