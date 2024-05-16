@@ -12,7 +12,7 @@ export const load: LayoutServerLoad = async ({ locals, route }) => {
     pageMeta.title.link = "/blog";
   }
 
-  if (route.id?.startsWith("/collections/music")) {
+  if (route.id?.startsWith("/music")) {
     pageMeta.title.text = "Bad Taste";
     pageMeta.title.link = "/collections/music";
   }
