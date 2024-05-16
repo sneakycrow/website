@@ -14,6 +14,10 @@
   }
 </script>
 
+<svelte:head>
+  <meta name="description" content={data.description} />
+</svelte:head>
+
 <main class="grid lg:grid-cols-6 gap-10 p-4 min-h-screen">
   <Header
     title={data.title.text}
