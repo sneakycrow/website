@@ -54,7 +54,7 @@
           class: "opacity-25 hover:opacity-25 cursor-not-allowed"
         },
         {
-          copy: "top artists",
+          copy: "listening to",
           url: "/music",
           class: "border-green-500 border-b-4"
         }
