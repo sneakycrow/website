@@ -12,8 +12,8 @@ export const projects: Project[] = [
     name: "email",
     description: "the best means of contacting me",
     website: "mailto:zach@sneakycrow.dev",
-    borderColor: "border-purple-500",
-    textColor: "text-purple-500",
+    borderColor: "border-orange-500",
+    textColor: "text-orange-500",
     icon: "mingcute:send-line"
   },
   {
@@ -46,5 +46,13 @@ export const projects: Project[] = [
     borderColor: "border-blue-500",
     textColor: "border-blue-500",
     icon: "mdi:mastodon"
+  },
+  {
+    name: "twitch",
+    description: "where I create parasocial relationships",
+    website: "https://twitch.tv/thesneakycrow",
+    borderColor: "border-purple-500",
+    textColor: "text-purple-500",
+    icon: "mdi:twitch"
   }
 ];
