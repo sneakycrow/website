@@ -121,18 +121,18 @@
       href={link.comingSoon ? "#" : link.url}
       class={`${
         link.comingSoon ? "text-gray-500" : "text-gray-900"
-      } text-5xl font-bold uppercase flex flex-nowrap space-x-2 leading-none items-center justify-center ${
+      } text-xl lg:text-5xl font-bold uppercase flex flex-nowrap space-x-2 leading-none items-center justify-center ${
         link.class
       }`}
     >
       <Icon icon={link.icon} height={ICON_SIZE} width={ICON_SIZE} class={link.iconColor} />
       {link.copy}
     </a>
-    <p class="text-sm text-gray-500 mb-4">{link.description}</p>
+    <p class="lg:text-sm text-gray-500 mb-4">{link.description}</p>
     {#if link.subPages}
       <div class="flex gap-4 text-center items-center justify-center">
         {#each link.subPages as subpage}
-          <a href={subpage.url} class={`text-black ${subpage.class}`}>{subpage.copy}</a>
+          <a href={subpage.url} class={`text-lg text-black ${subpage.class}`}>{subpage.copy}</a>
         {/each}
       </div>
     {/if}
