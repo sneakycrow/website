@@ -31,6 +31,20 @@ export const getUserAccountProviderByUserId = async (
   });
 };
 
+export const getUserAccountProviderByUserName = async (
+  provider: string,
+  username: string
+): Promise<Account | null> => {
+  return client.account.findFirst({
+    where: {
+      provider,
+      user: {
+        username
+      }
+    }
+  });
+};
+
 const userWithAccounts = Prisma.validator<Prisma.UserDefaultArgs>()({
   include: {
     accounts: true
