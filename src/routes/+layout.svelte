@@ -24,6 +24,7 @@
     link={data.title.link}
     subtitle="software engineer"
     class="row-start-1 row-span-1 col-start-1 lg:col-span-6"
+    isLive={data.isLive}
     {user}
   />
   <slot />
