@@ -59,12 +59,13 @@
     "@sentry/node": "^7.80.1",
     "@sentry/profiling-node": "^7.112.2",
     "@sentry/sveltekit": "^7.84.0",
+    "@types/redis": "^4.0.11",
     "arctic": "^1.8.0",
     "dotenv": "^16.4.5",
     "gray-matter": "^4.0.3",
     "lucia": "^3.2.0",
     "marked": "5",
     "nanoid": "^5.0.7",
-    "redis": "^4.6.13"
+    "redis": "^4.6.14"
   }
 }
