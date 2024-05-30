@@ -16,24 +16,12 @@ export const load: LayoutServerLoad = async ({ locals, route }) => {
     // Check if I'm live on Twitch
     // Don't let this prevent the page from loading
     try {
-      const cachedStream = await getFromRedis("static_stream_status");
-      if (cachedStream) {
-        // The value is expected to be a string boolean
-        pageMeta.isLive = cachedStream === "true";
-      } else {
-        const stream = await getStaticStream();
-        const isStreamLive = stream.live !== null;
-        if (isStreamLive) {
-          // If the stream is live, cache the result for an hour
-          // An hour is usually around the time I stream
-          pageMeta.isLive = true;
-        }
-        // Lastly, save the result to Redis for an hour
-        await saveToRedis(
-          "static_stream_status",
-          isStreamLive.toString(),
-          getExpirationByMinutes(60)
-        );
+      const stream = await getStaticStream();
+      const isStreamLive = stream.live !== null;
+      if (isStreamLive) {
+        // If the stream is live, cache the result for an hour
+        // An hour is usually around the time I stream
+        pageMeta.isLive = true;
       }
     } catch (e) {
       console.error(`Could not get Twitch stream status: ${e}`);
