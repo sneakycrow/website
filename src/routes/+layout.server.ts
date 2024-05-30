@@ -1,3 +1,4 @@
+import { getExpirationByMinutes, getFromRedis, saveToRedis } from "$lib/server/redis";
 import { getStaticStream } from "$lib/twitch";
 import type { LayoutServerLoad } from "./$types";
 
@@ -15,9 +16,18 @@ export const load: LayoutServerLoad = async ({ locals, route }) => {
     // Check if I'm live on Twitch
     // Don't let this prevent the page from loading
     try {
-      const stream = await getStaticStream();
-      if (stream.live) {
-        pageMeta.isLive = true;
+      const cachedStream = await getFromRedis("static_stream_status");
+      if (cachedStream) {
+        // The value is expected to be a string boolean
+        pageMeta.isLive = cachedStream === "true";
+      } else {
+        const stream = await getStaticStream();
+        if (stream.live) {
+          // If the stream is live, cache the result for an hour
+          // An hour is usually around the time I stream
+          await saveToRedis("static_stream_status", "true", getExpirationByMinutes(60));
+          pageMeta.isLive = true;
+        }
       }
     } catch (e) {
       console.error(`Could not get Twitch stream status: ${e}`);
