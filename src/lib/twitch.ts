@@ -153,7 +153,7 @@ export const getStaticStream = async (): Promise<Stream> => {
         throw new Error("Failed to get stream information for static user after refreshing token");
       }
     }
-    throw new Error("Failed to get stream information for static user");
+    throw new Error(`Failed to get stream information for static user: ${e}`);
   }
 };
 
