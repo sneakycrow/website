@@ -48,3 +48,6 @@ export const getFromRedis = async (key: string): Promise<string | null> => {
     return null;
   }
 };
+
+export const TWITCH_STREAM_STATUS = "twitch:stream_status";
+export const SPOTIFY_TOP_ARTISTS = "spotify:top_artists";

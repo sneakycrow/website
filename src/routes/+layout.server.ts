@@ -1,4 +1,9 @@
-import { getExpirationByMinutes, getFromRedis, saveToRedis } from "$lib/server/redis";
+import {
+  TWITCH_STREAM_STATUS,
+  getExpirationByMinutes,
+  getFromRedis,
+  saveToRedis
+} from "$lib/server/redis";
 import { getStaticStream } from "$lib/twitch";
 import type { LayoutServerLoad } from "./$types";
 
@@ -18,7 +23,7 @@ export const load: LayoutServerLoad = async ({ locals, route }) => {
     try {
       // First check the cache
       let isStreamLive: boolean = false;
-      const cachedStream = await getFromRedis("twitch:stream");
+      const cachedStream = await getFromRedis(TWITCH_STREAM_STATUS);
       if (cachedStream) {
         isStreamLive = cachedStream === "true";
       } else {
@@ -29,7 +34,11 @@ export const load: LayoutServerLoad = async ({ locals, route }) => {
           pageMeta.isLive = true;
         }
         // Cache the result for 30 minutes
-        await saveToRedis("twitch:stream", isStreamLive.toString(), getExpirationByMinutes(30));
+        await saveToRedis(
+          TWITCH_STREAM_STATUS,
+          isStreamLive.toString(),
+          getExpirationByMinutes(30)
+        );
       }
       // If the stream is live, update the page meta
       if (isStreamLive) {
