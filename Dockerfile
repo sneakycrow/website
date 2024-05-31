@@ -33,7 +33,7 @@ FROM base
 
 # Install packages needed to run node modules
 RUN apt-get update -qq && \
-    apt-get install -y ca-certificates
+    apt-get install -y ca-certificates openssl
 
 # Copy built application
 COPY --from=build /app /app
