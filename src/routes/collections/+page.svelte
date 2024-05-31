@@ -4,6 +4,7 @@
     copy: string;
     url: string;
     description: string;
+    footer: string;
     class: string;
     iconColor: string;
     icon: string;
@@ -14,6 +15,7 @@
       copy: "writing",
       url: "/blog",
       description: "brain juice, mostly",
+      footer: "using preprocessed markdown generation",
       class: "hover:text-yellow-500",
       iconColor: "text-yellow-500 opacity-75",
       icon: "tabler:writing"
@@ -22,6 +24,7 @@
       copy: "listening",
       url: "/music",
       description: "totally radical tunes",
+      footer: "using the spotify api",
       class: "hover:text-green-500",
       iconColor: "text-green-500 opacity-75",
       icon: "material-symbols:album"
@@ -30,6 +33,7 @@
       copy: "reading",
       url: "/music",
       description: "feeding my brain with the written word",
+      footer: "using the goodreads api",
       class: "hover:text-purple-500",
       iconColor: "text-purple-500 opacity-75",
       icon: "tabler:book",
@@ -39,6 +43,7 @@
       copy: "playing",
       url: "/games",
       description: "where my dreams become virtual reality (uh oh)",
+      footer: "using the steam and psn apis",
       class: "hover:text-blue-500",
       iconColor: "text-blue-500 opacity-75",
       icon: "f7:gamecontroller-fill",
@@ -48,6 +53,7 @@
       copy: "creating",
       url: "/art",
       description: "I like to make pretty things sometimes",
+      footer: "using a custom backend implementation",
       class: "hover:text-red-500",
       iconColor: "text-red-500 opacity-75",
       icon: "tabler:palette",
@@ -75,10 +81,13 @@
         <Icon icon={link.icon} height={ICON_SIZE} width={ICON_SIZE} class={link.iconColor} />
         {link.copy}
       </a>
-      <p class="lg:text-sm text-gray-500 mb-4">{link.description}</p>
-      {#if link.comingSoon}
-        <p class="text-lg uppercase text-gray-500 font-semibold my-4">Coming Soon</p>
-      {/if}
+      <div class="flex flex-col mb-4">
+        <p class="text-lg text-gray-800">{link.description}</p>
+        <p class="text-xs italic text-gray-400">{link.footer}</p>
+        {#if link.comingSoon}
+          <p class="text-lg uppercase text-gray-500 font-semibold my-4">Coming Soon</p>
+        {/if}
+      </div>
     </div>
   {/each}
 </section>
