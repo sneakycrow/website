@@ -102,7 +102,7 @@ export const getStream = async (userId: string, token: string): Promise<Stream> 
     });
   }
   const json: ExpectedResponse = await res.json();
-  if (!json.data) {
+  if (!json.data || !json.data[0]) {
     throw new Error("Failed to fetch stream, missing information in response");
   }
 
