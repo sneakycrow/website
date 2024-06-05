@@ -26,6 +26,10 @@
   ];
 </script>
 
+<svelte:head>
+  <title>writing light</title>
+</svelte:head>
+
 <section class="lg:col-span-6 grid lg:grid-cols-2 items-center justify-center gap-20">
   {#each photos as photo}
     <div class="flex flex-col gap-4 justify-center items-center">

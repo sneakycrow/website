@@ -65,6 +65,7 @@ export const load: LayoutServerLoad = async ({ locals, route }) => {
     pageMeta.title.link = "/art/photos";
     pageMeta.description = "A collection of photos.";
   }
+
   if (route.id === "/collections") {
     pageMeta.title.text = "Treasure Trash";
     pageMeta.title.link = "/collections";
