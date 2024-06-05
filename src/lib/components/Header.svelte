@@ -3,7 +3,6 @@
   import Navigation from "./Navigation.svelte";
 
   export let title: string;
-  export let subtitle: string;
   export let link: string = "/";
   export let isLive = false;
   type User = {
@@ -35,9 +34,6 @@
     <a href={link} class="text-black hover:text-green-550 flex flex-col justify-start">
       <h1 class="text-xl lg:text-5xl font-bold uppercase">{title}</h1>
     </a>
-    {#if subtitle}
-      <h2 class="text-lg lg:text-2xl font-bold">{subtitle}</h2>
-    {/if}
     {#if isLive}
       <div class="flex flex-nowrap items-center animate-pulse">
         <svg
