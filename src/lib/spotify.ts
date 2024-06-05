@@ -3,7 +3,13 @@ import type { Account } from "@prisma/client";
 import client from "./server/db";
 import { getAccountWithUserById } from "./server/user";
 
-export const scopes = ["user-read-email", "user-library-read", "user-top-read"];
+export const scopes = [
+  "user-read-email",
+  "user-library-read",
+  "user-top-read",
+  "user-read-recently-played"
+];
+const SNEAKYCROW_SPOTIFY_USERNAME = "sneakycr0w";
 
 type AlbumData = {
   album: {
@@ -210,7 +216,6 @@ export const getTopArtistsWithAccount = async (
 };
 
 export const getSneakyCrowTopArtists = async (): Promise<TopArtistData[]> => {
-  const SNEAKYCROW_SPOTIFY_USERNAME = "sneakycr0w";
   const sneakyCrowAccount = await getAccountWithUserById(SNEAKYCROW_SPOTIFY_USERNAME);
   if (!sneakyCrowAccount) {
     throw new Error("SneakyCrow account not found");
@@ -222,4 +227,74 @@ export const getSneakyCrowTopArtists = async (): Promise<TopArtistData[]> => {
   });
 
   return items;
+};
+
+type TrackData = {
+  track: {
+    name: string;
+    external_urls: {
+      spotify: string;
+    };
+    album: {
+      images: [
+        {
+          url: string;
+          width: number;
+          height: number;
+        }
+      ];
+      name: string;
+      release_date: string;
+      external_urls: {
+        spotify: string;
+      };
+      artists: [
+        {
+          name: string;
+          external_urls: {
+            spotify: string;
+          };
+        }
+      ];
+    };
+  };
+  played_at: string;
+};
+
+// Using the Get Recently Played Tracks API https://developer.spotify.com/documentation/web-api/reference/get-recently-played
+export const getRecentTracksWithAccount = async (account: Account): Promise<TrackData[]> => {
+  const ENDPOINT = "https://api.spotify.com/v1/me/player/recently-played";
+  const limit = 24; // Used in a grid of 3 columns, so best to keep it a multiple of 3
+  // Get todays date and subtract 1 day, then convert to an Unix timestamp
+  const url = new URL(ENDPOINT);
+  url.searchParams.append("limit", limit.toString());
+
+  const res = await fetch(url.toString(), {
+    headers: {
+      Authorization: `Bearer ${account.accessToken}`
+    }
+  });
+
+  const json = await res.json();
+  const items = json.items as TrackData[];
+  if (!items) {
+    throw new Error("Failed to get recent tracks, no items found in response");
+  }
+  // Organize the tracks by date listened
+  items.sort((a, b) => (a.played_at > b.played_at ? -1 : 1));
+  return items;
+};
+
+// Wrapper function to get the recent tracks for the SneakyCrow account specifically
+export const getSneakyCrowRecentTracks = async (): Promise<TrackData[]> => {
+  try {
+    const sneakyCrowAccount = await getAccountWithUserById(SNEAKYCROW_SPOTIFY_USERNAME);
+    if (!sneakyCrowAccount) {
+      throw new Error("SneakyCrow account not found");
+    }
+    return getRecentTracksWithAccount(sneakyCrowAccount);
+  } catch (error) {
+    console.error(`Failed to get recent tracks for SneakyCrow: ${error}`);
+    return [];
+  }
 };

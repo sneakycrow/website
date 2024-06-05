@@ -13,6 +13,7 @@ export const load: LayoutServerLoad = async ({ locals, route }) => {
       text: "Sneaky Crow",
       link: "/"
     },
+    subtitle: "",
     isLive: false,
     description:
       "Zachary Corvidae's personal website. A collection of thoughts, ideas, and projects."
@@ -56,8 +57,14 @@ export const load: LayoutServerLoad = async ({ locals, route }) => {
 
   if (route.id?.startsWith("/music")) {
     pageMeta.title.text = "Bad Taste";
-    pageMeta.title.link = "/collections/music";
+    pageMeta.title.link = "/music";
     pageMeta.description = "A collection of music.";
+    if (route.id?.startsWith("/music/top-artists")) {
+      pageMeta.subtitle = "top artists";
+    }
+    if (route.id?.startsWith("/music/recent-tracks")) {
+      pageMeta.subtitle = "recent tracks";
+    }
   }
 
   if (route.id?.startsWith("/art/photos")) {
