@@ -30,6 +30,15 @@
       icon: "material-symbols:album"
     },
     {
+      copy: "creating",
+      url: "/art",
+      description: "I like to make pretty things sometimes",
+      footer: "using a custom backend implementation",
+      class: "hover:text-red-500",
+      iconColor: "text-red-500 opacity-75",
+      icon: "tabler:palette"
+    },
+    {
       copy: "reading",
       url: "/music",
       description: "feeding my brain with the written word",
@@ -48,15 +57,6 @@
       iconColor: "text-blue-500 opacity-75",
       icon: "f7:gamecontroller-fill",
       comingSoon: true
-    },
-    {
-      copy: "creating",
-      url: "/art",
-      description: "I like to make pretty things sometimes",
-      footer: "using a custom backend implementation",
-      class: "hover:text-red-500",
-      iconColor: "text-red-500 opacity-75",
-      icon: "tabler:palette"
     }
   ];
   const ICON_SIZE = 100;

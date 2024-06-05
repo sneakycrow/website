@@ -51,3 +51,4 @@ export const getFromRedis = async (key: string): Promise<string | null> => {
 
 export const TWITCH_STREAM_STATUS = "twitch:stream_status";
 export const SPOTIFY_TOP_ARTISTS = "spotify:top_artists";
+export const SPOTIFY_RECENT_TRACKS = "spotify:recent_tracks";
