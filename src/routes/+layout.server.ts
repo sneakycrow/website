@@ -60,6 +60,11 @@ export const load: LayoutServerLoad = async ({ locals, route }) => {
     pageMeta.description = "A collection of music.";
   }
 
+  if (route.id?.startsWith("/art/photos")) {
+    pageMeta.title.text = "Writing Light";
+    pageMeta.title.link = "/art/photos";
+    pageMeta.description = "A collection of photos.";
+  }
   if (route.id === "/collections") {
     pageMeta.title.text = "Treasure Trash";
     pageMeta.title.link = "/collections";

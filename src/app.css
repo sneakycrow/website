@@ -2,29 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  font-family: "Inter", sans-serif;
+}
+@supports (font-variation-settings: normal) {
+  :root {
+    font-family: "Inter var", sans-serif;
+  }
+}
+
 * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 html,
 body {
-    @apply bg-white;
+  @apply bg-white;
 }
 
 a {
-    @apply text-green-550;
-    @apply font-semibold;
-    @apply transition-opacity;
-    @apply transition-colors;
+  @apply text-green-550;
+  @apply font-semibold;
+  @apply transition-opacity;
+  @apply transition-colors;
 }
 
 a:hover {
-    @apply opacity-75;
-}
-
-.noise {
-    background: url(https://grainy-gradients.vercel.app/noise.svg), linear-gradient(to bottom, #00ff74, #00d05d);
-    @apply text-white;
+  @apply opacity-75;
 }

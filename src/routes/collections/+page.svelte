@@ -56,8 +56,7 @@
       footer: "using a custom backend implementation",
       class: "hover:text-red-500",
       iconColor: "text-red-500 opacity-75",
-      icon: "tabler:palette",
-      comingSoon: true
+      icon: "tabler:palette"
     }
   ];
   const ICON_SIZE = 100;
