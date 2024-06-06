@@ -3005,10 +3005,10 @@ svelte-check@^3.4.3:
     postcss "^8.4.38"
     postcss-scss "^4.0.9"
 
-svelte-highlight@^7.3.0:
-  version "7.6.0"
-  resolved "https://registry.npmjs.org/svelte-highlight/-/svelte-highlight-7.6.0.tgz"
-  integrity sha512-J9X1d07iMIKZMAqNAhlkjLX/FS+7R2lPrqVul7i+EleVZIOYvBhtx7ES62bc661a70nKNOS05yr9JAvyQPPOIA==
+svelte-highlight@^7.6.1:
+  version "7.6.1"
+  resolved "https://registry.yarnpkg.com/svelte-highlight/-/svelte-highlight-7.6.1.tgz#073f44970c4ab5cf0420a8abdf4b700970b5ef8f"
+  integrity sha512-YIpA6LBVpghQndBsbZQLl3ufEje179vQTtC7FH/utbEmUwYecIXsBq4mcwNkCeUuCrpcaF0DkrppWmMp/ZoPfA==
   dependencies:
     highlight.js "11.9.0"
 
