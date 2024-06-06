@@ -1,6 +1,6 @@
 <script lang="ts">
   import { HighlightAuto } from "svelte-highlight";
-  import "svelte-highlight/styles/dracula.css";
+  import "svelte-highlight/styles/github-dark.css";
 
   export let text: string;
 </script>
