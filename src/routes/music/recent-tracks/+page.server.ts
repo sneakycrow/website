@@ -4,7 +4,7 @@ import {
   SPOTIFY_RECENT_TRACKS,
   getFromRedis,
   saveToRedis,
-  getExpirationByDays
+  getExpirationByMinutes
 } from "$lib/server/redis";
 
 export const load: PageServerLoad = async () => {
@@ -19,7 +19,7 @@ export const load: PageServerLoad = async () => {
     await saveToRedis(
       SPOTIFY_RECENT_TRACKS,
       JSON.stringify(recentTracksData),
-      getExpirationByDays(1)
+      getExpirationByMinutes(60)
     );
   }
   return {
