@@ -278,6 +278,28 @@ export const getRecentTracksWithAccount = async (account: Account): Promise<Trac
   const json = await res.json();
   const items = json.items as TrackData[];
   if (!items) {
+    // Check if its an access token error, and attempt to refresh the token
+    if (json.error?.status === 401) {
+      if (!account.refreshToken) {
+        throw new Error("Access Token expired, but no refresh token found");
+      }
+      const newTokens = await refreshToken(account.refreshToken);
+      // Successfully got new tokens, update account in database
+      await client.account.update({
+        where: {
+          id: account.id
+        },
+        data: {
+          accessToken: newTokens.accessToken,
+          refreshToken: newTokens.refreshToken
+        }
+      });
+      // Retry the request with the new tokens
+      return getRecentTracksWithAccount({
+        ...account,
+        accessToken: newTokens.accessToken
+      });
+    }
     throw new Error("Failed to get recent tracks, no items found in response");
   }
   // Organize the tracks by date listened
