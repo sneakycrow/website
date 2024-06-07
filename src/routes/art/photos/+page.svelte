@@ -3,15 +3,25 @@
 
   const photos = [
     {
+      source: "/photos/timothy_lake.jpeg",
+      alt: "Timothy Lake. Mt. Hood National Forest, OR",
+      date: "June 2018",
+      hover: "hover:border-blue-500"
+    },
+    {
+      source: "/photos/portland_new_years_2019.jpeg",
+      alt: "Portland New Years 2019. Portland, OR",
+      date: "January 2019",
+      hover: "hover:border-orange-500"
+    },
+    {
       source: "/photos/fence_flowers.jpeg",
-      thumbnail: "/photos/fence_flowers.jpeg",
       alt: "Flowers behind a fence. Portland, OR",
       date: "November 2020",
       hover: "hover:border-green-500"
     },
     {
       source: "/photos/arsenio.jpeg",
-      thumbnail: "/photos/arsenio_thumbnail.jpeg",
       alt: "A dog named Arsenio. Portland, OR",
       date: "November 2020",
       hover: "hover:border-yellow-500"
