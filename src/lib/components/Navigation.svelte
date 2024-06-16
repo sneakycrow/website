@@ -7,8 +7,13 @@
   export let additionalLinks: Link[] = [];
   export let links = [
     {
-      copy: "collections",
-      url: "/collections",
+      copy: "blog",
+      url: "/blog",
+      hover: "hover:text-purple-500"
+    },
+    {
+      copy: "projects",
+      url: "/projects",
       hover: "hover:text-red-500"
     },
     {

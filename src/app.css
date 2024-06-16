@@ -32,3 +32,26 @@ a {
 a:hover {
   @apply opacity-75;
 }
+
+blockquote {
+  position: relative;
+  margin-left: 16px;
+  @apply text-gray-400;
+  @apply text-base;
+}
+
+blockquote a {
+  @apply text-gray-500;
+  @apply underline;
+}
+
+blockquote::before {
+  content: "";
+  min-width: 8px;
+  display: block;
+  height: 100%;
+  @apply bg-gray-300;
+  position: absolute;
+  left: -16px;
+  top: 0;
+}
