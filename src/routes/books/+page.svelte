@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { formatDistanceToNow } from "date-fns";
-
   const logoURL = "/paper_eaters_club_logo.png";
 
   type Book = {
