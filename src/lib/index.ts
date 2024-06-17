@@ -11,7 +11,8 @@ export const titles = [
   "FFXIV Raider",
   "5E Paladin",
   "Photographer",
-  "Artist"
+  "Artist",
+  "Avid Reader"
 ];
 
 export const keywords = [
