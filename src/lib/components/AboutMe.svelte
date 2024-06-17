@@ -41,6 +41,8 @@
     and I do that by
     <!-- list out hobby string dynmically -->
     {#each hobbies as hobby, i}
+      <!--  Add 'and' before the last item -->
+      {#if i === hobbies.length - 1}and {/if}
       <a href={hobby.url} class={hobby.class}>{hobby.copy}</a
       >{#if i !== hobbies.length - 1}{`, `}{:else}{`.`}{/if}
       <!-- Don't print the comma on the last line -->
