@@ -8,6 +8,8 @@ export const titles = [
   "Guitarist",
   "Pedal Collector",
   "Gamer",
+  "FFXIV Raider",
+  "5E Paladin",
   "Photographer",
   "Artist"
 ];
