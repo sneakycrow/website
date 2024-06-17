@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Icon from "@iconify/svelte";
+
   type Link = {
     copy: string;
     url: string;
@@ -22,17 +24,43 @@
       hover: "hover:text-blue-500"
     }
   ];
+
+  let isMobileOpen = false;
+  const openMenu = () => {
+    isMobileOpen = true;
+  };
+
+  const closeMenu = () => {
+    isMobileOpen = false;
+  };
 </script>
 
-<div
+<nav
   class={`w-full flex flex-col lg:flex-row lg:space-x-4 items-end justify-end ${$$restProps.class}`}
 >
+  <button class="lg:hidden" on:click={openMenu}>
+    <Icon icon="mdi:hamburger-menu" class="inline-block w-12 h-12" />
+  </button>
   {#each [...links, ...additionalLinks] as link}
     <a
       href={link.url}
-      class={`text-black block lg:text-xl text-lg font-bold uppercase ${link.hover}`}
+      class={`text-black hidden lg:block lg:text-xl text-lg font-bold uppercase ${link.hover}`}
     >
       {link.copy}
     </a>
   {/each}
-</div>
+  {#if isMobileOpen}
+    <div
+      class="z-50 w-screen h-full bg-green-550 absolute top-0 left-0 flex flex-col items-end justify-center p-4"
+    >
+      <button class="mb-40" on:click={closeMenu}>
+        <Icon icon="zondicons:close-solid" class="inline-block w-12 h-12" />
+      </button>
+      {#each [...links, ...additionalLinks] as link}
+        <a href={link.url} class={`text-black text-3xl font-bold uppercase`} on:click={closeMenu}>
+          {link.copy}
+        </a>
+      {/each}
+    </div>
+  {/if}
+</nav>

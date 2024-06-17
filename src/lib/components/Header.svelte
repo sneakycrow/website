@@ -21,11 +21,11 @@
 </script>
 
 <header
-  class={`w-full grid grid-flow-dense grid-cols-3 gap-10 lg:grid-rows-3 items-center justify-between lg:max-h-[300px] ${$$restProps.class}`}
+  class={`w-full grid grid-flow-dense grid-cols-3 lg:grid-rows-3 items-center justify-between lg:max-h-[300px] ${$$restProps.class}`}
 >
-  <Logo class="row-start-1 py-4 row-span-2 col-start-1 col-span-1 lg:ml-0 w-[100px] lg:w-[200px]" />
+  <Logo class="row-start-1 row-span-2 py-4 col-start-1 col-span-1 lg:ml-0 w-[100px] lg:w-[200px]" />
   <Navigation
-    class="w-full lg:row-start-1 row-start-2 col-start-2 col-span-2"
+    class="row-start-1 row-span-2 lg:row-span-1 w-full col-start-2 col-span-2 items-start justify-start"
     additionalLinks={user ? authLinks : []}
   />
   <section
