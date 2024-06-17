@@ -1,5 +1,28 @@
 <script>
   import Profile from "./Profile.svelte";
+
+  const hobbies = [
+    {
+      copy: "listening to my favorite music",
+      url: "/music",
+      class: "font-normal text-black underline decoration-4 decoration-purple-500"
+    },
+    {
+      copy: "grinding some video games",
+      url: "/projects",
+      class: "font-normal text-black underline decoration-4 decoration-blue-500"
+    },
+    {
+      copy: "reading with my book club",
+      url: "/books",
+      class: "font-normal text-black underline decoration-4 decoration-orange-500"
+    },
+    {
+      copy: "taking some photos of the PNW",
+      url: "/art/photos",
+      class: "font-normal text-black underline decoration-4 decoration-red-500"
+    }
+  ];
 </script>
 
 <article class={`w-full grid grid-flow-row gap-10 lg:text-lg ${$$restProps.class}`} id="about">
@@ -7,21 +30,30 @@
   <p>
     My name is Zachary Corvidae, also known as sneaky crow. With over two decades of experience,
     I've been deeply entrenched in the world of application development, constantly honing my craft
-    and adapting to the ever-evolving beast that is technological innovation. Throughout my career,
-    I've had the privilege of contributing to a diverse array of projects and companies, ranging
-    from <strong>industry giants</strong>
+    and adapting to the ever-evolving beast that is technological innovation.
+  </p>
+  <p>
+    Throughout my career, I've had the privilege of contributing to a diverse array of projects and
+    companies, ranging from <strong>industry giants</strong>
     to <strong>boutique agencies</strong>, and even <strong>venturing into entrepreneurship</strong>
     by founding multiple successful software projects and businesses.
   </p>
   <p>
     Beyond the realm of programming, I also like to incorporate some of my other favorite hobbies
-    and interests in what I do. Whether I'm crafting melodies, delving into immersive virtual
-    worlds, exploring the depths of literature, or simply basking in the breathtaking beauty of the
-    Pacific Northwest's natural wonders, I am constantly seeking new avenues for creativity and
-    enrichment.
+    and interests in what I do. I'm always seeking to feed little rat inside my brain more food, and
+    I do that by
+    <!-- list out hobby string dynmically -->
+    {#each hobbies as hobby, i}
+      <a href={hobby.url} class={hobby.class}>{hobby.copy}</a
+      >{#if i !== hobbies.length - 1}{`, `}{:else}{`.`}{/if}
+      <!-- Don't print the comma on the last line -->
+    {/each}
   </p>
   <p>
     I <span class="italic">love</span> to collaborate. Feel free to reach out to me via
-    <a href="mailto:zach@sneakycrow.dev">email</a>.
+    <a
+      class="font-normal text-black underline decoration-4 decoration-green-550"
+      href="mailto:zach@sneakycrow.dev">email</a
+    >.
   </p>
 </article>
