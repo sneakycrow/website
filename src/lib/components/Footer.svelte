@@ -22,6 +22,7 @@
       <span>source code for this site</span>
       <Icon icon="akar-icons:github-fill" class="inline-block w-4 h-4" />
     </a>
+    <a href="mailto:zach@sneakycrow.dev">contact me</a>
   </p>
   {#if user}
     <Avatar {user} />
