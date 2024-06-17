@@ -29,19 +29,16 @@
   <Profile />
   <p>
     My name is Zachary Corvidae, also known as sneaky crow. With over two decades of experience,
-    I've been deeply entrenched in the world of application development, constantly honing my craft
-    and adapting to the ever-evolving beast that is technological innovation.
-  </p>
-  <p>
-    Throughout my career, I've had the privilege of contributing to a diverse array of projects and
-    companies, ranging from <strong>industry giants</strong>
-    to <strong>boutique agencies</strong>, and even <strong>venturing into entrepreneurship</strong>
-    by founding multiple successful software projects and businesses.
+    I've designed, developed, and scaled applications of many sizes. Throughout my career, I've had
+    the privilege of contributing to a diverse array of projects and companies, ranging from
+    <strong>industry giants</strong> to <strong>boutique agencies</strong>, and even
+    <strong>venturing into entrepreneurship</strong> by founding multiple successful software projects
+    and businesses.
   </p>
   <p>
     Beyond the realm of programming, I also like to incorporate some of my other favorite hobbies
-    and interests in what I do. I'm always seeking to feed little rat inside my brain more food, and
-    I do that by
+    and interests in what I do. I'm always seeking to feed the little rat inside my brain more food,
+    and I do that by
     <!-- list out hobby string dynmically -->
     {#each hobbies as hobby, i}
       <a href={hobby.url} class={hobby.class}>{hobby.copy}</a
