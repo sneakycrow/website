@@ -102,12 +102,10 @@ export const getStream = async (userId: string, token: string): Promise<Stream> 
     });
   }
   const json: ExpectedResponse = await res.json();
-  if (!json.data || !json.data[0]) {
-    throw new Error("Failed to fetch stream, missing information in response");
-  }
 
-  const live = json.data[0].type === "live" ? json.data[0].started_at : null;
-  const title = json.data[0].title;
+  // Fallback to null and empty string if data isn't there. It usually means we're not live anyway.
+  const live = json.data[0]?.type === "live" ? json.data[0]?.started_at : null;
+  const title = json.data[0]?.title ?? "";
   return {
     live,
     title

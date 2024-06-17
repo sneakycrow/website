@@ -1,6 +1,11 @@
 import { createClient, type RedisClientType } from "redis";
 import { env } from "$env/dynamic/private";
 
+// Keys of data we cache
+export const TWITCH_STREAM_STATUS = "twitch:stream_status";
+export const SPOTIFY_TOP_ARTISTS = "spotify:top_artists";
+export const SPOTIFY_RECENT_TRACKS = "spotify:recent_tracks";
+
 export const getRedisClient = async (): Promise<RedisClientType> => {
   if (!env.REDIS_URL) throw new Error("No REDIS_URL found in env");
   return createClient({
@@ -48,7 +53,3 @@ export const getFromRedis = async (key: string): Promise<string | null> => {
     return null;
   }
 };
-
-export const TWITCH_STREAM_STATUS = "twitch:stream_status";
-export const SPOTIFY_TOP_ARTISTS = "spotify:top_artists";
-export const SPOTIFY_RECENT_TRACKS = "spotify:recent_tracks";
