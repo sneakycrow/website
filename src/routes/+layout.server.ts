@@ -1,3 +1,4 @@
+import { keywords } from "$lib";
 import {
   TWITCH_STREAM_STATUS,
   getExpirationByMinutes,
@@ -15,7 +16,8 @@ export const load: LayoutServerLoad = async ({ locals, route }) => {
     },
     isLive: false,
     description:
-      "Zachary Corvidae's personal website. A collection of thoughts, ideas, and projects."
+      "Zachary Corvidae's personal website. A collection of thoughts, ideas, and projects.",
+    keywords
   };
   if (route.id === "/") {
     // Check if I'm live on Twitch

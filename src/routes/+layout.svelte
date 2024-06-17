@@ -3,6 +3,7 @@
   import type { LayoutServerData } from "./$types";
   import Footer from "$lib/components/Footer.svelte";
   import Header from "$lib/components/Header.svelte";
+  import { keywords } from "$lib";
   export let data: LayoutServerData;
 
   let user: { username: string; avatar: string } | undefined;
@@ -16,6 +17,7 @@
 
 <svelte:head>
   <meta name="description" content={data.description} />
+  <meta name="keywords" content={keywords.join(", ")} />
 </svelte:head>
 
 <main class="grid lg:grid-cols-6 gap-10 p-4 min-h-screen">
