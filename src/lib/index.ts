@@ -3,6 +3,7 @@ export const titles = [
   "Applications Engineer",
   "Technical Architect",
   "Founding Engineer",
+  "Open-source Contributor",
   "Dad",
   "Musician",
   "Guitarist",
