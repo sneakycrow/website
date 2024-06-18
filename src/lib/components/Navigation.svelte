@@ -53,18 +53,14 @@
     <div
       class="z-50 w-screen h-full bg-green-550 fixed top-0 left-0 flex flex-col items-end justify-center p-4"
     >
-      <button class="mb-40" on:click={closeMenu}>
+      <button class="mb-20" on:click={closeMenu}>
         <Icon
           icon="zondicons:close-solid"
           class="inline-block w-12 h-12 text-white active:text-red-500"
         />
       </button>
       {#each [...links, ...additionalLinks] as link}
-        <a
-          href={link.url}
-          class={`active:text-white text-black text-3xl font-bold uppercase`}
-          on:click={closeMenu}
-        >
+        <a href={link.url} class={`text-white text-2xl font-bold uppercase`} on:click={closeMenu}>
           {link.copy}
         </a>
       {/each}
