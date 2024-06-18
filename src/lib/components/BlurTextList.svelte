@@ -9,18 +9,18 @@
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-  const getRandomTitle = () => textList[getRandomInt(0, textList.length - 1)];
-  let title = getRandomTitle();
+  const getRandomText = () => textList[getRandomInt(0, textList.length - 1)];
+  let title = getRandomText();
 
   const updateTitle = () => {
-    title = getRandomTitle();
+    title = getRandomText();
   };
 
   setInterval(updateTitle, 2000);
 </script>
 
 <div
-  class={`h-[6.8rem] w-full relative flex items-center lg:items-start justify-center lg:justify-start`}
+  class={`h-[6.8rem] my-10 lg:my-2 w-full relative flex items-center lg:items-start justify-center lg:justify-start`}
 >
   {#key title}
     <p
