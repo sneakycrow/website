@@ -4,11 +4,11 @@
 </script>
 
 <div
-  class={`grid lg:grid-cols-4 gap-8 items-center lg:items-start justify-center lg:justify-start p-4 w-full ${$$restProps.class}`}
+  class={`grid lg:grid-cols-4 gap-8 items-center lg:items-start justify-center lg:justify-start w-full ${$$restProps.class}`}
 >
   <img
     alt="Zachary Corvidae, owner of Sneaky Crow"
-    class="rounded-md border-green-550 shadow-md mx-auto"
+    class="rounded-md border-green-550 shadow-md"
     width={150}
     height={150}
     src="/profile_normal.jpeg"

@@ -20,7 +20,7 @@
     },
     {
       copy: "about",
-      url: "/#about",
+      url: "/about",
       hover: "hover:text-blue-500"
     }
   ];
