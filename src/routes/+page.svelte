@@ -1,5 +1,5 @@
 <script lang="ts">
-  import AboutMe from "$lib/components/AboutMe.svelte";
+  import Profile from "$lib/components/Profile.svelte";
   import ProjectList from "$lib/components/ProjectList.svelte";
 </script>
 
@@ -7,7 +7,19 @@
   <title>sneaky crow</title>
 </svelte:head>
 
-<AboutMe class="col-start-1 lg:col-span-4 row-start-2 lg:row-span-2 max-w-[1000px]" />
+<section class="col-start-1 lg:col-span-4 row-start-2 lg:row-span-2 max-w-[1000px] space-y-4">
+  <Profile />
+  <p class="text-xl">
+    Hey there, I'm Zach. I'm a human being of many titles, and I'm definitely <span
+      class="font-bold underline italic uppercase">not</span
+    > three crows in a long-coat.
+  </p>
+  <img
+    class="rounded-md mx-auto shadow-md"
+    src="/custom_feed_meme.png"
+    alt="A meme of the Fairly Oddparents dad screaming about his trophy, but referencing my missing social feed"
+  />
+</section>
 <ProjectList
   class="col-start-1 lg:col-start-5 lg:col-span-2 lg:row-start-2 row-start-3 lg:row-span-2"
 />
