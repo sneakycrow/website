@@ -35,7 +35,7 @@ npm install -D vite-plugin-wasm vite-plugin-top-level-await
 
 Next, open `vite.config.js` and update the `plugins` section to look like this:
 
-```js
+```js vite.config.js
 import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig } from "vite";
 import topLevelAwait from "vite-plugin-top-level-await";
