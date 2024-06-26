@@ -20,7 +20,7 @@
   <meta name="keywords" content={keywords.join(", ")} />
 </svelte:head>
 
-<main class="grid lg:grid-cols-6 gap-10 p-4 min-h-screen">
+<main class="grid lg:grid-cols-6 gap-20 p-4 min-h-screen">
   <Header
     title={data.title.text}
     link={data.title.link}

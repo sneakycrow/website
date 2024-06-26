@@ -4,7 +4,7 @@
 
   export let title: string;
   export let link: string = "/";
-  export let isLive = false;
+  export let isLive = true;
   type User = {
     username: string;
     avatar: string;
@@ -21,21 +21,20 @@
 </script>
 
 <header
-  class={`w-full grid grid-flow-dense grid-cols-3 lg:grid-rows-3 items-center justify-between lg:max-h-[300px] ${$$restProps.class}`}
+  class={`w-full grid grid-cols-header gap-4 items-start lg:max-h-[300px] ${$$restProps.class}`}
 >
-  <Logo class="row-start-1 row-span-2 py-4 col-start-1 col-span-1 lg:ml-0 w-[100px] lg:w-[200px]" />
-  <Navigation
-    class="row-start-1 row-span-2 lg:row-span-1 w-full col-start-2 col-span-2 items-start justify-start"
-    additionalLinks={user ? authLinks : []}
-  />
+  <Logo class="w-[100px] col-start-1 col-span-1" />
   <section
-    class="lg:col-start-2 col-start-1 lg:col-span-2 col-span-3 row-start-3 lg:row-start-2 flex justify-end items-end flex-col"
+    class="row-start-2 lg:row-start-1 col-start-1 lg:col-start-2 col-span-6 lg:col-span-3 items-center justify-center"
   >
-    <a href={link} class="text-black hover:text-green-550 flex flex-col justify-start">
-      <h1 class="text-xl lg:text-5xl font-bold uppercase">{title}</h1>
+    <a
+      href={link}
+      class="text-black hover:text-green-550 flex flex-col justify-start lg:text-left text-center"
+    >
+      <h1 class="text-xl lg:text-3xl font-bold uppercase">{title}</h1>
     </a>
     {#if isLive}
-      <div class="flex flex-nowrap items-center animate-pulse">
+      <div class="flex flex-nowrap items-center justify-center lg:justify-start animate-pulse">
         <svg
           class="w-4 h-4 mr-2 text-red-500"
           fill="currentColor"
@@ -52,4 +51,8 @@
       </div>
     {/if}
   </section>
+  <Navigation
+    class="w-full col-start-5 col-span-2 text-right"
+    additionalLinks={user ? authLinks : []}
+  />
 </header>

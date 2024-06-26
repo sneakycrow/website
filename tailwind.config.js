@@ -33,6 +33,9 @@ module.exports = {
           550: "#0ba750"
         }
       },
+      gridTemplateColumns: {
+        header: "100px repeat(5, 1fr)"
+      },
       boxShadow: {
         "flat-green": "10px 10px #0ba750"
       },
