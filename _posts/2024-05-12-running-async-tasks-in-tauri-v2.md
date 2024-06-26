@@ -166,7 +166,7 @@ The frontend is fairly standard React code. When the app starts, it sends a mess
 
 That starts the chat monitor, and the backend sends messages to the frontend via the `twitch_message_received` event. The frontend listens for this event and updates the chat window with the new message.
 
-```jsx
+```typescript
 type Message = {
   id: string;
   text: string;
