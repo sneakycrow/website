@@ -3,11 +3,10 @@ title: "Playing with Gleam"
 slug: "playing-with-gleam"
 summary: " A high level exploration of the gleam language, a new programming language"
 ---
+
 ## what is gleam?
 
-> **Gleam is a friendly language for building type-safe systems that scale!
--** [https://gleam.run/](https://gleam.run/)
->
+> **Gleam is a friendly language for building type-safe systems that scale! -** [https://gleam.run/](https://gleam.run/)
 
 ## why?
 
@@ -33,8 +32,7 @@ The pipe operators are really pleasant to use. Once I grasped how they worked, I
 
 As I understand it, the return value of the first function is passed as the first argument into the piped function. Here's a function from my [gwitch](https://hex.pm/packages/gwitch) project that utilizes it a few times. Particularly on the last line, where the
 
-_todo: support gleam syntax highlighting_
-```
+```gleam
 /// A function for connecting to a twitch channel. Returns a subject for sending and receiving messages
 pub fn connect(config: Config, channel: String) -> Subject(Message) {
   // Establish a connection to the Twitch server and create the builder
