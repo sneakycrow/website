@@ -29,5 +29,5 @@
     {user}
   />
   <slot />
-  <Footer class="lg:row-start-4 lg:col-span-6 max-h-[200px] self-end" {user} />
+  <Footer class="lg:col-span-6 max-h-[200px] self-end" {user} />
 </main>
