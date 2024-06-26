@@ -5,9 +5,9 @@ import type { RequestEvent } from "@sveltejs/kit";
 import {
   connectAccountToUser,
   createUserFromProvider,
-  getUserAccountProviderByUserId,
-  getUserByEmail
-} from "$lib/server/user";
+  getUserAccountProviderByUserId
+} from "$lib/server/user/account";
+import { getUserByEmail } from "$lib/server/user";
 import { getUser, validateToken } from "$lib/twitch";
 
 export async function GET(event: RequestEvent): Promise<Response> {

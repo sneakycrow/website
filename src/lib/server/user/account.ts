@@ -3,22 +3,6 @@ import type { User, Account } from "@prisma/client";
 import client from "$lib/server/db";
 import { nanoid } from "nanoid";
 
-export const getUserByUsername = async (username: string): Promise<User | null> => {
-  return client.user.findUnique({
-    where: {
-      username
-    }
-  });
-};
-
-export const getUserByEmail = async (email: string): Promise<User | null> => {
-  return client.user.findUnique({
-    where: {
-      email
-    }
-  });
-};
-
 export const getUserAccountProviderByUserId = async (
   provider: string,
   userId: string

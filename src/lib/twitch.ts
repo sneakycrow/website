@@ -1,5 +1,5 @@
 import { env } from "$env/dynamic/private";
-import { getUserAccountProviderByUserName } from "./server/user";
+import { getUserAccountProviderByUserName } from "./server/user/account";
 import client from "./server/db";
 
 export const scopes = ["user:read:email"];
@@ -126,6 +126,7 @@ export const getStaticStream = async (): Promise<Stream> => {
     const res = await getStream(dbUser.id, dbUser.accessToken);
     return res;
   } catch (e) {
+    // @ts-expect-error - cause is not a standard error property
     if (e?.cause === 401) {
       if (!dbUser.refreshToken) {
         throw new Error("Could not refresh token, no refresh token in database");
