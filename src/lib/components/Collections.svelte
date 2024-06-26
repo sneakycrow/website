@@ -55,11 +55,7 @@
   const ICON_SIZE = 100;
 </script>
 
-<svelte:head>
-  <title>treasure trash</title>
-</svelte:head>
-
-<section class="grid lg:grid-cols-2 lg:col-span-6 row-span-2 gap-8">
+<section class={`grid lg:grid-cols-2 row-span-2 gap-20 ${$$restProps.class ?? ""}`}>
   {#each links as link}
     <div class={`text-center ${link.comingSoon ? "grayscale" : ""}`}>
       <a
