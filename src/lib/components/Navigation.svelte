@@ -11,17 +11,22 @@
     {
       copy: "blog",
       url: "/blog",
-      hover: "hover:text-purple-500"
+      hover: "lg:hover:text-green-500"
     },
     {
-      copy: "projects",
-      url: "/projects",
-      hover: "hover:text-red-500"
+      copy: "books",
+      url: "/books",
+      hover: "lg:hover:text-red-500"
+    },
+    {
+      copy: "music",
+      url: "/music",
+      hover: "lg:hover:text-orange-500"
     },
     {
       copy: "about",
       url: "/about",
-      hover: "hover:text-blue-500"
+      hover: "lg:hover:text-blue-500"
     }
   ];
 
