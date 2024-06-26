@@ -8,12 +8,13 @@ generator client {
 }
 
 model User {
-  id       String    @id
-  username String    @unique
+  id       String     @id
+  username String     @unique
   avatar   String
-  email    String    @unique
+  email    String     @unique
   sessions Session[]
   accounts Account[]
+  feed     FeedItem[]
 }
 
 model Session {
@@ -30,4 +31,17 @@ model Account {
   accessToken  String?
   refreshToken String?
   user         User    @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
+
+enum FeedItemType {
+  SNEAKYCROW_BLOG_POST
+}
+
+model FeedItem {
+  id     String       @id
+  type   FeedItemType
+  userId String
+  data   Json
+
+  user User @relation(references: [id], fields: [userId], onDelete: Cascade)
 }
