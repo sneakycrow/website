@@ -5,13 +5,15 @@
     plaintext,
     typescript,
     javascript,
+    handlebars,
     json,
+    scss,
     shell,
     yaml
   } from "svelte-highlight/languages";
   // @ts-ignore - these types aren't support important to the project, so we ignore them
   import gleam from "@gleam-lang/highlight.js-gleam";
-  import "svelte-highlight/styles/onedark.css";
+  import "./dracula.css";
 
   export let text: string;
   // This is expected either to be a single string or a space-separated string, "rust filename.rs"
@@ -44,6 +46,13 @@
           name: "gleam",
           register: gleam
         };
+      }
+      case "scss": {
+        return scss;
+      }
+      case "hbs":
+      case "handlebars": {
+        return handlebars;
       }
       case "toml":
       case "yaml": {
