@@ -4,7 +4,7 @@
 </script>
 
 <div
-  class="overflow-hidden min-w-full min-h-[200px] lg:min-h-[500px] border-[16px] lg:border-[24px] drop-shadow-lg border-black"
+  class="overflow-hidden min-w-full min-h-[200px] max-h-[600px] lg:min-h-[500px] border-[16px] lg:border-[24px] drop-shadow-lg border-black"
 >
   <img class="max-h-full object-cover" src={source} {alt} />
 </div>

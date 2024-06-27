@@ -9,7 +9,13 @@
 <section
   class="col-start-1 lg:col-span-6 min-h-[50vh] max-w-[1000px] mx-auto space-y-4 text-center flex flex-col justify-center items-center"
 >
-  <img src="/ada_cropped.png" alt="Ada Lovelace" class="w-96 mx-auto" />
+  <img
+    src="/ada_cropped.png"
+    alt="Ada the crow, the mascot of Sneaky Crow"
+    width={400}
+    height={400}
+    class="mx-auto"
+  />
   <p class="text-xl">
     Hey there, I'm Zach. I'm a human being of many titles, and I'm definitely <span
       class="font-bold underline italic uppercase">not</span
