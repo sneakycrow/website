@@ -29,10 +29,6 @@ a {
   @apply transition-colors;
 }
 
-a:hover {
-  @apply opacity-75;
-}
-
 blockquote {
   position: relative;
   margin-left: 16px;
