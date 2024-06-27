@@ -21,16 +21,13 @@
 </script>
 
 <header
-  class={`w-full grid grid-cols-header gap-4 items-start lg:max-h-[300px] ${$$restProps.class}`}
+  class={`w-full grid grid-cols-header gap-4 items-center lg:items-start lg:max-h-[300px] ${$$restProps.class}`}
 >
-  <Logo class="w-[100px] col-start-1 col-span-1" />
+  <Logo class="w-14 lg:w-[100px] col-start-1 col-span-1" />
   <section
-    class="row-start-2 lg:row-start-1 col-start-1 lg:col-start-2 col-span-6 lg:col-span-3 items-center justify-center"
+    class="flex-grow-0 row-start-2 lg:row-start-1 col-start-1 lg:col-start-2 col-span-6 lg:col-span-3 flex justify-center mt-4"
   >
-    <a
-      href={link}
-      class="text-black hover:text-green-550 flex flex-col justify-start lg:text-left text-center"
-    >
+    <a href={link} class="max-w-max block text-black hover:text-green-550 lg:text-left text-center">
       <h1 class="text-xl lg:text-3xl font-bold uppercase">{title}</h1>
     </a>
     {#if isLive}
