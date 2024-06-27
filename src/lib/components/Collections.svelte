@@ -52,9 +52,15 @@
       comingSoon: true
     }
   ];
-  const ICON_SIZE = 100;
+  const ICON_MIN_SIZE = 64;
+  const ICON_MAX_SIZE = 128;
+  $: outerWidth = 0;
+  // Make the icons smaller on mobile
+  const LG_BREAKPOINT = 1024;
+  $: iconSize = outerWidth < LG_BREAKPOINT ? ICON_MIN_SIZE : ICON_MAX_SIZE;
 </script>
 
+<svelte:window bind:outerWidth />
 <section class={`grid lg:grid-cols-2 row-span-2 gap-20 ${$$restProps.class ?? ""}`}>
   {#each links as link}
     <div class={`text-center ${link.comingSoon ? "grayscale" : ""}`}>
@@ -62,12 +68,12 @@
         href={link.comingSoon ? "#" : link.url}
         class={`${
           link.comingSoon ? "text-gray-500" : "text-gray-900"
-        } text-xl lg:text-5xl font-bold uppercase flex flex-nowrap space-x-2 leading-none items-center justify-center ${
+        } text-2xl lg:text-5xl font-bold uppercase flex flex-nowrap space-x-2 leading-none items-center justify-center ${
           link.class
         }`}
       >
-        <Icon icon={link.icon} height={ICON_SIZE} width={ICON_SIZE} class={link.iconColor} />
-        {link.copy}
+        <Icon icon={link.icon} height={iconSize} width={iconSize} class={link.iconColor} />
+        <span>{link.copy}</span>
       </a>
       <div class="flex flex-col mb-4">
         <p class="text-lg text-gray-800">{link.description}</p>
