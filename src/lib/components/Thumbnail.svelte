@@ -1,11 +1,10 @@
 <script lang="ts">
   export let source = "";
   export let alt: string;
-  export let hover = "";
 </script>
 
 <div
-  class={`overflow-hidden w-full max-h-[500px] border-[16px] lg:border-[24px] drop-shadow-lg border-black transition-colors ease-in duration-300 ${hover}`}
+  class="overflow-hidden min-w-full min-h-[200px] lg:min-h-[500px] border-[16px] lg:border-[24px] drop-shadow-lg border-black"
 >
   <img class="max-h-full object-cover" src={source} {alt} />
 </div>
