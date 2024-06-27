@@ -24,6 +24,11 @@
       hover: "lg:hover:text-orange-500"
     },
     {
+      copy: "art",
+      url: "/art",
+      hover: "lg:hover:text-yellow-500"
+    },
+    {
       copy: "about",
       url: "/about",
       hover: "lg:hover:text-blue-500"
