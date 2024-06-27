@@ -40,7 +40,7 @@
     <aside class="text-left flex flex-col justify-center">
       <p class="text-lg">{currentBook.title}</p>
       <p>{currentBook.author}</p>
-      <a href={currentBook.url}>
+      <a href={currentBook.url} target="_blank">
         <img
           class="mx-auto my-4 h-[400px]"
           src={currentBook.image}
@@ -52,7 +52,7 @@
       <aside class="text-left flex flex-col justify-center">
         <p class="text-lg">{book.title}</p>
         <p>{book.author}</p>
-        <a href={book.url}>
+        <a href={book.url} target="_blank">
           <img
             class="mx-auto my-4 h-[400px]"
             src={book.image}
