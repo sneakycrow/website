@@ -25,7 +25,7 @@
 >
   <Logo class="w-14 lg:w-[100px] col-start-1 col-span-1" />
   <section
-    class="flex-grow-0 row-start-2 lg:row-start-1 col-start-1 lg:col-start-2 col-span-6 lg:col-span-3 flex justify-center lg:justify-start mt-4"
+    class="flex-grow-0 row-start-2 lg:row-start-1 col-start-1 lg:col-start-2 col-span-6 lg:col-span-3 flex justify-center items-start lg:justify-start lg:mt-0 mt-4"
   >
     <a href={link} class="max-w-max block text-black hover:text-green-550">
       <h1 class="text-xl lg:text-3xl font-bold uppercase">{title}</h1>
