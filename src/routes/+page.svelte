@@ -12,9 +12,8 @@
   <img
     src="/ada_cropped.png"
     alt="Ada the crow, the mascot of Sneaky Crow"
-    width={400}
-    height={400}
-    class="mx-auto"
+    style="animation: bounce 10s infinite;"
+    width={300}
   />
   <p class="text-xl">
     Hey there, I'm Zach. I'm a human being of many titles, and I'm definitely <span
