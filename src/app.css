@@ -2,11 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+:root [data-theme="sneakycrow-skeleton"] {
   font-family: "Inter", sans-serif;
 }
+
 @supports (font-variation-settings: normal) {
-  :root {
+  :root [data-theme="sneakycrow-skeleton"] {
     font-family: "Inter var", sans-serif;
   }
 }
@@ -23,7 +24,7 @@ body {
 }
 
 a {
-  @apply text-green-550;
+  @apply text-primary-500;
   @apply font-semibold;
   @apply transition-opacity;
   @apply transition-colors;
