@@ -5,19 +5,6 @@
   export let title: string;
   export let link: string = "/";
   export let isLive = true;
-  type User = {
-    username: string;
-    avatar: string;
-  };
-  export let user: User | null = null;
-
-  const authLinks = [
-    {
-      copy: "Dashboard",
-      url: "/dashboard",
-      hover: "hover:text-purple-500"
-    }
-  ];
 </script>
 
 <header
@@ -27,7 +14,7 @@
   <section
     class="flex-grow-0 row-start-2 lg:row-start-1 col-start-1 lg:col-start-2 col-span-6 lg:col-span-3 flex justify-center items-start lg:justify-start lg:mt-0 mt-4"
   >
-    <a href={link} class="max-w-max block text-black">
+    <a href={link} class="max-w-max block text-black lg:hover:text-primary-500">
       <h1 class="text-xl lg:text-3xl font-bold uppercase">{title}</h1>
     </a>
     {#if isLive}
@@ -48,8 +35,5 @@
       </div>
     {/if}
   </section>
-  <Navigation
-    class="w-full col-start-5 col-span-2 text-right"
-    additionalLinks={user ? authLinks : []}
-  />
+  <Navigation class="w-full col-start-5 col-span-2 text-right" />
 </header>
