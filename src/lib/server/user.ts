@@ -19,6 +19,10 @@ export const getUserByEmail = async (email: string): Promise<User | null> => {
   });
 };
 
+export const getAllUsers = async (): Promise<User[] | null> => {
+  return client.user.findMany();
+};
+
 export const getUserAccountProviderByUserId = async (
   provider: string,
   userId: string

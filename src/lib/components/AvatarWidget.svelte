@@ -1,41 +1,39 @@
 <script lang="ts">
+  import { Avatar, type PopupSettings, popup } from "@skeletonlabs/skeleton";
+
   type User = {
     username: string;
     avatar: string;
   };
+
   export let user: User;
-  export let isExpanded: boolean = false;
+  export let links: { copy: string; url: string }[] = [];
 
-  const toggleExpanded = () => {
-    isExpanded = !isExpanded;
+  const profilePopup: PopupSettings = {
+    // Represents the type of event that opens/closed the popup
+    event: "click",
+    // Matches the data-popup value on your popup element
+    target: "profilePopup",
+    // Defines which side of your trigger the popup will appear
+    placement: "top"
   };
-
-  const expandedMenu = [
-    {
-      href: "/dashboard",
-      text: "Dashboard"
-    },
-    {
-      href: "/?logout",
-      text: "Logout"
-    }
-  ];
 </script>
 
-<div class={`flex gap-2 items-end justify-center ${$$restProps.class}`}>
-  <img
-    src={user.avatar}
-    alt={`Avatar for ${user.username}`}
-    height={50}
-    width={50}
-    class="rounded-full"
-  />
-  <div class="flex flex-col items-end text-right justify-center font-semibold">
-    <p>{user.username}</p>
-    <form action="/?/logout" method="post">
-      <button class="cursor-pointer font-semibold hover:text-red-500 text-gray-400" type="submit"
-        >Log Out</button
-      >
-    </form>
+<div class={$$restProps.class}>
+  <div class="card p-4 w-36 shadow-xl bg-white" data-popup="profilePopup">
+    <div class="font-semibold text-right flex flex-col justify-end">
+      <p>{user.username}</p>
+      {#each links as link}
+        <a href={link.url}>{link.copy}</a>
+      {/each}
+      <form action="/?/logout" method="post">
+        <button class="cursor-pointer font-semibold hover:text-red-500 text-gray-400" type="submit"
+          >Log Out</button
+        >
+      </form>
+    </div>
   </div>
+  <button use:popup={profilePopup}>
+    <Avatar width="w-[50px]" rounded="rounded-full" src={user.avatar} />
+  </button>
 </div>

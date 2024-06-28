@@ -12,8 +12,14 @@ model User {
   username String    @unique
   avatar   String
   email    String    @unique
+  role     UserRole  @default(USER)
   sessions Session[]
   accounts Account[]
+}
+
+enum UserRole {
+  USER
+  ADMIN
 }
 
 model Session {

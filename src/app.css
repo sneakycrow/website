@@ -2,11 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+:root [data-theme="sneakycrow-skeleton"] {
   font-family: "Inter", sans-serif;
 }
+
 @supports (font-variation-settings: normal) {
-  :root {
+  :root [data-theme="sneakycrow-skeleton"] {
     font-family: "Inter var", sans-serif;
   }
 }
@@ -23,7 +24,7 @@ body {
 }
 
 a {
-  @apply text-green-550;
+  @apply text-primary-500;
   @apply font-semibold;
   @apply transition-opacity;
   @apply transition-colors;
@@ -50,4 +51,21 @@ blockquote::before {
   position: absolute;
   left: -16px;
   top: 0;
+}
+
+/* Bounce animation */
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
 }

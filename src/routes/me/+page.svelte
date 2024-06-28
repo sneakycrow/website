@@ -38,7 +38,7 @@
 </script>
 
 <section class="col-start-1 lg:col-span-6 flex flex-col items-center justify-center text-center">
-  <h3 class="text-4xl text-gray-300 font-semibold">Connected Accounts</h3>
+  <h3 class="text-4xl text-gray-300 font-semibold my-10">Connected Accounts</h3>
   <ul class="flex space-x-6">
     {#each availableAccounts as account}
       {#if getIconData(account) !== null}
@@ -51,7 +51,7 @@
           />
           {#if !isConnectedAccount(account)}
             <a
-              class="text-xs block py-2 px-4 bg-green-550 text-white rounded mt-4"
+              class="text-xs block py-2 px-4 bg-primary-500 text-white rounded mt-4"
               href={`/login/${account}`}>Connect</a
             >
           {/if}

@@ -51,7 +51,7 @@
   <p>
     I <span class="italic">love</span> to collaborate. Feel free to reach out to me via
     <a
-      class="font-normal text-black underline decoration-4 decoration-green-550"
+      class="font-normal text-black underline decoration-4 decoration-primary-500"
       href="mailto:zach@sneakycrow.dev">email</a
     >.
   </p>

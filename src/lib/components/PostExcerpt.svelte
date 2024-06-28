@@ -11,10 +11,7 @@
 
 <div class="py-4">
   <p class="text-xs italic text-gray-400">{date.toLocaleDateString()}</p>
-  <a
-    class="lg:text-2xl text-xl font-bold uppercase text-black hover:text-green-550 transition-opacity"
-    href={post.slug}
-  >
+  <a class="lg:text-2xl text-xl font-bold uppercase text-black transition-opacity" href={post.slug}>
     {post.title}
   </a>
   <p class="text-lg italic text-gray-400">{post.summary}</p>

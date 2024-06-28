@@ -1,12 +1,21 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import Avatar from "./AvatarWidget.svelte";
+  import AvatarWidget from "./AvatarWidget.svelte";
 
   type User = {
     username: string;
     avatar: string;
+    role?: string;
   };
   export let user: User | null = null;
+  // All users get access to these
+  let userLinks = [{ copy: "settings", url: "/me" }];
+  // Check if the user is an admin
+  if (user) {
+    if (user.role === "ADMIN") {
+      userLinks.unshift({ copy: "admin", url: "/admin" });
+    }
+  }
 </script>
 
 <footer
@@ -25,7 +34,7 @@
     <a href="mailto:zach@sneakycrow.dev">contact me</a>
   </p>
   {#if user}
-    <Avatar {user} />
+    <AvatarWidget {user} links={userLinks} />
   {:else}
     <a href="/login">Login</a>
   {/if}

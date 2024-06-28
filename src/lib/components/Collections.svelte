@@ -14,7 +14,7 @@
       copy: "writing",
       url: "/blog",
       description: "brain juice, mostly",
-      class: "hover:text-yellow-500",
+      class: "lg:hover:text-yellow-500",
       iconColor: "text-yellow-500 opacity-75",
       icon: "tabler:writing"
     },
@@ -22,7 +22,7 @@
       copy: "listening",
       url: "/music",
       description: "totally radical tunes",
-      class: "hover:text-green-500",
+      class: "lg:hover:text-green-500",
       iconColor: "text-green-500 opacity-75",
       icon: "material-symbols:album"
     },
@@ -30,7 +30,7 @@
       copy: "creating",
       url: "/art",
       description: "I like to make pretty things sometimes",
-      class: "hover:text-red-500",
+      class: "lg:hover:text-red-500",
       iconColor: "text-red-500 opacity-75",
       icon: "tabler:palette"
     },
@@ -38,7 +38,7 @@
       copy: "reading",
       url: "/books",
       description: "feeding my brain with the written word",
-      class: "hover:text-purple-500",
+      class: "lg:hover:text-purple-500",
       iconColor: "text-purple-500 opacity-75",
       icon: "tabler:book"
     },
@@ -46,7 +46,7 @@
       copy: "playing",
       url: "/games",
       description: "where my dreams become virtual reality (uh oh)",
-      class: "hover:text-blue-500",
+      class: "lg:hover:text-blue-500",
       iconColor: "text-blue-500 opacity-75",
       icon: "f7:gamecontroller-fill",
       comingSoon: true
