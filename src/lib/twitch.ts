@@ -126,6 +126,7 @@ export const getStaticStream = async (): Promise<Stream> => {
     const res = await getStream(dbUser.id, dbUser.accessToken);
     return res;
   } catch (e) {
+    // @ts-ignore
     if (e?.cause === 401) {
       if (!dbUser.refreshToken) {
         throw new Error("Could not refresh token, no refresh token in database");
