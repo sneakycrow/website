@@ -1,4 +1,8 @@
 <script lang="ts">
+  import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom";
+  import { storePopup } from "@skeletonlabs/skeleton";
+  storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
+
   import "../app.css";
   import type { LayoutServerData } from "./$types";
   import Footer from "$lib/components/Footer.svelte";
@@ -26,7 +30,6 @@
     link={data.title.link}
     class="row-start-1 row-span-1 col-start-1 lg:col-span-6"
     isLive={data.isLive}
-    {user}
   />
   <slot />
   <Footer class="lg:col-span-6 max-h-[200px] self-end" {user} />
