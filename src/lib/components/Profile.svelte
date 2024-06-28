@@ -8,7 +8,7 @@
 >
   <img
     alt="Zachary Corvidae, owner of Sneaky Crow"
-    class="rounded-md border-primary-500 shadow-md"
+    class="rounded-md border-primary-500 shadow-md mx-auto"
     width={150}
     height={150}
     src="/profile_normal.jpeg"
