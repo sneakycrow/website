@@ -10,11 +10,12 @@
   import { keywords } from "$lib";
   export let data: LayoutServerData;
 
-  let user: { username: string; avatar: string } | undefined;
+  let user: { username: string; avatar: string; role: string } | undefined;
   $: if (data.username && data.avatar) {
     user = {
       username: data.username,
-      avatar: data.avatar
+      avatar: data.avatar,
+      role: data.role
     };
   }
 </script>

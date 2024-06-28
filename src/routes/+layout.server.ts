@@ -78,6 +78,7 @@ export const load: LayoutServerLoad = async ({ locals, route }) => {
   return {
     username: locals.user.username,
     avatar: locals.user.avatar,
+    role: locals.user.role,
     ...pageMeta
   };
 };
