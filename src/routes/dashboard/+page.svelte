@@ -51,7 +51,7 @@
           />
           {#if !isConnectedAccount(account)}
             <a
-              class="text-xs block py-2 px-4 bg-green-550 text-white rounded mt-4"
+              class="text-xs block py-2 px-4 bg-primary-500 text-white rounded mt-4"
               href={`/login/${account}`}>Connect</a
             >
           {/if}

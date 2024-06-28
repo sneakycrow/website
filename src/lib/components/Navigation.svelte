@@ -61,7 +61,7 @@
   {/each}
   {#if isMobileOpen}
     <div
-      class="z-50 w-screen h-full bg-green-550 fixed top-0 left-0 flex flex-col items-end justify-center p-4"
+      class="z-50 w-screen h-full bg-primary-500 fixed top-0 left-0 flex flex-col items-end justify-center p-4"
     >
       <button class="mb-20" on:click={closeMenu}>
         <Icon

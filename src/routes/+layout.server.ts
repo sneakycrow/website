@@ -74,12 +74,6 @@ export const load: LayoutServerLoad = async ({ locals, route }) => {
     pageMeta.description = "A collection of books I tried to read.";
   }
 
-  if (route.id === "/projects") {
-    pageMeta.title.text = "Treasure Trash";
-    pageMeta.title.link = "/projects";
-    pageMeta.description = "A collection of projects.";
-  }
-
   if (!locals.user) return pageMeta;
   return {
     username: locals.user.username,
