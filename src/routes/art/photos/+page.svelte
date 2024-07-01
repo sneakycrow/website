@@ -1,4 +1,5 @@
 <script lang="ts">
+  import FilmPhoto from "$lib/components/FilmPhoto.svelte";
   import Thumbnail from "$lib/components/Thumbnail.svelte";
 
   const photos = [
@@ -37,12 +38,6 @@
 
 <section class="lg:col-span-6 grid lg:grid-cols-2 items-center justify-center gap-20">
   {#each photos as photo}
-    <div class="flex flex-col gap-4 justify-center items-center">
-      <Thumbnail source={photo.source} alt={photo.alt} />
-      <div class="flex flex-col gap-2">
-        <p class="text-sm italic text-gray-500 text-center">{photo.alt}</p>
-        <p class="text-xs italic text-gray-500 text-center">{photo.date}</p>
-      </div>
-    </div>
+    <FilmPhoto {photo} />
   {/each}
 </section>
