@@ -1,8 +1,12 @@
 <script lang="ts">
   import FilmPhoto from "$lib/components/FilmPhoto.svelte";
-  import Thumbnail from "$lib/components/Thumbnail.svelte";
 
   const photos = [
+    {
+      source: "/photos/start_family.jpeg",
+      alt: "Beginning of my family. Portland, OR",
+      date: "June 2017"
+    },
     {
       source: "/photos/timothy_lake.jpeg",
       alt: "Timothy Lake. Mt. Hood National Forest, OR",
@@ -27,7 +31,7 @@
       source: "/photos/cape_disappointment.jpeg",
       thumbnail: "/photos/cape_disappointment_thumbnail.jpeg",
       alt: "Cape Disappointment. Ilwaco, WA",
-      date: "October 2020"
+      date: "February 2020"
     }
   ];
 </script>
