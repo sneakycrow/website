@@ -1,6 +1,7 @@
 <script lang="ts">
   import Highlight, { LineNumbers, HighlightSvelte } from "svelte-highlight";
   import {
+    ini, // used for toml
     rust,
     plaintext,
     typescript,
@@ -54,7 +55,9 @@
       case "handlebars": {
         return handlebars;
       }
-      case "toml":
+      case "toml": {
+        return ini;
+      }
       case "yaml": {
         return yaml;
       }
