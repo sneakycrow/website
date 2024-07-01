@@ -3,8 +3,8 @@
   import Icon from "@iconify/svelte";
 
   export let data: PageServerData;
-  type AvailableProvider = "github" | "spotify" | "twitch";
-  const availableAccounts: AvailableProvider[] = ["github", "spotify", "twitch"];
+  type AvailableProvider = "github" | "spotify" | "twitch" | "discord";
+  const availableAccounts: AvailableProvider[] = ["github", "spotify", "twitch", "discord"];
   const isConnectedAccount = (provider: string) => {
     return data.accounts.map((acc) => acc.provider).includes(provider);
   };
@@ -26,6 +26,12 @@
         return {
           icon: "mdi:twitch",
           color: "#9146FF"
+        };
+      }
+      case "discord": {
+        return {
+          icon: "mdi:discord",
+          color: "#5865F2"
         };
       }
       default:
