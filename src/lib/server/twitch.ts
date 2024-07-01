@@ -1,6 +1,6 @@
 import { env } from "$env/dynamic/private";
-import { getUserAccountProviderByUserName } from "./server/user";
-import client from "./server/db";
+import { getUserAccountProviderByUserName } from "./user";
+import client from "./db";
 
 export const scopes = ["user:read:email"];
 

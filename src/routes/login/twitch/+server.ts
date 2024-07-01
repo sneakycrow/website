@@ -3,7 +3,7 @@ import { generateState } from "arctic";
 import { twitch } from "$lib/server/auth";
 
 import type { RequestEvent } from "@sveltejs/kit";
-import { scopes } from "$lib/twitch";
+import { scopes } from "$lib/server/twitch";
 
 export async function GET(event: RequestEvent): Promise<Response> {
   const state = generateState();

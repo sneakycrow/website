@@ -1,7 +1,7 @@
 import { Lucia } from "lucia";
 import { dev } from "$app/environment";
 import { adapter } from "./db";
-import { GitHub, Spotify, Twitch } from "arctic";
+import { Discord, GitHub, Spotify, Twitch } from "arctic";
 import { env } from "$env/dynamic/private";
 
 export const lucia = new Lucia(adapter, {
@@ -31,6 +31,11 @@ export const twitch = new Twitch(
   env.TWITCH_ID ?? "",
   env.TWITCH_SECRET ?? "",
   env.TWITCH_REDIRECT_URI ?? ""
+);
+export const discord = new Discord(
+  env.DISCORD_ID ?? "",
+  env.DISCORD_SECRET ?? "",
+  env.DISCORD_REDIRECT_URI ?? ""
 );
 
 declare module "lucia" {

@@ -1,5 +1,5 @@
 import type { PageServerLoad } from "./$types";
-import { getSneakyCrowTopArtists } from "$lib/spotify";
+import { getSneakyCrowTopArtists } from "$lib/server/spotify";
 import {
   SPOTIFY_TOP_ARTISTS,
   getFromRedis,

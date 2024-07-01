@@ -1,5 +1,5 @@
 import type { PageServerLoad } from "./$types";
-import { getSneakyCrowRecentTracks } from "$lib/spotify";
+import { getSneakyCrowRecentTracks } from "$lib/server/spotify";
 import {
   SPOTIFY_RECENT_TRACKS,
   getFromRedis,

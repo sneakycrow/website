@@ -3,7 +3,7 @@ import { generateState } from "arctic";
 import { spotify } from "$lib/server/auth";
 
 import type { RequestEvent } from "@sveltejs/kit";
-import { scopes } from "$lib/spotify";
+import { scopes } from "$lib/server/spotify";
 
 export async function GET(event: RequestEvent): Promise<Response> {
   const state = generateState();

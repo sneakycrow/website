@@ -5,7 +5,7 @@ import {
   getFromRedis,
   saveToRedis
 } from "$lib/server/redis";
-import { getStaticStream } from "$lib/twitch";
+import { getStaticStream } from "$lib/server/twitch";
 import type { LayoutServerLoad } from "./$types";
 
 export const load: LayoutServerLoad = async ({ locals, route }) => {
