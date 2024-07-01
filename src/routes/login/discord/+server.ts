@@ -1,17 +1,17 @@
 import { redirect } from "@sveltejs/kit";
 import { generateState } from "arctic";
-import { twitch } from "$lib/server/auth";
+import { discord } from "$lib/server/auth";
 
 import type { RequestEvent } from "@sveltejs/kit";
-import { scopes } from "$lib/server/twitch";
+import { scopes } from "$lib/server/discord";
 
 export async function GET(event: RequestEvent): Promise<Response> {
   const state = generateState();
-  const url = await twitch.createAuthorizationURL(state, {
+  const url = await discord.createAuthorizationURL(state, {
     scopes
   });
 
-  event.cookies.set("twitch_oauth_state", state, {
+  event.cookies.set("discord_oauth_state", state, {
     path: "/",
     secure: import.meta.env.PROD,
     httpOnly: true,

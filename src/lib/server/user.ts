@@ -90,6 +90,7 @@ export const getAccountWithUserById = async (id: string): Promise<AccountsWithUs
 type NewUser = {
   providerId: string;
   accessToken: string;
+  refreshToken?: string;
   username: string;
   email: string;
   avatar: string;
@@ -107,7 +108,8 @@ export const createUserFromProvider = async (provider: string, user: NewUser): P
           {
             id: user.providerId,
             provider: provider,
-            accessToken: user.accessToken
+            accessToken: user.accessToken,
+            refreshToken: user.refreshToken
           }
         ]
       }

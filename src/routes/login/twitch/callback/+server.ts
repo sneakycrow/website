@@ -8,7 +8,7 @@ import {
   getUserAccountProviderByUserId,
   getUserByEmail
 } from "$lib/server/user";
-import { getUser, validateToken } from "$lib/twitch";
+import { getUser, validateToken } from "$lib/server/twitch";
 
 export async function GET(event: RequestEvent): Promise<Response> {
   const code = event.url.searchParams.get("code");
