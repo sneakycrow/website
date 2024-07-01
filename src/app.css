@@ -38,7 +38,9 @@ blockquote {
   position: relative;
   margin-left: 16px;
   @apply text-gray-400;
-  @apply text-base;
+  @apply text-lg;
+  @apply font-light;
+  @apply py-4;
 }
 
 blockquote a {
