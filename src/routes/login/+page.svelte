@@ -12,6 +12,13 @@
 
   const providers: ProviderSignIn[] = [
     {
+      icon: "mdi:discord",
+      copy: "Sign in with Discord",
+      textColor: "text-[#5865F2]",
+      border: "border-[#5865F2]",
+      href: "/login/discord"
+    },
+    {
       icon: "mdi:github",
       copy: "Sign in with Github",
       textColor: "text-[#24292f]",
