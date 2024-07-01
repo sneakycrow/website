@@ -1,6 +1,7 @@
 import fs from "fs";
 import matter from "gray-matter";
 import { v4 as uuid } from "uuid";
+import readingTime from "reading-time";
 
 export type Post = {
   id: string;
@@ -12,6 +13,7 @@ export type Post = {
   featured?: boolean;
   series_key?: string;
   series_pos?: number;
+  reading_minutes?: number;
 };
 
 export const getAllPosts = async (): Promise<Post[]> => {
@@ -46,8 +48,18 @@ const processLocalPosts = async (): Promise<Post[]> => {
       const slug = fn.split(".md")[0];
       const { data, content } = matter(rawContent);
       const date = fn.split("-").splice(0, 3).join("-");
-
-      return { ...data, id: uuid(), slug, date, body: content } as Post;
+      // Generate a reading time estimate
+      // This is technically estimating symbols and words together, but it's close enough
+      // Round to the nearest minute for readability
+      const readingMinutes = Math.round(readingTime(content).minutes);
+      return {
+        ...data,
+        id: uuid(),
+        slug,
+        date,
+        reading_minutes: readingMinutes,
+        body: content
+      } as Post;
     })
     .reverse();
 };
