@@ -1,1 +1,1 @@
-export const scopes = ["identify"];
+export const scopes = ["identify", "email"];
