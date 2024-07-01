@@ -27,6 +27,14 @@
       isCopyFeedbackShown = false;
     }, copyFeedbackTimeout);
   };
+  // A function for side effects when copying
+  const onCopy = () => {
+    // Toggle the feedback
+    toggleCopyFeedback();
+    // Update the url and scroll to the heading
+    browser && window.location.replace(`#${id}`);
+  };
+
   // A full url generated from the id at runtime
   $: fullUrl = browser ? `${window.location.href}#${id}` : "";
 </script>
@@ -74,7 +82,7 @@
       title="Copy link to this section"
       aria-label="Copy link to this section"
       use:clipboard={fullUrl}
-      on:click={toggleCopyFeedback}
+      on:click={onCopy}
     >
       <!--  clipboard icon -->
       <Icon icon="akar-icons:copy" />
