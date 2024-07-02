@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 :root [data-theme="sneakycrow-skeleton"] {
-  font-family: "Inter", sans-serif;
+  font-family: "Outfit", sans-serif;
 }
 
 @supports (font-variation-settings: normal) {
   :root [data-theme="sneakycrow-skeleton"] {
-    font-family: "Inter var", sans-serif;
+    font-family: "Outfit", sans-serif;
   }
 }
 

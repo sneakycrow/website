@@ -11,7 +11,7 @@ const config = {
   ],
   theme: {
     fontFamily: {
-      sans: ["Inter", "sans-serif"],
+      sans: ["Outfit", "sans-serif"],
       mono: [
         "ui-monospace",
         "SFMono-Regular",
