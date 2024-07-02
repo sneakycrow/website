@@ -57,7 +57,7 @@
     "@floating-ui/dom": "^1.6.6",
     "@gleam-lang/highlight.js-gleam": "^1.5.0",
     "@lucia-auth/adapter-prisma": "^4.0.1",
-    "@prisma/client": "5.13.0",
+    "@prisma/client": "5.16.1",
     "@sentry/node": "^8.13.0",
     "@sentry/profiling-node": "^7.112.2",
     "@sentry/sveltekit": "^7.84.0",
