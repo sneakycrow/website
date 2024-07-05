@@ -24,11 +24,15 @@
     <svelte:fragment slot="lead">
       <Icon
         icon="mdi:account"
-        class={`${valueSingle === "accounts" ? "text-white" : "text-black"} w-6 h-6`}
+        class={`${
+          valueSingle === "accounts" ? "text-white" : "text-black dark:text-white"
+        } w-6 h-6`}
       />
     </svelte:fragment>
-    <a href="/admin/accounts" class="text-black" class:text-white={valueSingle === "accounts"}
-      >Accounts</a
+    <a
+      href="/admin/accounts"
+      class="text-black dark:text-white"
+      class:text-white={valueSingle === "accounts"}>Accounts</a
     >
   </ListBoxItem>
   <ListBoxItem
@@ -41,7 +45,7 @@
     <svelte:fragment slot="lead">
       <Icon
         icon="mdi:file-document-outline"
-        class={`${valueSingle === "posts" ? "text-white" : "text-black"} w-6 h-6`}
+        class={`${valueSingle === "posts" ? "text-white" : "text-black dark:text-white"} w-6 h-6`}
       />
     </svelte:fragment>
     Feed Manager

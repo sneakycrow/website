@@ -67,7 +67,7 @@
       <a
         href={link.comingSoon ? "#" : link.url}
         class={`${
-          link.comingSoon ? "text-gray-500" : "text-gray-900"
+          link.comingSoon ? "text-gray-500 dark:text-gray-300" : "text-black dark:text-white"
         } text-2xl lg:text-5xl font-bold uppercase flex flex-nowrap space-x-2 leading-none items-center justify-center ${
           link.class
         }`}
@@ -76,7 +76,7 @@
         <span>{link.copy}</span>
       </a>
       <div class="flex flex-col mb-4">
-        <p class="text-lg text-gray-800">{link.description}</p>
+        <p class="text-lg text-black dark:text-white">{link.description}</p>
         {#if link.comingSoon}
           <p class="text-lg uppercase text-gray-500 font-semibold my-4">Coming Soon</p>
         {/if}

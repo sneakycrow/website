@@ -22,11 +22,6 @@ html {
   scroll-behavior: smooth;
 }
 
-html,
-body {
-  @apply bg-white;
-}
-
 a {
   @apply text-primary-500;
   @apply font-semibold;

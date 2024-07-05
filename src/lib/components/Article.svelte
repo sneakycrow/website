@@ -8,7 +8,7 @@
 
 <div class={`grid grid-cols-4 items-start justify-center my-10 ${$$restProps.class}`}>
   <article class="lg:text-lg w-full col-start-1 col-span-4 lg:col-span-3 max-w-[1000px] space-y-6">
-    <a href={post.slug} class="text-black">
+    <a href={post.slug} class="text-black dark:text-white">
       <h2 class="text-3xl lg:text-4xl font-bold">{post.title}</h2>
     </a>
     <aside class="space-y-2">

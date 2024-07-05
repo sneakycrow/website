@@ -5,22 +5,22 @@
     {
       copy: "listening to my favorite music",
       url: "/music",
-      class: "font-normal text-black underline decoration-4 decoration-purple-500"
+      class: "font-normal text-black dark:text-white underline decoration-4 decoration-purple-500"
     },
     {
       copy: "grinding some video games",
       url: "/projects",
-      class: "font-normal text-black underline decoration-4 decoration-blue-500"
+      class: "font-normal text-black dark:text-white underline decoration-4 decoration-blue-500"
     },
     {
       copy: "reading with my book club",
       url: "/books",
-      class: "font-normal text-black underline decoration-4 decoration-orange-500"
+      class: "font-normal text-black dark:text-white underline decoration-4 decoration-orange-500"
     },
     {
       copy: "taking some photos of the PNW",
       url: "/art/photos",
-      class: "font-normal text-black underline decoration-4 decoration-red-500"
+      class: "font-normal text-black dark:text-white underline decoration-4 decoration-red-500"
     }
   ];
 </script>
@@ -51,7 +51,7 @@
   <p>
     I <span class="italic">love</span> to collaborate. Feel free to reach out to me via
     <a
-      class="font-normal text-black underline decoration-4 decoration-primary-500"
+      class="font-normal text-black dark:text-white underline decoration-4 decoration-primary-500"
       href="mailto:zach@sneakycrow.dev">email</a
     >.
   </p>

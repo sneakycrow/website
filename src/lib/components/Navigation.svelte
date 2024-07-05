@@ -54,7 +54,7 @@
   {#each [...links, ...additionalLinks] as link}
     <a
       href={link.url}
-      class={`text-black hidden lg:block lg:text-xl text-lg font-bold uppercase ${link.hover}`}
+      class={`text-black dark:text-white hidden lg:block lg:text-xl text-lg font-bold uppercase ${link.hover}`}
     >
       {link.copy}
     </a>
