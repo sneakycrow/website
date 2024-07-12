@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Code from "./post/Code.svelte";
-  import CodeSpan from "$lib/components/post/CodeSpan.svelte";
-  import Heading from "./post/Heading.svelte";
-  import List from "./post/List.svelte";
-  import Paragraph from "./post/Paragraph.svelte";
+  import Code from "./Code.svelte";
+  import CodeSpan from "./CodeSpan.svelte";
+  import Heading from "./Heading.svelte";
+  import List from "./List.svelte";
+  import Paragraph from "./Paragraph.svelte";
   import SvelteMarkdown from "svelte-markdown";
 
   export let source: string;

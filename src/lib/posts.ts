@@ -14,10 +14,15 @@ export type Post = {
   series_key?: string;
   series_pos?: number;
   reading_minutes?: number;
+  draft?: boolean;
 };
 
 export const getAllPosts = async (): Promise<Post[]> => {
-  return await processLocalPosts();
+  // Get posts and drafts
+  const posts = await processLocalPosts();
+  const drafts = await processLocalDrafts();
+  // Combine and sort by date
+  return sortPostsByDate([...posts, ...drafts]);
 };
 
 export const getFeaturedPosts = async (): Promise<Post[]> => {
@@ -36,30 +41,51 @@ export const getPostBySlug = async (slug: string): Promise<Post | undefined> => 
 };
 
 const processLocalPosts = async (): Promise<Post[]> => {
-  const files = fs.readdirSync(`${process.cwd()}/_posts`, "utf-8");
+  return await processLocalMd(`${process.cwd()}/_posts`);
+};
 
-  return files
-    .filter((file: string) => file.endsWith(".md"))
-    .map((fn: string) => {
-      const path = `${process.cwd()}/_posts/${fn}`;
-      const rawContent = fs.readFileSync(path, {
-        encoding: "utf-8"
-      });
-      const slug = fn.split(".md")[0];
-      const { data, content } = matter(rawContent);
-      const date = fn.split("-").splice(0, 3).join("-");
-      // Generate a reading time estimate
-      // This is technically estimating symbols and words together, but it's close enough
-      // Round to the nearest minute for readability
-      const readingMinutes = Math.round(readingTime(content).minutes);
-      return {
-        ...data,
-        id: uuid(),
-        slug,
-        date,
-        reading_minutes: readingMinutes,
-        body: content
-      } as Post;
-    })
-    .reverse();
+const processLocalDrafts = async (): Promise<Post[]> => {
+  const drafts = await processLocalMd(`${process.cwd()}/_drafts`);
+  // Append the draft flag to each post for upstream filtering
+  return drafts.map((p: Post) => ({ ...p, draft: true }));
+};
+
+const sortPostsByDate = (posts: Post[]): Post[] => {
+  return posts.sort((a: Post, b: Post) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+};
+
+const processLocalMd = async (path: string): Promise<Post[]> => {
+  // Read the directory
+  const files = fs.readdirSync(path, "utf-8");
+  return (
+    files
+      // Filter out non-markdown files
+      .filter((file: string) => file.endsWith(".md"))
+      .map((fn: string) => {
+        // Read in the file
+        const markdownFile = `${path}/${fn}`;
+        const rawContent = fs.readFileSync(markdownFile, {
+          encoding: "utf-8"
+        });
+        // Parse a slug from the filename
+        const slug = fn.split(".md")[0];
+        // Parse the frontmatter and content
+        const { data, content } = matter(rawContent);
+        const date = fn.split("-").splice(0, 3).join("-");
+        // Generate a reading time estimate
+        // This is technically estimating symbols and words together, but it's close enough
+        // Round to the nearest minute for readability
+        const readingMinutes = Math.round(readingTime(content).minutes);
+        return {
+          ...data,
+          id: uuid(),
+          slug,
+          date,
+          reading_minutes: readingMinutes,
+          body: content
+        } as Post;
+      })
+  );
 };

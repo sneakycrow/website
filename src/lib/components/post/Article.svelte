@@ -18,6 +18,11 @@
       <p class="text-sm text-gray-500 leading-3">
         <span> {post.reading_minutes} min read </span>
       </p>
+      {#if post.draft}
+        <p class="text-warning-400 text-xs leading-3">
+          This post is a draft, and may not represent the final text
+        </p>
+      {/if}
     </aside>
     <MarkdownRenderer source={post.body} />
   </article>

@@ -6,7 +6,7 @@
 </script>
 
 <div class={`flex flex-col w-full ${$$restProps.class}`}>
-  {#each posts as post, i}
+  {#each posts as post}
     <PostExcerpt {post} />
   {/each}
 </div>
