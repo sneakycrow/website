@@ -9,7 +9,4 @@
   <title>brain juice</title>
 </svelte:head>
 
-<PostList
-  posts={data.posts.filter((post) => !post.draft)}
-  class="lg:col-span-6 row-start-2 lg:row-start-2 row-span-2"
-/>
+<PostList posts={data.posts} class="lg:col-span-6 row-start-2 lg:row-start-2 row-span-2" />

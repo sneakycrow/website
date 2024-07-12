@@ -20,26 +20,31 @@ export type Post = {
   category: Category;
 };
 
-export const getAllPosts = async (): Promise<Post[]> => {
-  // Get posts and drafts
+export const getPosts = async (withDrafts = false): Promise<Post[]> => {
+  // Get posts
   const posts = await processLocalPosts();
+  // If we're not including drafts, return the posts
+  if (!withDrafts) {
+    return sortPostsByDate(posts);
+  }
+  // Otherwise, also get drafts
   const drafts = await processLocalDrafts();
   // Combine and sort by date
   return sortPostsByDate([...posts, ...drafts]);
 };
 
 export const getFeaturedPosts = async (): Promise<Post[]> => {
-  const allPosts = await getAllPosts();
+  const allPosts = await getPosts();
   return allPosts.filter((p: Post) => p.featured);
 };
 
 export const getSeriesByPost = async (post: Post): Promise<Post[]> => {
-  const allPosts = await getAllPosts();
+  const allPosts = await getPosts();
   return allPosts.filter((p: Post) => p.series_key === post.series_key);
 };
 
 export const getPostBySlug = async (slug: string): Promise<Post | undefined> => {
-  const allPosts = await getAllPosts();
+  const allPosts = await getPosts();
   return allPosts.find((p: Post) => p.slug === slug);
 };
 
