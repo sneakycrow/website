@@ -1,6 +1,6 @@
 ---
 title: "Custom Static Site Generator - planning & initialization"
-category: "software"
+category: "coding"
 series_key: "website-generator-tutorial"
 series_pos: 0
 summary: "The initial project setup and planning phase of setting up a static site generator"

@@ -1,6 +1,6 @@
 ---
 title: "beautiful rust"
-category: "software"
+category: "coding"
 summary: "Just me admiring my favorite language"
 ---
 

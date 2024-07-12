@@ -2,6 +2,7 @@
 title: "Nuxt vs SvelteKit vs Next"
 slug: "nuxt-vs-sveltekit-vs-next"
 summary: "A high level comparison of Nuxt, SvelteKit, and Next"
+category: "coding"
 ---
 
 ## Preface

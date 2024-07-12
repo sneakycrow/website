@@ -2,6 +2,7 @@
 title: "Playing with Gleam"
 slug: "playing-with-gleam"
 summary: " A high level exploration of the gleam language, a new programming language"
+category: "coding"
 ---
 
 ## what is gleam?
