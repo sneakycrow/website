@@ -12,7 +12,7 @@
   <img
     src="/ada_cropped.png"
     alt="Ada the crow, the mascot of Sneaky Crow"
-    style="animation: bounce 10s infinite;"
+    style="animation: bounce 3s infinite;"
     width={300}
   />
   <p class="text-xl">
