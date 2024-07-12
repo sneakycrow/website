@@ -12,7 +12,7 @@
   <title>brain juice</title>
 </svelte:head>
 
-<aside class="lg:col-span-6 text-right row-start-2 row-span-1 items-end justify-end h-50">
+<aside class="lg:col-span-6 text-right row-start-2 row-span-2 items-start justify-start">
   <SlideToggle
     name="enable-drafts"
     class={`font-semibold ${isDraftsEnabled ? "text-black" : "text-gray-400"}`}
@@ -23,4 +23,4 @@
     Drafts
   </SlideToggle>
 </aside>
-<PostList posts={sortedPosts} class="lg:col-span-6 row-start-3 row-span-1" />
+<PostList posts={sortedPosts} class="lg:col-span-6 row-start-4 row-span-1" />

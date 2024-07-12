@@ -26,7 +26,7 @@
 </svelte:head>
 
 <main
-  class="grid lg:grid-cols-6 gap-20 p-4 min-h-screen bg-white dark:bg-black text-black dark:text-white dark:text-white"
+  class="grid lg:grid-cols-6 grid-flow-row gap-20 p-4 min-h-screen bg-white dark:bg-black text-black dark:text-white"
 >
   <Header
     title={data.title.text}
