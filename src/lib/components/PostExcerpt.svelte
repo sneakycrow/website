@@ -9,7 +9,7 @@
   const date = new Date(post.date ?? Date.now());
 </script>
 
-<div class="py-4">
+<div>
   <p class="text-xs italic text-gray-400">{date.toLocaleDateString()}</p>
   <a
     class="lg:text-2xl text-xl font-bold uppercase text-black dark:text-white transition-opacity"
