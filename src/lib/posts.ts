@@ -3,6 +3,8 @@ import matter from "gray-matter";
 import { v4 as uuid } from "uuid";
 import readingTime from "reading-time";
 
+export type Category = "gaming" | "coding" | "music" | "life" | "thoughts";
+
 export type Post = {
   id: string;
   slug: string;
@@ -15,6 +17,7 @@ export type Post = {
   series_pos?: number;
   reading_minutes?: number;
   draft?: boolean;
+  category: Category;
 };
 
 export const getAllPosts = async (): Promise<Post[]> => {

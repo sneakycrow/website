@@ -1,5 +1,5 @@
 <script lang="ts">
-  import PostExcerpt from "$lib/components/PostExcerpt.svelte";
+  import PostExcerpt from "$lib/components/post/PostExcerpt.svelte";
   import type { Post } from "$lib/posts";
 
   export let posts: Post[];
