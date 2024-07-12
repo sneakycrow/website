@@ -4,7 +4,7 @@
   import PostList from "$lib/components/PostList.svelte";
 
   export let data: PageServerData;
-  let isDraftsEnabled = false;
+  $: isDraftsEnabled = false;
   $: sortedPosts = data.posts.filter((post) => isDraftsEnabled || !post.draft);
 </script>
 
