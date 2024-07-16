@@ -22,11 +22,14 @@ export type Post = {
 };
 
 export const getPosts = async (): Promise<Post[]> => {
-  // Get posts
-  const posts = await processLocalPosts();
-  const drafts = await processLocalDrafts();
+  // Get posts in parallel
+  const postsResults = await Promise.allSettled([processLocalPosts(), processLocalDrafts()]);
+  // Filter out any rejected promises
+  const posts: Post[] = postsResults
+    .filter((result) => result.status === "fulfilled")
+    .flatMap((result) => result.value);
   // Combine and sort by date
-  return sortPostsByDate([...posts, ...drafts]);
+  return sortPostsByDate(posts);
 };
 
 export const getFeaturedPosts = async (): Promise<Post[]> => {
