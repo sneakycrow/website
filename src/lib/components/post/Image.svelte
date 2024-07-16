@@ -8,7 +8,7 @@
 
 <div class="w-full flex flex-col items-center justify-center space-y-4 py-4">
   {#if isVideo}
-    <video controls class="shadow-flat-green min-w-[720px]">
+    <video controls class="shadow-flat-green max-w-[720px] w-full">
       <track kind="captions" />
       <source src={href} type={`video/${href.split(".").pop()}`} />
     </video>
