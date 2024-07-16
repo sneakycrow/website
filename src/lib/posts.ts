@@ -22,15 +22,8 @@ export type Post = {
 };
 
 export const getPosts = async (): Promise<Post[]> => {
-  // Include drafts if we're in development
-  const includeDrafts = env.NODE_ENV === "development";
   // Get posts
   const posts = await processLocalPosts();
-  // If we're not including drafts, return the posts
-  if (!includeDrafts) {
-    return sortPostsByDate(posts);
-  }
-  // Otherwise, also get drafts
   const drafts = await processLocalDrafts();
   // Combine and sort by date
   return sortPostsByDate([...posts, ...drafts]);
