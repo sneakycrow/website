@@ -5,7 +5,7 @@ import { getPostBySlug, getSeriesByPost } from "$lib/posts";
 export const load = (async ({ params }): Promise<{ post: Post; series: Post[] }> => {
   const post = await getPostBySlug(params.slug);
   if (!post) {
-    throw new Error("post not found")
+    throw new Error("post not found");
   }
   if (post && post.series_key) {
     const series = await getSeriesByPost(post);
