@@ -23,6 +23,8 @@
 <svelte:head>
   <meta name="description" content={data.description} />
   <meta name="keywords" content={keywords.join(", ")} />
+  <meta property="og:site_name" content="sneaky crow" />
+  <meta property="og:image" content="https://sneakycrow.dev/logo_v3.svg" />
 </svelte:head>
 
 <main
