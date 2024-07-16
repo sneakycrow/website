@@ -2,8 +2,6 @@ import type { PageServerLoad } from "./$types";
 import type { Post } from "$lib/posts";
 import { getPosts } from "$lib/posts";
 
-export const prerender = true;
-
 export const load: PageServerLoad = async () => {
   const posts = await getPosts();
   const postsWithPrefix: Post[] = posts.map((p) => {
