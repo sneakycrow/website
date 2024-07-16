@@ -38,7 +38,7 @@
   };
 </script>
 
-<div class={`text-center lg:block hidden pr-2 h-auto ${getCategoryMeta(category).color}`}>
+<div class={`text-center lg:pr-2 h-auto ${getCategoryMeta(category).color} ${$$restProps.class}`}>
   <button
     class="w-full h-full text-gray-400 font-light flex flex-nowrap items-center justify-center space-x-2 lg:space-y-2"
   >
@@ -46,7 +46,7 @@
       icon={getCategoryMeta(category).icon}
       width={ICON_SIZE}
       height={ICON_SIZE}
-      class={`${getCategoryMeta(category).color} p-2 lg:p-0`}
+      class={`${getCategoryMeta(category).color} py-4 lg:p-0`}
     />
   </button>
 </div>
