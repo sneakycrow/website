@@ -14,8 +14,8 @@
   const date = new Date(post.date ?? Date.now());
 </script>
 
-<div class="grid grid-cols-6 lg:items-center w-full">
-  <header class="text-left lg:col-span-4 col-span-5">
+<div class="grid grid-cols-6 items-center w-full">
+  <header class="row-start-1 text-left lg:col-span-4 col-span-6">
     <p class="text-xs italic text-gray-300">{date.toLocaleDateString()}</p>
     <a
       class={`lg:text-2xl text-xl font-bold uppercase ${
@@ -26,18 +26,18 @@
       {post.title}
     </a>
   </header>
-  <article class="row-start-2 col-span-6 lg:col-span-4">
+  <article class="row-start-2 row-span-2 col-span-4">
     <p class="text-lg italic text-gray-400">{post.summary}</p>
   </article>
   {#if post.draft ?? false}
     <p
-      class="ml-auto text-error-300 text-xl uppercase font-semibold lg:col-start-5 lg:row-start-1 row-start-2 lg:col-span-1 col-span-2"
+      class="vertical-writing-rl lg:horizontal-writing-tb lg:ml-auto text-error-300 text-xl uppercase font-semibold lg:col-start-5 row-start-2 lg:row-span-2 lg:col-span-1 col-span-3"
     >
       Draft
     </p>
   {/if}
   <PostCategory
     category={post.category}
-    class="row-start-3 lg:row-start-1 col-span-2 lg:col-start-6 lg:ml-auto"
+    class="rotate-90 lg:rotate-0 row-start-2 row-span-2 lg:row-span-1 col-span-2 col-start-5 lg:col-start-6 ml-auto"
   />
 </div>
