@@ -6,7 +6,7 @@
   export let post: Post;
 </script>
 
-<div class={`grid grid-cols-4 items-start justify-center my-10 ${$$restProps.class}`}>
+<div class={`grid grid-cols-4 items-start justify-center my-10 ${$$restProps.class} relative`}>
   <article class="lg:text-lg w-full col-start-1 col-span-4 lg:col-span-3 max-w-[1000px] space-y-6">
     <a href={post.slug} class="text-black dark:text-white">
       <h2 class="text-3xl lg:text-4xl font-bold">{post.title}</h2>
@@ -18,12 +18,14 @@
       <p class="text-sm text-gray-500 leading-3">
         <span> {post.reading_minutes} min read </span>
       </p>
-      {#if post.draft}
-        <p class="text-warning-400 text-xs leading-3">
-          This post is a draft, and may not represent the final text
-        </p>
-      {/if}
     </aside>
     <MarkdownRenderer source={post.body} />
   </article>
+  {#if post.draft}
+    <p
+      class="fixed uppercase px-8 align-bottom text-error-300 text-9xl font-black leading-3 col-start-4 vertical-writing-lr"
+    >
+      Draft
+    </p>
+  {/if}
 </div>

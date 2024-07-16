@@ -4,6 +4,7 @@
   import Heading from "./Heading.svelte";
   import List from "./List.svelte";
   import Paragraph from "./Paragraph.svelte";
+  import Image from "./Image.svelte";
   import SvelteMarkdown from "svelte-markdown";
 
   export let source: string;
@@ -15,7 +16,8 @@
     codespan: CodeSpan,
     paragraph: Paragraph,
     heading: Heading,
-    list: List
+    list: List,
+    image: Image
   }}
   {source}
 />

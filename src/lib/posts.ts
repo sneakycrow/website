@@ -2,6 +2,7 @@ import fs from "fs";
 import matter from "gray-matter";
 import { v4 as uuid } from "uuid";
 import readingTime from "reading-time";
+import { env } from "$env/dynamic/private";
 
 export type Category = "gaming" | "coding" | "music" | "life" | "thoughts";
 
@@ -20,14 +21,9 @@ export type Post = {
   category: Category;
 };
 
-export const getPosts = async (withDrafts = false): Promise<Post[]> => {
+export const getPosts = async (): Promise<Post[]> => {
   // Get posts
   const posts = await processLocalPosts();
-  // If we're not including drafts, return the posts
-  if (!withDrafts) {
-    return sortPostsByDate(posts);
-  }
-  // Otherwise, also get drafts
   const drafts = await processLocalDrafts();
   // Combine and sort by date
   return sortPostsByDate([...posts, ...drafts]);

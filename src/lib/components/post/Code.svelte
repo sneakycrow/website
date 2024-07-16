@@ -12,7 +12,7 @@
     shell,
     yaml
   } from "svelte-highlight/languages";
-  // @ts-ignore - these types aren't support important to the project, so we ignore them
+  // @ts-expect-error types aren't support important to the project, so we ignore them
   import gleam from "@gleam-lang/highlight.js-gleam";
   import "./dracula.css";
 
