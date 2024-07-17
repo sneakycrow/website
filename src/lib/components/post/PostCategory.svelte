@@ -4,6 +4,7 @@
   import { toTitleCase } from "$lib/util";
 
   export let category: Category;
+  export let handleClick: (category: Category) => void;
   type CategoryMeta = {
     category: string; // The original category name
     copy: string; // Title-cased category name
@@ -20,20 +21,22 @@
           icon: "mdi:gamepad-variant",
           color: "text-green-500"
         };
-      case "coding":
+      case "coding": {
         return {
           category: category,
           copy: toTitleCase(category),
           icon: "mdi:code-tags",
           color: "text-blue-500"
         };
-      default:
+      }
+      default: {
         return {
           category: category,
           copy: toTitleCase(category),
-          icon: "mdi:file-document",
+          icon: "mdi:code-tags",
           color: "text-gray-500"
         };
+      }
     }
   };
 </script>
@@ -41,6 +44,7 @@
 <div class={`text-center lg:pr-2 h-auto ${getCategoryMeta(category).color} ${$$restProps.class}`}>
   <button
     class="w-full h-full text-gray-400 font-light flex flex-nowrap items-center justify-center space-x-2 lg:space-y-2"
+    on:click={() => handleClick(category)}
   >
     <Icon
       icon={getCategoryMeta(category).icon}
