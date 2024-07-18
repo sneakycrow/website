@@ -13,6 +13,6 @@ It allows me to display a new section at the bottom of a blog post which shows a
 
 I organically go in and edit posts, and I found it tedious to manually keep track of that, especially since git is already tracking that information. So I made GAML to automate that process.
 
-Check out the source [here](gaml)
+Check out the in the labs directory [here](gaml)
 
 [gaml]:https://github.com/sneakycrow/website
