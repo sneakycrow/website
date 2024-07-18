@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Thumbnail from "./Thumbnail.svelte";
   export let photo = {
     source: "",
     alt: "",
@@ -7,10 +6,14 @@
   };
 </script>
 
-<div class="flex flex-col justify-center items-center bg-black dark:bg-white">
-  <Thumbnail source={photo.source} alt={photo.alt} />
-  <div class="flex flex-col w-full bg-black dark:bg-white pb-6">
-    <p class="text-sm italic text-white dark:text-black text-center">{photo.alt}</p>
-    <p class="text-xs italic text-white dark:text-black text-center">{photo.date}</p>
+<div
+  class={`flex flex-col justify-center items-center shadow-2xl p-4 bg-white h-full w-[500px] max-h-[450px] ${$$restProps.class}`}
+>
+  <div class="w-full h-auto max-h-[300px] overflow-hidden">
+    <img class="object-cover" src={photo.source} alt={photo.alt} />
+  </div>
+  <div class="flex flex-col items-center justify-center w-full py-4 bg-white overflow-y-scroll">
+    <p class="text-sm italic text-black text-center">{photo.alt}</p>
+    <p class="text-xs italic text-black text-center">{photo.date}</p>
   </div>
 </div>
