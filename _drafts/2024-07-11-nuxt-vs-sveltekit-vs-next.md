@@ -1,8 +1,17 @@
 ---
-title: "Nuxt vs SvelteKit vs Next"
-slug: "nuxt-vs-sveltekit-vs-next"
-summary: "A high level comparison of Nuxt, SvelteKit, and Next"
-category: "coding"
+title: Nuxt vs SvelteKit vs Next
+slug: nuxt-vs-sveltekit-vs-next
+summary: A high level comparison of Nuxt, SvelteKit, and Next
+category: coding
+edits:
+- id: 7026f37b4c51788c5212acb7f51fd392b2dfc30d
+  message: add drafts capability
+  author: sneakycrow
+  timestamp: '1720747907'
+- id: 6b9487f981abd0d5ab7ae5acf1538f815f78efa3
+  message: add categories to posts
+  author: Zachary Corvidae
+  timestamp: '1720820568'
 ---
 
 ## Preface
