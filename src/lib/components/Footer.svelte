@@ -19,7 +19,7 @@
 </script>
 
 <footer
-  class={`py-4 flex flex-col space-y-10 lg:flex-row justify-between items-center ${$$restProps.class}`}
+  class={`py-4 flex flex-col space-y-10 lg:flex-row justify-between items-center z-10 ${$$restProps.class}`}
 >
   <p class="flex flex-col">
     <span class="text-sm">© {new Date().getFullYear()} Sneaky Crow, LLC</span>
