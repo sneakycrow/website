@@ -1,6 +1,6 @@
 import type { PageServerLoad } from "./$types";
 import type { Post } from "$lib/posts";
-import { getPosts } from "$lib/posts";
+import { getPosts, categories } from "$lib/posts";
 
 export const load: PageServerLoad = async () => {
   const posts = await getPosts();

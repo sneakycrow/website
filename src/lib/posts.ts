@@ -3,7 +3,15 @@ import matter from "gray-matter";
 import { v4 as uuid } from "uuid";
 import readingTime from "reading-time";
 
-export type Category = "gaming" | "coding" | "music" | "life" | "thoughts";
+export enum Category {
+  GAMING = "gaming",
+  CODING = "coding",
+  MUSIC = "music",
+  LIFE = "life",
+  THOUGHTS = "thoughts"
+}
+
+export const categories = Object.values(Category);
 
 export type Post = {
   id: string;

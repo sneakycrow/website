@@ -1,12 +1,14 @@
 <script lang="ts">
   import type { PageServerData } from "./$types";
-  import PostList from "$lib/components/PostList.svelte";
+  import PostList from "$lib/components/post/PostList.svelte";
 
   export let data: PageServerData;
+
+  const { posts } = data;
 </script>
 
 <svelte:head>
   <title>brain juice</title>
 </svelte:head>
 
-<PostList posts={data.posts} class="lg:col-span-6 row-start-2 lg:row-start-2 row-span-2" />
+<PostList {posts} class="lg:col-span-6 row-start-2 row-span-2" />

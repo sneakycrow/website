@@ -38,6 +38,9 @@
   {/if}
   <PostCategory
     category={post.category}
+    handleClick={() => {
+      console.log("Category clicked");
+    }}
     class="rotate-90 lg:rotate-0 row-start-2 row-span-2 lg:row-span-1 col-span-2 col-start-5 lg:col-start-6 ml-auto"
   />
 </div>
