@@ -23,3 +23,8 @@ I won't be diving into the specifics of each framework, but rather comparing the
 - **Ease of Development**
 - **Ease of Deployment**
 - **Resource Availability**
+
+
+## SvelteKit
+
+Some stuff about svelte kit as a test for my automated edit parser
