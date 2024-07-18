@@ -2,7 +2,6 @@ import fs from "fs";
 import matter from "gray-matter";
 import { v4 as uuid } from "uuid";
 import readingTime from "reading-time";
-import { env } from "$env/dynamic/private";
 
 export type Category = "gaming" | "coding" | "music" | "life" | "thoughts";
 
@@ -19,6 +18,12 @@ export type Post = {
   reading_minutes?: number;
   draft?: boolean;
   category: Category;
+  edits?: {
+    id: string;
+    author: string;
+    message: string;
+    timestamp: string;
+  }[];
 };
 
 export const getPosts = async (): Promise<Post[]> => {
