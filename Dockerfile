@@ -25,6 +25,8 @@ RUN yarn install --frozen-lockfile
 # Copy application code
 COPY --link . .
 
+# Add prisma
+RUN yarn add prisma
 # Build application
 RUN yarn build
 
