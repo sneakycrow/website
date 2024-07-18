@@ -15,4 +15,4 @@ I organically go in and edit posts, and I found it tedious to manually keep trac
 
 Check out the in the labs directory [here](gaml)
 
-[gaml]:https://github.com/sneakycrow/website
+[gaml]:https://github.com/sneakycrow/website/tree/main/labs/gaml
