@@ -24,8 +24,16 @@
         return {
           category: category,
           copy: toTitleCase(category),
-          icon: "mdi:code-tags",
+          icon: "mdi:code-braces-box",
           color: "text-blue-500"
+        };
+      case "thoughts":
+        return {
+          category: category,
+          copy: toTitleCase(category),
+          // brain icon
+          icon: "mdi:brain",
+          color: "text-yellow-500"
         };
       default:
         return {
