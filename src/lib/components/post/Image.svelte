@@ -14,7 +14,7 @@
     </video>
     <p class="text-sm italic">{text}</p>
   {:else}
-    <img src={href} alt={text} />
+    <img src={href} alt={text} class="shadow-xl" />
     <p class="text-sm italic">{text}</p>
   {/if}
 </div>
