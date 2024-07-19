@@ -7,7 +7,7 @@
 </script>
 
 <div
-  class={`flex flex-col justify-center items-center shadow-2xl p-4 bg-white h-full w-[500px] max-h-[450px] ${$$restProps.class}`}
+  class={`flex flex-col justify-center items-center shadow-2xl p-4 bg-white lg:h-full lg:w-[500px] w-[300px] max-h-[450px] ${$$restProps.class}`}
 >
   <div class="w-full h-auto max-h-[300px] overflow-hidden">
     <img class="object-cover" src={photo.source} alt={photo.alt} />

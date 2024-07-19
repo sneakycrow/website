@@ -40,11 +40,13 @@
   <title>writing light</title>
 </svelte:head>
 
-<section class="grid grid-cols-subgrid items-center justify-center gap-20 col-span-6">
+<section
+  class="grid grid-flow-row-dense lg:grid-cols-subgrid lg:col-span-6 items-center justify-center gap-20"
+>
   {#each photos as photo, index}
     <FilmPhoto
       {photo}
-      class={`mx-auto col-span-6 lg:col-span-3 hover:rotate-0 transition-transform ${
+      class={`w-full mx-auto lg:col-span-3 hover:rotate-0 transition-transform ${
         (index + 1) % 2 === 0 ? "-rotate-3" : "rotate-3"
       }`}
     />
