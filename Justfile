@@ -3,3 +3,6 @@ image_tag  := "latest"
 
 build-docker:
     docker build -t {{image_name}}:{{image_tag}} .
+
+gaml FILE:
+    cargo run -p gaml --bin gaml -- {{FILE}}
