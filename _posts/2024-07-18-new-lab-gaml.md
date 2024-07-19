@@ -27,6 +27,4 @@ It allows me to display a new section in a blog post which shows all the edits m
 ![edits example in playing with gleam](/share/ss/edits_example.png)
 I organically go in and edit posts, and I found it tedious to manually keep track of that, especially since git is already tracking that information. So I made GAML to automate that process.
 
-Check out the in the labs directory [here](gaml)
-
-[gaml]:https://github.com/sneakycrow/website/tree/main/labs/gaml
+Check out the in the labs directory [here](https://github.com/sneakycrow/website/tree/main/labs/gaml)
