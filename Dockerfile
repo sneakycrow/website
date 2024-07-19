@@ -1,15 +1,13 @@
 # syntax = docker/dockerfile:1
 
 # Adjust NODE_VERSION as desired
-FROM node:22 as base
+# Issue with 22.5.0, https://github.com/nodejs/docker-node/issues/2119
+FROM node:22.4 as base
 
 LABEL fly_launch_runtime="Node.js"
 
 # Node.js app lives here
 WORKDIR /app
-
-# Set production environment
-ENV NODE_ENV=production
 
 # Throw-away build stage to reduce size of final image
 FROM base as build
@@ -19,8 +17,9 @@ RUN apt-get update -qq && \
     apt-get install -y python-is-python3 pkg-config build-essential
 
 # Install node modules
-COPY --link .npmrc yarn.lock package.json ./
-RUN yarn install --frozen-lockfile
+ENV DEBUG='vite:*'
+COPY --link .yarnrc yarn.lock package.json ./
+RUN yarn install
 
 # Copy application code
 COPY --link . .
@@ -38,7 +37,6 @@ RUN apt-get update -qq && \
 # Copy built application
 COPY --from=build /app /app
 
-ENV MODE=production
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
 CMD [ "yarn", "start" ]
