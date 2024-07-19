@@ -1,6 +1,6 @@
 ---
 title: "Custom Static Site Generator - handlebars & SCSS"
-category: "coding"
+category: "tech"
 series_key: "website-generator-tutorial"
 series_pos: 1
 summary: "The second part of setting up a static site generator, setting up initial templating"

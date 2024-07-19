@@ -20,7 +20,7 @@
           icon: "mdi:gamepad-variant",
           color: "text-green-500"
         };
-      case "coding":
+      case "tech":
         return {
           category: category,
           copy: toTitleCase(category),

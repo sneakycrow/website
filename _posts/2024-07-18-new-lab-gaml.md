@@ -2,7 +2,7 @@
 title: 'New Lab: GAML'
 slug: new-lab-gaml
 summary: A tool for generating 'edits' made to a blog post
-category: coding
+category: tech
 edits:
 - id: 67bf4c033dd1d6b545df7f7603cc050aaa526e8c
   message: Add automated edits from git history (#288)

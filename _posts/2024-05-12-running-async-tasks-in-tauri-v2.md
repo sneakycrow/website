@@ -2,7 +2,7 @@
 title: "Long-running backend async tasks in tauri v2"
 slug: "long-running-backend-async-tasks-in-tauri-v2"
 summary: "How to run backend async tasks in tauri v2 and push data to the frontend"
-category: "coding"
+category: "tech"
 ---
 
 ## Introduction

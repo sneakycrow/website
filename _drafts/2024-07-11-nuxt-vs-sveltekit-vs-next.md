@@ -2,7 +2,7 @@
 title: Nuxt vs SvelteKit vs Next
 slug: nuxt-vs-sveltekit-vs-next
 summary: A high level comparison of Nuxt, SvelteKit, and Next
-category: coding
+category: tech
 edits:
 - id: 7026f37b4c51788c5212acb7f51fd392b2dfc30d
   message: add drafts capability

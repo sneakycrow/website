@@ -2,7 +2,7 @@
 title: Playing with Gleam
 slug: playing-with-gleam
 summary: ' A high level exploration of the gleam language, a new programming language'
-category: coding
+category: tech
 edits:
 - id: 4d68017c514e629f97bac8e53811b6c31e9086b6
   message: add reading section

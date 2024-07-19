@@ -2,7 +2,7 @@
 title: "Running a Bevy game in SvelteKit"
 slug: "bevy-game-in-svelte-kit"
 summary: "Running your bevy games with wasm in SvelteKit"
-category: "coding"
+category: "tech"
 ---
 
 Recently, I started working on a new project using [Bevy](https://bevyengine.org/), a game engine written in Rust. I've
