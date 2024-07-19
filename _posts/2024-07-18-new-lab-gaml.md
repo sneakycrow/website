@@ -16,6 +16,18 @@ edits:
   message: Update gaml link (#289)
   author: Zachary Corvidae
   timestamp: '1721335265'
+- id: e06ce0750765cfad2b2580a2be8f18fb809b13de
+  message: Update GAML post with edits examples (#293)
+  author: Zachary Corvidae
+  timestamp: '1721402849'
+- id: 538755bc35673a152eccd0a885368fe92935d9b0
+  message: add example code
+  author: Zachary Corvidae
+  timestamp: '1721403662'
+- id: 4717fc101e306b4f498d1152867c45e69a3c80e1
+  message: fix labs link
+  author: Zachary Corvidae
+  timestamp: '1721403580'
 ---
 
 ## What is GAML?
