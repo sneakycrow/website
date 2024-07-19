@@ -9,8 +9,9 @@ category: "coding"
 
 GAML is a tool I made for myself which allows me to parse edits made to a file in git as content to be displayed on a blog post.
 
-It allows me to display a new section at the bottom of a blog post which shows all the edits made to the post, including the author, timestamp, and message. I find this really useful as both a reader and an author.
+It allows me to display a new section in a blog post which shows all the edits made to the post, including the author, timestamp, and message. I find this really useful as both a reader and an author.
 
+![edits example in playing with gleam](/share/ss/edits_example.png)
 I organically go in and edit posts, and I found it tedious to manually keep track of that, especially since git is already tracking that information. So I made GAML to automate that process.
 
 Check out the in the labs directory [here](gaml)
