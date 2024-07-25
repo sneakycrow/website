@@ -1,4 +1,4 @@
 [workspace]
-members = ["labs/gaml"]
+members = [ "labs/eatinator","labs/gaml"]
 
 resolver = "2"
