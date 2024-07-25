@@ -13,8 +13,8 @@ impl Eatinator {
     pub(crate) fn new(config: Config) -> Self {
         Eatinator { config, pool: None }
     }
-    // Initialize the pool using the database URL from the configuration
-    pub(crate) async fn init_pool(&mut self) -> Result<&Self, Error> {
+    // Initialize the database using the provided configuration
+    pub(crate) async fn init_db(&mut self) -> Result<&Self, Error> {
         if let Some(database_url) = &self.config.database_url {
             let pool = sqlx::PgPool::connect(database_url)
                 .await
@@ -34,5 +34,20 @@ impl Eatinator {
                 message: "Missing DATABASE_URL environment variable".to_string(),
             })
         }
+    }
+    // Collect the vendors that will be used
+    pub(crate) async fn collect_vendors(&self) -> Result<&Self, Error> {
+        event!(Level::DEBUG, "Starting vendor collection");
+        todo!()
+    }
+    // Collect the accounts for each vendor, these are the accounts that will be used to authorize the requests
+    pub(crate) async fn collect_accounts(&self) -> Result<&Self, Error> {
+        event!(Level::DEBUG, "Starting account collection");
+        todo!()
+    }
+    // Collect the records from the vendors
+    pub(crate) async fn collect_records(&self) -> Result<&Self, Error> {
+        event!(Level::DEBUG, "Starting record collection");
+        todo!()
     }
 }

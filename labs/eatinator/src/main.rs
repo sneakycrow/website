@@ -33,6 +33,14 @@ async fn main() -> Result<(), Error> {
         config.mode
     );
     // Initialize the application
-    let _app = Eatinator::new(config).init_pool().await?;
+    Eatinator::new(config) // Create a new instance of the application
+        .init_db() // Initialize the database connection
+        .await?
+        .collect_vendors() // Collect the vendors that will be used
+        .await?
+        .collect_accounts() // Collect the relative accounts for each vendor
+        .await?
+        .collect_records() // Collect the records from the vendors
+        .await?;
     Ok(())
 }
