@@ -20,8 +20,8 @@ pub fn from_env() -> Config {
     Ok("production") -> Production
     _ -> Development
   }
-  // A list of features to enable, defaults to none
-  let enabled_features = []
+  // Get all enabled features from environment
+  let enabled_features = feature.all_from_env()
   // TODO: Find which features we want to use
   // TODO: Figure out the patternt o enable features
   // NOTE: Should each feature be a different environment variable?
