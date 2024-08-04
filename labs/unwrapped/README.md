@@ -1,5 +1,5 @@
 # unwrapped
 
-unwrapped is a project for collecting and saving my (sneakycrow) music data from various sources.
-It's an extension of Spotify's wrapped project, but includes other sources and allows me to dynamically
-choose the time period I want to look at.
+unwrapped is an api for fetching and managing music history from various sources. Similar to Spotify's wrapped project,
+except this allows for additional sources beyond Spotify and allows you to dynamically just the time period you want to
+look at.
