@@ -1,4 +1,4 @@
 [workspace]
-members = ["labs/gaml"]
+members = ["labs/gaml", "labs/unwrapped"]
 
 resolver = "2"
