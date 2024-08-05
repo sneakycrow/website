@@ -6,3 +6,6 @@ build-docker:
 
 gaml FILE:
     cargo run -p gaml --bin gaml -- {{FILE}}
+
+unwrap:
+    cargo run -p unwrapped
