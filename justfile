@@ -1,6 +1,8 @@
 image_name := "github.com/sneakycrow/website"
 image_tag  := "latest"
 
+set dotenv-load
+
 build-docker:
     docker build -t {{image_name}}:{{image_tag}} .
 
