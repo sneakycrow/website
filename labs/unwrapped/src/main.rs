@@ -2,11 +2,12 @@ mod assets;
 mod db;
 mod routes;
 
-use axum::{extract::MatchedPath, http::Request, response::Response};
-use std::time::Duration;
 use tokio::net::TcpListener;
-use tower_http::{classify::ServerErrorsFailureClass, trace::TraceLayer};
-use tracing::{info_span, Span};
+use tower_http::{
+    trace::{DefaultMakeSpan, DefaultOnRequest, DefaultOnResponse, TraceLayer},
+    LatencyUnit,
+};
+use tracing::Level;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 #[tokio::main]
@@ -24,28 +25,12 @@ async fn main() {
     let db_pool = db::get_pool().await.unwrap();
     let app = routes::router(db_pool).layer(
         TraceLayer::new_for_http()
-            .make_span_with(|request: &Request<_>| {
-                let matched_path = request
-                    .extensions()
-                    .get::<MatchedPath>()
-                    .map(MatchedPath::as_str);
-
-                info_span!(
-                    "http_request",
-                    method = ?request.method(),
-                    matched_path,
-                    some_other_field = tracing::field::Empty,
-                )
-            })
-            .on_response(|response: &Response, latency: Duration, _span: &Span| {
-                // Print the response status code and latency
-                info_span!("http_response", status = ?response.status(), latency = ?latency);
-            })
-            .on_failure(
-                |error: ServerErrorsFailureClass, latency: Duration, _span: &Span| {
-                    // Print the error and latency
-                    info_span!("http_failure", error = ?error, latency = ?latency);
-                },
+            .make_span_with(DefaultMakeSpan::new())
+            .on_request(DefaultOnRequest::new().level(Level::INFO))
+            .on_response(
+                DefaultOnResponse::new()
+                    .level(Level::INFO)
+                    .latency_unit(LatencyUnit::Micros),
             ),
     );
     let listener = TcpListener::bind("0.0.0.0:3000").await.unwrap();
