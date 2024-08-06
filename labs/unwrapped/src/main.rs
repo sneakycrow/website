@@ -20,7 +20,8 @@ async fn main() {
         )
         .with(tracing_subscriber::fmt::layer())
         .init();
-    let app = routes::router().layer(
+    let db_pool = db::get_pool().await.unwrap();
+    let app = routes::router(db_pool).layer(
         TraceLayer::new_for_http()
             .make_span_with(|request: &Request<_>| {
                 let matched_path = request
