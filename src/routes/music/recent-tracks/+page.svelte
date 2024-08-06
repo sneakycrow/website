@@ -26,7 +26,11 @@
       />
       <div class="flex flex-col items-end justify-between">
         <h3 class="font-bold">
-          <a href={track.track.external_urls.spotify} target="_blank" class="text-gray-900">
+          <a
+            href={track.track.external_urls.spotify}
+            target="_blank"
+            class="text-gray-900"
+          >
             {track.track.name}
           </a>
         </h3>
@@ -37,7 +41,9 @@
         >
           {track.track.artists[0].name}
         </a>
-        <p class="text-gray-300 text-sm font-light">{formatDistanceToNow(track.played_at)} ago</p>
+        <p class="text-gray-300 text-sm font-light">
+          {formatDistanceToNow(track.played_at)} ago
+        </p>
       </div>
     </a>
   {/each}

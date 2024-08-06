@@ -5,6 +5,7 @@ except this allows for additional sources beyond Spotify and allows you to dynam
 look at.
 
 unwrapped handles:
+
 - OAuth2 authentication with Providers
 - Fetching music history from Providers
 - Storing music history in a database

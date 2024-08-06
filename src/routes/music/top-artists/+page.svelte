@@ -12,7 +12,11 @@
 {#if artists.length > 0}
   {#each artists as artist}
     <div class="space-y-2 flex flex-col items-center justify-center">
-      <a href={artist.external_urls.spotify} target="_blank" class="shadow-lg rounded-lg p-4">
+      <a
+        href={artist.external_urls.spotify}
+        target="_blank"
+        class="shadow-lg rounded-lg p-4"
+      >
         <img
           src={artist?.images[1].url}
           alt={artist?.name}

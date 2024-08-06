@@ -4,18 +4,18 @@ slug: nuxt-vs-sveltekit-vs-next
 summary: A high level comparison of Nuxt, SvelteKit, and Next
 category: tech
 edits:
-- id: 7026f37b4c51788c5212acb7f51fd392b2dfc30d
-  message: add drafts capability
-  author: sneakycrow
-  timestamp: '1720747907'
-- id: 6b9487f981abd0d5ab7ae5acf1538f815f78efa3
-  message: add categories to posts
-  author: Zachary Corvidae
-  timestamp: '1720820568'
-- id: 0ea70af6a5a6074e87d723db1246e06d9db7d124
-  message: add testing edit
-  author: Zachary Corvidae
-  timestamp: '1721334722'
+  - id: 7026f37b4c51788c5212acb7f51fd392b2dfc30d
+    message: add drafts capability
+    author: sneakycrow
+    timestamp: "1720747907"
+  - id: 6b9487f981abd0d5ab7ae5acf1538f815f78efa3
+    message: add categories to posts
+    author: Zachary Corvidae
+    timestamp: "1720820568"
+  - id: 0ea70af6a5a6074e87d723db1246e06d9db7d124
+    message: add testing edit
+    author: Zachary Corvidae
+    timestamp: "1721334722"
 ---
 
 ## Preface
@@ -27,7 +27,6 @@ I won't be diving into the specifics of each framework, but rather comparing the
 - **Ease of Development**
 - **Ease of Deployment**
 - **Resource Availability**
-
 
 ## SvelteKit
 

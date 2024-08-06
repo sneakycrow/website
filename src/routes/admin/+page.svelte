@@ -25,7 +25,9 @@
       <Icon
         icon="mdi:account"
         class={`${
-          valueSingle === "accounts" ? "text-white" : "text-black dark:text-white"
+          valueSingle === "accounts"
+            ? "text-white"
+            : "text-black dark:text-white"
         } w-6 h-6`}
       />
     </svelte:fragment>
@@ -45,7 +47,9 @@
     <svelte:fragment slot="lead">
       <Icon
         icon="mdi:file-document-outline"
-        class={`${valueSingle === "posts" ? "text-white" : "text-black dark:text-white"} w-6 h-6`}
+        class={`${
+          valueSingle === "posts" ? "text-white" : "text-black dark:text-white"
+        } w-6 h-6`}
       />
     </svelte:fragment>
     Feed Manager

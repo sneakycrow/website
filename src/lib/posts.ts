@@ -28,7 +28,10 @@ export type Post = {
 
 export const getPosts = async (): Promise<Post[]> => {
   // Get posts in parallel
-  const postsResults = await Promise.allSettled([processLocalPosts(), processLocalDrafts()]);
+  const postsResults = await Promise.allSettled([
+    processLocalPosts(),
+    processLocalDrafts()
+  ]);
   // Filter out any rejected promises
   const posts: Post[] = postsResults
     .filter((result) => result.status === "fulfilled")
@@ -47,7 +50,9 @@ export const getSeriesByPost = async (post: Post): Promise<Post[]> => {
   return allPosts.filter((p: Post) => p.series_key === post.series_key);
 };
 
-export const getPostBySlug = async (slug: string): Promise<Post | undefined> => {
+export const getPostBySlug = async (
+  slug: string
+): Promise<Post | undefined> => {
   const allPosts = await getPosts();
   return allPosts.find((p: Post) => p.slug === slug);
 };

@@ -26,7 +26,9 @@ type AlbumData = {
   };
 };
 
-export const getUserAlbumsWithAccount = async (account: Account): Promise<AlbumData[]> => {
+export const getUserAlbumsWithAccount = async (
+  account: Account
+): Promise<AlbumData[]> => {
   const res = await fetch("https://api.spotify.com/v1/me/albums", {
     headers: {
       Authorization: `Bearer ${account.accessToken}`
@@ -66,7 +68,10 @@ export const getUserAlbumsWithAccount = async (account: Account): Promise<AlbumD
   return albums;
 };
 
-const getNextAlbumPage = async (url: string, account: Account): Promise<AlbumData[]> => {
+const getNextAlbumPage = async (
+  url: string,
+  account: Account
+): Promise<AlbumData[]> => {
   const res = await fetch(url, {
     headers: {
       Authorization: `Bearer ${account.accessToken}`
@@ -86,7 +91,9 @@ type UpdatedTokens = {
   refreshToken: string;
 };
 
-export const refreshToken = async (refreshToken: string): Promise<UpdatedTokens> => {
+export const refreshToken = async (
+  refreshToken: string
+): Promise<UpdatedTokens> => {
   const spotifyClientId = env.SPOTIFY_ID;
   const spotifyClientSecret = env.SPOTIFY_SECRET;
   if (!spotifyClientId || !spotifyClientSecret) {
@@ -98,7 +105,10 @@ export const refreshToken = async (refreshToken: string): Promise<UpdatedTokens>
       "Content-Type": "application/x-www-form-urlencoded",
       Authorization:
         // @ts-expect-error - Buffer is not defined in the browser
-        "Basic " + new Buffer.from(spotifyClientId + ":" + spotifyClientSecret).toString("base64")
+        "Basic " +
+        new Buffer.from(spotifyClientId + ":" + spotifyClientSecret).toString(
+          "base64"
+        )
     },
     body: new URLSearchParams({
       grant_type: "refresh_token",
@@ -114,7 +124,9 @@ export const refreshToken = async (refreshToken: string): Promise<UpdatedTokens>
   }
 
   if (!json.access_token) {
-    throw new Error(`Failed to refresh token, no access token found in response`);
+    throw new Error(
+      `Failed to refresh token, no access token found in response`
+    );
   }
 
   return {
@@ -125,7 +137,9 @@ export const refreshToken = async (refreshToken: string): Promise<UpdatedTokens>
 
 export const getSneakyCrowAlbum = async (): Promise<AlbumData[]> => {
   const SNEAKYCROW_SPOTIFY_USERNAME = "sneakycr0w";
-  const sneakyCrowAccount = await getAccountWithUserById(SNEAKYCROW_SPOTIFY_USERNAME);
+  const sneakyCrowAccount = await getAccountWithUserById(
+    SNEAKYCROW_SPOTIFY_USERNAME
+  );
   if (!sneakyCrowAccount) {
     throw new Error("SneakyCrow account not found");
   }
@@ -216,7 +230,9 @@ export const getTopArtistsWithAccount = async (
 };
 
 export const getSneakyCrowTopArtists = async (): Promise<TopArtistData[]> => {
-  const sneakyCrowAccount = await getAccountWithUserById(SNEAKYCROW_SPOTIFY_USERNAME);
+  const sneakyCrowAccount = await getAccountWithUserById(
+    SNEAKYCROW_SPOTIFY_USERNAME
+  );
   if (!sneakyCrowAccount) {
     throw new Error("SneakyCrow account not found");
   }
@@ -262,7 +278,9 @@ type TrackData = {
 };
 
 // Using the Get Recently Played Tracks API https://developer.spotify.com/documentation/web-api/reference/get-recently-played
-export const getRecentTracksWithAccount = async (account: Account): Promise<TrackData[]> => {
+export const getRecentTracksWithAccount = async (
+  account: Account
+): Promise<TrackData[]> => {
   const ENDPOINT = "https://api.spotify.com/v1/me/player/recently-played";
   const limit = 24; // Used in a grid of 3 columns, so best to keep it a multiple of 3
   // Get todays date and subtract 1 day, then convert to an Unix timestamp
@@ -310,7 +328,9 @@ export const getRecentTracksWithAccount = async (account: Account): Promise<Trac
 // Wrapper function to get the recent tracks for the SneakyCrow account specifically
 export const getSneakyCrowRecentTracks = async (): Promise<TrackData[]> => {
   try {
-    const sneakyCrowAccount = await getAccountWithUserById(SNEAKYCROW_SPOTIFY_USERNAME);
+    const sneakyCrowAccount = await getAccountWithUserById(
+      SNEAKYCROW_SPOTIFY_USERNAME
+    );
     if (!sneakyCrowAccount) {
       throw new Error("SneakyCrow account not found");
     }

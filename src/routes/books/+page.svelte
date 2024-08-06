@@ -32,11 +32,20 @@
 
 <section class="w-full lg:col-span-6 space-y-10">
   <aside class="max-w-[600px] mx-auto w-3/4 space-y-10 text-center">
-    <img src={logoURL} class="mx-auto" alt="Logo for the Paper Eaters Club, a book club" />
-    <p>A group of illiterate friends that pretend we can read but we're really just gossipping.</p>
+    <img
+      src={logoURL}
+      class="mx-auto"
+      alt="Logo for the Paper Eaters Club, a book club"
+    />
+    <p>
+      A group of illiterate friends that pretend we can read but we're really
+      just gossipping.
+    </p>
   </aside>
   <h4 class="text-xl text-center font-semibold">Our Books</h4>
-  <div class="grid grid-flow-row lg:grid-flow-col gap-10 items-start justify-center">
+  <div
+    class="grid grid-flow-row lg:grid-flow-col gap-10 items-start justify-center"
+  >
     <aside class="text-left flex flex-col justify-center">
       <p class="text-lg">{currentBook.title}</p>
       <p>{currentBook.author}</p>

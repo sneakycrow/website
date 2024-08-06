@@ -31,7 +31,10 @@ export async function GET(event: RequestEvent): Promise<Response> {
     const existingUser = await getUserByEmail(spotifyUser.email);
 
     if (existingUser) {
-      const account = await getUserAccountProviderByUserId("spotify", existingUser.id);
+      const account = await getUserAccountProviderByUserId(
+        "spotify",
+        existingUser.id
+      );
       if (!account) {
         // The user exists, but doesn't have a spotify account connected
         // Connect the spotify account

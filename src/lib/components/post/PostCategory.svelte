@@ -46,7 +46,11 @@
   };
 </script>
 
-<div class={`text-center lg:pr-2 h-auto ${getCategoryMeta(category).color} ${$$restProps.class}`}>
+<div
+  class={`text-center lg:pr-2 h-auto ${getCategoryMeta(category).color} ${
+    $$restProps.class
+  }`}
+>
   <button
     class="w-full h-full text-gray-400 font-light flex flex-nowrap items-center justify-center space-x-2 lg:space-y-2"
   >

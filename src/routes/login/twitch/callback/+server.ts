@@ -24,12 +24,18 @@ export async function GET(event: RequestEvent): Promise<Response> {
   try {
     const tokens = await twitch.validateAuthorizationCode(code);
     const validateResponse = await validateToken(tokens.accessToken);
-    const twitchUser = await getUser(validateResponse.user.id, tokens.accessToken);
+    const twitchUser = await getUser(
+      validateResponse.user.id,
+      tokens.accessToken
+    );
 
     const existingUser = await getUserByEmail(twitchUser.email);
 
     if (existingUser) {
-      const account = await getUserAccountProviderByUserId("twitch", existingUser.id);
+      const account = await getUserAccountProviderByUserId(
+        "twitch",
+        existingUser.id
+      );
       if (!account) {
         // The user exists, but doesn't have a spotify account connected
         // Connect the spotify account

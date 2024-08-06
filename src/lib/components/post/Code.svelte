@@ -70,7 +70,9 @@
 
 <div class="shadow-flat-green hljs divide-y-2 divide-gray-700">
   {#if lang}
-    <aside class="px-4 py-2 text-gray-500 text-sm flex items-center justify-between">
+    <aside
+      class="px-4 py-2 text-gray-500 text-sm flex items-center justify-between"
+    >
       {language}
       {#if filename}
         <span class="text-gray-600 text-xs">{filename}</span>

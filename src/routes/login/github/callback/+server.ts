@@ -31,7 +31,10 @@ export async function GET(event: RequestEvent): Promise<Response> {
     const existingUser = await getUserByEmail(githubUser.email);
 
     if (existingUser) {
-      const account = await getUserAccountProviderByUserId("github", existingUser.id);
+      const account = await getUserAccountProviderByUserId(
+        "github",
+        existingUser.id
+      );
       if (!account) {
         // The user exists, but doesn't have a github account connected
         // Connect the github account

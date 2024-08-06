@@ -12,7 +12,9 @@
   <div class="w-full h-auto max-h-[300px] overflow-hidden">
     <img class="object-cover" src={photo.source} alt={photo.alt} />
   </div>
-  <div class="flex flex-col items-center justify-center w-full py-4 bg-white overflow-y-scroll">
+  <div
+    class="flex flex-col items-center justify-center w-full py-4 bg-white overflow-y-scroll"
+  >
     <p class="text-sm italic text-black text-center">{photo.alt}</p>
     <p class="text-xs italic text-black text-center">{photo.date}</p>
   </div>

@@ -22,19 +22,28 @@ export async function GET(event: RequestEvent): Promise<Response> {
 
   try {
     const tokens = await discord.validateAuthorizationCode(code);
-    const discordUserResponse = await fetch("https://discord.com/api/users/@me", {
-      headers: {
-        Authorization: `Bearer ${tokens.accessToken}`
+    const discordUserResponse = await fetch(
+      "https://discord.com/api/users/@me",
+      {
+        headers: {
+          Authorization: `Bearer ${tokens.accessToken}`
+        }
       }
-    });
+    );
     const discordUser: DiscordUser = await discordUserResponse.json();
     // The avatar provided is just a hash, re-assign it to the full URL
-    discordUser.avatar = constructDiscordAvatar(discordUser.id.toString(), discordUser.avatar);
+    discordUser.avatar = constructDiscordAvatar(
+      discordUser.id.toString(),
+      discordUser.avatar
+    );
     console.log(`Discord user info: ${JSON.stringify(discordUser)}`);
     const existingUser = await getUserByEmail(discordUser.email);
     console.log(`Existing user: ${JSON.stringify(existingUser)}`);
     if (existingUser) {
-      const account = await getUserAccountProviderByUserId("discord", existingUser.id);
+      const account = await getUserAccountProviderByUserId(
+        "discord",
+        existingUser.id
+      );
       if (!account) {
         // The user exists, but doesn't have a discord account connected
         // Connect the discord account

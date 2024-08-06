@@ -20,6 +20,8 @@
       class="font-bold underline italic uppercase">not</span
     > a crow in a long-coat pretending to be a human.
   </p>
-  <p class="text-xl">I like to write software, play video games, make music, read, and more!</p>
+  <p class="text-xl">
+    I like to write software, play video games, make music, read, and more!
+  </p>
 </section>
 <Collections class="lg:col-span-6 my-20" />

@@ -16,7 +16,11 @@ export const load: PageServerLoad = async () => {
   }
   const artistData = await getSneakyCrowTopArtists();
   if (artistData) {
-    await saveToRedis(SPOTIFY_TOP_ARTISTS, JSON.stringify(artistData), getExpirationByDays(7));
+    await saveToRedis(
+      SPOTIFY_TOP_ARTISTS,
+      JSON.stringify(artistData),
+      getExpirationByDays(7)
+    );
   }
   return {
     artists: artistData

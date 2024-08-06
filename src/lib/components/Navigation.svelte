@@ -70,7 +70,11 @@
         />
       </button>
       {#each [...links, ...additionalLinks] as link}
-        <a href={link.url} class={`text-white text-2xl font-bold uppercase`} on:click={closeMenu}>
+        <a
+          href={link.url}
+          class={`text-white text-2xl font-bold uppercase`}
+          on:click={closeMenu}
+        >
           {link.copy}
         </a>
       {/each}

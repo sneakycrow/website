@@ -27,8 +27,9 @@
         <a href={link.url}>{link.copy}</a>
       {/each}
       <form action="/?/logout" method="post">
-        <button class="cursor-pointer font-semibold hover:text-red-500 text-gray-400" type="submit"
-          >Log Out</button
+        <button
+          class="cursor-pointer font-semibold hover:text-red-500 text-gray-400"
+          type="submit">Log Out</button
         >
       </form>
     </div>

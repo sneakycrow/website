@@ -3,7 +3,9 @@ import type { User, Account } from "@prisma/client";
 import client from "$lib/server/db";
 import { nanoid } from "nanoid";
 
-export const getUserByUsername = async (username: string): Promise<User | null> => {
+export const getUserByUsername = async (
+  username: string
+): Promise<User | null> => {
   return client.user.findUnique({
     where: {
       username
@@ -57,7 +59,9 @@ const userWithAccounts = Prisma.validator<Prisma.UserDefaultArgs>()({
 
 type UserWithAccounts = Prisma.UserGetPayload<typeof userWithAccounts>;
 
-export const getUserWithAccountsById = async (id: string): Promise<UserWithAccounts | null> => {
+export const getUserWithAccountsById = async (
+  id: string
+): Promise<UserWithAccounts | null> => {
   return client.user.findUnique({
     where: {
       id
@@ -76,7 +80,9 @@ const accountsWithUser = Prisma.validator<Prisma.AccountDefaultArgs>()({
 
 type AccountsWithUser = Prisma.AccountGetPayload<typeof accountsWithUser>;
 
-export const getAccountWithUserById = async (id: string): Promise<AccountsWithUser | null> => {
+export const getAccountWithUserById = async (
+  id: string
+): Promise<AccountsWithUser | null> => {
   return client.account.findUnique({
     where: {
       id
@@ -96,7 +102,10 @@ type NewUser = {
   avatar: string;
 };
 
-export const createUserFromProvider = async (provider: string, user: NewUser): Promise<User> => {
+export const createUserFromProvider = async (
+  provider: string,
+  user: NewUser
+): Promise<User> => {
   return client.user.create({
     data: {
       id: nanoid(10),

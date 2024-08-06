@@ -13,7 +13,9 @@ type ValidateTokenResponse = {
 
 // A function that calls the Twitch validation endpoint
 // Notably, returns the current user id of the token provided
-export const validateToken = async (token: string): Promise<ValidateTokenResponse> => {
+export const validateToken = async (
+  token: string
+): Promise<ValidateTokenResponse> => {
   const endpoint = "https://id.twitch.tv/oauth2/validate";
   type ExpectedResponse = {
     user_id: string;
@@ -42,7 +44,10 @@ type TwitchUser = {
 };
 
 // A function for getting a Twitch user by their user ID
-export const getUser = async (userId: string, token: string): Promise<TwitchUser> => {
+export const getUser = async (
+  userId: string,
+  token: string
+): Promise<TwitchUser> => {
   const endpoint = "https://api.twitch.tv/helix/users";
   type ExpectedResponse = {
     data: [
@@ -79,7 +84,10 @@ type Stream = {
 };
 
 // A function for getting stream information by user ID
-export const getStream = async (userId: string, token: string): Promise<Stream> => {
+export const getStream = async (
+  userId: string,
+  token: string
+): Promise<Stream> => {
   const endpoint = "https://api.twitch.tv/helix/streams";
   type ExpectedResponse = {
     data: [
@@ -129,7 +137,9 @@ export const getStaticStream = async (): Promise<Stream> => {
     // @ts-ignore
     if (e?.cause === 401) {
       if (!dbUser.refreshToken) {
-        throw new Error("Could not refresh token, no refresh token in database");
+        throw new Error(
+          "Could not refresh token, no refresh token in database"
+        );
       }
       const refreshRes = await refreshToken(dbUser.refreshToken);
       // Save the new token to the database
@@ -148,7 +158,9 @@ export const getStaticStream = async (): Promise<Stream> => {
         const res = await getStream(dbUser.id, refreshRes.access_token);
         return res;
       } catch (e) {
-        throw new Error("Failed to get stream information for static user after refreshing token");
+        throw new Error(
+          "Failed to get stream information for static user after refreshing token"
+        );
       }
     }
     throw new Error(`Failed to get stream information for static user: ${e}`);
@@ -161,7 +173,9 @@ type RefreshTokenResponse = {
   scopes: string[];
 };
 // A function for refreshing the token of a user
-export const refreshToken = async (refreshToken: string): Promise<RefreshTokenResponse> => {
+export const refreshToken = async (
+  refreshToken: string
+): Promise<RefreshTokenResponse> => {
   // curl -X POST https://id.twitch.tv/oauth2/token \
   // -H 'Content-Type: application/x-www-form-urlencoded' \
   // -d 'grant_type=refresh_token&refresh_token=gdw3k62zpqi0kw01escg7zgbdhtxi6hm0155tiwcztxc/zkx17&client_id=<your client id goes here>&client_secret=<your client secret goes here>'
