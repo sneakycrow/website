@@ -1,12 +1,17 @@
-use crate::{assets::Assets, db};
+use crate::{
+    assets::Assets,
+    db::{self, Tokens},
+    music::spotify::{RecentTrack, SpotifyClient},
+};
+use serde::Serialize;
 
-use axum::{extract::State, response::Html, routing::get, Router};
+use axum::{extract::State, response::Html, routing::get, Json, Router};
 use sqlx::PgPool;
 
 pub fn router(pool: PgPool) -> Router {
     Router::new()
         .route("/", get(index))
-        .route("/account", get(account))
+        .route("/collect", get(collect))
         .with_state(pool)
 }
 
@@ -22,6 +27,20 @@ async fn index() -> Html<String> {
     Html(html_string)
 }
 
-async fn account(State(pool): State<PgPool>) -> String {
-    db::get_account_by_email(&pool).await.unwrap()
+#[derive(Serialize)]
+pub struct CollectionResponse {
+    data: Vec<RecentTrack>,
+}
+
+async fn collect(State(pool): State<PgPool>) -> Json<CollectionResponse> {
+    let tokens = db::get_tokens_by_email(&pool, "zach@sneakycrow.dev".to_string())
+        .await
+        .unwrap();
+
+    let tracks = SpotifyClient::new(tokens)
+        .get_recent_tracks()
+        .await
+        .expect("Failed to fetch recent tracks");
+
+    Json(CollectionResponse { data: tracks.items })
 }
