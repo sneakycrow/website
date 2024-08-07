@@ -1,6 +1,3 @@
-# syntax = docker/dockerfile:1
-
-# Adjust NODE_VERSION as desired
 # Issue with 22.5.0, https://github.com/nodejs/docker-node/issues/2119
 FROM node:22.4 as base
 
@@ -22,7 +19,17 @@ COPY --link .yarnrc yarn.lock package.json ./
 RUN yarn install
 
 # Copy application code
-COPY --link . .
+COPY --link _drafts/ _drafts/
+COPY --link _posts/ _posts/
+COPY --link prisma/ prisma/
+COPY --link src/ src/
+COPY --link static/ static/
+COPY --link postcss.config.js postcss.config.js
+COPY --link svelte.config.js svelte.config.js
+COPY --link tailwind.config.ts tailwind.config.ts
+COPY --link theme.ts theme.ts
+COPY --link tsconfig.json tsconfig.json
+COPY --link vite.config.ts vite.config.ts
 
 # Build application
 RUN yarn build
@@ -34,9 +41,7 @@ FROM base
 RUN apt-get update -qq && \
     apt-get install -y ca-certificates openssl
 
-# Copy built application
-COPY --from=build /app /app
-
-# Start the server by default, this can be overwritten at runtime
+# Start the website
 EXPOSE 3000
-CMD [ "yarn", "start" ]
+COPY entrypoint.sh entrypoint.sh
+CMD ["./entrypoint.sh"]

@@ -1,7 +1,6 @@
 use axum::http::StatusCode;
 use serde::Serialize;
 use sqlx::postgres::{PgPool, PgPoolOptions};
-use tracing::info;
 
 #[derive(Serialize)]
 pub struct Tokens {
