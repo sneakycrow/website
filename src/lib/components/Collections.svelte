@@ -35,17 +35,9 @@
       icon: "tabler:palette"
     },
     {
-      copy: "reading",
-      url: "/books",
-      description: "feeding my brain with the written word",
-      class: "lg:hover:text-purple-500",
-      iconColor: "text-purple-500 opacity-75",
-      icon: "tabler:book"
-    },
-    {
       copy: "playing",
       url: "/games",
-      description: "where my dreams become virtual reality (uh oh)",
+      description: "where my dreams become virtual reality",
       class: "lg:hover:text-blue-500",
       iconColor: "text-blue-500 opacity-75",
       icon: "f7:gamecontroller-fill",
