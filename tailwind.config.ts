@@ -46,6 +46,9 @@ const config = {
       gridTemplateColumns: {
         header: "100px repeat(5, 1fr)"
       },
+      gridTemplateRows: {
+        main: "min-content 1fr min-content"
+      },
       boxShadow: {
         "flat-green": "10px 10px #0ba750"
       },
