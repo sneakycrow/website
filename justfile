@@ -20,8 +20,5 @@ run-docker:
 clean-docker:
     docker rmi {{image_name}}:{{image_tag}}
 
-gaml FILE:
-    cargo run -p gaml --bin gaml -- {{FILE}}
-
 unwrap:
-    cargo run -p unwrapped
+    just labs/unwrapped/run
