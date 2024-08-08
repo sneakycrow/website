@@ -282,7 +282,7 @@ export const getRecentTracksWithAccount = async (
   account: Account
 ): Promise<TrackData[]> => {
   const ENDPOINT = "https://api.spotify.com/v1/me/player/recently-played";
-  const limit = 24; // Used in a grid of 3 columns, so best to keep it a multiple of 3
+  const limit = 50;
   // Get todays date and subtract 1 day, then convert to an Unix timestamp
   const url = new URL(ENDPOINT);
   url.searchParams.append("limit", limit.toString());

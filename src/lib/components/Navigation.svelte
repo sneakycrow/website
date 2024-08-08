@@ -14,16 +14,6 @@
       hover: "lg:hover:text-green-500"
     },
     {
-      copy: "books",
-      url: "/books",
-      hover: "lg:hover:text-red-500"
-    },
-    {
-      copy: "music",
-      url: "/music",
-      hover: "lg:hover:text-orange-500"
-    },
-    {
       copy: "art",
       url: "/art",
       hover: "lg:hover:text-yellow-500"
