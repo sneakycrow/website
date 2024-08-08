@@ -1,0 +1,4 @@
+[workspace]
+members = ["labs/gaml", "labs/unwrapped"]
+
+resolver = "2"
