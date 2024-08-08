@@ -40,9 +40,7 @@
   <title>writing light</title>
 </svelte:head>
 
-<section
-  class="grid grid-flow-row-dense lg:grid-cols-subgrid lg:col-span-6 items-center justify-center gap-20"
->
+<section class="grid lg:grid-cols-6 grid-flow-row-dense items-center justify-center gap-20 p-4">
   {#each photos as photo, index}
     <FilmPhoto
       {photo}
