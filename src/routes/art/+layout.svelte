@@ -1,13 +1,11 @@
 <script lang="ts">
-  import type { PageServerData } from "./$types";
   import { page } from "$app/stores";
-  export let data: PageServerData;
 
   const activeLinks = [
     {
       copy: "music",
       href: "/art/music",
-      color: "text-red-500"
+      color: "text-purple-500"
     },
     {
       copy: "photos",
