@@ -280,6 +280,7 @@ export const getRecentTracksWithAccount = async (account: Account): Promise<Trac
   if (!items) {
     // Check if its an access token error, and attempt to refresh the token
     if (json.error?.status === 401) {
+      console.log("Access Token expired, attempting to refresh");
       if (!account.refreshToken) {
         throw new Error("Access Token expired, but no refresh token found");
       }
