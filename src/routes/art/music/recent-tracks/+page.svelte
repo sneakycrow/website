@@ -10,6 +10,11 @@
   <title>headphones in</title>
 </svelte:head>
 
+{#if tracks.length === 0}
+  <p class="text-error-500 font-semibold text-3xl text-center lg:col-span-3">
+    Uh oh, I failed to load my recent tunes. Lame. Sorry about that. Try again later
+  </p>
+{/if}
 {#if tracks.length > 0}
   {#each tracks as track}
     <a
