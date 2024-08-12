@@ -3,7 +3,7 @@ import matter from "gray-matter";
 import { v4 as uuid } from "uuid";
 import readingTime from "reading-time";
 
-export type Category = "gaming" | "tech" | "music" | "life" | "thoughts";
+export type Category = "gaming" | "tech" | "art" | "thoughts";
 
 export type Post = {
   id: string;
