@@ -35,6 +35,13 @@
           icon: "mdi:brain",
           color: "text-yellow-500"
         };
+      case "art":
+        return {
+          category: category,
+          copy: toTitleCase(category),
+          icon: "mdi:palette",
+          color: "text-red-500"
+        };
       default:
         return {
           category: category,
