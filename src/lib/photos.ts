@@ -1,5 +1,10 @@
 export const photoList = [
   {
+    source: "/photos/yachats_hills.jpeg",
+    alt: "Hills at the beach. Yachats, OR",
+    date: "August 2024"
+  },
+  {
     source: "/photos/timothy_lake.jpeg",
     alt: "Timothy Lake. Mt. Hood National Forest, OR",
     date: "June 2018"
