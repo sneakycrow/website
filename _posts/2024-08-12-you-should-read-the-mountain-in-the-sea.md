@@ -16,4 +16,4 @@ the approach to more scifi topics and how those intertwine with modern culture i
 It's a great book that deals a lot with complex topics but keeps them very grounded and easy to follow. A great read that I think
 everyone should read.
 
-![The Mountain in the Sea cover](https://www.raynayler.net/uploads/1/3/2/3/13236557/mountain-paperback_orig.jpg)
+[![The Mountain in the Sea cover](https://www.raynayler.net/uploads/1/3/2/3/13236557/mountain-paperback_orig.jpg)](https://www.raynayler.net/the-mountain-in-the-sea.html)
