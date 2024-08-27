@@ -66,9 +66,3 @@
     {/each}
   </ul>
 </section>
-<p class="lg:col-start-2 lg:col-span-4 text-center italic text-gray-400">
-  Thank you for signing up! I'm planning on adding extra featureset's throughout the website via
-  connected accounts. Check back in soon!
-  <br />
-  - Zach
-</p>
