@@ -1,10 +1,5 @@
 export const photoList = [
   {
-    source: "/photos/start_family.jpeg",
-    alt: "Beginning of my family. Portland, OR",
-    date: "June 2017"
-  },
-  {
     source: "/photos/timothy_lake.jpeg",
     alt: "Timothy Lake. Mt. Hood National Forest, OR",
     date: "June 2018"
