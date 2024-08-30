@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { LayoutServerData } from "./$types";
   import { page } from "$app/stores";
+  import { Accordion, AccordionItem } from "@skeletonlabs/skeleton";
   import Icon from "@iconify/svelte";
   const userPanelLinks = [
     { copy: "Profile", url: "/settings/me", id: "profile", icon: "gg:profile" },
@@ -17,7 +18,27 @@
       copy: "Content",
       url: "/settings/admin/content",
       id: "content",
-      icon: "mingcute:content-ai-fill"
+      icon: "mingcute:content-ai-fill",
+      sublinks: [
+        {
+          copy: "Posts",
+          url: "/settings/admin/content/posts",
+          id: "posts",
+          icon: "mdi:pencil"
+        },
+        {
+          copy: "Books",
+          url: "/settings/admin/content/books",
+          id: "books",
+          icon: "mdi:book"
+        },
+        {
+          copy: "Art",
+          url: "/settings/admin/content/art",
+          id: "art",
+          icon: "mdi:palette"
+        }
+      ]
     }
   ];
 
@@ -42,14 +63,39 @@
   {/each}
   <p class="mt-4 mb-2 font-light text-xs">Admin</p>
   {#each displayedLinks.admin as adminPanel}
-    <a
-      href={adminPanel.url}
-      class="px-4 py-2 rounded-md flex flex-nowrap text-black hover:variant-soft-primary space-x-2"
-      class:bg-primary-500={$page.url.pathname.startsWith(adminPanel.url)}
-    >
-      <Icon icon={adminPanel.icon} class={`w-6 h-6`} />
-      <span>{adminPanel.copy}</span>
-    </a>
+    {#if adminPanel.sublinks}
+      <Accordion
+        regionControl={`${$page.url.pathname.startsWith(adminPanel.url) ? "bg-primary-300" : ""}`}
+      >
+        <AccordionItem>
+          <svelte:fragment slot="lead">
+            <Icon icon={adminPanel.icon} class={`w-6 h-6`} />
+          </svelte:fragment>
+          <svelte:fragment slot="summary">{adminPanel.copy}</svelte:fragment>
+          <svelte:fragment slot="content">
+            {#each adminPanel.sublinks as link}
+              <a
+                href={link.url}
+                class="px-4 py-2 rounded-md flex flex-nowrap text-black hover:variant-soft-primary space-x-2"
+                class:bg-primary-500={$page.url.pathname.startsWith(link.url)}
+              >
+                <Icon icon={link.icon} class={`w-6 h-6`} />
+                <span>{link.copy}</span>
+              </a>
+            {/each}
+          </svelte:fragment>
+        </AccordionItem>
+      </Accordion>
+    {:else}
+      <a
+        href={adminPanel.url}
+        class="px-4 py-2 rounded-md flex flex-nowrap text-black hover:variant-soft-primary space-x-2"
+        class:bg-primary-500={$page.url.pathname.startsWith(adminPanel.url)}
+      >
+        <Icon icon={adminPanel.icon} class={`w-6 h-6`} />
+        <span>{adminPanel.copy}</span>
+      </a>
+    {/if}
   {/each}
 </nav>
 
