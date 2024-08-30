@@ -1,23 +1,39 @@
 <script lang="ts">
+  import type { LayoutServerData } from "./$types";
   import { page } from "$app/stores";
   import Icon from "@iconify/svelte";
-  type PanelLink = { copy: string; url: string; id: string };
-  const panelLinks: PanelLink[] = [
+  const userPanelLinks = [
     { copy: "Profile", url: "/settings/me", id: "profile" },
-    { copy: "Users", url: "/settings/admin", id: "users" },
     { copy: "Connected Accounts", url: "/settings/accounts", id: "accounts" }
   ];
+  const adminPanelLinks = [{ copy: "Users", url: "/settings/admin", id: "users" }];
+
+  export let data: LayoutServerData;
+  $: displayedLinks = {
+    user: userPanelLinks.filter((link) => data.allowedPanels.includes(link.id)),
+    admin: adminPanelLinks.filter((link) => data.allowedPanels.includes(link.id))
+  };
 </script>
 
 <nav class="lg:col-span-1">
-  {#each panelLinks as panel}
+  {#each displayedLinks.user as userPanel}
     <a
-      href={panel.url}
+      href={userPanel.url}
       class="px-4 py-2 rounded-md flex flex-nowrap text-black"
-      class:bg-primary-500={$page.url.pathname === panel.url}
+      class:bg-primary-500={$page.url.pathname === userPanel.url}
     >
       <Icon icon="mdi:account" class={`w-6 h-6`} />
-      {panel.copy}
+      {userPanel.copy}
+    </a>
+  {/each}
+  {#each displayedLinks.admin as adminPanel}
+    <a
+      href={adminPanel.url}
+      class="px-4 py-2 rounded-md flex flex-nowrap text-black"
+      class:bg-primary-500={$page.url.pathname === adminPanel.url}
+    >
+      <Icon icon="mdi:account" class={`w-6 h-6`} />
+      {adminPanel.copy}
     </a>
   {/each}
 </nav>

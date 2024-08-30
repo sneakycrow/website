@@ -1,7 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
   import AvatarWidget from "./AvatarWidget.svelte";
-  import { getAllowedPanels } from "$lib/settings";
 
   type User = {
     username: string;

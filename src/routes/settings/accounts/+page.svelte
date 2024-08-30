@@ -36,7 +36,7 @@
       }
       default:
         return {
-          icon: "mdi:account",
+          icon: "mdi:discord",
           color: "black"
         };
     }
