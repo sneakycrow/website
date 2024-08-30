@@ -2,13 +2,8 @@ import { getUserWithAccountsById } from "$lib/server/user";
 import type { PageServerLoad } from "./$types";
 import { redirect } from "@sveltejs/kit";
 
+const DEFAULT_PAGE = "/settings/me";
+
 export const load: PageServerLoad = async ({ locals }) => {
-  if (!locals.user) throw redirect(302, "/login");
-  const userWithAccounts = await getUserWithAccountsById(locals.user.id);
-  if (!userWithAccounts) throw redirect(302, "/login");
-  return {
-    username: locals.user.username,
-    avatar: locals.user.avatar,
-    accounts: userWithAccounts.accounts
-  };
+  throw redirect(302, DEFAULT_PAGE);
 };

@@ -3,8 +3,9 @@
   import Icon from "@iconify/svelte";
   type PanelLink = { copy: string; url: string; id: string };
   const panelLinks: PanelLink[] = [
+    { copy: "Profile", url: "/settings/me", id: "profile" },
     { copy: "Users", url: "/settings/admin", id: "users" },
-    { copy: "Settings", url: "/settings", id: "settings" }
+    { copy: "Connected Accounts", url: "/settings/accounts", id: "accounts" }
   ];
 </script>
 
@@ -12,7 +13,7 @@
   {#each panelLinks as panel}
     <a
       href={panel.url}
-      class="px-4 py-2 rounded-md flex flex-nowrap text-black dark:text-white"
+      class="px-4 py-2 rounded-md flex flex-nowrap text-black"
       class:bg-primary-500={$page.url.pathname === panel.url}
     >
       <Icon icon="mdi:account" class={`w-6 h-6`} />
