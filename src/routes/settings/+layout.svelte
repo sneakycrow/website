@@ -35,7 +35,7 @@
     <a
       href={adminPanel.url}
       class="px-4 py-2 rounded-md flex flex-nowrap text-black"
-      class:bg-primary-500={$page.url.pathname === adminPanel.url}
+      class:bg-primary-500={$page.url.pathname.startsWith(adminPanel.url)}
     >
       <Icon icon="mdi:account" class={`w-6 h-6`} />
       {adminPanel.copy}
