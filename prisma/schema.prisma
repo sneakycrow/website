@@ -37,3 +37,13 @@ model Account {
   refreshToken String?
   user         User    @relation(references: [id], fields: [userId], onDelete: Cascade)
 }
+
+model Book {
+  id          String    @id
+  title       String
+  author      String
+  publishedAt DateTime
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+}
