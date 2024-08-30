@@ -6,4 +6,7 @@
   $: users = data?.users ?? [];
 </script>
 
-<UserList {users} />
+<section class="flex flex-col w-full space-y-4">
+  <h3 class="text-2xl">Manage Users</h3>
+  <UserList {users} />
+</section>

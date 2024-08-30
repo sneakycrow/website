@@ -49,7 +49,7 @@
   };
 </script>
 
-<nav class="lg:col-span-1">
+<nav class="min-w-max lg:col-span-1 pr-4 border-r-2 border-tertiary-600">
   <p class="mt-4 mb-2 font-light text-xs">Settings</p>
   {#each displayedLinks.user as userPanel}
     <a
@@ -64,14 +64,14 @@
   <p class="mt-4 mb-2 font-light text-xs">Admin</p>
   {#each displayedLinks.admin as adminPanel}
     {#if adminPanel.sublinks}
-      <Accordion
-        regionControl={`${$page.url.pathname.startsWith(adminPanel.url) ? "bg-primary-300" : ""}`}
-      >
-        <AccordionItem>
+      <Accordion regionPanel="space-y-1">
+        <AccordionItem open>
           <svelte:fragment slot="lead">
             <Icon icon={adminPanel.icon} class={`w-6 h-6`} />
           </svelte:fragment>
-          <svelte:fragment slot="summary">{adminPanel.copy}</svelte:fragment>
+          <svelte:fragment slot="summary">
+            <p class="font-semibold">{adminPanel.copy}</p>
+          </svelte:fragment>
           <svelte:fragment slot="content">
             {#each adminPanel.sublinks as link}
               <a
@@ -99,6 +99,6 @@
   {/each}
 </nav>
 
-<div class="table-container lg:col-span-5">
+<div class="lg:col-span-5">
   <slot />
 </div>
