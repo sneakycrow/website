@@ -6,7 +6,10 @@
     { copy: "Profile", url: "/settings/me", id: "profile" },
     { copy: "Connected Accounts", url: "/settings/accounts", id: "accounts" }
   ];
-  const adminPanelLinks = [{ copy: "Users", url: "/settings/admin", id: "users" }];
+  const adminPanelLinks = [
+    { copy: "Users", url: "/settings/admin/users", id: "users" },
+    { copy: "Content", url: "/settings/admin/content", id: "content" }
+  ];
 
   export let data: LayoutServerData;
   $: displayedLinks = {
@@ -16,6 +19,7 @@
 </script>
 
 <nav class="lg:col-span-1">
+  <p class="mt-4 mb-2 font-light text-xs">Settings</p>
   {#each displayedLinks.user as userPanel}
     <a
       href={userPanel.url}
@@ -26,6 +30,7 @@
       {userPanel.copy}
     </a>
   {/each}
+  <p class="mt-4 mb-2 font-light text-xs">Admin</p>
   {#each displayedLinks.admin as adminPanel}
     <a
       href={adminPanel.url}
