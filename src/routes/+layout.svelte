@@ -1,6 +1,7 @@
 <script lang="ts">
   import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom";
-  import { storePopup } from "@skeletonlabs/skeleton";
+  import { storePopup, initializeStores, Modal } from "@skeletonlabs/skeleton";
+  initializeStores();
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
   import "../app.css";
@@ -30,6 +31,10 @@
 <main
   class="grid lg:grid-cols-6 grid-rows-main gap-20 p-4 min-h-screen bg-white dark:bg-black text-black dark:text-white"
 >
+  <Modal
+    buttonNeutral="variant-outline-surface hover:variant-filled-surface rounded"
+    buttonPositive="variant-filled-primary rounded"
+  />
   <Header
     title={data.title.text}
     link={data.title.link}
