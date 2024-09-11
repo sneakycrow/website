@@ -41,7 +41,8 @@ const config = {
     },
     extend: {
       colors: {
-        black: "#1f1f1f"
+        black: "#1f1f1f",
+        white: "#fefcd9"
       },
       gridTemplateColumns: {
         header: "100px repeat(5, 1fr)"

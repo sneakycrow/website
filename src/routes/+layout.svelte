@@ -28,14 +28,15 @@
 </svelte:head>
 
 <main
-  class="grid lg:grid-cols-6 grid-rows-main gap-20 p-4 min-h-screen bg-white dark:bg-black text-black dark:text-white"
+  class="grid lg:grid-cols-6 gap-10 grid-rows-main p-4 min-h-screen bg-white dark:bg-black text-black dark:text-white"
 >
   <Header
     title={data.title.text}
     link={data.title.link}
     class="row-start-1 row-span-1 col-start-1 lg:col-span-6"
-    isLive={data.isLive}
+    isLive
   />
+  <!-- isLive={data.isLive} -->
   <slot />
   <Footer class="lg:col-span-6 h-full max-h-[200px] self-end" {user} />
 </main>

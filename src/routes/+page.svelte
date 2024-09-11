@@ -7,7 +7,7 @@
 </svelte:head>
 
 <section
-  class="col-start-1 lg:col-span-6 min-h-[50vh] max-w-[1000px] mx-auto space-y-4 text-center flex flex-col justify-center items-center"
+  class="col-start-1 lg:col-span-6 min-h-[40vh] max-w-[1000px] mx-auto space-y-4 text-center flex flex-col justify-center items-center"
 >
   <img
     src="/ada_cropped.png"

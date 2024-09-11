@@ -25,7 +25,7 @@
   ];
 </script>
 
-<article class={`w-full grid grid-flow-row gap-10 lg:text-lg ${$$restProps.class}`} id="about">
+<article class={`w-full flex flex-col space-y-10 lg:text-lg ${$$restProps.class}`} id="about">
   <Profile />
   <p>
     My name is Zachary Corvidae, also known as sneaky crow. With over two decades of experience,
