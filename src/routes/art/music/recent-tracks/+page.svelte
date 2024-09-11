@@ -20,7 +20,7 @@
     <a
       href={track.track.external_urls.spotify}
       target="_blank"
-      class="lg:col-2 space-x-4 flex items-center justify-between shadow-lg rounded-lg p-4 text-right mx-auto w-full max-w-[400px]"
+      class="lg:col-2 space-x-4 flex items-center justify-between shadow-lg rounded-lg p-4 bg-black text-right mx-auto w-full max-w-[400px]"
     >
       <img
         src={track.track.album?.images[0].url}
@@ -31,7 +31,7 @@
       />
       <div class="flex flex-col items-end justify-between">
         <h3 class="font-bold">
-          <a href={track.track.external_urls.spotify} target="_blank" class="text-gray-900">
+          <a href={track.track.external_urls.spotify} target="_blank" class="text-primary-500">
             {track.track.name}
           </a>
         </h3>

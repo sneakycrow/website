@@ -8,7 +8,7 @@
 </script>
 
 <header
-  class={`w-full grid grid-cols-header gap-4 items-center lg:items-start lg:max-h-[300px] z-20 ${$$restProps.class}`}
+  class={`w-full grid grid-cols-header items-center lg:items-start lg:max-h-[300px] z-20 lg:mb-10 ${$$restProps.class}`}
 >
   <Logo class="w-14 lg:w-[100px] col-start-1 col-span-1" />
   <section
