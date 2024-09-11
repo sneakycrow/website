@@ -34,9 +34,8 @@
     title={data.title.text}
     link={data.title.link}
     class="row-start-1 row-span-1 col-start-1 lg:col-span-6"
-    isLive
+    isLive={data.isLive}
   />
-  <!-- isLive={data.isLive} -->
   <slot />
   <Footer class="lg:col-span-6 h-full max-h-[200px] self-end" {user} />
 </main>
