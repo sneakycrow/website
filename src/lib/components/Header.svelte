@@ -12,13 +12,15 @@
 >
   <Logo class="w-14 lg:w-[100px] col-start-1 col-span-1" />
   <section
-    class="flex-grow-0 row-start-2 lg:row-start-1 col-start-1 lg:col-start-2 col-span-6 lg:col-span-3 flex justify-center items-start lg:justify-start lg:mt-0 mt-4"
+    class="flex-grow-0 row-start-2 lg:row-start-1 col-start-1 lg:col-start-2 col-span-6 lg:col-span-3 flex lg:flex-row flex-col justify-center items-center lg:items-start lg:justify-start lg:mt-0 mt-4"
   >
     <a href={link} class="max-w-max block text-black dark:text-white lg:hover:text-primary-500">
       <h1 class="text-xl lg:text-3xl font-bold uppercase">{title}</h1>
     </a>
     {#if isLive}
-      <div class="flex flex-nowrap items-center justify-center lg:justify-start animate-pulse">
+      <div
+        class="flex flex-nowrap items-center justify-center lg:justify-start animate-pulse self-center"
+      >
         <svg
           class="w-4 h-4 mr-2 text-red-500"
           fill="currentColor"
