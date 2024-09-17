@@ -295,6 +295,7 @@ export const getRecentTracksWithAccount = async (account: Account): Promise<Trac
           refreshToken: newTokens.refreshToken
         }
       });
+      console.log("Successfully refreshed token and updated DB. Retrying request");
       // Retry the request with the new tokens
       return getRecentTracksWithAccount({
         ...account,
