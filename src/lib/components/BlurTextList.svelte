@@ -25,7 +25,7 @@
   {#key title}
     <p
       transition:blur
-      class="absolute text-2xl lg:text-4xl text-gray-400 font-semibold my-2 text-center lg:text-left"
+      class="absolute text-2xl lg:text-4xl text-primary-500 font-semibold text-center lg:text-left"
     >
       {title}
     </p>
