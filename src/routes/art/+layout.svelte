@@ -11,6 +11,11 @@
       copy: "photos",
       href: "/art/photos",
       color: "text-blue-500"
+    },
+    {
+      copy: "models",
+      href: "/art/models",
+      color: "text-yellow-500"
     }
   ];
 </script>
@@ -22,7 +27,7 @@
     <a
       href={link.href}
       class={`text-2xl uppercase font-bold ${
-        $page.url.pathname.startsWith(link.href) ? link.color : "text-gray-500"
+        $page.url.pathname.startsWith(link.href) ? link.color : "text-white/25"
       }`}>{link.copy}</a
     >
   {/each}
