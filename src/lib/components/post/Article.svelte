@@ -4,11 +4,20 @@
   import { formatDistanceToNow, format } from "date-fns";
 
   export let post: Post;
+  $: editsShown = false;
+
+  function toggleEditsShown() {
+    editsShown = !editsShown;
+  }
+
+  $: lastEdit = post.edits ? post.edits[post.edits.length - 1] : null;
 </script>
 
-<div class={`grid grid-cols-4 items-start justify-center my-10 relative ${$$restProps.class}`}>
+<div
+  class={`grid grid-cols-8 gap-4 items-start justify-center my-10 relative ${$$restProps.class}`}
+>
   <article
-    class="lg:text-lg w-full col-start-1 col-span-4 lg:col-span-3 max-w-[1000px] space-y-6 z-10"
+    class="lg:text-lg w-full lg:col-start-3 col-span-8 lg:col-span-4 max-w-screen-lg space-y-6 z-10"
   >
     <a href={post.slug} class="text-black dark:text-white">
       <h2 class="text-3xl lg:text-4xl font-bold">{post.title}</h2>
@@ -17,6 +26,11 @@
       <p class="leading-3">
         Published on {format(post.date, "LLLL do, yyyy")} ({formatDistanceToNow(post.date)} ago)
       </p>
+      {#if lastEdit}
+        <p class="mb-2">
+          Last edited {formatDistanceToNow(new Date(Number(lastEdit.timestamp) * 1000))} ago by {lastEdit.author}
+        </p>
+      {/if}
       <p class="leading-3">
         <span> {post.reading_minutes} min read </span>
       </p>
@@ -24,26 +38,30 @@
     <MarkdownRenderer source={post.body} />
   </article>
   {#if post.edits}
-    <div class="text-xs col-span-4 lg:col-span-1 mt-20 py-4 lg:mt-0 lg:py-0 z-10">
-      <p class="text-sm">Edits</p>
-      <ul class="list-disc pl-6">
-        {#each post.edits as edit}
-          <li>
-            <a
-              href={`https://github.com/sneakycrow/website/commits/${edit.id}`}
-              target="_blank"
-              class="text-tertiary-900"
-              rel="noopener noreferrer"
-            >
-              Edited by {edit.author} on {format(
-                new Date(Number(edit.timestamp) * 1000),
-                "LLLL do, yyyy"
-              )}
-              {edit.message}
-            </a>
-          </li>
-        {/each}
-      </ul>
+    <div class="lg:col-span-2 col-span-8 text-xs mt-20 py-4 lg:mt-0 lg:py-0 z-10">
+      <button on:click={toggleEditsShown} class="text-sm"
+        >{editsShown ? "Hide" : "Show"} Edits</button
+      >
+      {#if editsShown}
+        <ul class="list-disc pl-6">
+          {#each post.edits as edit}
+            <li>
+              <a
+                href={`https://github.com/sneakycrow/website/commits/${edit.id}`}
+                target="_blank"
+                class="text-tertiary-900"
+                rel="noopener noreferrer"
+              >
+                Edited by {edit.author} on {format(
+                  new Date(Number(edit.timestamp) * 1000),
+                  "LLLL do, yyyy"
+                )}
+                {edit.message}
+              </a>
+            </li>
+          {/each}
+        </ul>
+      {/if}
     </div>
   {/if}
   {#if post.draft}
