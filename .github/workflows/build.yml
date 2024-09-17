@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: build
 
 on:
@@ -6,15 +7,21 @@ on:
   pull_request:
     branches: [main]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Build Docker image
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
           image: ${{ github.repository }}
+          registry: ghcr.io
           enableBuildKit: true
           addTimestamp: true
           pushImage: false
