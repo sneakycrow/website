@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Icon from "@iconify/svelte";
+  import Hamburger from "./icons/Hamburger.svelte";
 
   type Link = {
     copy: string;
@@ -39,7 +39,7 @@
   class={`w-full flex flex-col lg:flex-row lg:space-x-4 items-end justify-end ${$$restProps.class}`}
 >
   <button class="lg:hidden" on:click={openMenu}>
-    <Icon icon="mdi:hamburger-menu" class="inline-block w-12 h-12" />
+    <Hamburger class="inline-block w-12 h-12" />
   </button>
   {#each [...links, ...additionalLinks] as link}
     <a

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { ComponentType } from "svelte";
   import Writing from "./icons/Writing.svelte";
   import Album from "./icons/Album.svelte";
   import Palette from "./icons/Palette.svelte";
@@ -51,7 +50,7 @@
   $: iconSize = outerWidth < LG_BREAKPOINT ? ICON_MIN_SIZE : ICON_MAX_SIZE;
 
   // A function for getting the appropriate icon based on the copy
-  const getIcon = (copy: string): ComponentType => {
+  const getIcon = (copy: string) => {
     switch (copy.toLowerCase()) {
       case "writing":
         return Writing;

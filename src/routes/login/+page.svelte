@@ -1,9 +1,13 @@
 <script lang="ts">
-  import Icon from "@iconify/svelte";
+  import Discord from "$lib/components/icons/Discord.svelte";
+  import GitHub from "$lib/components/icons/GitHub.svelte";
+  import Spotify from "$lib/components/icons/Spotify.svelte";
+  import Twitch from "$lib/components/icons/Twitch.svelte";
   import Logo from "$lib/components/Logo.svelte";
+  import { type ComponentType } from "svelte";
 
   type ProviderSignIn = {
-    icon: string;
+    icon: ComponentType;
     textColor: string;
     border: string;
     copy: string;
@@ -12,28 +16,28 @@
 
   const providers: ProviderSignIn[] = [
     {
-      icon: "mdi:discord",
+      icon: Discord,
       copy: "Sign in with Discord",
       textColor: "text-[#5865F2]",
       border: "border-[#5865F2]",
       href: "/login/discord"
     },
     {
-      icon: "mdi:github",
+      icon: GitHub,
       copy: "Sign in with Github",
       textColor: "text-[#24292f]",
       border: "border-[#24292f]",
       href: "/login/github"
     },
     {
-      icon: "mdi:spotify",
+      icon: Spotify,
       copy: "Sign in with Spotify",
       textColor: "text-[#1DB954]",
       border: "border-[#1DB954]",
       href: "/login/spotify"
     },
     {
-      icon: "mdi:twitch",
+      icon: Twitch,
       copy: "Sign in with Twitch",
       textColor: "text-[#9146FF]",
       border: "border-[#9146FF]",
@@ -55,7 +59,7 @@
       href={provider.href}
     >
       {provider.copy}
-      <Icon class="ml-2" icon={provider.icon} width={24} />
+      <svelte:component this={provider.icon} class="ml-2" width={24} />
     </a>
   {/each}
 </section>

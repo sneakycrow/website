@@ -1,7 +1,6 @@
 <script lang="ts">
-  import Icon from "@iconify/svelte";
   import AvatarWidget from "./AvatarWidget.svelte";
-  import { getAllowedPanels } from "$lib/settings";
+  import GitHub from "./icons/GitHub.svelte";
 
   type User = {
     username: string;
@@ -23,7 +22,7 @@
       href="https://github.com/sneakycrow/website"
     >
       <span>source code for this site</span>
-      <Icon icon="akar-icons:github-fill" class="inline-block w-4 h-4" />
+      <GitHub class="inline-block w-4 h-4" />
     </a>
     <a href="mailto:zach@sneakycrow.dev">contact me</a>
   </p>

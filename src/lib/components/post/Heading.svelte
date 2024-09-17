@@ -1,8 +1,8 @@
 <script>
-  import Icon from "@iconify/svelte";
   import { fade } from "svelte/transition";
   import { clipboard } from "@skeletonlabs/skeleton";
   import { browser } from "$app/environment";
+  import Copy from "../icons/Copy.svelte";
 
   export let depth;
   export let raw;
@@ -85,7 +85,7 @@
       on:click={onCopy}
     >
       <!--  clipboard icon -->
-      <Icon icon="akar-icons:copy" />
+      <Copy />
       {#if isCopyFeedbackShown}
         <span transition:fade={{ duration: 150 }} class="text-sm">Copied!</span>
       {/if}
