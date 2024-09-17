@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Close from "./icons/Close.svelte";
   import Hamburger from "./icons/Hamburger.svelte";
 
   type Link = {
@@ -51,13 +52,10 @@
   {/each}
   {#if isMobileOpen}
     <div
-      class="z-50 w-screen h-full bg-primary-500 fixed top-0 left-0 flex flex-col items-end justify-center p-4"
+      class="z-50 w-screen h-full bg-primary-500 fixed top-0 left-0 flex flex-col items-end justify-start p-4"
     >
       <button class="mb-20" on:click={closeMenu}>
-        <Icon
-          icon="zondicons:close-solid"
-          class="inline-block w-12 h-12 text-white active:text-red-500"
-        />
+        <Close class="inline-block w-12 h-12 text-white active:text-red-500" />
       </button>
       {#each [...links, ...additionalLinks] as link}
         <a href={link.url} class={`text-white text-2xl font-bold uppercase`} on:click={closeMenu}>
