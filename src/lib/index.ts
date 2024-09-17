@@ -3,7 +3,6 @@ export const titles = [
   "Applications Engineer",
   "Technical Architect",
   "Founding Engineer",
-  "Open-source Contributor",
   "Dad",
   "Musician",
   "Guitarist",
@@ -13,7 +12,9 @@ export const titles = [
   "5E Paladin",
   "Photographer",
   "Artist",
-  "Avid Reader"
+  "Avid Reader",
+  "3D Modeler",
+  "Embedded Engineer"
 ];
 
 export const keywords = [
