@@ -5,6 +5,7 @@
 <section id="projects" class={`flex flex-col space-y-8 ${$$restProps.class}`}>
   {#each projects as project}
     <a
+      target="_blank"
       href={project.website}
       class={`flex flex-col justify-between border-l-8 pl-4 space-y-2 lg:opacity-50 lg:hover:opacity-100 transition-opacity ${project.borderColor}`}
     >

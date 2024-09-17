@@ -17,6 +17,7 @@
   />
   <div class="flex space-x-4">
     <a
+      target="_blank"
       href="https://github.com/sneakycrow"
       class="text-sm uppercase text-black dark:text-white hover:text-blue-500 underline decoration-2 decoration-blue-500 transition-colors duration-300"
     >
@@ -29,6 +30,7 @@
       Email
     </a>
     <a
+      target="_blank"
       href="/resume.pdf"
       class="text-sm uppercase text-black dark:text-white hover:text-yellow-500 underline decoration-2 decoration-yellow-500 transition-colors duration-300"
     >
