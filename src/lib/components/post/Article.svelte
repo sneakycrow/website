@@ -17,7 +17,7 @@
   class={`grid grid-cols-8 gap-4 items-start justify-center my-10 relative ${$$restProps.class}`}
 >
   <article
-    class="lg:text-lg w-full lg:col-start-3 col-span-8 lg:col-span-4 max-w-screen-lg space-y-6 z-10"
+    class="lg:text-lg w-full lg:col-start-2 col-span-8 lg:col-span-6 max-w-screen-xl space-y-6 z-10"
   >
     <a href={post.slug} class="text-black dark:text-white">
       <h2 class="text-3xl lg:text-4xl font-bold">{post.title}</h2>
@@ -38,7 +38,7 @@
     <MarkdownRenderer source={post.body} />
   </article>
   {#if post.edits}
-    <div class="lg:col-span-2 col-span-8 text-xs mt-20 py-4 lg:mt-0 lg:py-0 z-10">
+    <div class="lg:col-span-1 col-span-8 text-xs mt-20 py-4 lg:mt-0 lg:py-0 z-10">
       <button on:click={toggleEditsShown} class="text-sm"
         >{editsShown ? "Hide" : "Show"} Edits</button
       >
