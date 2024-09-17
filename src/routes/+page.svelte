@@ -25,7 +25,7 @@
     </a>
     <a
       href="mailto:zach@sneakycrow.dev"
-      class="text-sm uppercase text-black dark:text-white hover:text-purple-500 underline decoration-2 decoration-purple-500 transition-colors duration-300"
+      class="text-sm uppercase text-black dark:text-white hover:text-red-500 underline decoration-2 decoration-red-500 transition-colors duration-300"
     >
       Email
     </a>
@@ -35,6 +35,13 @@
       class="text-sm uppercase text-black dark:text-white hover:text-yellow-500 underline decoration-2 decoration-yellow-500 transition-colors duration-300"
     >
       Resume
+    </a>
+    <a
+      target="_blank"
+      href="https://www.twitch.tv/thesneakycrow"
+      class="text-sm uppercase text-black dark:text-white hover:text-purple-500 underline decoration-2 decoration-purple-500 transition-colors duration-300"
+    >
+      Twitch
     </a>
   </div>
   <p class="text-xl">
