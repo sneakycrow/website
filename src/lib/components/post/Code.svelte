@@ -10,6 +10,7 @@
     json,
     scss,
     shell,
+    vbscriptHtml,
     yaml
   } from "svelte-highlight/languages";
   // @ts-expect-error types aren't support important to the project, so we ignore them
@@ -54,6 +55,9 @@
       case "hbs":
       case "handlebars": {
         return handlebars;
+      }
+      case "html": {
+        return vbscriptHtml;
       }
       case "toml": {
         return ini;
