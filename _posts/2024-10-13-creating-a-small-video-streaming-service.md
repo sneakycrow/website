@@ -129,3 +129,13 @@ pub async fn handle_stream_video(Query(params): Query<WatchQuery>) -> WatchTempl
     }
 }
 ```
+
+And that's basically it for this part. In the next posts we'll work this functionality into our video processing server to refine
+it a bit more. Maybe handling errors better?
+
+
+Until the next episode...
+
+---
+If you want a more complete example, check out the source code for my [file nest](https://github.com/sneakycrow/file-nest)
+project. It's where I'm using a lot of this functionality.
