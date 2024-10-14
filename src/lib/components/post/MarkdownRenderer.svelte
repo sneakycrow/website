@@ -5,6 +5,7 @@
   import List from "./List.svelte";
   import Paragraph from "./Paragraph.svelte";
   import Image from "./Image.svelte";
+  import Link from "./Link.svelte";
   import SvelteMarkdown from "svelte-markdown";
 
   export let source: string;
@@ -17,7 +18,8 @@
     paragraph: Paragraph,
     heading: Heading,
     list: List,
-    image: Image
+    image: Image,
+    link: Link
   }}
   {source}
 />
