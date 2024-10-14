@@ -6,6 +6,7 @@
   import Paragraph from "./Paragraph.svelte";
   import Image from "./Image.svelte";
   import Link from "./Link.svelte";
+  import HorizontalRule from "./HorizontalRule.svelte";
   import SvelteMarkdown from "svelte-markdown";
 
   export let source: string;
@@ -19,7 +20,8 @@
     heading: Heading,
     list: List,
     image: Image,
-    link: Link
+    link: Link,
+    hr: HorizontalRule
   }}
   {source}
 />
