@@ -1,5 +1,5 @@
 ---
-title: "creating a queue for video processing"
+title: "Creating a queue for video processing"
 category: "tech"
 summary: "Using Rust and Postgres, we'll create a queue system for our video processing pipeline"
 ---
@@ -123,8 +123,6 @@ use different configurations, like if we moved to a different backend for managi
 
 Our queue needs to be able to push jobs, pull jobs, fails jobs, delete jobs, and clear the queue. All work together
 to manage the queue itself.
-
-Here's the Queue trait:
 
 ```rust lib.rs
 #[async_trait::async_trait]

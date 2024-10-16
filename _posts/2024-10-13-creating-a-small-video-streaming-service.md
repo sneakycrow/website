@@ -1,5 +1,5 @@
 ---
-title: "creating a small video streaming service"
+title: "Creating a small video streaming service"
 category: "tech"
 series_key: "video-streaming-devlog"
 series_pos: 0
