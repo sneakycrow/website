@@ -37,7 +37,11 @@
 
 <div class="flex flex-col justify-center items-start w-full">
   <div class="flex flex-nowrap space-x-2">
-    <p class={`uppercase font-bold ${categoryColor}`}>{post.category}</p>
+    {#if post.draft}
+      <p class="uppercase font-bold text-error-500">Draft</p>
+    {:else}
+      <p class={`uppercase font-bold ${categoryColor}`}>{post.category}</p>
+    {/if}
     <p class="text-xs italic text-white/40">{date.toLocaleDateString()}</p>
   </div>
   <a class={`lg:text-2xl text-xl font-bold uppercase text-black dark:text-white`} href={post.slug}>
