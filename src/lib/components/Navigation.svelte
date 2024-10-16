@@ -12,17 +12,17 @@
     {
       copy: "blog",
       url: "/blog",
-      hover: "lg:hover:text-green-500"
+      hover: "lg:hover:text-pink-500"
     },
     {
       copy: "art",
       url: "/art",
-      hover: "lg:hover:text-yellow-500"
+      hover: "lg:hover:text-blue-500"
     },
     {
       copy: "about",
       url: "/about",
-      hover: "lg:hover:text-blue-500"
+      hover: "lg:hover:text-green-500"
     }
   ];
 
