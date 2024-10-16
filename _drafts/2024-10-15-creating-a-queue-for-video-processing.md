@@ -14,7 +14,7 @@ So, what we're going to do in this article is create a queue system that can run
 `PROCESS_VIDEO`, represent processing a video into our raw stream. A goal of this method is to understand simple queueing systems, but also to take
 advantage of common resources your small projects probably already have access to, like a database.
 
-This queue system will use Postgres to manage jobs, and will take advantage of `UPDATE SKIP FOR LOCKED` when querying for jobs
+This queue system will use Postgres to manage jobs, and will take advantage of `SKIP LOCKED` when querying for jobs
 to add some concurrency.
 
 This is largely inspired by [Sylvain Kerkour's post on creating a job queue system in Rust](https://kerkour.com/rust-job-queue-with-postgresql),
