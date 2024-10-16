@@ -28,11 +28,4 @@
   <article class="row-start-2 row-span-2 col-span-4">
     <p class="text-lg italic text-gray-400">{post.summary}</p>
   </article>
-  {#if post.draft ?? false}
-    <p
-      class="vertical-writing-rl lg:horizontal-writing-tb lg:ml-auto text-error-300 text-xl uppercase font-semibold lg:col-start-5 row-start-2 lg:row-span-2 lg:col-span-1 col-span-3"
-    >
-      Draft
-    </p>
-  {/if}
 </div>
