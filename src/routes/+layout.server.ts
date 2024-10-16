@@ -16,7 +16,7 @@ export const load: LayoutServerLoad = async ({ locals, route }) => {
     },
     isLive: false,
     description:
-      "Zachary Corvidae's personal website. A collection of thoughts, ideas, and projects.",
+      "Sneaky Crow, aka Zachary Corvidae, is a software engineer and artist. This website serves as a hub for his published work and experiments",
     keywords
   };
   if (route.id === "/") {
@@ -53,25 +53,22 @@ export const load: LayoutServerLoad = async ({ locals, route }) => {
   if (route.id?.startsWith("/blog")) {
     pageMeta.title.text = "Brain Juice";
     pageMeta.title.link = "/blog";
-    pageMeta.description = "A collection of thoughts and ideas.";
+    pageMeta.description =
+      "Where thoughts go to party and occasionally make sense. Enter at your own risk of enlightenment or confusion.";
   }
 
   if (route.id?.startsWith("/music")) {
     pageMeta.title.text = "Bad Taste";
     pageMeta.title.link = "/music";
-    pageMeta.description = "A collection of music.";
+    pageMeta.description =
+      "Where musical boundaries are shattered, eardrums are challenged, and your neighbors secretly plan their revenge.";
   }
 
   if (route.id?.startsWith("/art/photos")) {
     pageMeta.title.text = "Writing Light";
     pageMeta.title.link = "/art/photos";
-    pageMeta.description = "A collection of photos.";
-  }
-
-  if (route.id?.startsWith("/books")) {
-    pageMeta.title.text = "Actually Illiterate";
-    pageMeta.title.link = "/books";
-    pageMeta.description = "A collection of books I tried to read.";
+    pageMeta.description =
+      "Capturing moments, freezing time, and occasionally taking accidental selfies with the lens cap on.";
   }
 
   if (!locals.user) return pageMeta;
