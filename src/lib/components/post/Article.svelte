@@ -66,7 +66,7 @@
   {/if}
   {#if post.draft}
     <p
-      class="z-0 right-10 lg:top-40 bottom-10 fixed uppercase px-8 align-bottom text-error-100 text-9xl font-black leading-3 col-start-4 vertical-writing-lr"
+      class="z-0 right-10 lg:top-40 bottom-10 fixed uppercase px-8 align-bottom dark:text-error-700 text-error-100 text-9xl font-black leading-3 col-start-4 vertical-writing-lr"
     >
       Draft
     </p>
