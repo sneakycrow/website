@@ -24,6 +24,8 @@ enum Commands {
         series_pos: Option<i32>,
         #[arg(short, long)]
         summary: Option<String>,
+        #[arg(short, long, action)]
+        draft: bool,
     },
 }
 
@@ -37,8 +39,9 @@ fn main() {
             series_key,
             series_pos,
             summary,
+            draft,
         } => {
-            create_new_post(title, category, series_key, series_pos, summary);
+            create_new_post(title, category, series_key, series_pos, summary, draft);
         }
     }
 }
@@ -49,10 +52,13 @@ fn create_new_post(
     series_key: &Option<String>,
     series_pos: &Option<i32>,
     summary: &Option<String>,
+    draft: &bool,
 ) {
     let date = Local::now().format("%Y-%m-%d").to_string();
     let slug = title.to_lowercase().replace(" ", "-");
-    let filename = format!("_posts/{}-{}.md", date, slug);
+    let folder = if *draft { "_drafts" } else { "_posts" };
+    std::fs::create_dir_all(folder).expect("Unable to create folder");
+    let filename = format!("{}/{}-{}.md", folder, date, slug);
 
     let mut content = String::new();
     content.push_str("---\n");
