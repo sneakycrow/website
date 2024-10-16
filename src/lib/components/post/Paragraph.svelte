@@ -1,3 +1,3 @@
-<p class="leading-1">
+<p>
   <slot />
 </p>
