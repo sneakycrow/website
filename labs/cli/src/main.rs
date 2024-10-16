@@ -52,7 +52,7 @@ fn create_new_post(
 ) {
     let date = Local::now().format("%Y-%m-%d").to_string();
     let slug = title.to_lowercase().replace(" ", "-");
-    let filename = format!("website/_posts/{}-{}.md", date, slug);
+    let filename = format!("_posts/{}-{}.md", date, slug);
 
     let mut content = String::new();
     content.push_str("---\n");
