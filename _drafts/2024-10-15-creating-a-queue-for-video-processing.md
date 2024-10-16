@@ -11,7 +11,7 @@ static files. The problem with doing this within the API is it can take up a lot
 Ideally, we want to offload these resources.
 
 So, what we're going to do in this article is create a queue system that can run our jobs.
-We'll create a basic queue with an initial job type of `PROCESS_VIDEO`, represent processing a video into our raw stream.
+We'll create a basic queue with an initial job type of `ProcessRawVideo`, represent processing a video into our raw stream.
 This queue system will use Postgres to manage jobs, and will take advantage of `SKIP LOCKED` when querying for jobs
 to add some concurrency.
 
@@ -28,7 +28,7 @@ run several jobs concurrently.
 
 We're going to use Postgres to store jobs to be processed. And when we query postgres
 we'll use the `SKIP LOCKED` mechanism to give us concurrency within our workers.
-We'll also use add some retry mechanisms for retrying failed jobs.
+We'll also add some retry mechanisms for retrying failed jobs.
 
 ### depdencies
 
@@ -58,9 +58,18 @@ tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 ```
 
+### migrations
+
+We'll want to create two tables, our main one is for managing the jobs, but we also want to update our videos. In our videos
+table, we want to track where the raw video is located, whether it's been processed, and then standard stuff like an ID and
+timestamps.
+
+TODO: Add migration for videos
+TODO: Add migration for queue
+
 ### db module
 
-This is a fairly simple module for creating a Postgres Pool based on the `DATABASE_URL` environment variable value.
+This module holds our function for creating a database connection pool
 
 ```rust db.rs
 use sqlx::postgres::PgPool;
@@ -123,6 +132,31 @@ use different configurations, like if we moved to a different backend for managi
 
 Our queue needs to be able to push jobs, pull jobs, fails jobs, delete jobs, and clear the queue. All work together
 to manage the queue itself.
+
+Before we define the queue, which will hold jobs, we need to define what a `Job` is. A job should have a unique identifier
+and some kind of message with a payload to run it. For now, we only need a `ProcessRawVideo` payload, but we'll have this
+be a member of an enum representing all payloads called `Message`.
+
+Our specific message for processing a video will accept a `video_id` and a `path`. Presumably, the path itself
+
+```rust lib.rs
+/// The job to be processed, containing the message payload
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Job {
+    pub id: Uuid,
+    pub message: Message,
+}
+
+/// The payload of the job, containing the different jobs and their required data
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub enum Message {
+    /// Our primary processing job
+    /// Takes in a raw video (mp4) and converts it into an HLS stream
+    // NOTE: We intentionally have the user provide the path to save us a db query to get it, but we
+    // need a db query after processing to update the job status
+    ProcessRawVideo { path: String, video_id: String },
+}
+```
 
 ```rust lib.rs
 #[async_trait::async_trait]
