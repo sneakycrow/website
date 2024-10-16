@@ -10,6 +10,7 @@
     json,
     scss,
     shell,
+    sql,
     vbscriptHtml,
     yaml
   } from "svelte-highlight/languages";
@@ -62,6 +63,9 @@
       case "toml": {
         return ini;
       }
+      case "sql": {
+        return sql;
+      }
       case "yaml": {
         return yaml;
       }
@@ -74,10 +78,10 @@
 
 <div class="shadow-flat-green hljs divide-y-2 divide-gray-700">
   {#if lang}
-    <aside class="px-4 py-2 text-gray-500 text-sm flex items-center justify-between">
+    <aside class="px-4 py-2 text-white/80 text-sm flex items-center justify-between">
       {language}
       {#if filename}
-        <span class="text-gray-600 text-xs">{filename}</span>
+        <span class="text-white/80 text-xs">{filename}</span>
       {/if}
     </aside>
   {/if}
