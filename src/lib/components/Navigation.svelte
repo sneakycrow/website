@@ -12,7 +12,7 @@
     {
       copy: "blog",
       url: "/blog",
-      hover: "lg:hover:text-pink-500"
+      hover: "lg:hover:text-yellow-500"
     },
     {
       copy: "art",
@@ -22,7 +22,7 @@
     {
       copy: "about",
       url: "/about",
-      hover: "lg:hover:text-green-500"
+      hover: "lg:hover:text-pink-500"
     }
   ];
 

@@ -23,15 +23,15 @@
       copy: "listening",
       url: "/art/music",
       description: "totally radical tunes",
-      class: "lg:hover:text-green-500",
-      iconColor: "text-green-500 opacity-75"
+      class: "lg:hover:text-red-500",
+      iconColor: "text-red-500 opacity-75"
     },
     {
       copy: "creating",
       url: "/art/photos",
       description: "I like to make pretty things sometimes",
-      class: "lg:hover:text-red-500",
-      iconColor: "text-red-500 opacity-75"
+      class: "lg:hover:text-blue-500",
+      iconColor: "text-blue-500 opacity-75"
     },
     {
       copy: "playing",
