@@ -78,7 +78,7 @@
     <!-- A button for copying the link to the header -->
     <button
       transition:fade={{ duration: 150 }}
-      class="text-gray-500 hover:text-gray-700 flex flex-nowrap items-center space-x-1"
+      class="text-white/50 hover:text-white/30 flex flex-nowrap items-center space-x-1"
       title="Copy link to this section"
       aria-label="Copy link to this section"
       use:clipboard={fullUrl}
