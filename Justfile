@@ -6,3 +6,6 @@ build-docker:
 
 gaml FILE:
     cargo run -p gaml --bin gaml -- {{FILE}}
+
+install-cli:
+    cargo install --path labs/cli
