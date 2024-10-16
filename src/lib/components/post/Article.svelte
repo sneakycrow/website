@@ -19,10 +19,15 @@
   <article
     class="lg:text-lg w-full lg:col-start-2 col-span-8 lg:col-span-6 max-w-screen-xl space-y-6 z-10"
   >
-    <a href={post.slug} class="text-black dark:text-white">
-      <h2 class="text-3xl lg:text-4xl font-bold">{post.title}</h2>
-    </a>
-    <aside class="space-y-2 text-sm text-gray-500">
+    <div class="flex flex-col space-y-2">
+      <a href={post.slug} class="text-black dark:text-white">
+        <h2 class="text-3xl lg:text-4xl font-bold">{post.title}</h2>
+      </a>
+      <h4 class="text-lg lg:text-xl font-semibold">
+        by <a href="mailto:zach@sneakycrow.dev">Zachary Corvidae</a>
+      </h4>
+    </div>
+    <aside class="space-y-2 text-sm text-white/50">
       <p class="leading-3">
         Published on {format(post.date, "LLLL do, yyyy")} ({formatDistanceToNow(post.date)} ago)
       </p>
