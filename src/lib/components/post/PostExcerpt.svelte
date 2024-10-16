@@ -11,21 +11,37 @@
   };
 
   const date = new Date(post.date ?? Date.now());
+
+  // Returns a tailwind class for each category
+  export const getTailwindColors = (category: Category): string => {
+    switch (category) {
+      case "tech": {
+        return "text-pink-500";
+      }
+      case "art": {
+        return "text-blue-500";
+      }
+      case "gaming": {
+        return "text-purple-500";
+      }
+      case "thoughts": {
+        return "text-yellow-500";
+      }
+      default: {
+        return "text-white";
+      }
+    }
+  };
+  const categoryColor = getTailwindColors(post.category);
 </script>
 
-<div class="grid grid-cols-6 items-center w-full">
-  <header class="row-start-1 text-left lg:col-span-4 col-span-6">
-    <p class="text-xs italic text-gray-300">{date.toLocaleDateString()}</p>
-    <a
-      class={`lg:text-2xl text-xl font-bold uppercase ${
-        post.draft ? "text-gray-500" : "text-black dark:text-white"
-      } transition-opacity`}
-      href={post.slug}
-    >
-      {post.title}
-    </a>
-  </header>
-  <article class="row-start-2 row-span-2 col-span-4">
-    <p class="text-lg italic text-gray-400">{post.summary}</p>
-  </article>
+<div class="flex flex-col justify-center items-start w-full">
+  <div class="flex flex-nowrap space-x-2">
+    <p class={`uppercase font-bold ${categoryColor}`}>{post.category}</p>
+    <p class="text-xs italic text-white/40">{date.toLocaleDateString()}</p>
+  </div>
+  <a class={`lg:text-2xl text-xl font-bold uppercase text-black dark:text-white`} href={post.slug}>
+    {post.title}
+  </a>
+  <p class="text-lg italic text-white/60">{post.summary}</p>
 </div>
