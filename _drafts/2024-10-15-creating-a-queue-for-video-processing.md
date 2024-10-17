@@ -35,7 +35,8 @@ We'll also add some retry mechanisms for retrying failed jobs.
 We'll mostly be using sqlx for it's simplicity here, but this should be fairly interchangable with
 whatever library you're using.
 
-Here's our `Cargo.toml` depdendencies
+Here's our `Cargo.toml` depdendencies. A lot of these are preference and not really required to make it work. Again, this is
+largely an extension of [Sylvain Kerkour's tutorial on queues](https://kerkour.com/rust-job-queue-with-postgresql).
 
 ```toml Cargo.toml
 tokio = { version = "1", features = ["full"] }
@@ -58,6 +59,24 @@ tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 ```
 
+### db module
+
+This module holds our function for creating a database connection pool. We'll create a connection for our workers
+to use for updating the processing status and job queue in our database.
+
+```rust db.rs
+use sqlx::postgres::PgPool;
+
+/// Function to establish a connection to the PostgreSQL database
+pub async fn connect_to_database() -> Result<PgPool, sqlx::Error> {
+    let database_url = std::env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    tracing::debug!("Creating DB connection Pool");
+    let pool = PgPool::connect(&database_url).await?;
+
+    Ok(pool)
+}
+```
+
 ### migrations
 
 We'll want to create two tables, our main one is for managing the jobs, but we also want to update our videos. In our videos
@@ -69,6 +88,9 @@ Tip: You can create a top level folder called `migrations` and then use the `sql
 For the queue table, which holds the scheduled jobs, we want to track a timestamp that allows us to schedule it, how many
 failed attempts (if any) there are, it's current status, and then the message payload. Additionally, the standard ids and
 timestamps.
+
+We'll also add some indexs on the `status` and `scheduled_for` columns for faster querying, as most of the time we're going
+to be querying for rows that are `Queued`.
 
 ```sql 0001_init_queue.sql
 CREATE TABLE queue (
@@ -104,23 +126,8 @@ CREATE TABLE videos (
 );
 ```
 
-### db module
-
-This module holds our function for creating a database connection pool. We'll create a connection for our workers
-to use for updating the processing status and job queue in our database.
-
-```rust db.rs
-use sqlx::postgres::PgPool;
-
-/// Function to establish a connection to the PostgreSQL database
-pub async fn connect_to_database() -> Result<PgPool, sqlx::Error> {
-    let database_url = std::env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-    tracing::debug!("Creating DB connection Pool");
-    let pool = PgPool::connect(&database_url).await?;
-
-    Ok(pool)
-}
-```
+We can run those with `sqlx migrate run`, which will setup the tables in our connected database. Make sure your `DATABASE_URL`
+environment variable is set right.
 
 ### error module
 
@@ -164,13 +171,16 @@ impl std::convert::From<sqlx::migrate::MigrateError> for Error {
 
 ### queue module
 
-Before we define the queue, which will hold jobs, we need to define what a `Job` is. A job should have a unique identifier
-and some kind of message with a payload to run it. For now, we only need a `ProcessRawVideo` payload, but we'll have this
-be a member of an enum representing all payloads called `Message`.
+#### queue trait and job definitions
 
-Our specific message for processing a video will accept a `video_id` and a `path`. The path should be a path to the raw video.
-We included our path as a column on our `videos` table, but including it here saves us a query. Then we can use the `video_id`
-to update the row after we're done processing.
+Now we enter the more meaty parts of this article. But, before we define the queue, which will hold jobs,
+we need to define what a `Job` is. A job should have a unique identifier and some kind of message with a
+payload to run it. For now, we only need a `ProcessRawVideo` payload, but we'll have this be a member of an
+enum representing all payloads called `Message`.
+
+Our specific message for processing a video will accept a `video_id` and a `path`. The path should be a path to the
+raw video. We included our path as a column on our `videos` table, but including it here saves us a query. Then
+we can use the `video_id` to update the row after we're done processing.
 
 ```rust lib.rs
 /// The job to be processed, containing the message payload
@@ -217,3 +227,80 @@ pub trait Queue: Send + Sync + Debug {
     async fn clear(&self) -> Result<(), Error>;
 }
 ```
+
+#### postgres queue impl
+
+Next, we're going to implement our new queue trait into a `PostgresQueue`, which, as you might guess, is a queue
+for Postgres (yeeeeehaw).
+
+First, we'll create our basic queue structs and implement a function for spawning one.
+
+```rust lib.rs
+/// The queue itself
+#[derive(Debug, Clone)]
+pub struct PostgresQueue {
+    db: PgPool,
+    max_attempts: u32,
+}
+
+impl PostgresQueue {
+    pub fn new(db: PgPool) -> PostgresQueue {
+        let queue = PostgresQueue {
+            db,
+            max_attempts: 5,
+        };
+
+        queue
+    }
+}
+```
+
+There's not too much to this. `5` is an preferential number for myself, you can adjust this safely
+to whatever you want for your system. Aside from that we just need to make sure we have a pool connection to utilize
+
+Next, we are going to get into the **beef** 🥩. Admittedly, there's not a lot of fancy stuff happening here.
+
+- For the pull, we need to pull jobs who's status is `Queued`, and set it as `Running` when we return it. It's important
+to do the update as we pull it so it gets locked appropriately. Finally, we'll use `SKIP LOCKED` to skip any locked rows,
+which is how we achieve our concurrency
+- For the push, we just need to create a new row who's status is `Queued`
+- Delete, fail, and clear are pretty self-exclamatory
+
+We'll start with `delete`, `clear`, and `fail` since they're pretty simple:
+
+```rust
+#[async_trait::async_trait]
+impl Queue for PostgresQueue {
+    /// Delete an item from the queue based on it's job ID
+    async fn delete_job(&self, job_id: Uuid) -> Result<(), Error> {
+        let query = "DELETE FROM queue WHERE id = $1";
+
+        sqlx::query(query).bind(job_id).execute(&self.db).await?;
+        Ok(())
+    }
+    /// Fail the job based on it's ID, increments the failed attempts by 1
+    async fn fail_job(&self, job_id: Uuid) -> Result<(), Error> {
+        let now = chrono::Utc::now();
+        let query = "UPDATE queue
+            SET status = $1, updated_at = $2, failed_attempts = failed_attempts + 1
+            WHERE id = $3";
+
+        sqlx::query(query)
+            .bind(PostgresJobStatus::Queued)
+            .bind(now)
+            .bind(job_id)
+            .execute(&self.db)
+            .await?;
+        Ok(())
+    }
+    /// Clear the entire queue of all jobs (delete all rows in the table)
+    async fn clear(&self) -> Result<(), Error> {
+        let query = "DELETE FROM queue";
+
+        sqlx::query(query).execute(&self.db).await?;
+        Ok(())
+    }
+}
+```
+
+Not much too those, now we can implement our push and pull methods to bring it all together.
