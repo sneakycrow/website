@@ -393,6 +393,6 @@ async fn pull(&self, number_of_jobs: i32) -> Result<Vec<Job>, Error> {
 
 Great, and now that we have everything defined, we can actually implement it!
 
-``` implementation
+### implementation
 
 To be continued...
