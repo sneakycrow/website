@@ -1,7 +1,7 @@
 ---
 title: "You Should Read: The Mountain in the Sea by Ray Nayler"
 category: "art"
-series_key: "you-should-read-the-mountain-in-the-sea"
+series_key: "you-should-read"
 series_pos: 1
 summary: "An review of the novella The Mountain in the Sea by Ray Nayler"
 ---
