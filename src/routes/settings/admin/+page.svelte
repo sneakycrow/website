@@ -8,17 +8,23 @@
 <table class="table table-hover bg-transparent">
   <thead>
     <tr>
-      {#each Object.keys(users[0]) as key}
-        <th>{key}</th>
-      {/each}
+      <th>avatar</th>
+      <th>id</th>
+      <th>username</th>
+      <th>email</th>
+      <th>role</th>
     </tr>
   </thead>
   <tbody>
     {#each users as user}
       <tr>
-        {#each Object.values(user) as value}
-          <td>{value}</td>
-        {/each}
+        <td>
+          <img src={user.avatar} class="w-8 rounded-full" alt={`Avatar for {user.username}`} />
+        </td>
+        <td>{user.id}</td>
+        <td>{user.username}</td>
+        <td>{user.email}</td>
+        <td>{user.role}</td>
       </tr>
     {/each}
   </tbody>

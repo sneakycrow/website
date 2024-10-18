@@ -51,7 +51,6 @@
 </svelte:head>
 
 <section class="flex lg:col-span-6 justify-center items-center flex-col space-y-4">
-  <Logo />
   <h1 class="text-xl drop-shadow-md font-bold">Sign in</h1>
   {#each providers as provider}
     <a
