@@ -304,3 +304,100 @@ impl Queue for PostgresQueue {
 ```
 
 Not much too those, now we can implement our push and pull methods to bring it all together.
+
+First, we'll do the `push` method. This method should:
+- Create a unique ID for the job
+- Calculate the scheduled date
+- Wrap the message payload in JSON
+- Insert all the above into a new row in the `queue` table
+
+Here's how that looks:
+
+```rust lib.rs
+// ...omitted for brevity
+/// Push a new job with the included message payload to the queue storage
+async fn push(
+    &self,
+    job: Message,
+    date: Option<chrono::DateTime<chrono::Utc>>,
+) -> Result<(), Error> {
+    let scheduled_for = date.unwrap_or(chrono::Utc::now());
+    let failed_attempts: i32 = 0;
+    let message = Json(job);
+    let status = PostgresJobStatus::Queued;
+    let now = chrono::Utc::now();
+    let job_id: Uuid = Ulid::new().into();
+    let query = "INSERT INTO queue
+        (id, created_at, updated_at, scheduled_for, failed_attempts, status, message)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)";
+
+    sqlx::query(query)
+        .bind(job_id)
+        .bind(now)
+        .bind(now)
+        .bind(scheduled_for)
+        .bind(failed_attempts)
+        .bind(status)
+        .bind(message)
+        .execute(&self.db)
+        .await?;
+    Ok(())
+}
+// ... omitted for brevity
+```
+
+You're going to find a pattern to this all: It's actually not too bad complexity-wise. The design of this implementation
+mainly relies on Postgres to do the complicated locking and unlocking of jobs. Which is great, because that let's us largely
+focus on our application!
+
+Lastly, but not least, the `pull` method. This uses a maximum limit of 100 jobs. This is an artifact of [the original](https://kerkour.com/rust-job-queue-with-postgresql)
+implementation, but I think it's a solid number to cap at. I imagine you can increase this limit, you'd
+be surprised what you can do with one database.
+
+What `pull` needs to do is, based on the number of jobs provided (with a max of 100) is
+query the database and update each returned item's status to `Running`. We'll also have it skip locked rows, so we can
+run multiple queues if we wanted (concurrency). We'll also want to limit the jobs to not pulled any failed ones over our
+maximum retry rate. Here's how it all looks put together:
+
+```rust lib.rs
+// ... omitted for brevity
+/// Pulls <number_of_jobs> from the queue (maximum 100)
+/// This updates all jobs pulled into a `Running` status
+async fn pull(&self, number_of_jobs: i32) -> Result<Vec<Job>, Error> {
+    let number_of_jobs = if number_of_jobs > 100 {
+        100
+    } else {
+        number_of_jobs
+    };
+    let now = chrono::Utc::now();
+    let query = "UPDATE queue
+        SET status = $1, updated_at = $2
+        WHERE id IN (
+            SELECT id
+            FROM queue
+            WHERE status = $3 AND scheduled_for <= $4 AND failed_attempts < $5
+            ORDER BY scheduled_for
+            FOR UPDATE SKIP LOCKED
+            LIMIT $6
+        )
+        RETURNING *";
+
+    let jobs: Vec<PostgresJob> = sqlx::query_as::<_, PostgresJob>(query)
+        .bind(PostgresJobStatus::Running)
+        .bind(now)
+        .bind(PostgresJobStatus::Queued)
+        .bind(now)
+        .bind(self.max_attempts as i32)
+        .bind(number_of_jobs)
+        .fetch_all(&self.db)
+        .await?;
+    Ok(jobs.into_iter().map(Into::into).collect())
+}
+// ... omitted for brevity
+```
+
+Great, and now that we have everything defined, we can actually implement it!
+
+``` implementation
+
+To be continued...
