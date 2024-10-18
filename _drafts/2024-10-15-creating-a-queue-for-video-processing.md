@@ -1,6 +1,8 @@
 ---
 title: "Creating a queue for video processing"
 category: "tech"
+series_key: "video-streaming-devlog"
+series_pos: 1
 summary: "Using Rust and Postgres, we'll create a queue system for our video processing pipeline"
 ---
 ## intro
@@ -8,7 +10,7 @@ summary: "Using Rust and Postgres, we'll create a queue system for our video pro
 In our [previous post](https://sneakycrow.dev/blog/2024-10-13-creating-a-small-video-streaming-service)
 we created a function that can process a video into a stream, and some routes for serving those
 static files. The problem with doing this within the API is it can take up a lot of resources.
-Ideally, we want to offload these resources.
+Ideally, we want to offload this processing.
 
 So, what we're going to do in this article is create a queue system that can run our jobs.
 We'll create a basic queue with an initial job type of `ProcessRawVideo`, represent processing a video into our raw stream.
@@ -35,7 +37,7 @@ We'll also add some retry mechanisms for retrying failed jobs.
 We'll mostly be using sqlx for it's simplicity here, but this should be fairly interchangable with
 whatever library you're using.
 
-Here's our `Cargo.toml` depdendencies. A lot of these are preference and not really required to make it work. Again, this is
+Here's our `Cargo.toml` dependencies. A lot of these are preference and not really required to make it work. Again, this is
 largely an extension of [Sylvain Kerkour's tutorial on queues](https://kerkour.com/rust-job-queue-with-postgresql).
 
 ```toml Cargo.toml
@@ -107,7 +109,7 @@ CREATE INDEX index_queue_on_scheduled_for ON queue (scheduled_for);
 CREATE INDEX index_queue_on_status ON queue (status);
 ```
 
-Next, we need a table for storing `videos`. These two migratinos don't need to be in any particular order,
+Next, we need a table for storing `videos`. These two migrations don't need to be in any particular order,
 or could be combined into one. I just like to isolate my migrations logic.
 
 For our videos, we want to store the `raw_file_path` where the raw video was uploaded, a column `processed_file_path`
@@ -259,7 +261,7 @@ Next, we are going to get into the **beef** 🥩. Admittedly, there's not a lot 
 to do the update as we pull it so it gets locked appropriately. Finally, we'll use `SKIP LOCKED` to skip any locked rows,
 which is how we achieve our concurrency
 - For the push, we just need to create a new row who's status is `Queued`
-- Delete, fail, and clear are pretty self-exclamatory
+- Delete, fail, and clear are pretty self-explanatory
 
 We'll start with `delete`, `clear`, and `fail` since they're pretty simple:
 
@@ -391,8 +393,195 @@ async fn pull(&self, number_of_jobs: i32) -> Result<Vec<Job>, Error> {
 // ... omitted for brevity
 ```
 
-Great, and now that we have everything defined, we can actually implement it!
+Great, our queue is made. All that's left is to create a function for running our video processor, and then wrap it all together.
 
-### implementation
+#### runner module
 
-To be continued...
+This module defines our functions for running our jobs. We'll define one function that will spawn `number_of_jobs` and then concurrently pass each one
+into a handler that will do the actual processing.
+
+First, our runner that will pull our jobs in and pass them to handlers concurrently
+
+```rust runner.rs
+/// Runs a loop that pulls jobs from the queue and runs <concurrency> jobs each loop
+pub async fn run_worker(queue: Arc<dyn Queue>, concurrency: usize, db_conn: &Pool<Postgres>) {
+    loop {
+        // Pulls jobs from the queue
+        let jobs = match queue.pull(concurrency as i32).await {
+            Ok(jobs) => jobs,
+            Err(err) => {
+                // Trace the error
+                tracing::error!("runner: error pulling jobs {}", err);
+                // Go to sleep and try again
+                tokio::time::sleep(Duration::from_millis(500)).await;
+                Vec::new()
+            }
+        };
+        // Just for debugging the amount of jobs a queue has pulled in
+        let number_of_jobs = jobs.len();
+        if number_of_jobs > 0 {
+            tracing::debug!("Fetched {} jobs", number_of_jobs);
+        }
+        // Run each jobs concurrently
+        stream::iter(jobs)
+            .for_each_concurrent(concurrency, |job| async {
+                tracing::debug!("Starting job {}", job.id);
+                let job_id = job.id;
+
+                let res = match handle_job(job, db_conn).await {
+                    Ok(_) => queue.delete_job(job_id).await,
+                    Err(err) => {
+                        println!("run_worker: handling job({}): {}", job_id, &err);
+                        queue.fail_job(job_id).await
+                    }
+                };
+
+                match res {
+                    Ok(_) => {}
+                    Err(err) => {
+                        println!("run_worker: deleting / failing job: {}", &err);
+                    }
+                }
+            })
+            .await;
+        // Take a break for a bit, we don't need to run every moment (our jobs are unlikely to complete that quickly)
+        tokio::time::sleep(Duration::from_millis(125)).await;
+    }
+}
+```
+
+And then, a slightly updated version of our ffmpeg function from the
+[last post](https://sneakycrow.dev/blog/2024-10-13-creating-a-small-video-streaming-service). Mostly just wrapped
+in the Job itself.
+
+```rust runner.rs
+/// Individually processes a single job, based on its Job message type
+async fn handle_job(job: Job, db: &Pool<Postgres>) -> Result<(), Error> {
+    match job.message {
+        // TODO: If you want to do other kinds of processing, you can define their jobs here
+        // Process Raw Videos into HLS streams
+        message @ Message::ProcessRawVideo { .. } => {
+            tracing::debug!("Processing raw video: {:?}", &message);
+            // Get the required data to parse the video
+            let (input_path, video_id) = match &message {
+                Message::ProcessRawVideo { path, video_id } => (path, video_id),
+            };
+            tracing::debug!(
+                "Processing video: input_path={}, video_id={}",
+                input_path,
+                video_id
+            );
+            // Create our HLS stream from the mp4
+            let output_path = format!("{}.m3u8", input_path.trim_end_matches(".mp4"));
+            let output = std::process::Command::new("ffmpeg")
+                .args(&[
+                    "-i",
+                    input_path,
+                    "-c:v",
+                    "libx264",
+                    "-c:a",
+                    "aac",
+                    "-f",
+                    "hls",
+                    "-hls_time",
+                    "10",
+                    "-hls_list_size",
+                    "0",
+                    &output_path,
+                ])
+                .output()
+                .map_err(|e| Error::VideoProcessingError(e.to_string()))?;
+
+            if !output.status.success() {
+                tracing::error!("Error processing video into hls");
+                let error = String::from_utf8_lossy(&output.stderr);
+                return Err(Error::VideoProcessingError(error.to_string()));
+            }
+            // Update the video ID status
+            sqlx::query("UPDATE videos SET processing_status = 'processed' WHERE id = $1")
+                .bind(&video_id)
+                .execute(db)
+                .await
+                .map_err(|e| Error::VideoProcessingError(e.to_string()))?;
+            tracing::debug!("Successfully processed video {}", &video_id);
+        }
+    };
+
+    Ok(())
+}
+```
+
+And that's our entire library for the queue! We can now create our queues! Yeehaw
+
+### Finalizing
+
+Finally, we run our queue. So, the way this works in a manner similar to a pub/sub model is that we can have many producers (push to the queue)
+and a single consumer (pull from the queue). That doesn't mean we can run many queues that pull, it just means one job should only
+ever go to one of those queue instances, but many producers can push new jobs to the queue.
+
+Now, there's a lot of ways you can have these queues communicate. But the most straight-forward way is to run one somewhere for pushing events,
+and one run somewhere for pulling events. For example, I create a queue instance in my API and allow it to push items to the queue, then I have a separate binary
+running the queue as a worker and running the jobs.
+
+Here's a simple binary that will run our jobs. It spawns an async task for running the queue worker. This is what would act as
+a consumer to our queue.
+
+```rust main.rs
+const CONCURRENCY: usize = 5;
+
+#[tokio::main]
+async fn main() -> Result<(), anyhow::Error> {
+    // Start the tracer
+    tracing_subscriber::registry()
+        .with(
+            tracing_subscriber::EnvFilter::try_from_default_env()
+                .unwrap_or_else(|_| "event_processor=debug,db=debug".into()),
+        )
+        .with(tracing_subscriber::fmt::layer())
+        .init();
+    // Create a database connection
+    let db = db::connect_to_database().await?;
+    // Initialize a queue
+    tracing::debug!("Initializing queue");
+    let queue = Arc::new(PostgresQueue::new(db.clone()));
+    // Pass our queue (shared ref) to our runner
+    let worker_queue = queue.clone();
+    tokio::spawn(async move { run_worker(worker_queue, CONCURRENCY, &db).await });
+    Ok(())
+}
+```
+
+And for the producer, it's even simpler. Just spawn a queue (make sure it's pointed at the same database) and push
+```rust main.rs
+const CONCURRENCY: usize = 5;
+
+#[tokio::main]
+async fn main() -> Result<(), anyhow::Error> {
+    // Start the tracer
+    tracing_subscriber::registry()
+        .with(
+            tracing_subscriber::EnvFilter::try_from_default_env()
+                .unwrap_or_else(|_| "event_processor=debug,db=debug".into()),
+        )
+        .with(tracing_subscriber::fmt::layer())
+        .init();
+    // Create a database connection
+    let db = db::connect_to_database().await?;
+    // Initialize a queue
+    tracing::debug!("Initializing queue");
+    let queue = PostgresQueue::new(db.clone());
+    // Spawn a message and push it to our queue
+    let path = "some/path/to/an/file.mp4".to_string();
+    let video_id = "some_id_we_already_created".to_string();
+    let job = Message::ProcessRawVideo { path, video_id };
+    queue
+        .push(job, None) /// If you want to schedule your job for later replace `None`
+        .await
+        .expect("Could not push job to queue");
+    Ok(())
+}
+```
+
+And that's a wrap! We now have a queue that we can push jobs too, backed by postgres, and a way to run those jobs on a
+separate process. Next up we'll create a way to `LISTEN` to updates on the status of a video processing job so we can update
+our clients when it's done.
