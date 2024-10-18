@@ -13,14 +13,13 @@ static files. The problem with doing this within the API is it can take up a lot
 Ideally, we want to offload this processing.
 
 So, what we're going to do in this article is create a queue system that can run our jobs.
-We'll create a basic queue with an initial job type of `ProcessRawVideo`, represent processing a video into our raw stream.
+We'll create a basic queue with an initial job type of `ProcessRawVideo`, representing processing a video into our raw stream.
 This queue system will use Postgres to manage jobs, and will take advantage of `SKIP LOCKED` when querying for jobs
 to add some concurrency.
 
 This is largely inspired by [Sylvain Kerkour's post on creating a job queue system in Rust](https://kerkour.com/rust-job-queue-with-postgresql),
 but slightly modified for our purposes. We're mostly focusing on the high level of moving a
-video processing job through our pipeline. If you'd like a better analysis on the queue itself,
-I recommend reading [their article](https://kerkour.com/rust-job-queue-with-postgresql).
+video processing job through our pipeline.
 
 ## creating the queue
 
@@ -28,9 +27,8 @@ Our queue is largely made of three core entities: the queue itself, the jobs it 
 the runners that execute the job. We want to to be able to push and pull jobs to our queue, and we want to be able
 run several jobs concurrently.
 
-We're going to use Postgres to store jobs to be processed. And when we query postgres
-we'll use the `SKIP LOCKED` mechanism to give us concurrency within our workers.
-We'll also add some retry mechanisms for retrying failed jobs.
+We're going to use Postgres to store jobs to be processed. And when we query Postgres we'll take advantage of it's locking
+mechanisms to have some concurrency.
 
 ### dependencies
 
