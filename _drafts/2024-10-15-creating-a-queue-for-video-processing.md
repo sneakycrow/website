@@ -135,6 +135,7 @@ I like to create a high level error module for my applications to re-use across 
 used in the examples below.
 
 ```rust error.rs
+/// Various errors that our queue can have
 #[derive(thiserror::Error, Debug, Clone)]
 pub enum Error {
     #[error("Bad config: {0}")]
@@ -152,19 +153,13 @@ pub enum Error {
     #[error("Video Processing: {0}")]
     VideoProcessingError(String),
 }
-
+/// Convertion of queue from an sqlx error to this error
 impl std::convert::From<sqlx::Error> for Error {
     fn from(err: sqlx::Error) -> Self {
         match err {
             sqlx::Error::RowNotFound => Error::NotFound("row not found".into()),
             _ => Error::Internal(err.to_string()),
         }
-    }
-}
-
-impl std::convert::From<sqlx::migrate::MigrateError> for Error {
-    fn from(err: sqlx::migrate::MigrateError) -> Self {
-        Error::DatabaseMigration(err.to_string())
     }
 }
 ```
@@ -236,13 +231,13 @@ for Postgres (yeeeeehaw).
 First, we'll create our basic queue structs and implement a function for spawning one.
 
 ```rust lib.rs
-/// The queue itself
+/// A queue that uses Postgres as it's backend
 #[derive(Debug, Clone)]
 pub struct PostgresQueue {
     db: PgPool,
     max_attempts: u32,
 }
-
+/// Implementation of Postgres-based queue
 impl PostgresQueue {
     pub fn new(db: PgPool) -> PostgresQueue {
         let queue = PostgresQueue {
