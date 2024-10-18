@@ -48,19 +48,19 @@
   tabindex="0"
 >
   {#if depth === 1}
-    <h1 class="text-xl font-bold my-4" {id}>
+    <h1 class="text-3xl font-bold" {id}>
       <slot />
     </h1>
   {:else if depth === 2}
-    <h2 class="text-xl font-bold my-4" {id}>
+    <h2 class="text-2xl font-bold" {id}>
       <slot />
     </h2>
   {:else if depth === 3}
-    <h3 class="text-lg font-bold my-4" {id}>
+    <h3 class="text-xl font-bold" {id}>
       <slot />
     </h3>
   {:else if depth === 4}
-    <h4 class="font-bold my-4" {id}>
+    <h4 class="text-lg font-bold" {id}>
       <slot />
     </h4>
   {:else if depth === 5}

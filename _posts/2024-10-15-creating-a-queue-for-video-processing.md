@@ -5,8 +5,6 @@ series_key: "video-streaming-devlog"
 series_pos: 1
 summary: "Using Rust and Postgres, we'll create a queue system for our video processing pipeline"
 ---
-## intro
-
 In our [previous post](https://sneakycrow.dev/blog/2024-10-13-creating-a-small-video-streaming-service)
 we created a function that can process a video into a stream, and some routes for serving those
 static files. The problem with doing this within the API is it can take up a lot of resources.
