@@ -1,6 +1,7 @@
 ---
-title: "pushing notifications to the client from Postgres"
+title: "Pushing notifications to the client from Postgres"
 category: "tech"
+summary: "Pushing postgres `LISTEN` events to a web client via websockets with Rust"
 series_key: "video-streaming-devlog"
 series_pos: 2
 ---
