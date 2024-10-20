@@ -1,3 +1,4 @@
+mod publish;
 mod series;
 
 use chrono::Local;
@@ -29,6 +30,10 @@ enum Commands {
         #[arg(short, long, action)]
         series: bool,
     },
+    Publish {
+        #[arg(short, long)]
+        file: Option<String>,
+    },
 }
 
 fn main() {
@@ -43,6 +48,9 @@ fn main() {
             series,
         } => {
             create_new_post(title, category, summary, draft, series);
+        }
+        Commands::Publish { file } => {
+            publish::publish_draft(file.clone());
         }
     }
 }
