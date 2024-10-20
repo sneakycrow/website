@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+  import { fade } from "svelte/transition";
   import type { Post } from "$lib/posts";
   import MarkdownRenderer from "./MarkdownRenderer.svelte";
   import { formatDistanceToNow, format } from "date-fns";
@@ -11,6 +13,24 @@
   }
 
   $: lastEdit = post.edits ? post.edits[post.edits.length - 1] : null;
+
+  let showScrollButton = false;
+
+  onMount(() => {
+    const handleScroll = () => {
+      showScrollButton = window.scrollY > 200;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 </script>
 
 <div
@@ -75,5 +95,28 @@
     >
       Draft
     </p>
+  {/if}
+
+  {#if showScrollButton}
+    <button
+      on:click={scrollToTop}
+      class="fixed bottom-20 right-5 bg-primary-500 text-white p-2 rounded-full shadow-lg z-50"
+      transition:fade
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 10l7-7m0 0l7 7m-7-7v18"
+        />
+      </svg>
+    </button>
   {/if}
 </div>
