@@ -12,7 +12,7 @@
 </script>
 
 <footer
-  class={`py-4 flex flex-col lg:flex-row justify-between items-end z-10 ${$$restProps.class}`}
+  class={`py-4 flex flex-col lg:flex-row justify-between items-start lg:items-end z-10 ${$$restProps.class}`}
 >
   <p class="flex flex-col">
     <span class="text-sm">© {new Date().getFullYear()} Sneaky Crow, LLC</span>

@@ -100,7 +100,7 @@
   {#if showScrollButton}
     <button
       on:click={scrollToTop}
-      class="fixed bottom-20 right-5 bg-primary-500 text-white p-2 rounded-full shadow-lg z-50"
+      class="fixed lg:bottom-20 bottom-4 right-4 bg-primary-500 text-white p-2 rounded-full shadow-lg z-50"
       transition:fade
     >
       <svg
