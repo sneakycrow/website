@@ -15,9 +15,34 @@ We're going to create a trigger that watches for updates to the `processing_stat
 we created. Then, we'll create a websockets connection from client to server, and when we receive a notification
 from Postgres for the requested video, we pass that notification to the websockets client.
 
+### Adding a notify trigger
+
+First, we'll need to create a migration that adds a trigger to the `videos` tables' `processing_status` column. Whenever that column
+gets updated, we want Postgres to notify us.
+
+```sql 0003_upload_status_notification.sql
+-- First, let's create the function to notify status changes
+CREATE OR REPLACE FUNCTION notify_upload_status()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Use the processing_status column directly
+    PERFORM pg_notify('upload_status', NEW.id || ',' || NEW.processing_status);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Now, let's create the trigger
+CREATE TRIGGER upload_status_trigger
+AFTER UPDATE OF processing_status ON videos
+FOR EACH ROW
+EXECUTE FUNCTION notify_upload_status();
+```
+
+If you're using sqlx, you can run this with `sqlx migrate run`
+
 ### Setting up websockets
 
-First, we'll want to establish a means of communication between our API and the web client.
+Next, we'll want to establish a means of communication between our API and the web client.
 For this tutorial, we're using [axum](https://github.com/tokio-rs/axum) and [askama](https://github.com/djc/askama),
 but this should work with any frontend and any framework that supports websockets.
 The reason we're using websockets is mainly so we can push an event from the server to the client, instead of
