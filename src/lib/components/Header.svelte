@@ -1,10 +1,18 @@
 <script lang="ts">
   import Logo from "./Logo.svelte";
   import Navigation from "./Navigation.svelte";
+  import AvatarWidget from "./AvatarWidget.svelte";
 
   export let title: string;
   export let link: string = "/";
   export let isLive = true;
+  type User = {
+    username: string;
+    avatar: string;
+    role?: string;
+  };
+  export let user: User | null = null;
+  const links = [{ copy: "settings", url: "/settings" }];
 </script>
 
 <header
@@ -37,5 +45,10 @@
       </div>
     {/if}
   </section>
-  <Navigation class="w-full col-start-5 col-span-2 text-right" />
+  <section class="w-full col-start-5 col-span-2 text-right flex items-center space-x-8">
+    <Navigation />
+    {#if user}
+      <AvatarWidget {user} {links} />
+    {/if}
+  </section>
 </header>
