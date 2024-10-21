@@ -37,5 +37,5 @@
     isLive={data.isLive}
   />
   <slot />
-  <Footer class="lg:col-span-6 h-full max-h-[200px] self-end" {user} />
+  <Footer class="lg:col-span-6 h-full max-h-[200px] self-end" />
 </main>

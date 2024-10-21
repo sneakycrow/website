@@ -1,14 +1,5 @@
 <script lang="ts">
-  import AvatarWidget from "./AvatarWidget.svelte";
   import GitHub from "./icons/GitHub.svelte";
-
-  type User = {
-    username: string;
-    avatar: string;
-    role?: string;
-  };
-  export let user: User | null = null;
-  const links = [{ copy: "settings", url: "/settings" }];
 </script>
 
 <footer
@@ -26,9 +17,4 @@
       <GitHub class="inline-block w-4 h-4" />
     </a>
   </p>
-  {#if user}
-    <AvatarWidget {user} {links} />
-  {:else}
-    <a href="/login">Login</a>
-  {/if}
 </footer>
