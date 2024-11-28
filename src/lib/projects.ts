@@ -40,12 +40,12 @@ export const projects: Project[] = [
     textColor: "text-green-500"
   },
   {
-    name: "mastadon",
+    name: "bluesky",
     description: "intimate discussions with the void",
-    website: "https://social.lol/@sneakycrow",
+    website: "https://sneakycrow.bsky.social",
     borderColor: "border-blue-500",
     textColor: "border-blue-500",
-    icon: "mdi:mastodon"
+    icon: "mdi:bluesky"
   },
   {
     name: "twitch",
