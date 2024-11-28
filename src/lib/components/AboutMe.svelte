@@ -1,5 +1,10 @@
-<script>
+<script lang="ts">
   import Profile from "./Profile.svelte";
+  interface Props {
+    [key: string]: any
+  }
+
+  let { ...rest }: Props = $props();
 
   const hobbies = [
     {
@@ -25,7 +30,7 @@
   ];
 </script>
 
-<article class={`w-full flex flex-col space-y-10 lg:text-lg ${$$restProps.class}`} id="about">
+<article class={`w-full flex flex-col space-y-10 lg:text-lg ${rest.class}`} id="about">
   <Profile />
   <p>
     My name is Zachary Corvidae, also known as sneaky crow. With over two decades of experience,

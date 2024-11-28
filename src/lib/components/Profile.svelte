@@ -1,10 +1,15 @@
 <script lang="ts">
   import { titles } from "$lib";
   import BlurTextList from "./BlurTextList.svelte";
+  interface Props {
+    [key: string]: any
+  }
+
+  let { ...rest }: Props = $props();
 </script>
 
 <div
-  class={`grid lg:grid-cols-4 gap-8 items-center lg:items-start justify-center lg:justify-start w-full ${$$restProps.class}`}
+  class={`grid lg:grid-cols-4 gap-8 items-center lg:items-start justify-center lg:justify-start w-full ${rest.class}`}
 >
   <img
     alt="Zachary Corvidae, owner of Sneaky Crow"

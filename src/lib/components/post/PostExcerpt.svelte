@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { Category } from "$lib/posts";
 
-  export let post: {
+  interface Props {
+    post: {
     slug: string;
     title: string;
     summary: string;
@@ -9,6 +10,9 @@
     category: Category;
     draft?: boolean;
   };
+  }
+
+  let { post }: Props = $props();
 
   const date = new Date(post.date ?? Date.now());
 

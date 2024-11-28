@@ -2,7 +2,11 @@
   import ArtistCard from "$lib/components/ArtistCard.svelte";
   import type { PageServerData } from "./$types";
 
-  export let data: PageServerData;
+  interface Props {
+    data: PageServerData;
+  }
+
+  let { data }: Props = $props();
   const artists = data.artists ?? [];
 </script>
 

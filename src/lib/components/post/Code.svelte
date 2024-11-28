@@ -18,9 +18,13 @@
   import gleam from "@gleam-lang/highlight.js-gleam";
   import "./dracula.css";
 
-  export let text: string;
-  // This is expected either to be a single string or a space-separated string, "rust filename.rs"
-  export let lang: string;
+  interface Props {
+    text: string;
+    // This is expected either to be a single string or a space-separated string, "rust filename.rs"
+    lang: string;
+  }
+
+  let { text, lang }: Props = $props();
   const parsedLang = lang.split(" ");
   const language = parsedLang[0];
   const filename = parsedLang[1] ?? "";

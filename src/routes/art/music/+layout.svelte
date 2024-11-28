@@ -1,5 +1,10 @@
 <script lang="ts">
   import { page } from "$app/stores";
+  interface Props {
+    children?: import('svelte').Snippet;
+  }
+
+  let { children }: Props = $props();
 
   const tabs = [
     {
@@ -24,5 +29,5 @@
       >
     {/each}
   </div>
-  <slot />
+  {@render children?.()}
 </section>

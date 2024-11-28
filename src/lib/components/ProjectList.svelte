@@ -1,8 +1,13 @@
 <script lang="ts">
   import { projects } from "$lib/projects";
+  interface Props {
+    [key: string]: any
+  }
+
+  let { ...rest }: Props = $props();
 </script>
 
-<section id="projects" class={`flex flex-col space-y-8 ${$$restProps.class}`}>
+<section id="projects" class={`flex flex-col space-y-8 ${rest.class}`}>
   {#each projects as project}
     <a
       target="_blank"

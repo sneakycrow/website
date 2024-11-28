@@ -1,9 +1,19 @@
 <script lang="ts">
-  export let url: string;
-  export let image: string;
-  export let name: string;
-  export let width = 300;
-  export let height = 300;
+  interface Props {
+    url: string;
+    image: string;
+    name: string;
+    width?: number;
+    height?: number;
+  }
+
+  let {
+    url,
+    image,
+    name,
+    width = 300,
+    height = 300
+  }: Props = $props();
 </script>
 
 <div class="space-y-2 flex flex-col items-center justify-center">

@@ -7,7 +7,11 @@
   import Discord from "$lib/components/icons/Discord.svelte";
   import Account from "$lib/components/icons/Account.svelte";
 
-  export let data: PageServerData;
+  interface Props {
+    data: PageServerData;
+  }
+
+  let { data }: Props = $props();
   type AvailableProvider = "github" | "spotify" | "twitch" | "discord";
   const availableAccounts: AvailableProvider[] = ["github", "spotify", "twitch", "discord"];
   const isConnectedAccount = (provider: string) => {
@@ -52,9 +56,9 @@
   <h3 class="text-4xl text-gray-300 font-semibold my-10">Connected Accounts</h3>
   <ul class="flex space-x-6">
     {#each availableAccounts as account}
+      {@const SvelteComponent = getIconData(account).icon}
       <li class="flex flex-col items-center">
-        <svelte:component
-          this={getIconData(account).icon}
+        <SvelteComponent
           class={`ml-2 ${isConnectedAccount(account) ? "opacity-100" : "opacity-50"}`}
           color={`${isConnectedAccount(account) ? getIconData(account).color : "gray"}`}
           width={64}

@@ -1,5 +1,10 @@
 <script lang="ts">
   import { page } from "$app/stores";
+  interface Props {
+    children?: import('svelte').Snippet;
+  }
+
+  let { children }: Props = $props();
 
   const activeLinks = [
     {
@@ -34,5 +39,5 @@
 </nav>
 
 <section class="lg:row-start-2 row-start-3 lg:col-span-5 w-full">
-  <slot />
+  {@render children?.()}
 </section>
