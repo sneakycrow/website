@@ -1,13 +1,13 @@
 <script lang="ts">
-  export let photo = {
+  let { photo = {
     source: "",
     alt: "",
     date: ""
-  };
+  }, ...rest } = $props();
 </script>
 
 <div
-  class={`flex flex-col justify-center items-center shadow-2xl p-4 bg-black dark:bg-white lg:h-full lg:w-[500px] w-[300px] max-h-[450px] ${$$restProps.class}`}
+  class={`flex flex-col justify-center items-center shadow-2xl p-4 bg-black dark:bg-white lg:h-full lg:w-[500px] w-[300px] max-h-[450px] ${rest.class}`}
 >
   <div class="w-full h-auto max-h-[300px] overflow-hidden">
     <img class="object-cover" src={photo.source} alt={photo.alt} />

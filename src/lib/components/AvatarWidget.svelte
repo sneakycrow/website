@@ -6,8 +6,13 @@
     avatar: string;
   };
 
-  export let user: User;
-  export let links: { copy: string; url: string }[] = [];
+  interface Props {
+    user: User;
+    links?: { copy: string; url: string }[];
+    [key: string]: any
+  }
+
+  let { user, links = [], ...rest }: Props = $props();
 
   const profilePopup: PopupSettings = {
     // Represents the type of event that opens/closed the popup
@@ -19,7 +24,7 @@
   };
 </script>
 
-<div class={$$restProps.class}>
+<div class={rest.class}>
   <div class="card p-4 w-36 shadow-xl bg-white" data-popup="profilePopup">
     <div class="font-semibold text-right flex flex-col justify-end">
       <p>{user.username}</p>

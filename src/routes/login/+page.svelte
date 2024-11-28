@@ -58,7 +58,7 @@
       href={provider.href}
     >
       {provider.copy}
-      <svelte:component this={provider.icon} class="ml-2" width={24} />
+      <provider.icon class="ml-2" width={24} />
     </a>
   {/each}
 </section>

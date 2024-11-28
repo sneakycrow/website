@@ -5,7 +5,7 @@ import { redirect } from "@sveltejs/kit";
 import { getAllowedPanels } from "$lib/settings";
 
 export const load: PageServerLoad = async ({ locals }) => {
-  if (!locals.user) throw redirect(302, "/login");
+  if (!locals.user) redirect(302, "/login");
   // Process the allowed panels based on the role of the user
   const allowedPanels = getAllowedPanels(locals.user.role);
   let users: User[] = []; // Initialized empty in case we don't need the data

@@ -1,3 +1,4 @@
+<!-- @migration-task Error while migrating Svelte code: `<a>` is invalid inside `<a>` -->
 <script lang="ts">
   import { formatDistanceToNow } from "date-fns";
   type Track = {
@@ -8,12 +9,15 @@
     artist_name: string;
     played_at: string;
   };
-  export let track: Track;
+  interface Props {
+    children?: import("svelte").Snippet;
+    track: Track;
+  }
+  let { track }: Props = $props();
 </script>
 
-<a
-  href={track.url}
-  target="_blank"
+<button
+  onclick={() => window.open(track.url, "_blank")}
   class="lg:col-2 space-x-4 flex items-center justify-between shadow-lg rounded p-4 bg-black dark:bg-white text-right mx-auto w-full max-w-[400px]"
 >
   <img
@@ -36,4 +40,4 @@
       {formatDistanceToNow(track.played_at)} ago
     </p>
   </div>
-</a>
+</button>

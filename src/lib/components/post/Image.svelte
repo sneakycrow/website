@@ -1,8 +1,12 @@
 <script lang="ts">
   import Play from "../icons/Play.svelte";
 
-  export let href: string;
-  export let text: string;
+  interface Props {
+    href: string;
+    text: string;
+  }
+
+  let { href, text }: Props = $props();
 
   // If the href ends in with a video extension, we'll render a video tag
   const isVideo = href.endsWith(".mp4") || href.endsWith(".webm");

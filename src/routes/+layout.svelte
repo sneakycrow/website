@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { run } from 'svelte/legacy';
+
   import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom";
   import { storePopup } from "@skeletonlabs/skeleton";
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
@@ -8,16 +10,23 @@
   import Footer from "$lib/components/Footer.svelte";
   import Header from "$lib/components/Header.svelte";
   import { keywords } from "$lib";
-  export let data: LayoutServerData;
-
-  let user: { username: string; avatar: string; role: string } | undefined;
-  $: if (data.username && data.avatar) {
-    user = {
-      username: data.username,
-      avatar: data.avatar,
-      role: data.role
-    };
+  interface Props {
+    data: LayoutServerData;
+    children?: import('svelte').Snippet;
   }
+
+  let { data, children }: Props = $props();
+
+  let user: { username: string; avatar: string; role: string } | undefined = $state();
+  run(() => {
+    if (data.username && data.avatar) {
+      user = {
+        username: data.username,
+        avatar: data.avatar,
+        role: data.role
+      };
+    }
+  });
 </script>
 
 <svelte:head>
@@ -37,6 +46,6 @@
     isLive={data.isLive}
     {user}
   />
-  <slot />
+  {@render children?.()}
   <Footer class="lg:col-span-6 h-full max-h-[200px] self-end" />
 </main>

@@ -3,20 +3,31 @@
   import Navigation from "./Navigation.svelte";
   import AvatarWidget from "./AvatarWidget.svelte";
 
-  export let title: string;
-  export let link: string = "/";
-  export let isLive = true;
   type User = {
     username: string;
     avatar: string;
     role?: string;
   };
-  export let user: User | null = null;
+  interface Props {
+    title: string;
+    link?: string;
+    isLive?: boolean;
+    user?: User | null;
+    [key: string]: any
+  }
+
+  let {
+    title,
+    link = "/",
+    isLive = true,
+    user = null,
+    ...rest
+  }: Props = $props();
   const links = [{ copy: "settings", url: "/settings" }];
 </script>
 
 <header
-  class={`w-full grid grid-cols-header items-center lg:items-start lg:max-h-[300px] z-20 lg:mb-10 ${$$restProps.class}`}
+  class={`w-full grid grid-cols-header items-center lg:items-start lg:max-h-[300px] z-20 lg:mb-10 ${rest.class}`}
 >
   <Logo class="w-14 lg:w-[100px] col-start-1 col-span-1" />
   <section

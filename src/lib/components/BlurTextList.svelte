@@ -1,7 +1,11 @@
 <script lang="ts">
-  export let textList: string[] = [];
 
   import { blur } from "svelte/transition";
+  interface Props {
+    textList?: string[];
+  }
+
+  let { textList = [] }: Props = $props();
 
   // Stackoverflow https://stackoverflow.com/a/1527820
   function getRandomInt(min: number, max: number): number {
@@ -10,7 +14,7 @@
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   const getRandomText = () => textList[getRandomInt(0, textList.length - 1)];
-  let title = getRandomText();
+  let title = $state(getRandomText());
 
   const updateTitle = () => {
     title = getRandomText();

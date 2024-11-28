@@ -9,7 +9,11 @@
   import HorizontalRule from "./HorizontalRule.svelte";
   import SvelteMarkdown from "svelte-markdown";
 
-  export let source: string;
+  interface Props {
+    source: string;
+  }
+
+  let { source }: Props = $props();
 </script>
 
 <SvelteMarkdown

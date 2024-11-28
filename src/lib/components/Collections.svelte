@@ -3,6 +3,11 @@
   import Album from "./icons/Album.svelte";
   import Palette from "./icons/Palette.svelte";
   import GameController from "./icons/GameController.svelte";
+  interface Props {
+    [key: string]: any
+  }
+
+  let { ...rest }: Props = $props();
   type Link = {
     copy: string;
     url: string;
@@ -44,10 +49,11 @@
   ];
   const ICON_MIN_SIZE = 64;
   const ICON_MAX_SIZE = 128;
-  $: outerWidth = 0;
+  let outerWidth = $state(0);
+  
   // Make the icons smaller on mobile
   const LG_BREAKPOINT = 1024;
-  $: iconSize = outerWidth < LG_BREAKPOINT ? ICON_MIN_SIZE : ICON_MAX_SIZE;
+  let iconSize = $derived(outerWidth < LG_BREAKPOINT ? ICON_MIN_SIZE : ICON_MAX_SIZE);
 
   // A function for getting the appropriate icon based on the copy
   const getIcon = (copy: string) => {
@@ -67,8 +73,9 @@
 </script>
 
 <svelte:window bind:outerWidth />
-<section class={`grid lg:grid-cols-2 row-span-2 gap-20 ${$$restProps.class ?? ""}`}>
+<section class={`grid lg:grid-cols-2 row-span-2 gap-20 ${rest.class ?? ""}`}>
   {#each links as link}
+    {@const SvelteComponent = getIcon(link.copy)}
     <div class={`text-center ${link.comingSoon ? "grayscale" : ""}`}>
       <a
         href={link.comingSoon ? "#" : link.url}
@@ -78,8 +85,7 @@
           link.class
         }`}
       >
-        <svelte:component
-          this={getIcon(link.copy)}
+        <SvelteComponent
           height={iconSize}
           width={iconSize}
           class={link.iconColor}

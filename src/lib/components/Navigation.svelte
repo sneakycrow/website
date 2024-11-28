@@ -7,8 +7,13 @@
     url: string;
     hover: string;
   };
-  export let additionalLinks: Link[] = [];
-  export let links = [
+  interface Props {
+    additionalLinks?: Link[];
+    links?: any;
+    [key: string]: any
+  }
+
+  let { additionalLinks = [], links = [
     {
       copy: "blog",
       url: "/blog",
@@ -24,9 +29,9 @@
       url: "/about",
       hover: "lg:hover:text-pink-500"
     }
-  ];
+  ], ...rest }: Props = $props();
 
-  let isMobileOpen = false;
+  let isMobileOpen = $state(false);
   const openMenu = () => {
     isMobileOpen = true;
   };
@@ -37,9 +42,9 @@
 </script>
 
 <nav
-  class={`w-full flex flex-col lg:flex-row lg:space-x-4 items-end justify-end ${$$restProps.class}`}
+  class={`w-full flex flex-col lg:flex-row lg:space-x-4 items-end justify-end ${rest.class}`}
 >
-  <button class="lg:hidden" on:click={openMenu}>
+  <button class="lg:hidden" onclick={openMenu}>
     <Hamburger class="inline-block w-12 h-12" />
   </button>
   {#each [...links, ...additionalLinks] as link}
@@ -54,11 +59,11 @@
     <div
       class="z-50 w-screen h-full bg-primary-500 fixed top-0 left-0 flex flex-col items-end justify-start p-4"
     >
-      <button class="mb-20" on:click={closeMenu}>
+      <button class="mb-20" onclick={closeMenu}>
         <Close class="inline-block w-12 h-12 text-white active:text-red-500" />
       </button>
       {#each [...links, ...additionalLinks] as link}
-        <a href={link.url} class={`text-white text-2xl font-bold uppercase`} on:click={closeMenu}>
+        <a href={link.url} class={`text-white text-2xl font-bold uppercase`} onclick={closeMenu}>
           {link.copy}
         </a>
       {/each}

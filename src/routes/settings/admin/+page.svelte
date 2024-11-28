@@ -1,8 +1,12 @@
 <script lang="ts">
   import type { PageServerData } from "./$types";
 
-  export let data: PageServerData;
-  $: users = data?.users ?? [];
+  interface Props {
+    data: PageServerData;
+  }
+
+  let { data }: Props = $props();
+  let users = $derived(data?.users ?? []);
 </script>
 
 <table class="table table-hover bg-transparent">

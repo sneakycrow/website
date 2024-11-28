@@ -1,16 +1,19 @@
-<script>
+<script lang="ts">
   import { fade } from "svelte/transition";
   import { clipboard } from "@skeletonlabs/skeleton";
   import { browser } from "$app/environment";
   import Copy from "../icons/Copy.svelte";
 
-  export let depth;
-  export let raw;
-  export let text;
+  let {
+    depth,
+    raw,
+    text,
+    children
+  } = $props();
   // A url-friendly id for the heading, generated from the text
   const id = text ? text.replace(/ /g, "-") : "";
   // Whether to show a link to the heading
-  let isActionsShown = false;
+  let isActionsShown = $state(false);
   const showActions = () => {
     isActionsShown = true;
   };
@@ -18,7 +21,7 @@
     isActionsShown = false;
   };
   // Whether the feedback after copying the link should be shown
-  let isCopyFeedbackShown = false;
+  let isCopyFeedbackShown = $state(false);
   // A timeout for showing and hiding the feedback
   const copyFeedbackTimeout = 500;
   const toggleCopyFeedback = () => {
@@ -36,12 +39,12 @@
   };
 
   // A full url generated from the id at runtime
-  $: fullUrl = browser ? `${window.location.href}#${id}` : "";
+  let fullUrl = $derived(browser ? `${window.location.href}#${id}` : "");
 </script>
 
 <div
-  on:mouseenter={showActions}
-  on:mouseleave={hideActions}
+  onmouseenter={showActions}
+  onmouseleave={hideActions}
   class="flex flex-nowrap items-center justify-start space-x-4"
   role="button"
   aria-roledescription="whether or not to show the link to the header"
@@ -49,27 +52,27 @@
 >
   {#if depth === 1}
     <h1 class="text-3xl font-bold" {id}>
-      <slot />
+      {@render children?.()}
     </h1>
   {:else if depth === 2}
     <h2 class="text-2xl font-bold" {id}>
-      <slot />
+      {@render children?.()}
     </h2>
   {:else if depth === 3}
     <h3 class="text-xl font-bold" {id}>
-      <slot />
+      {@render children?.()}
     </h3>
   {:else if depth === 4}
     <h4 class="text-lg font-bold" {id}>
-      <slot />
+      {@render children?.()}
     </h4>
   {:else if depth === 5}
     <h5 class="font-bold my-2" {id}>
-      <slot />
+      {@render children?.()}
     </h5>
   {:else if depth === 6}
     <h6 class="font-bold" {id}>
-      <slot />
+      {@render children?.()}
     </h6>
   {:else}
     {raw}
@@ -82,7 +85,7 @@
       title="Copy link to this section"
       aria-label="Copy link to this section"
       use:clipboard={fullUrl}
-      on:click={onCopy}
+      onclick={onCopy}
     >
       <!--  clipboard icon -->
       <Copy />

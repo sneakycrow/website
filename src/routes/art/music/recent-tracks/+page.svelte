@@ -2,7 +2,11 @@
   import TrackCard from "$lib/components/TrackCard.svelte";
   import type { PageServerData } from "./$types";
 
-  export let data: PageServerData;
+  interface Props {
+    data: PageServerData;
+  }
+
+  let { data }: Props = $props();
   const tracks = data.tracks ?? [];
 </script>
 

@@ -5,16 +5,22 @@
   import MarkdownRenderer from "./MarkdownRenderer.svelte";
   import { formatDistanceToNow, format } from "date-fns";
 
-  export let post: Post;
-  $: editsShown = false;
+  interface Props {
+    post: Post;
+    [key: string]: any
+  }
+
+  let { post, ...rest }: Props = $props();
+  let editsShown = $state(false);
+  
 
   function toggleEditsShown() {
     editsShown = !editsShown;
   }
 
-  $: lastEdit = post.edits ? post.edits[post.edits.length - 1] : null;
+  let lastEdit = $derived(post.edits ? post.edits[post.edits.length - 1] : null);
 
-  let showScrollButton = false;
+  let showScrollButton = $state(false);
 
   onMount(() => {
     const handleScroll = () => {
@@ -34,7 +40,7 @@
 </script>
 
 <div
-  class={`grid grid-cols-8 gap-4 items-start justify-center my-10 relative ${$$restProps.class}`}
+  class={`grid grid-cols-8 gap-4 items-start justify-center my-10 relative ${rest.class}`}
 >
   <article
     class="lg:text-lg w-full lg:col-start-2 col-span-8 lg:col-span-6 max-w-screen-xl space-y-6 z-10"
@@ -64,7 +70,7 @@
   </article>
   {#if post.edits}
     <div class="lg:col-span-1 col-span-8 text-xs mt-20 py-4 lg:mt-0 lg:py-0 z-10">
-      <button on:click={toggleEditsShown} class="text-sm"
+      <button onclick={toggleEditsShown} class="text-sm"
         >{editsShown ? "Hide" : "Show"} Edits</button
       >
       {#if editsShown}
@@ -99,7 +105,7 @@
 
   {#if showScrollButton}
     <button
-      on:click={scrollToTop}
+      onclick={scrollToTop}
       class="fixed lg:bottom-20 bottom-4 right-4 bg-primary-500 text-white p-2 rounded-full shadow-lg z-50"
       transition:fade
     >
