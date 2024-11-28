@@ -4,5 +4,5 @@ import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async () => {
   // Temporarily redirect to art music page until we finished the published music page
-  throw redirect(302, "/art/music/top-artists");
+  redirect(302, "/art/music/top-artists");
 };

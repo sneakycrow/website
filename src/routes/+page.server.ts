@@ -6,6 +6,6 @@ export const actions: Actions = {
   logout: async ({ locals }) => {
     if (!locals.session) return fail(401);
     await lucia.invalidateSession(locals.session.id); // invalidate session
-    throw redirect(302, "/"); // redirect to login page
+    redirect(302, "/"); // redirect to login page
   }
 };
