@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   pull_request:
     branches:
-      - add-k8s-deploy
+      - main
   release:
     types:
       - released
