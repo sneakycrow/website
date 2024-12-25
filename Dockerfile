@@ -1,25 +1,24 @@
 # syntax = docker/dockerfile:1
-
-# Adjust NODE_VERSION as desired
-# Issue with 22.5.0, https://github.com/nodejs/docker-node/issues/2119
 FROM node:22.4 as base
-
-LABEL fly_launch_runtime="Node.js"
-
-# Node.js app lives here
 WORKDIR /app
 
-# Throw-away build stage to reduce size of final image
-FROM base as build
+# Create a stage specifically for dependency installation
+FROM base as deps
 
 # Install packages needed to build node modules
 RUN apt-get update -qq && \
-    apt-get install -y python-is-python3 pkg-config build-essential
+    apt-get install -y python-is-python3 pkg-config build-essential && \
+    rm -rf /var/lib/apt/lists/*
 
-# Install node modules
+# Copy only package.json and yarn.lock first
+COPY --link package.json yarn.lock .yarnrc ./
+
+# Install dependencies
 ENV DEBUG='vite:*'
-COPY --link .yarnrc yarn.lock package.json ./
-RUN yarn install
+RUN yarn install --frozen-lockfile
+
+# Build stage
+FROM deps as build
 
 # Copy application code
 COPY --link . .
@@ -27,16 +26,20 @@ COPY --link . .
 # Build application
 RUN yarn build
 
-# Final stage for app image
+# Production stage
 FROM base
 
-# Install packages needed to run node modules
+# Install production-only packages
 RUN apt-get update -qq && \
-    apt-get install -y ca-certificates openssl
+    apt-get install -y ca-certificates openssl && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy only production dependencies from deps stage
+COPY --from=deps /app/node_modules /app/node_modules
 
 # Copy built application
-COPY --from=build /app /app
+COPY --from=build /app/dist /app/dist
+COPY --from=build /app/package.json /app/
 
-# Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
 CMD [ "yarn", "start" ]
