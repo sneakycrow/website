@@ -21,7 +21,24 @@ RUN yarn install --frozen-lockfile
 FROM deps as build
 
 # Copy application code
-COPY --link . .
+COPY --link _posts/ /app/_posts/
+COPY --link src/ /app/src/
+COPY --link prisma/ /app/prisma/
+COPY --link static/ /app/static/
+COPY --link .eslintignore /app/
+COPY --link .eslintrc.cjs /app/
+COPY --link .nvmrc /app/
+COPY --link .prettierignore /app/
+COPY --link .prettierrc /app/
+COPY --link .yarnrc /app/
+COPY --link package.json /app/
+COPY --link postcss.config.js /app/
+COPY --link svelte.config.js /app/
+COPY --link vite.config.ts /app/
+COPY --link tsconfig.json /app/
+COPY --link theme.ts /app/
+COPY --link tailwind.config.ts /app/
+COPY --link yarn.lock /app/
 
 # Build application
 RUN yarn build
