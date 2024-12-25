@@ -3,6 +3,9 @@ name: deploy - production
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches:
+      - add-k8s-deploy
   release:
     types:
       - released
