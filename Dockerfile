@@ -38,7 +38,7 @@ RUN apt-get update -qq && \
 COPY --from=deps /app/node_modules /app/node_modules
 
 # Copy built application
-COPY --from=build /app/dist /app/dist
+COPY --from=build /app/build /app/build
 COPY --from=build /app/package.json /app/
 
 EXPOSE 3000
