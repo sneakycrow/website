@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sneakycrow-config
+data:
+  TWITCH_REDIRECT_URI: "https://sneakycrow.dev/login/twitch/callback"
+  SPOTIFY_REDIRECT_URI: "https://sneakycrow.dev/login/spotify/callback"

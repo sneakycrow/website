@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: deploy - production
+
+on:
+  workflow_dispatch:
+  release:
+    types:
+      - released
+      - prereleased
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
+    with:
+      push: true
+      namespace: production

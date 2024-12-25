@@ -1,40 +1,66 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-name: build
+name: build ui
 
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  workflow_call:
+    outputs:
+      image_tag:
+        description: "The tag for all images in this run"
+        value: ${{ jobs.setup.outputs.version }}
+    inputs:
+      push:
+        type: boolean
+        default: false
+        description: "Whether or not to push the image to the registry"
 
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.VERSION }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get commit hash
+        id: version
+        run: echo "VERSION=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-      - name: Cache Docker layers
-        uses: actions/cache@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set image tag
+        id: image_tag
+        run: echo "value=${{ secrets.DO_REGISTRY }}/${{ vars.UI_IMAGE }}:${{ needs.setup.outputs.version }}" >> $GITHUB_OUTPUT
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
         with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
-      - name: Build Docker image
-        uses: docker/build-push-action@v4
+          token: ${{ secrets.DO_REGISTRY_KEY }}
+
+      - name: Log in to DO Container Registry
+        run: doctl registry login --expiry-seconds 600
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push UI image
+        uses: docker/build-push-action@v5
         with:
           context: .
-          push: false
-          load: true
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
-      - name: Move cache
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+          file: config/ui.Dockerfile
+          push: ${{ inputs.push }}
+          platforms: linux/amd64
+          tags: |
+            ${{ steps.image_tag.outputs.value }}
+          cache-from: type=registry,ref=${{ secrets.DO_REGISTRY }}/${{ vars.UI_IMAGE }}:buildcache
+          cache-to: type=registry,ref=${{ secrets.DO_REGISTRY }}/${{ vars.UI_IMAGE }}:buildcache,mode=max
+
+      - name: Image digest
+        run: echo "UI image digest $(doctl registry repository digest-list ${{ vars.UI_IMAGE }} --format Tag,Digest --no-header | grep ${{ needs.setup.outputs.version }})"

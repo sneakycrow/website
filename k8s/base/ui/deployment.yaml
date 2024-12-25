@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sneakycrow
+spec:
+  selector:
+    matchLabels:
+      app: sneakycrow
+  template:
+    metadata:
+      labels:
+        app: sneakycrow
+    spec:
+      containers:
+        - name: sneakycrow
+          image: ui
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: sneakycrow-config
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: sneakycrow-db
+                  key: uri
+            - name: TWITCH_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: sneakycrow-twitch-credentials
+                  key: client-id
+            - name: TWITCH_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: sneakycrow-twitch-credentials
+                  key: client-secret
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: sneakycrow-jwt
+                  key: secret
+            - name: REDIS_URL
+              value: "redis://redis-staging.staging.svc.cluster.local:6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
