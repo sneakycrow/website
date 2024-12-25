@@ -1,9 +1,9 @@
 # syntax = docker/dockerfile:1
-FROM node:22.4 as base
+FROM node:22.4 AS base
 WORKDIR /app
 
 # Create a stage specifically for dependency installation
-FROM base as deps
+FROM base AS deps
 
 # Install packages needed to build node modules
 RUN apt-get update -qq && \
@@ -18,7 +18,7 @@ ENV DEBUG='vite:*'
 RUN yarn install --frozen-lockfile
 
 # Build stage
-FROM deps as build
+FROM deps AS build
 
 # Copy application code
 COPY --link _posts/ /app/_posts/
