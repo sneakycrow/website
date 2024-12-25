@@ -20,5 +20,4 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
     with:
-      push: true
       namespace: production
