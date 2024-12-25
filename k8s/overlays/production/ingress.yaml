@@ -27,7 +27,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: sneakycrow-staging
+                name: sneakycrow-production
                 port:
                   number: 80
 ---

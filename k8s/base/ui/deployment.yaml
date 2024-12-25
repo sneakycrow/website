@@ -41,7 +41,7 @@ spec:
                   name: sneakycrow-jwt
                   key: secret
             - name: REDIS_URL
-              value: "redis://redis-staging.staging.svc.cluster.local:6379"
+              value: "redis://redis-production.production.svc.cluster.local:6379"
           livenessProbe:
             httpGet:
               path: /health
