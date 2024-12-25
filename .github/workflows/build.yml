@@ -14,7 +14,6 @@ on:
     inputs:
       push:
         type: boolean
-        default: false
         description: "Whether or not to push the image to the registry"
 
 jobs:
@@ -55,7 +54,7 @@ jobs:
         with:
           context: .
           file: config/ui.Dockerfile
-          push: ${{ inputs.push }}
+          push: ${{ inputs.push || false }}
           platforms: linux/amd64
           tags: |
             ${{ steps.image_tag.outputs.value }}
