@@ -2,24 +2,42 @@
 name: deploy
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  workflow_call:
+    inputs:
+      namespace:
+        type: string
+        required: true
+        description: "namespace to deploy to"
 
 jobs:
-  build_deploy:
-    environment: production
-    name: build and deploy
+  build:
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
+    with:
+      push: true
+
+  deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    environment: ${{ inputs.namespace }}
+    needs: build
     steps:
-      - uses: actions/checkout@v4
-      - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DO_REGISTRY_KEY }}
+
+      - name: Save DigitalOcean kubeconfig
+        run: doctl kubernetes cluster kubeconfig save ${{ vars.CLUSTER_NAME }}
+
+      - name: Update kustomization
+        run: |
+          cd k8s/overlays/${{ inputs.namespace }}
+          kustomize edit set image ui=${{ secrets.DO_REGISTRY }}/${{ vars.UI_IMAGE }}:${{ needs.build.outputs.image_tag }}
+
+      - name: Deploy to ${{ inputs.namespace }}
+        run: |
+          kubectl apply -k k8s/overlays/${{ inputs.namespace }}
+          kubectl rollout status deployment/sneakycrow-${{ inputs.namespace }} -n ${{ inputs.namespace }} --timeout=2m

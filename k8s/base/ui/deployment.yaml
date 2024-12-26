@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sneakycrow
+spec:
+  selector:
+    matchLabels:
+      app: sneakycrow
+  template:
+    metadata:
+      labels:
+        app: sneakycrow
+    spec:
+      containers:
+        - name: sneakycrow
+          image: ui
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: sneakycrow-config
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: sneakycrow-db
+                  key: uri
+            - name: TWITCH_ID
+              valueFrom:
+                secretKeyRef:
+                  name: sneakycrow-twitch-credentials
+                  key: client-id
+            - name: TWITCH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: sneakycrow-twitch-credentials
+                  key: client-secret
+            - name: SPOTIFY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: sneakycrow-spotify-credentials
+                  key: client-id
+            - name: SPOTIFY_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: sneakycrow-spotify-credentials
+                  key: client-secret
+            - name: GITHUB_ID
+              valueFrom:
+                secretKeyRef:
+                  name: sneakycrow-github-credentials
+                  key: client-id
+            - name: GITHUB_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: sneakycrow-github-credentials
+                  key: client-secret
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: sneakycrow-jwt
+                  key: secret
+            - name: REDIS_URL
+              value: "redis://redis-production.production.svc.cluster.local:6379"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
