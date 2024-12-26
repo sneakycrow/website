@@ -25,15 +25,35 @@ spec:
                 secretKeyRef:
                   name: sneakycrow-db
                   key: uri
-            - name: TWITCH_CLIENT_ID
+            - name: TWITCH_ID
               valueFrom:
                 secretKeyRef:
                   name: sneakycrow-twitch-credentials
                   key: client-id
-            - name: TWITCH_CLIENT_SECRET
+            - name: TWITCH_SECRET
               valueFrom:
                 secretKeyRef:
                   name: sneakycrow-twitch-credentials
+                  key: client-secret
+            - name: SPOTIFY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: sneakycrow-spotify-credentials
+                  key: client-id
+            - name: SPOTIFY_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: sneakycrow-spotify-credentials
+                  key: client-secret
+            - name: GITHUB_ID
+              valueFrom:
+                secretKeyRef:
+                  name: sneakycrow-github-credentials
+                  key: client-id
+            - name: GITHUB_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: sneakycrow-github-credentials
                   key: client-secret
             - name: JWT_SECRET
               valueFrom:
