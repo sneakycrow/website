@@ -41,14 +41,3 @@ spec:
                 name: sneakycrow-production
                 port:
                   number: 80
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: custom-headers
-  namespace: ingress-nginx
-data:
-  X-Forwarded-Proto: https
-  X-Real-IP: $remote_addr
-  X-Forwarded-For: $proxy_add_x_forwarded_for
-  Authorization: $http_authorization
