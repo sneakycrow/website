@@ -5,6 +5,7 @@ import { env } from "$env/dynamic/private";
 export const TWITCH_STREAM_STATUS = "twitch:stream_status";
 export const SPOTIFY_TOP_ARTISTS = "spotify:top_artists";
 export const SPOTIFY_RECENT_TRACKS = "spotify:recent_tracks";
+export const STEAM_OWNED_GAMES = "steam:owned_games";
 
 export const getRedisClient = async (): Promise<RedisClientType> => {
   if (!env.REDIS_URL) throw new Error("No REDIS_URL found in env");

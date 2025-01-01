@@ -4,7 +4,8 @@
   import Palette from "./icons/Palette.svelte";
   import GameController from "./icons/GameController.svelte";
   interface Props {
-    [key: string]: any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string]: any;
   }
 
   let { ...rest }: Props = $props();
@@ -42,15 +43,14 @@
       copy: "playing",
       url: "/games",
       description: "where my dreams become virtual reality",
-      class: "lg:hover:text-blue-500",
-      iconColor: "text-blue-500 opacity-75",
-      comingSoon: true
+      class: "lg:hover:text-green-500",
+      iconColor: "text-green-500 opacity-75"
     }
   ];
   const ICON_MIN_SIZE = 64;
   const ICON_MAX_SIZE = 128;
   let outerWidth = $state(0);
-  
+
   // Make the icons smaller on mobile
   const LG_BREAKPOINT = 1024;
   let iconSize = $derived(outerWidth < LG_BREAKPOINT ? ICON_MIN_SIZE : ICON_MAX_SIZE);
@@ -85,11 +85,7 @@
           link.class
         }`}
       >
-        <SvelteComponent
-          height={iconSize}
-          width={iconSize}
-          class={link.iconColor}
-        />
+        <SvelteComponent height={iconSize} width={iconSize} class={link.iconColor} />
         <span>{link.copy}</span>
       </a>
       <div class="flex flex-col mb-4">
