@@ -55,6 +55,11 @@ spec:
                 secretKeyRef:
                   name: sneakycrow-github-credentials
                   key: client-secret
+            - name: STEAM_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: sneakycrow-steam-credentials
+                  key: client-secret
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
