@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
 
   import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom";
   import { storePopup } from "@skeletonlabs/skeleton";
@@ -12,7 +12,7 @@
   import { keywords } from "$lib";
   interface Props {
     data: LayoutServerData;
-    children?: import('svelte').Snippet;
+    children?: import("svelte").Snippet;
   }
 
   let { data, children }: Props = $props();
