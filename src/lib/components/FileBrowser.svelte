@@ -112,11 +112,45 @@
   });
 
   // Handler for file drops
-  function handleFilesDropped(files: FileList, targetPath: string) {
-    const newFiles = Array.from(files).map((file) => ({
-      file,
-      targetPath
-    }));
+  async function handleFilesDropped(items: DataTransferItemList, targetPath: string) {
+    const newFiles: UploadFile[] = [];
+
+    // Helper function to process entries recursively
+    async function processEntry(entry: FileSystemEntry, currentPath: string) {
+      if (entry.isFile) {
+        const fileEntry = entry as FileSystemFileEntry;
+        const file = await new Promise<File>((resolve) => {
+          fileEntry.file(resolve);
+        });
+        newFiles.push({
+          file,
+          targetPath: currentPath
+        });
+      } else if (entry.isDirectory) {
+        const dirEntry = entry as FileSystemDirectoryEntry;
+        const reader = dirEntry.createReader();
+
+        // Read directory contents
+        const entries = await new Promise<FileSystemEntry[]>((resolve) => {
+          reader.readEntries((entries) => resolve(entries));
+        });
+
+        // Process each entry in the directory
+        for (const childEntry of entries) {
+          await processEntry(childEntry, `${currentPath}/${entry.name}`);
+        }
+      }
+    }
+
+    // Process all dropped items
+    for (const item of Array.from(items)) {
+      const entry = item.webkitGetAsEntry();
+      console.log(entry);
+      if (entry) {
+        await processEntry(entry, targetPath);
+      }
+    }
+
     uploadQueue = [...uploadQueue, ...newFiles];
   }
 </script>

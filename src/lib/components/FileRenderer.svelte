@@ -7,7 +7,7 @@
   interface Props {
     files: FileNode;
     parentPath?: string;
-    onFilesDropped: (files: FileList, targetPath: string) => void;
+    onFilesDropped: (items: DataTransferItemList, targetPath: string) => void;
     pendingUploads?: Set<string>;
   }
 
@@ -50,9 +50,9 @@
     e.stopPropagation();
     e.preventDefault();
 
-    if (e.dataTransfer?.files) {
+    if (e.dataTransfer?.items) {
       const targetPath = parentPath ? `${parentPath}/${folderName}` : folderName;
-      onFilesDropped(e.dataTransfer.files, targetPath);
+      onFilesDropped(e.dataTransfer.items, targetPath);
     }
 
     dragCounter = 0;
@@ -64,9 +64,29 @@
     e.preventDefault();
   }
 
-  function isPendingUpload(nodeName: string, nodePath: string): boolean {
-    const fullPath = parentPath ? `${parentPath}/${nodeName}` : nodeName;
-    return pendingUploads.has(fullPath);
+  function isPendingUpload(node: FileNode): boolean {
+    const fullPath = parentPath ? `${parentPath}/${node.name}` : node.name;
+
+    // For files, just check if the file itself is pending
+    if (node.type === "file") {
+      return pendingUploads.has(fullPath);
+    }
+
+    // For folders, we need to identify if this folder is part of a new upload structure
+    return Array.from(pendingUploads).some((path) => {
+      // Find the target folder path (the folder where files were dropped)
+      const targetFolderPath = path.split("/").slice(0, -2).join("/");
+
+      // If this node is in or above the target folder, don't highlight it
+      if (targetFolderPath.startsWith(fullPath) || fullPath === targetFolderPath) {
+        return false;
+      }
+
+      // If this node is part of the new structure being added, highlight it
+      const relativePath = path.slice(targetFolderPath.length + 1);
+      const relativePathParts = relativePath.split("/");
+      return relativePathParts[0] === node.name;
+    });
   }
 </script>
 
@@ -90,12 +110,12 @@
           />
           <AccordionItem regionControl="z-0 absolute top-0 left-0 w-full pr-4 py-2">
             {#snippet lead()}
-              <div class={isPendingUpload(node.name, parentPath) ? "text-primary-500" : ""}>
+              <div class={isPendingUpload(node) ? "text-primary-500" : ""}>
                 <Folder />
               </div>
             {/snippet}
             {#snippet summary()}
-              <span class={isPendingUpload(node.name, parentPath) ? "text-primary-500" : ""}>
+              <span class={isPendingUpload(node) ? "text-primary-500" : ""}>
                 {node.name}
               </span>
             {/snippet}
@@ -115,10 +135,10 @@
         </div>
       {:else}
         <div class="flex flex-nowrap gap-2 p-2">
-          <div class={isPendingUpload(node.name, parentPath) ? "text-primary-500" : ""}>
+          <div class={isPendingUpload(node) ? "text-primary-500" : ""}>
             <Document />
           </div>
-          <span class={isPendingUpload(node.name, parentPath) ? "text-primary-500" : ""}>
+          <span class={isPendingUpload(node) ? "text-primary-500" : ""}>
             {node.name}
           </span>
         </div>
