@@ -8,9 +8,10 @@
     files: FileNode;
     parentPath?: string;
     onFilesDropped: (files: FileList, targetPath: string) => void;
+    pendingUploads?: Set<string>;
   }
 
-  let { files, parentPath = "", onFilesDropped }: Props = $props();
+  let { files, parentPath = "", onFilesDropped, pendingUploads = new Set() }: Props = $props();
 
   interface FileNode {
     name: string;
@@ -62,6 +63,11 @@
     e.stopPropagation();
     e.preventDefault();
   }
+
+  function isPendingUpload(nodeName: string, nodePath: string): boolean {
+    const fullPath = parentPath ? `${parentPath}/${nodeName}` : nodeName;
+    return pendingUploads.has(fullPath);
+  }
 </script>
 
 <Accordion {...accordionSettings}>
@@ -84,10 +90,14 @@
           />
           <AccordionItem regionControl="z-0 absolute top-0 left-0 w-full pr-4 py-2">
             {#snippet lead()}
-              <Folder />
+              <div class={isPendingUpload(node.name, parentPath) ? "text-primary-500" : ""}>
+                <Folder />
+              </div>
             {/snippet}
             {#snippet summary()}
-              {node.name}
+              <span class={isPendingUpload(node.name, parentPath) ? "text-primary-500" : ""}>
+                {node.name}
+              </span>
             {/snippet}
             {#snippet content()}
               <FileRenderer
@@ -98,14 +108,19 @@
                 }}
                 parentPath={parentPath ? `${parentPath}/${node.name}` : node.name}
                 {onFilesDropped}
+                {pendingUploads}
               />
             {/snippet}
           </AccordionItem>
         </div>
       {:else}
         <div class="flex flex-nowrap gap-2 p-2">
-          <Document />
-          {node.name}
+          <div class={isPendingUpload(node.name, parentPath) ? "text-primary-500" : ""}>
+            <Document />
+          </div>
+          <span class={isPendingUpload(node.name, parentPath) ? "text-primary-500" : ""}>
+            {node.name}
+          </span>
         </div>
       {/if}
     {/each}

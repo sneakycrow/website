@@ -23,6 +23,16 @@
   // Keep track of files to be uploaded
   let uploadQueue: UploadFile[] = $state([]);
 
+  // Create a Set of pending upload paths
+  let pendingUploadPaths = $derived.by(() => {
+    const paths = new Set<string>();
+    uploadQueue.forEach(({ file, targetPath }) => {
+      const fullPath = `${targetPath}/${file.name}`;
+      paths.add(fullPath);
+    });
+    return paths;
+  });
+
   // Build complete file tree including uploaded files
   let completeFileTree = $derived.by(() => {
     if (uploadQueue.length === 0) return files;
@@ -112,5 +122,9 @@
 </script>
 
 <div class="border-2 border-surface-900 border-dashed w-full p-4">
-  <FileRenderer files={completeFileTree} onFilesDropped={handleFilesDropped} />
+  <FileRenderer
+    files={completeFileTree}
+    onFilesDropped={handleFilesDropped}
+    pendingUploads={pendingUploadPaths}
+  />
 </div>
