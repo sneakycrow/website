@@ -1,4 +1,3 @@
-<!-- @migration-task Error while migrating Svelte code: `<a>` is invalid inside `<a>` -->
 <script lang="ts">
   import { formatDistanceToNow } from "date-fns";
   type Track = {

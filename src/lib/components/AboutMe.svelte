@@ -1,7 +1,7 @@
 <script lang="ts">
   import Profile from "./Profile.svelte";
   interface Props {
-    [key: string]: any
+    [key: string]: any;
   }
 
   let { ...rest }: Props = $props();
@@ -44,13 +44,11 @@
     Beyond the realm of programming, I also like to incorporate some of my other favorite hobbies
     and interests in what I do. I'm always seeking to feed the little rat inside my brain more food,
     and I do that by
-    <!-- list out hobby string dynmically -->
     {#each hobbies as hobby, i}
-      <!--  Add 'and' before the last item -->
-      {#if i === hobbies.length - 1}and {/if}
+      {#if i === hobbies.length - 1}and
+      {/if}
       <a href={hobby.url} class={hobby.class}>{hobby.copy}</a
       >{#if i !== hobbies.length - 1}{`, `}{:else}{`.`}{/if}
-      <!-- Don't print the comma on the last line -->
     {/each}
   </p>
   <p>

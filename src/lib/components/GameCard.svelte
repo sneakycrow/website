@@ -26,7 +26,6 @@
   >
     <div class="relative aspect-[460/215]">
       <img src={headerImageUrl} alt={name} class="w-full h-full object-cover" />
-      <!-- Small icon overlay in bottom right -->
       <img
         src={steamIconUrl}
         alt=""

@@ -1,7 +1,10 @@
 import { Prisma } from "@prisma/client";
-import type { User, Account } from "@prisma/client";
+import prisma from "@prisma/client";
 import client from "$lib/server/db";
 import { nanoid } from "nanoid";
+
+type User = prisma.User;
+type Account = prisma.Account;
 
 export const getUserByUsername = async (username: string): Promise<User | null> => {
   return client.user.findUnique({

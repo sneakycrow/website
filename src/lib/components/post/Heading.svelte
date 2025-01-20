@@ -4,12 +4,7 @@
   import { browser } from "$app/environment";
   import Copy from "../icons/Copy.svelte";
 
-  let {
-    depth,
-    raw,
-    text,
-    children
-  } = $props();
+  let { depth, raw, text, children } = $props();
   // A url-friendly id for the heading, generated from the text
   const id = text ? text.replace(/ /g, "-") : "";
   // Whether to show a link to the heading
@@ -78,7 +73,6 @@
     {raw}
   {/if}
   {#if isActionsShown || isCopyFeedbackShown}
-    <!-- A button for copying the link to the header -->
     <button
       transition:fade={{ duration: 150 }}
       class="text-white/50 hover:text-white/30 flex flex-nowrap items-center space-x-1"
@@ -87,7 +81,6 @@
       use:clipboard={fullUrl}
       onclick={onCopy}
     >
-      <!--  clipboard icon -->
       <Copy />
       {#if isCopyFeedbackShown}
         <span transition:fade={{ duration: 150 }} class="text-sm">Copied!</span>

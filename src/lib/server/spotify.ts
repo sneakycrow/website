@@ -1,7 +1,9 @@
 import { env } from "$env/dynamic/private";
-import type { Account } from "@prisma/client";
+import prisma from "@prisma/client";
 import client from "./db";
 import { getAccountWithUserById } from "./user";
+
+type Account = prisma.Account;
 
 export const scopes = [
   "user-read-email",

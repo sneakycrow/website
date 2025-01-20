@@ -1,8 +1,10 @@
 import { getAllUsers } from "$lib/server/user";
-import { User } from "@prisma/client";
+import prisma from "@prisma/client";
 import type { PageServerLoad } from "./$types";
 import { redirect } from "@sveltejs/kit";
 import { getAllowedPanels } from "$lib/settings";
+
+type User = prisma.User;
 
 export const load: PageServerLoad = async ({ locals }) => {
   if (!locals.user) redirect(302, "/login");

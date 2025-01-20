@@ -7,12 +7,11 @@
 
   interface Props {
     post: Post;
-    [key: string]: any
+    class: string;
   }
 
-  let { post, ...rest }: Props = $props();
+  let { post, class: className }: Props = $props();
   let editsShown = $state(false);
-  
 
   function toggleEditsShown() {
     editsShown = !editsShown;
@@ -39,9 +38,7 @@
   }
 </script>
 
-<div
-  class={`grid grid-cols-8 gap-4 items-start justify-center my-10 relative ${rest.class}`}
->
+<div class={`grid grid-cols-8 gap-4 items-start justify-center my-10 relative ${className}`}>
   <article
     class="lg:text-lg w-full lg:col-start-2 col-span-8 lg:col-span-6 max-w-screen-xl space-y-6 z-10"
   >
@@ -105,6 +102,7 @@
 
   {#if showScrollButton}
     <button
+      aria-label="scroll-button"
       onclick={scrollToTop}
       class="fixed lg:bottom-20 bottom-4 right-4 bg-primary-500 text-white p-2 rounded-full shadow-lg z-50"
       transition:fade

@@ -7,7 +7,7 @@
   import Image from "./Image.svelte";
   import Link from "./Link.svelte";
   import HorizontalRule from "./HorizontalRule.svelte";
-  import SvelteMarkdown from "svelte-markdown";
+  import SvelteMarkdown from "@humanspeak/svelte-markdown";
 
   interface Props {
     source: string;
