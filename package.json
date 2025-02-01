@@ -56,7 +56,7 @@
     "@skeletonlabs/skeleton": "^2.10.1",
     "@skeletonlabs/tw-plugin": "^0.4.0",
     "@types/redis": "^4.0.11",
-    "arctic": "^1.8.0",
+    "arctic": "^3.2.2",
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.5",
     "gray-matter": "^4.0.3",
