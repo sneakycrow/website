@@ -116,8 +116,10 @@
     const newFiles: UploadFile[] = [];
 
     // Helper function to process entries recursively
+    // eslint-disable-next-line no-undef
     async function processEntry(entry: FileSystemEntry, currentPath: string) {
       if (entry.isFile) {
+        // eslint-disable-next-line no-undef
         const fileEntry = entry as FileSystemFileEntry;
         const file = await new Promise<File>((resolve) => {
           fileEntry.file(resolve);
@@ -127,10 +129,12 @@
           targetPath: currentPath
         });
       } else if (entry.isDirectory) {
+        // eslint-disable-next-line no-undef
         const dirEntry = entry as FileSystemDirectoryEntry;
         const reader = dirEntry.createReader();
 
         // Read directory contents
+        // eslint-disable-next-line no-undef
         const entries = await new Promise<FileSystemEntry[]>((resolve) => {
           reader.readEntries((entries) => resolve(entries));
         });

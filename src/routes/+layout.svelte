@@ -46,6 +46,8 @@
     isLive={data.isLive}
     {user}
   />
-  {@render children?.()}
+  <section class="lg:col-span-6 grid lg:grid-cols-6">
+    {@render children?.()}
+  </section>
   <Footer class="lg:col-span-6 h-full max-h-[200px] self-end" />
 </main>

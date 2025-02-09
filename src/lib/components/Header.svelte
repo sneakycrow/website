@@ -13,21 +13,19 @@
     link?: string;
     isLive?: boolean;
     user?: User | null;
-    [key: string]: any
+    class?: string;
   }
 
-  let {
-    title,
-    link = "/",
-    isLive = true,
-    user = null,
-    ...rest
-  }: Props = $props();
-  const links = [{ copy: "settings", url: "/settings" }];
+  let { title, link = "/", isLive = true, user = null, class: className }: Props = $props();
+  const links = [
+    { copy: "upload", url: "/upload" },
+    { copy: "admin", url: "/settings/admin" },
+    { copy: "settings", url: "/settings" }
+  ];
 </script>
 
 <header
-  class={`w-full grid grid-cols-header items-center lg:items-start lg:max-h-[300px] z-20 lg:mb-10 ${rest.class}`}
+  class={`w-full grid grid-cols-header items-center lg:items-start lg:max-h-[300px] z-20 lg:mb-10 ${className}`}
 >
   <Logo class="w-14 lg:w-[100px] col-start-1 col-span-1" />
   <section

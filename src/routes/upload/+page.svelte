@@ -2,7 +2,6 @@
   import Upload from "$lib/components/Upload.svelte";
   import type { UploadableFile } from "$lib/components/Upload.svelte";
   import axios from "axios";
-  import { ProgressBar } from "@skeletonlabs/skeleton";
   import type { PageServerData } from "./$types";
   import type { ActionData } from "./$types";
   import { invalidateAll } from "$app/navigation";
@@ -100,7 +99,7 @@
       },
       body: JSON.stringify({
         parts: partNumber,
-        fileKey: `some/random/folder/${fileKey}`,
+        fileKey: `${fileKey}`,
         command: "start"
       })
     });
@@ -153,34 +152,12 @@
 </script>
 
 <section class="lg:col-span-4 lg:col-start-2">
+  <form method="POST" action="?/files" class="lg:col-span-4 lg:col-start-2">
+    <Upload
+      name="admin-upload"
+      onSubmit={uploadFiles}
+      uploadingFiles={fileUploadProgress.filter((f) => f.status === "uploading")}
+    />
+  </form>
   <FileBrowser files={data.files} />
 </section>
-
-<form method="POST" action="?/files" class="lg:col-span-4 lg:col-start-2">
-  <Upload
-    name="admin-upload"
-    onSubmit={uploadFiles}
-    uploadingFiles={fileUploadProgress.filter((f) => f.status === "uploading")}
-  />
-</form>
-
-{#each fileUploadProgress.filter((f) => f.status === "uploading") as fileProgress}
-  <div class="w-full my-4">
-    <ProgressBar
-      label={fileProgress.name}
-      value={fileProgress.progress}
-      max={100}
-      track="bg-primary-300"
-      bar="bg-primary-500"
-    />
-  </div>
-{/each}
-
-{#if fileUploadProgress.some((f) => f.status === "complete")}
-  <h1>Completed Uploads</h1>
-  {#each fileUploadProgress.filter((f) => f.status === "complete") as fileProgress}
-    <div class="w-full my-4">
-      <p>{fileProgress.name}</p>
-    </div>
-  {/each}
-{/if}

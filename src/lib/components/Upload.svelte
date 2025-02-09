@@ -2,6 +2,7 @@
   export type UploadableFile = {
     data: File;
     progress: number;
+    target_path?: string;
   };
 </script>
 
@@ -43,12 +44,12 @@
 </script>
 
 <section
-  class="px-2 space-y-4 flex flex-col items-center justify-center py-4 rounded-md {disabled &&
+  class="space-y-4 flex flex-col items-center justify-center my-2 rounded-md {disabled &&
     'opacity-50'}"
 >
   <FileButton
     bind:files={selectedFiles}
-    button="inline-block bg-primary-500 text-white py-1 px-6 border-primary-500 border rounded-md hover:cursor-pointer hover:bg-black hover:text-white"
+    button="inline-block bg-primary-500 text-white hover:text-white/80 py-1 px-6 border-primary-300-600-token border-token rounded-md hover:border-primary-100-800-token hover:cursor-pointer hover:bg-primary-50-900-token hover:text-white transition-colors"
     name="files"
     on:change={onChangeHandler}
   >
@@ -65,13 +66,14 @@
 </section>
 
 {#if allFiles.length > 0}
-  <section class="flex flex-col p-4 space-y-4 textarea">
+  <section class="flex flex-col p-4 space-y-4 textarea my-4">
     {#each allFiles as file}
       <div class="p-2 mb-2 relative">
         {#if uploadingFiles.find((f) => f.name === file.data.name)}
           <div
-            class="absolute w-full left-0 top-0 h-full flex items-center justify-center bg-neutral-300/50"
+            class="absolute w-full left-0 top-0 h-full flex space-x-2 items-center justify-center bg-primary-50-900-token opacity-50"
           >
+            <p>Uploading</p>
             <ProgressRadial
               width="w-6"
               meter="stroke-primary-500"

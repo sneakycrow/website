@@ -9,10 +9,10 @@
   interface Props {
     user: User;
     links?: { copy: string; url: string }[];
-    [key: string]: any
+    class?: string;
   }
 
-  let { user, links = [], ...rest }: Props = $props();
+  let { user, links = [], class: className }: Props = $props();
 
   const profilePopup: PopupSettings = {
     // Represents the type of event that opens/closed the popup
@@ -24,13 +24,17 @@
   };
 </script>
 
-<div class={rest.class}>
+<div class={className}>
   <div class="card p-4 w-36 shadow-xl bg-white" data-popup="profilePopup">
-    <div class="font-semibold text-right flex flex-col justify-end">
+    <div
+      class="font-semibold text-right flex flex-col space-y-2 divide-y-2 divide-surface-500 justify-end"
+    >
       <p>{user.username}</p>
-      {#each links as link}
-        <a href={link.url}>{link.copy}</a>
-      {/each}
+      <div class="flex flex-col">
+        {#each links as link}
+          <a href={link.url} class="text-lg">{link.copy}</a>
+        {/each}
+      </div>
       <form action="/?/logout" method="post">
         <button class="cursor-pointer font-semibold hover:text-red-500 text-gray-400" type="submit"
           >Log Out</button
