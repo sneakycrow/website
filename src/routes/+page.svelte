@@ -43,9 +43,9 @@
       target="_blank">a Puppet Factory</a
     > in addition to building custom projects for creators such as:
   </p>
-  <ul class="flex justify-between items-start">
+  <ul class="flex lg:flex-row flex-col justify-between lg:items-start items-center">
     {#each creatorProjects as project (project.name)}
-      <li class="w-1/2 my-6 space-y-4 flex flex-col items-center text-center">
+      <li class="lg:w-1/2 my-6 space-y-4 flex flex-col items-center text-center">
         <span class="font-bold text-xl text-secondary-700 dark:text-secondary-100 uppercase"
           ><a href={project.link} target="_blank">{project.name}</a></span
         >
@@ -55,4 +55,5 @@
     {/each}
   </ul>
 </section>
+<hr class="!border-secondary-300 !border-opacity-25 w-full lg:col-span-2 lg:col-start-3" />
 <Collections class="lg:col-span-6 my-20" />
