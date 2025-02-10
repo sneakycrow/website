@@ -50,7 +50,9 @@
   <ul class="flex lg:flex-row flex-col justify-between lg:items-start items-center gap-6">
     {#each creatorProjects as { link, name, description, icon: Icon }}
       <li class="my-6 space-y-4 grid grid-rows-2">
-        <span class="flex flex-row flex-nowrap items-center justify-center space-x-4 w-full h-10">
+        <span
+          class="flex flex-row flex-nowrap items-center justify-center space-x-4 w-full lg:h-10"
+        >
           <Icon />
           <a
             href={link}
