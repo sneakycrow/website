@@ -32,7 +32,7 @@ export const saveToCache = async (
   // Currently, NATS doesn't support key based expiration
   // This looks to be planned for the next release
   // TODO: Implement key based expiration when NATS supports it
-  return saveToNats(key, value);
+  return await saveToNats(key, value);
 };
 
 export const getFromCache = async (key: string): Promise<string | null> => {
