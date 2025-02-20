@@ -2,13 +2,13 @@ import type { PageServerLoad } from "./$types";
 import { getSneakyCrowTopArtists } from "$lib/server/spotify";
 import {
   SPOTIFY_TOP_ARTISTS,
-  getFromRedis,
-  saveToRedis,
+  getFromCache,
+  saveToCache,
   getExpirationByDays
-} from "$lib/server/redis";
+} from "$lib/server/cache";
 
 export const load: PageServerLoad = async () => {
-  const cachedArtistData = await getFromRedis(SPOTIFY_TOP_ARTISTS);
+  const cachedArtistData = await getFromCache(SPOTIFY_TOP_ARTISTS);
   if (cachedArtistData) {
     return {
       artists: JSON.parse(cachedArtistData)
@@ -16,7 +16,7 @@ export const load: PageServerLoad = async () => {
   }
   const artistData = await getSneakyCrowTopArtists();
   if (artistData) {
-    await saveToRedis(SPOTIFY_TOP_ARTISTS, JSON.stringify(artistData), getExpirationByDays(7));
+    await saveToCache(SPOTIFY_TOP_ARTISTS, JSON.stringify(artistData), getExpirationByDays(7));
   }
   return {
     artists: artistData
