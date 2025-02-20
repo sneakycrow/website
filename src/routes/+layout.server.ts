@@ -1,11 +1,4 @@
 import { keywords } from "$lib";
-import {
-  TWITCH_STREAM_STATUS,
-  getExpirationByMinutes,
-  getFromRedis,
-  saveToRedis
-} from "$lib/server/redis";
-import { getStaticStream } from "$lib/server/twitch";
 import type { LayoutServerLoad } from "./$types";
 
 export const load: LayoutServerLoad = async ({ locals, route }) => {
@@ -19,37 +12,6 @@ export const load: LayoutServerLoad = async ({ locals, route }) => {
       "Sneaky Crow, aka Zachary Corvidae, is a software engineer and artist. This website serves as a hub for his published work and experiments",
     keywords
   };
-  if (route.id === "/") {
-    // Check if I'm live on Twitch
-    // Don't let this prevent the page from loading
-    try {
-      // First check the cache
-      let isStreamLive: boolean = false;
-      const cachedStream = await getFromRedis(TWITCH_STREAM_STATUS);
-      if (cachedStream) {
-        isStreamLive = cachedStream === "true";
-      } else {
-        // If it's not in the cache, check Twitch directly
-        const stream = await getStaticStream();
-        const isStreamLive: boolean = stream.live !== null;
-        if (isStreamLive) {
-          pageMeta.isLive = true;
-        }
-        // Cache the result for 30 minutes
-        await saveToRedis(
-          TWITCH_STREAM_STATUS,
-          isStreamLive.toString(),
-          getExpirationByMinutes(30)
-        );
-      }
-      // If the stream is live, update the page meta
-      if (isStreamLive) {
-        pageMeta.isLive = true;
-      }
-    } catch (e) {
-      console.error(`Could not get Twitch stream status: ${e}`);
-    }
-  }
   if (route.id?.startsWith("/blog")) {
     pageMeta.title.text = "Brain Juice";
     pageMeta.title.link = "/blog";

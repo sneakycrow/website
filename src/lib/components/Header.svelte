@@ -13,16 +13,10 @@
     link?: string;
     isLive?: boolean;
     user?: User | null;
-    [key: string]: any
+    [key: string]: any;
   }
 
-  let {
-    title,
-    link = "/",
-    isLive = true,
-    user = null,
-    ...rest
-  }: Props = $props();
+  let { title, link = "/", isLive = false, user = null, ...rest }: Props = $props();
   const links = [{ copy: "settings", url: "/settings" }];
 </script>
 
