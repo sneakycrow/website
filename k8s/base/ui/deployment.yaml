@@ -65,8 +65,8 @@ spec:
                 secretKeyRef:
                   name: sneakycrow-jwt
                   key: secret
-            - name: REDIS_URL
-              value: "redis://redis-production.production.svc.cluster.local:6379"
+            - name: NATS_URL
+              value: "nats://nats-production.production.svc.cluster.local:4222"
           livenessProbe:
             httpGet:
               path: /health
