@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import Account from "$lib/components/icons/Account.svelte";
   import Gear from "$lib/components/icons/Gear.svelte";
   import { type ComponentType } from "svelte";
@@ -22,7 +22,7 @@
     <a
       href={panel.url}
       class="px-4 py-2 rounded-md flex flex-nowrap text-black dark:text-white items-center space-x-2"
-      class:bg-primary-500={$page.url.pathname === panel.url}
+      class:bg-primary-500={page.url.pathname === panel.url}
     >
       <panel.icon width={ICON_SIZE} height={ICON_SIZE} />
       <span>{panel.copy}</span>

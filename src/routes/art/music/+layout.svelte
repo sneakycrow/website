@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   interface Props {
     children?: import('svelte').Snippet;
   }
@@ -23,7 +23,7 @@
     {#each tabs as tab}
       <a
         class={`text-xl uppercase font-bold ${
-          $page.url.pathname.startsWith(tab.href) ? "text-primary-500" : "text-primary-700/50"
+          page.url.pathname.startsWith(tab.href) ? "text-primary-500" : "text-primary-700/50"
         }`}
         href={tab.href}>{tab.copy}</a
       >

@@ -90,12 +90,16 @@
     </aside>
   {/if}
   {#if lang === "svelte"}
-    <HighlightSvelte code={text} let:highlighted>
-      <LineNumbers {highlighted} hideBorder />
-    </HighlightSvelte>
+    <HighlightSvelte code={text} >
+      {#snippet children({ highlighted })}
+            <LineNumbers {highlighted} hideBorder />
+                {/snippet}
+        </HighlightSvelte>
   {:else}
-    <Highlight language={getLanguage()} code={text} let:highlighted>
-      <LineNumbers {highlighted} hideBorder />
-    </Highlight>
+    <Highlight language={getLanguage()} code={text} >
+      {#snippet children({ highlighted })}
+            <LineNumbers {highlighted} hideBorder />
+                {/snippet}
+        </Highlight>
   {/if}
 </div>

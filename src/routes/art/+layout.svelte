@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   interface Props {
     children?: import('svelte').Snippet;
   }
@@ -32,7 +32,7 @@
     <a
       href={link.href}
       class={`text-2xl uppercase font-bold ${
-        $page.url.pathname.startsWith(link.href) ? link.color : "text-white/25"
+        page.url.pathname.startsWith(link.href) ? link.color : "text-white/25"
       }`}>{link.copy}</a
     >
   {/each}
