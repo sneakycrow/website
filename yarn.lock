@@ -816,12 +816,12 @@
   resolved "https://registry.yarnpkg.com/@types/marked/-/marked-5.0.2.tgz#ca6b0cd7a5c8799c8cd0963df0b3e1a9021dcdfa"
   integrity sha512-OucS4KMHhFzhz27KxmWg7J+kIYqyqoW5kdIEI319hqARQQUTqhao3M/F+uFnDXD0Rg72iDDZxZNxq5gvctmLlg==
 
-"@types/node@^20.14.9":
-  version "20.17.12"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.17.12.tgz#ee3b7d25a522fd95608c1b3f02921c97b93fcbd6"
-  integrity sha512-vo/wmBgMIiEA23A/knMfn/cf37VnuF52nZh5ZoW0GWt4e4sxNquibrMRJ7UQsA06+MBx9r/H1jsI9grYjQCQlw==
+"@types/node@^24.6.1":
+  version "24.6.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-24.6.1.tgz#29cd365beb4419b3b8271c7464f1a563446d7481"
+  integrity sha512-ljvjjs3DNXummeIaooB4cLBKg2U6SPI6Hjra/9rRIy7CpM0HpLtG9HptkMKAb4HYWy5S7HUvJEuWgr/y0U8SHw==
   dependencies:
-    undici-types "~6.19.2"
+    undici-types "~7.13.0"
 
 "@types/redis@^4.0.11":
   version "4.0.11"
@@ -2729,10 +2729,10 @@ typescript@^5.5.0:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.7.3.tgz#919b44a7dbb8583a9b856d162be24a54bf80073e"
   integrity sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==
 
-undici-types@~6.19.2:
-  version "6.19.8"
-  resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-6.19.8.tgz#35111c9d1437ab83a7cdc0abae2f26d88eda0a02"
-  integrity sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==
+undici-types@~7.13.0:
+  version "7.13.0"
+  resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-7.13.0.tgz#a20ba7c0a2be0c97bd55c308069d29d167466bff"
+  integrity sha512-Ov2Rr9Sx+fRgagJ5AX0qvItZG/JKKoBRAVITs1zk7IqZGTJUwgUr7qoYBpWwakpWilTZFM98rG/AFRocu10iIQ==
 
 update-browserslist-db@^1.1.1:
   version "1.1.2"
