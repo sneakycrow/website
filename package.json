@@ -52,7 +52,7 @@
     "@floating-ui/dom": "^1.6.8",
     "@gleam-lang/highlight.js-gleam": "^1.5.0",
     "@lucia-auth/adapter-prisma": "^4.0.1",
-    "@prisma/client": "^5.20.0",
+    "@prisma/client": "^6.16.3",
     "@skeletonlabs/skeleton": "^2.10.1",
     "@skeletonlabs/tw-plugin": "^0.4.0",
     "@types/redis": "^4.0.11",
