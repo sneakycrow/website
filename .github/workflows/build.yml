@@ -1,6 +1,12 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: build ui
 
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+  pull-requests: write
+
 on:
   push:
     branches: [main]
