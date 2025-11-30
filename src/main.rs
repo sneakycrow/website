@@ -11,7 +11,10 @@ async fn main() {
     // Initializer the listener
     let address = "0.0.0.0:3000";
     tracing::info!("Starting server on http://{}", address);
-    let listener = tokio::net::TcpListener::bind(address).await.unwrap();
+    let listener = tokio::net::TcpListener::bind(address)
+        .await
+        .expect("Failed to bind to address");
+
     axum::serve(listener, app)
         .await
         .expect("Failed to start server");
