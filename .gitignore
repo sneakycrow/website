@@ -43,3 +43,8 @@ target/
 
 # Sentry Config File
 .sentryclirc
+
+
+# Added by cargo
+
+/target

@@ -1,4 +1,6 @@
-[workspace]
-members = [ "labs/cli","labs/gaml"]
+[package]
+name = "website"
+version = "0.1.0"
+edition = "2024"
 
-resolver = "2"
+[dependencies]
