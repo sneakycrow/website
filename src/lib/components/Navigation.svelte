@@ -9,27 +9,21 @@
   };
   interface Props {
     additionalLinks?: Link[];
-    links?: any;
-    [key: string]: any
+    links?: Link[];
+    class?: string;
   }
 
-  let { additionalLinks = [], links = [
-    {
-      copy: "blog",
-      url: "/blog",
-      hover: "lg:hover:text-yellow-500"
-    },
-    {
-      copy: "art",
-      url: "/art",
-      hover: "lg:hover:text-blue-500"
-    },
-    {
-      copy: "about",
-      url: "/about",
-      hover: "lg:hover:text-pink-500"
-    }
-  ], ...rest }: Props = $props();
+  let {
+    additionalLinks = [],
+    links = [
+      {
+        copy: "blog",
+        url: "/blog",
+        hover: "lg:hover:text-yellow-500"
+      }
+    ],
+    class: className
+  }: Props = $props();
 
   let isMobileOpen = $state(false);
   const openMenu = () => {
@@ -41,9 +35,7 @@
   };
 </script>
 
-<nav
-  class={`w-full flex flex-col lg:flex-row lg:space-x-4 items-end justify-end ${rest.class}`}
->
+<nav class={`w-full flex flex-col lg:flex-row lg:space-x-4 items-end justify-end ${className}`}>
   <button class="lg:hidden" onclick={openMenu}>
     <Hamburger class="inline-block w-12 h-12" />
   </button>

@@ -26,20 +26,6 @@ export const load: LayoutServerLoad = async ({ locals, route }) => {
       "Where musical boundaries are shattered, eardrums are challenged, and your neighbors secretly plan their revenge.";
   }
 
-  if (route.id?.startsWith("/games")) {
-    pageMeta.title.text = "Escape Now";
-    pageMeta.title.link = "/games";
-    pageMeta.description =
-      "A collection of digital adventures, virtual worlds, and the countless hours spent 'just one more turn'-ing.";
-  }
-
-  if (route.id?.startsWith("/art/photos")) {
-    pageMeta.title.text = "Writing Light";
-    pageMeta.title.link = "/art/photos";
-    pageMeta.description =
-      "Capturing moments, freezing time, and occasionally taking accidental selfies with the lens cap on.";
-  }
-
   if (!locals.user) return pageMeta;
   return {
     username: locals.user.username,
