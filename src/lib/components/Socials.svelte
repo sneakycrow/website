@@ -14,7 +14,7 @@
 
   type Network = "github" | "bluesky" | "email";
 
-  const defaultNetworks: Network[] = ["github", "bluesky", "email"];
+  const defaultNetworks: Network[] = ["github", "email"];
   const networks_lookup = {
     github: {
       link: "https://github.com/sneakycrow",
