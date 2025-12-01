@@ -31,4 +31,5 @@
       </li>
     </ul>
   </div>
+  <p>If you'd like to work together, shoot me an <a href=":mailto:zach@sneakycrow.dev">email</a></p>
 </section>
