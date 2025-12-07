@@ -25,7 +25,7 @@
     <p>I like to make a variety of software and art, including, but not limited to:</p>
     <ul class="list-inside list-disc text-left">
       <li class="marker:text-blue-500">apps (native and web) for creators</li>
-      <li class="marker:text-green-500">large scale systems (over 8 billion requests per month)</li>
+      <li class="marker:text-red-500">large scale systems (over 8 billion requests per month)</li>
       <li class="marker:text-yellow-500">
         open-source contributions to my favorite libraries and tools
       </li>

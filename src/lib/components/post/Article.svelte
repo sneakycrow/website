@@ -7,12 +7,12 @@
 
   interface Props {
     post: Post;
-    [key: string]: any
+    class?: string;
+    backTo?: string;
   }
 
-  let { post, ...rest }: Props = $props();
+  let { post, class: className, backTo }: Props = $props();
   let editsShown = $state(false);
-  
 
   function toggleEditsShown() {
     editsShown = !editsShown;
@@ -39,9 +39,32 @@
   }
 </script>
 
-<div
-  class={`grid grid-cols-8 gap-4 items-start justify-center my-10 relative ${rest.class}`}
->
+<div class={`grid grid-cols-8 gap-4 items-start justify-center relative ${className}`}>
+  {#if backTo}
+    <div class="lg:col-start-7 col-start-6 lg:col-span-1 col-span-3 place-items-end">
+      <a
+        href={backTo}
+        class="text-primary-500 flex flex-nowrap space-x-2 text-sm opacity-75 hover:opacity-100 transition-opacity p-2"
+        aria-label="Back to blog"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 20 20"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 19l-7-7m0 0l7-7m-7 7h18"
+          />
+        </svg>
+        <span>go back</span>
+      </a>
+    </div>
+  {/if}
   <article
     class="lg:text-lg w-full lg:col-start-2 col-span-8 lg:col-span-6 max-w-screen-xl space-y-6 z-10"
   >
@@ -108,6 +131,7 @@
       onclick={scrollToTop}
       class="fixed lg:bottom-20 bottom-4 right-4 bg-primary-500 text-white p-2 rounded-full shadow-lg z-50"
       transition:fade
+      aria-label="Scroll to top"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
