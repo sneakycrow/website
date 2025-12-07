@@ -1,8 +1,8 @@
 ---
-title: "2025 in retrospect"
+title: "in hindsight"
 category: "personal"
-summary: "a yearly retrospective, current status, and future plans"
-series_key: "retrospect"
+summary: "a yearly recap & review, current status, and future plans"
+series_key: "hindsight"
 series_pos: 1
 ---
 this year has been a year of consolidation and reframing
