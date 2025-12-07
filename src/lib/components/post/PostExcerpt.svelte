@@ -3,13 +3,13 @@
 
   interface Props {
     post: {
-    slug: string;
-    title: string;
-    summary: string;
-    date: string;
-    category: Category;
-    draft?: boolean;
-  };
+      slug: string;
+      title: string;
+      summary: string;
+      date: string;
+      category: Category;
+      draft?: boolean;
+    };
   }
 
   let { post }: Props = $props();
@@ -48,7 +48,7 @@
     {/if}
     <p class="text-xs italic text-white/40">{date.toLocaleDateString()}</p>
   </div>
-  <a class={`lg:text-2xl text-xl font-bold uppercase text-black dark:text-white`} href={post.slug}>
+  <a class={`lg:text-xl text-xl font-bold uppercase text-black dark:text-white`} href={post.slug}>
     {post.title}
   </a>
   <p class="text-lg italic text-white/60">{post.summary}</p>

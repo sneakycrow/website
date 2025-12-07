@@ -16,4 +16,4 @@
   <meta property="og:description" content={data.post.summary} />
 </svelte:head>
 
-<Article post={data.post} class="lg:col-span-6" />
+<Article post={data.post} class="lg:col-span-6" backTo="/blog" />

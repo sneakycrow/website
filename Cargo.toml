@@ -1,4 +1,0 @@
-[workspace]
-members = [ "labs/cli","labs/gaml"]
-
-resolver = "2"
