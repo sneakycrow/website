@@ -7,7 +7,7 @@
 </svelte:head>
 
 <section
-  class="col-start-1 lg:col-span-6 min-h-[40vh] max-w-[1000px] mx-auto space-y-10 text-center flex flex-col justify-center items-center"
+  class="col-start-1 lg:col-span-6 min-h-[40vh] max-w-[1000px] mx-auto space-y-6 text-center flex flex-col justify-center items-center"
 >
   <img
     src="/ada_cropped.png"
@@ -29,7 +29,8 @@
       <li class="marker:text-yellow-500">
         open-source contributions to my favorite libraries and tools
       </li>
+      <li class="marker:text-green-500">mini-painting, photography, and other visual arts</li>
+      <li class="marker:text-purple-500">designing and developing games</li>
     </ul>
   </div>
-  <p>If you'd like to work together, shoot me an <a href=":mailto:zach@sneakycrow.dev">email</a></p>
 </section>
