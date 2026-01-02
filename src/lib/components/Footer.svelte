@@ -1,14 +1,14 @@
 <script lang="ts">
   import GitHub from "./icons/GitHub.svelte";
   interface Props {
-    [key: string]: any
+    class: string;
   }
 
-  let { ...rest }: Props = $props();
+  let { class: className }: Props = $props();
 </script>
 
 <footer
-  class={`py-4 flex flex-col lg:flex-row justify-between items-start lg:items-end z-10 ${rest.class}`}
+  class={`flex flex-col lg:flex-row justify-between items-start lg:items-end z-10 ${className}`}
 >
   <p class="flex flex-col">
     <span class="text-sm">© {new Date().getFullYear()} Sneaky Crow, LLC</span>
