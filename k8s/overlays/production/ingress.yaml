@@ -19,7 +19,7 @@ spec:
     - hosts:
         - sneakycrow.dev
         - www.sneakycrow.dev
-      secretName: sneakycrow-production-tls
+      secretName: sneakycrow-web-tls
   rules:
     - host: sneakycrow.dev
       http:
@@ -28,7 +28,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: sneakycrow-production
+                name: sneakycrow-web
                 port:
                   number: 80
     - host: www.sneakycrow.dev
@@ -38,6 +38,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: sneakycrow-production
+                name: sneakycrow-web
                 port:
                   number: 80

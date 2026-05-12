@@ -1,0 +1,52 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    # Uses the ci-base image: Docker CLI, doctl, and kubectl are all pre-installed.
+    # Registry credentials are pre-mounted via the dind-registry-credentials secret —
+    # no explicit `doctl registry login` needed; the Docker client reads from DOCKER_CONFIG.
+    runs-on: docker
+
+    steps:
+      - name: Checkout code
+        uses: https://data.forgejo.org/actions/checkout@v4
+
+      - name: Authenticate with DigitalOcean
+        uses: https://github.com/digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DO_API_TOKEN }}
+
+      - name: Log in to DO Container Registry
+        run: doctl registry login --expiry-seconds 3600
+
+      - name: Build and push image
+        run: |
+          SHA=$(git rev-parse --short HEAD)
+          REGISTRY=registry.digitalocean.com/mimisbrunnr/sneakycrow-web
+
+          docker build \
+            -t ${REGISTRY}:${SHA} \
+            -t ${REGISTRY}:latest \
+            .
+
+          docker push ${REGISTRY}:${SHA}
+          docker push ${REGISTRY}:latest
+
+          echo "IMAGE_TAG=${SHA}" >> $GITHUB_ENV
+
+      - name: Apply new image to cluster
+        run: |
+          doctl kubernetes cluster kubeconfig save yggdrasil
+
+          cd k8s/overlays/production
+          kustomize edit set image \
+            web=registry.digitalocean.com/mimisbrunnr/sneakycrow-web:${IMAGE_TAG}
+
+          kubectl apply -k .
+          kubectl rollout status deployment/sneakycrow-web \
+            -n deadbirdi --timeout=120s
